@@ -16,6 +16,8 @@ import Layout from "../layouts/Layout.astro";
     :root {
       --alto: calc(100vw * 0.5625 * 1);
     }
+    html, body { overflow: hidden; height: 100%; }
+    .scene-wrapper { min-height: auto; height: var(--alto); }
   </style>
   <Fondos desde={16} hasta={16} />
   <Escena desde={16} hasta={16} />
