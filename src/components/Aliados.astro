@@ -1,0 +1,136 @@
+---
+/**
+ * ESCENA 16 · ALIADOS
+ *
+ * Cuadro blanco con logos de donantes y copartes.
+ * Posicionado con calc() relativo a --alto definido en Layout.
+ */
+
+const MARCAS = [
+  { src: "/resources/marcas/marca-equality-fund.webp", alt: "Equality Fund" },
+  {
+    src: "/resources/marcas/marca-ford-stacked-black.webp",
+    alt: "Ford Foundation",
+  },
+  {
+    src: "/resources/marcas/marca-mackenzie-scott.webp",
+    alt: "MacKenzie Scott",
+  },
+  {
+    src: "/resources/marcas/marca-global-fund-women.webp",
+    alt: "Global Fund for Women",
+  },
+  {
+    src: "/resources/marcas/marca-open-society.webp",
+    alt: "Open Society Foundations",
+  },
+  { src: "/resources/marcas/marca-fokus.webp", alt: "Fokus" },
+  {
+    src: "/resources/marcas/marca-fenomenal-funds.webp",
+    alt: "Fenomenal Funds",
+  },
+  { src: "/resources/marcas/marca-interpares.webp", alt: "Interpares" },
+  { src: "/resources/marcas/marca-lfsf-lds.webp", alt: "LFSF / LDS" },
+  { src: "/resources/marcas/marca-otrt-colores.webp", alt: "OTRT" },
+  { src: "/resources/marcas/marca-accd.webp", alt: "ACCD" },
+];
+---
+
+<section class="aliados">
+  <p class="aliados__titulo">Contamos con el apoyo de:</p>
+  <div class="aliados__contenedor">
+    <div class="aliados__borde izquierdo" aria-hidden="true"></div>
+    <div class="aliados__pista">
+      {
+        MARCAS.concat(MARCAS).map((m, i) => (
+          <img class="aliados__logo" src={m.src} alt={m.alt} loading="lazy" />
+        ))
+      }
+    </div>
+    <div class="aliados__borde derecho" aria-hidden="true"></div>
+  </div>
+</section>
+
+<style>
+  @keyframes aliados-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .aliados {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .aliados__contenedor {
+    position: absolute;
+    top: calc(var(--alto) * 50 / 100);
+    width: 100%;
+    background-color: #ffffff;
+    padding: var(--espacio-xl) 0;
+    overflow: hidden;
+  }
+
+  .aliados__titulo {
+    position: absolute;
+    left: 35%;
+    top: calc(var(--alto) * 42 / 100);
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 3 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0 0 var(--espacio-lg);
+  }
+
+  .aliados__pista {
+    display: flex;
+    width: max-content;
+    animation: aliados-scroll 60s linear infinite;
+  }
+
+  .aliados__pista:hover {
+    animation-play-state: paused;
+  }
+
+  .aliados__logo {
+    flex-shrink: 0;
+    height: calc(var(--alto) * 8 / 100);
+    width: auto;
+    margin: 0 var(--espacio-xl);
+    object-fit: contain;
+    opacity: 0.85;
+    transition:
+      opacity 0.2s ease,
+      transform 0.3s ease;
+  }
+
+  .aliados__logo:hover {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  .aliados__borde {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .aliados__borde.izquierdo {
+    left: 0;
+    background: linear-gradient(to right, #ece9e9 0%, transparent 100%);
+  }
+
+  .aliados__borde.derecho {
+    right: 0;
+    background: linear-gradient(to left, #ece9e9 0%, transparent 100%);
+  }
+</style>
