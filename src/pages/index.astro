@@ -1,14 +1,4 @@
 ---
-/**
- * PÁGINA PRINCIPAL — Escenas 0 · 1 · 2 (conectadas, scroll vertical)
- *
- * Fondos y Escena reciben el rango y filtran solos.
- * Cada componente se asocia a una escena. El orden define el scroll.
- *
- * Para escenas NO conectadas (subpáginas):
- *   crear pages/programas.astro con su propio <Fondos desde={3} hasta={4} />
- */
-
 import Carta from "../components/Carta.astro";
 import Contenido from "../components/Contenido.astro";
 import Escena from "../components/Escena.astro";
@@ -20,13 +10,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout>
   <Fondos desde={0} hasta={2} />
   <Escena desde={0} hasta={2} />
-
-  {/* ── ESCENA 0 · PORTADA ── */}
   <Inicio />
-
-  {/* ── ESCENA 1 · CARTA ── */}
   <Carta />
-
-  {/* ── ESCENA 2 · CONTENIDO ── */}
   <Contenido />
 </Layout>
