@@ -1,0 +1,357 @@
+---
+/**
+ * ESCENA 10 · TESTIMONIOS
+ *
+ * Carrusel con 2 tarjetas visibles, flechas laterales e indicadores.
+ * Cada tarjeta tiene marco decorativo fijo, nombre y texto con scroll.
+ * Tamaño de tarjeta fijo — el contenido largo usa scroll interno.
+ */
+
+interface Testimonio {
+  nombre: string;
+  texto: string;
+}
+
+const TESTIMONIOS: Testimonio[] = [
+  {
+    nombre: "Mujeres Sobre Ruedas — Cartagena, Bolívar",
+    texto:
+      '"Soy la coordinadora de esta fase del proyecto. Pero quiero dejar mi voz, mi cambio de narrativa, la transformación que he tenido gracias a otras mujeres sobre ruedas. Si me hubieras visto hace un año, no me reconocerías. Yo era de las que llegaban y se quedaban calladas, escuchando en silencio, sin atreverme a opinar. Cuando estuve embarazada, una médica me dijo que mejor abortara porque mi hijo podía nacer con discapacidad. Lo dijo sin ningún cuidado, como si mi vida, mi cuerpo y mi maternidad no valieran nada. En la colectiva fue la primera vez que escuché la palabra para lo que me pasó: violencia obstétrica y capacitista. Escuchar a las otras compañeras me dio fuerza para contar mi historia. La primera vez que lo dije en voz alta se me quebró la voz, pero sentí un alivio que no sabía que necesitaba."',
+  },
+  {
+    nombre: "Luma Zonas Violetas — Orito, Putumayo",
+    texto:
+      '"Yo pensaba que el reclutamiento era solo cuando a uno se lo llevaban para el monte y le daban un arma. Nunca creí que lo que me estaba pasando a mí fuera algo malo o prohibido. A mí solo me pedían que contara lo que veía en la vereda, quién llegaba, qué se decía en las reuniones. También me llamaban a encuentros con ellos y algunas veces me pedían que llevara paquetes de un lado a otro. Yo lo hacía porque tenía miedo y porque pensaba que era normal, que era un trabajo normal, porque me pagaban por eso, también pensaba que así ayudaba a mi mamá y que no me iba a pasar nada."',
+  },
+  {
+    nombre: "Juntanza Mujeres del Cesar — Valledupar, Cesar",
+    texto:
+      '"Y es que el feminismo es una palabra con sabor a mar y a río. Es la voz de la abuela que enseña sin gritar, es esa trenza apretá por la hermana, es el tambor que suena en medio del dolor, y es esa risa con amigas que se cuela entre las luchas. Nace del fogón y del mercado, del patio de tierra y de la calle polvorienta, del canto de la mujer que vende pescado y de la joven que ya no quiere callar. Es que el feminismo es eso que se hace con lo que hay y con lo que somos, con maíz trillao, con leche hervida, con la rabia, con el amor, con la pobreza, el dolor y la fuerza."',
+  },
+  {
+    nombre: "Los Cuerpos del Caos — Pereira, Risaralda",
+    texto:
+      '"Malu es una persona disca de 22 años que estuvo en el desarrollo del proyecto. Ella dijo: A mí me gustó venir porque aquí nadie me mira raro. Me gustan mis amigues nuevos. Me gustó hacer mi máscara porque así me veo más grande, más fuerte. Me gusta cuando caminamos juntas. Yo quiero seguir viniendo… porque aquí sí soy yo."',
+  },
+  {
+    nombre: "Yapuranas — Florencia, Caquetá",
+    texto:
+      '"Me gustó mucho que en los talleres las mujeres sordas participaron con interés y demostraron que son líderes capaces, fuertes y con muchas ganas de aprender. Estos espacios son muy importantes porque permiten reconocer nuestros derechos, entender que merecemos una vida libre de violencia y aprender cómo identificar situaciones de riesgo sin barreras de comunicación. Gracias a los talleres que nos dieron Yapuranas, ahora las mujeres sordas del Caquetá tenemos más herramientas, más información y más seguridad para decir no más violencia."',
+  },
+  {
+    nombre: "Molécula Verde — Rivera, Huila",
+    texto:
+      '"Yo soy de por acá, del resguardo, nacida y criada entre el río y la montaña. Desde pequeña he andado sembrando maíz, cuidando el huerto y oyendo los pájaros que anuncian el día. Pero les cuento que nunca pensé que todo eso que uno hace por costumbre también tuviera nombre de ciencia. Cuando llegaron las muchachas con esas cámaras que ponen en el monte y con sus libreticas, yo les dije: Y eso pa qué será. Y me explicaron que era pa conocer las especies. Ahora cuando salgo a caminar, miro distinto. Yo no tengo estudio, pero tengo oído y corazón pa escuchar al monte, y eso también vale."',
+  },
+  {
+    nombre: "Mesa Diversa — Pereira, Risaralda",
+    texto:
+      '"Antes de llegar a la colectiva yo sentía que siempre estaba luchando sola. Participar en los talleres y encuentros me ayudó a entender que lo que me pasaba no era individual, sino parte de una violencia estructural que vivimos muchas personas trans. En los espacios de autocuidado pude hablar por primera vez de mi cansancio, de mis miedos, y sentir que alguien me escuchaba sin juzgarme."',
+  },
+];
+---
+
+<section class="testimonios" aria-label="Testimonios">
+  <h2 class="testimonios__titulo">Testimonios</h2>
+
+  <div class="testimonios__contenedor">
+    <button
+      class="testimonios__flecha testimonios__flecha--izquierda"
+      aria-label="Anterior"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg
+      >
+    </button>
+
+    <div class="testimonios__carrusel">
+      {
+        TESTIMONIOS.map((t, i) => (
+          <article class="testimonios__tarjeta" data-index={i}>
+            <img
+              class="testimonios__marco"
+              src="/resources/contenedor/contenedor-marco-fotos-1.webp"
+              alt=""
+              loading="lazy"
+            />
+            <h3 class="testimonios__nombre">{t.nombre}</h3>
+            <div class="testimonios__scroll">
+              <p class="testimonios__texto">{t.texto}</p>
+            </div>
+            <button class="testimonios__leer" type="button">
+              Leer más
+            </button>
+          </article>
+        ))
+      }
+    </div>
+
+    <button
+      class="testimonios__flecha testimonios__flecha--derecha"
+      aria-label="Siguiente"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg
+      >
+    </button>
+  </div>
+
+  <div class="testimonios__indicadores">
+    {
+      TESTIMONIOS.map((_, i) => (
+        <button
+          class="testimonios__punto"
+          data-index={i}
+          aria-label={`Ir al testimonio ${i + 1}`}
+        />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .testimonios {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .testimonios__titulo {
+    position: absolute;
+    top: calc(var(--alto) * 7.5 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 4.5 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
+  }
+
+  .testimonios__contenedor {
+    position: absolute;
+    top: calc(var(--alto) * 21 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--alto) * 4 / 100);
+    overflow: visible;
+  }
+
+  .testimonios__carrusel {
+    display: flex;
+    gap: calc(var(--alto) * 4 / 100);
+    overflow: visible;
+  }
+
+  .testimonios__tarjeta {
+    display: none;
+    position: relative;
+    flex: 0 0 auto;
+    width: calc(var(--alto) * 55 / 100);
+    height: calc(var(--alto) * 57 / 100);
+    flex-direction: column;
+    background: var(--naranja-madera);
+    border-radius: var(--espacio-lg);
+    padding: calc(var(--alto) * 3 / 100);
+    padding-top: calc(var(--alto) * 19 / 100);
+    overflow: visible;
+  }
+
+  .testimonios__tarjeta[data-activa] {
+    display: flex;
+  }
+
+  .testimonios__marco {
+    position: absolute;
+    top: calc(var(--alto) * -3 / 100);
+    left: calc(var(--alto) * 1 / 100);
+    width: calc(var(--alto) * 34 / 100);
+    height: calc(var(--alto) * 22 / 100);
+    object-fit: cover;
+    border-radius: var(--espacio-sm);
+    z-index: 2;
+  }
+
+  .testimonios__nombre {
+    position: absolute;
+    top: calc(var(--alto) * 12 / 100);
+    left: calc(var(--alto) * 22 / 100);
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
+    max-width: calc(var(--alto) * 25 / 100);
+    z-index: 2;
+  }
+
+  .testimonios__scroll {
+    position: relative;
+    height: calc(var(--alto) * 30 / 100);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--turquesa) transparent;
+    padding-bottom: calc(var(--alto) * 3 / 100);
+  }
+
+  .testimonios__scroll::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(var(--alto) * 4 / 100);
+    background: linear-gradient(
+      to bottom,
+      rgb(from var(--naranja-madera) r g b / 0),
+      rgb(from var(--naranja-madera) r g b / 1)
+    );
+    pointer-events: none;
+  }
+
+  .testimonios__scroll::-webkit-scrollbar {
+    width: calc(var(--alto) * 0.8 / 100);
+  }
+
+  .testimonios__scroll::-webkit-scrollbar-thumb {
+    background-color: var(--turquesa);
+    border-radius: 9999px;
+  }
+
+  .testimonios__scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .testimonios__texto {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 1.8 / 100);
+    line-height: calc(var(--alto) * 2.2 / 100);
+    color: var(--azul-noche);
+    margin-right: 10%;
+  }
+
+  .testimonios__leer {
+    align-self: flex-start;
+    margin-top: calc(var(--alto) * 1.5 / 100);
+    background-color: var(--arena);
+    color: var(--azul-noche);
+    border: none;
+    border-radius: 9999px;
+    padding: calc(var(--alto) * 0.5 / 100) calc(var(--alto) * 2.2 / 100);
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 1.8 / 100);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .testimonios__leer:hover {
+    transform: scale(1.05);
+  }
+
+  .testimonios__flecha {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--naranja-madera);
+    width: calc(var(--alto) * 12 / 100);
+    height: calc(var(--alto) * 12 / 100);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .testimonios__flecha:hover {
+    transform: scale(1.15);
+  }
+
+  .testimonios__indicadores {
+    position: absolute;
+    top: calc(var(--alto) * 82 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--espacio-md);
+  }
+
+  .testimonios__punto {
+    width: calc(var(--alto) * 1.8 / 100);
+    height: calc(var(--alto) * 1.8 / 100);
+    border-radius: 50%;
+    background: var(--naranja-madera);
+    opacity: 0.4;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .testimonios__punto[data-activo] {
+    opacity: 1;
+    background: var(--coral);
+  }
+</style>
+
+<script>
+  const tarjetas = document.querySelectorAll(".testimonios__tarjeta");
+  const puntos = document.querySelectorAll(".testimonios__punto");
+  const btnIzq = document.querySelector(".testimonios__flecha--izquierda");
+  const btnDer = document.querySelector(".testimonios__flecha--derecha");
+
+  let actual = 0;
+  const total = tarjetas.length;
+  let timer: ReturnType<typeof setInterval>;
+
+  const mostrar = (idx: number) => {
+    tarjetas.forEach((t) => t.removeAttribute("data-activa"));
+    puntos.forEach((p) => p.removeAttribute("data-activo"));
+
+    // Mostrar 2 tarjetas
+    tarjetas[idx]?.setAttribute("data-activa", "");
+    tarjetas[(idx + 1) % total]?.setAttribute("data-activa", "");
+    puntos[idx]?.setAttribute("data-activo", "");
+    actual = idx;
+  };
+
+  const siguiente = () => mostrar((actual + 1) % total);
+  const anterior = () => mostrar((actual - 1 + total) % total);
+
+  const iniciar = () => {
+    timer = setInterval(siguiente, 5000);
+  };
+  const pausar = () => clearInterval(timer);
+
+  mostrar(0);
+  iniciar();
+
+  btnIzq?.addEventListener("click", () => {
+    pausar();
+    anterior();
+    iniciar();
+  });
+  btnDer?.addEventListener("click", () => {
+    pausar();
+    siguiente();
+    iniciar();
+  });
+
+  puntos.forEach((p) =>
+    p.addEventListener("click", () => {
+      pausar();
+      mostrar(Number(p.getAttribute("data-index")));
+      iniciar();
+    }),
+  );
+
+  const contenedor = document.querySelector(".testimonios__contenedor");
+  contenedor?.addEventListener("mouseenter", pausar);
+  contenedor?.addEventListener("mouseleave", iniciar);
+</script>

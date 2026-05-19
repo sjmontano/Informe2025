@@ -42,8 +42,6 @@ const MARCO = "/resources/contenedor/contenedor-marco-fotos-1.webp";
 const LETRERO = "/resources/contenedor/contenedor-letrero-1.webp";
 const LETRERO_GUION =
   "/resources/contenedor/contenedor-letrero-guion-bajo.webp";
-const PESCADOR = "/resources/gifs/gif-pescador-ensamblado.webm";
-const ARTESANA = "/resources/gifs/gif-artesana-paujil-1.webm";
 const PALMERA = "/resources/escenario/escenario-palmera.webp";
 
 // ─── 0 · PORTADA ────────────────────────────────────────────────────
@@ -177,7 +175,7 @@ const APOYAMOS: Item[] = [
     z: 3,
   },
   {
-    src: ARTESANA,
+    src: "/resources/gifs/gif-artesana-paujil-1.webm",
     css: `top:${top(2, 0.4)}; left:21vw; width:22vw`,
     alt: "Artesana, ilustración de Aquelarre",
     z: 3,
@@ -295,17 +293,12 @@ const DISENO: Item[] = [
   },
 ];
 
-// ─── 8 · TESTIMONIOS ────────────────────────────────────────────────
-const TESTIMONIOS: Item[] = [
+// ─── 8 · TERRITORIOS ───────────────────────────────────────────────
+const TERRITORIOS: Item[] = [
   {
     src: MARCO,
     css: `top:${top(8, 0.085)}; left:10vw; width:35vw`,
     alt: "Marco para testimonios",
-  },
-  {
-    src: ARTESANA,
-    css: `top:${top(8, 0.034)}; right:5vw; width:12vw`,
-    alt: "Artesana, ilustración de Aquelarre",
   },
 ];
 
@@ -328,17 +321,12 @@ const CUENTAS_CLARAS: Item[] = [
   },
 ];
 
-// ─── 10 · TERRITORIOS ───────────────────────────────────────────────
-const TERRITORIOS: Item[] = [
+// ─── 10 · TESTIMONIOS ────────────────────────────────────────────────
+const TESTIMONIOS: Item[] = [
   {
-    src: "/resources/contenedor/contenedor-letrero-3.webp",
-    css: `top:${top(10, 0.085)}; right:2vw; width:35vw`,
-    alt: "Letrero Territorios",
-  },
-  {
-    src: PALMERAS,
-    css: `top:${top(10, 0.051)}; left:0vw; width:20vw`,
-    alt: "Palmeras",
+    src: "/resources/contenedor/contenedor-letrero.webp",
+    css: `top:${top(10, -0.15)}; left:32vw; width:35vw`,
+    alt: "Marco para testimonios",
   },
 ];
 
@@ -350,7 +338,7 @@ const ALIANZAS: Item[] = [
     alt: "Letrero Alianzas",
   },
   {
-    src: PESCADOR,
+    src: "/resources/gifs/gif-pescador-ensamblado.webm",
     css: `top:${top(12, 0.34)}; left:10vw; width:40vw`,
     alt: "Pescador, ilustración de Aquelarre",
   },
@@ -397,7 +385,7 @@ const PROYECCION: Item[] = [
 // ─── 15 · AGRADECIMIENTOS ───────────────────────────────────────────
 const AGRADECIMIENTOS: Item[] = [
   {
-    src: PESCADOR,
+    src: "/resources/gifs/gif-pescador-ensamblado.webm",
     css: `top:${top(15, 0.17)}; right:5vw; width:25vw`,
     alt: "Pescador, ilustración de Aquelarre",
   },
@@ -606,7 +594,7 @@ const ALIADOS: Item[] = [
 
   {
     enRango(8) &&
-      TESTIMONIOS.map((e) =>
+      TERRITORIOS.map((e) =>
         esVideo(e.src) ? (
           <video
             class="escena__img"
@@ -658,7 +646,7 @@ const ALIADOS: Item[] = [
 
   {
     enRango(10) &&
-      TERRITORIOS.map((e) =>
+      TESTIMONIOS.map((e) =>
         esVideo(e.src) ? (
           <video
             class="escena__img"
