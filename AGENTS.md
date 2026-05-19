@@ -206,18 +206,82 @@ Además de los conectores estándar (sin embargo, por ello, en consecuencia), us
 
 - **Accesibilidad:** Contraste AA mínimo (4.5:1 texto normal, 3:1 texto grande). Verificar con `DESIGN.md lint`. Texto alternativo descriptivo en todas las ilustraciones. Navegación por teclado completa.
 - **Performance:** Sitio estático, carga rápida, imágenes optimizadas (WebP + fallback). `font-display: swap`. Sin dependencias pesadas de animación.
-- **Responsive:** Mobile-first radical. Muchas de las lectoras acceden desde celular. Usar `clamp()` para tipografía fluida (ver tokens en DESIGN.md). Breakpoints referenciales: 640px, 1024px.
+- **Responsive sin media queries:** El diseño escala proporcionalmente con el ancho de pantalla mediante `--alto` (basado en `vw`) y `clamp()` para pisos y techos de tamaño. No se usan `@media` queries para cambiar posiciones, tamaños ni layouts — todo se achica o agranda uniformemente. Si en un celular se ve igual que en PC pero más pequeño, está bien.
 - **Sin tracking invasivo:** No Google Analytics. Si se requiere medir, usar Plausible o similar ético.
 
-### Diseño visual (obligatorio leer DESIGN.md)
+### Variables CSS en español
 
-- No usar negro puro (`#000`) — usar `primary` (`#28275B`).
-- No usar gris sobre fondos de color.
-- No usar `box-shadow` para profundidad. La profundidad se logra con capas, texturas e ilustraciones.
-- No usar fuentes del sistema (Arial, Inter, Roboto).
-- No usar degradados purple-to-blue ni tarjetas dentro de tarjetas.
-- Los botones siempre pill-shaped.
-- Alternar fondos arena (`neutral`) y océano (`secondary`) entre secciones.
+Todos los tokens de diseño usan nombres en español para facilitar el trabajo del equipo:
+
+| Categoría | Variable | Valor |
+|-----------|----------|-------|
+| Fondos | `--arena` | `#F4C454` |
+| | `--oceano` | `#0B6B6D` |
+| Textos | `--azul-noche` | `#28275B` |
+| | `--naranja-madera` | `#ED7A22` |
+| Botones | `--rosa` | `#EBA5C8` |
+| | `--coral` | `#EF7E7B` |
+| Tipografía | `--font-discordia` | `"Discordia", serif` |
+| | `--font-lato` | `"Lato", sans-serif` |
+| Espaciado | `--espacio-xs` … `--espacio-4xl` | `4px` … `96px` |
+| Escena | `--alto` | `calc(100vw * 0.5625 * N)` |
+
+> **Regla:** Nunca usar colores, fuentes ni espaciado hardcodeados. Siempre usar las variables CSS. Nada de `#28275b`, `font-family: 'Discordia'`, `padding: 24px`, etc.
+
+### Arquitectura de escenas
+
+El sitio se organiza en **17 escenas** (secciones del informe). Cada escena tiene un fondo ilustrado y elementos decorativos.
+
+**Capas visuales (z-index):**
+
+| Capa | z-index | Componente | Qué contiene |
+|------|:------:|-----------|--------------|
+| Fondos | -1 | `Fondos.astro` | Imágenes de fondo ilustradas |
+| Escena | 0 (default) | `Escena.astro` | Elementos decorativos (nubes, cactus, letreros) |
+| Contenido | 2 | Componentes por sección | Títulos, textos, cifras |
+| Overlay | 3+ | `Escena.astro` con `z: N` | Elementos decorativos que deben quedar encima del contenido |
+
+**Escena.astro** — archivo central de elementos decorativos. Cada sección es un array de objetos `Item`. Agregar un elemento = una línea:
+
+```ts
+const PORTADA: Item[] = [
+  { src: '/resources/escenario/escenario-estrella-mar.webp',
+    css: `top:${top(0, 0.55)}; right:50vw; width:6vw`,
+    alt: 'Estrella de mar',
+    z: 3 },  // ← z: 3 para que quede encima del contenido
+];
+```
+
+**top(seccion, fraccion):** posiciona verticalmente. `seccion` = índice de la sección (0-16). `fraccion` = posición dentro de la sección (0 = inicio, 0.5 = mitad, 1 = final).
+
+**Páginas** — cada página define qué escenas incluye con `desde`/`hasta`:
+
+```astro
+<!-- pages/index.astro — 3 escenas conectadas por scroll -->
+<Fondos desde={0} hasta={2} />
+<Escena desde={0} hasta={2} />
+
+<!-- ESCENA 0 · PORTADA -->
+<Inicio />
+
+<!-- ESCENA 1 · CARTA -->
+<Carta />
+```
+
+Para subpáginas (escenas no conectadas), crear otro archivo `.astro` con su propio rango.
+
+### Checklist de CSS antes de commit
+
+- [ ] ¿Todos los colores usan `var(--azul-noche)`, `var(--rosa)`, etc.?
+- [ ] ¿Todas las fuentes usan `var(--font-discordia)` o `var(--font-lato)`?
+- [ ] ¿Los espaciados usan `var(--espacio-md)`, etc.?
+- [ ] ¿No hay `@media` queries? (solo se permiten si es estrictamente necesario)
+- [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`?
+- [ ] ¿Los tamaños de fuente usan `clamp()` con `calc(var(--alto) * N / 100)`?
+- [ ] ¿No hay `box-shadow`, `#000`, fuentes del sistema, ni degradados purple-to-blue?
+- [ ] ¿Los textos largos usan `white-space: pre-line` en vez de `<br />` manuales?
+- [ ] ¿Los elementos decorativos duplicados se evitan? (usar `z: 3` en Escena.astro)
+- [ ] ¿Cada componente declara su escena en el comentario del frontmatter? (`ESCENA 0 · PORTADA`)
 
 ### Herramientas de agente disponibles
 

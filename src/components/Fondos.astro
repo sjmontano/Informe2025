@@ -121,6 +121,8 @@ const visibles = FONDOS.slice(desde, hasta + 1).map((f, i) => ({
     width: 100%;
     overflow: hidden;
     user-select: none;
+    content-visibility: auto;
+    contain-intrinsic-size: auto calc(var(--alto) / 17);
   }
 
   .fondos__lqip {

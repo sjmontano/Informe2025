@@ -9,6 +9,8 @@
  *   crear pages/programas.astro con su propio <Fondos desde={3} hasta={4} />
  */
 
+import Carta from "../components/Carta.astro";
+import Contenido from "../components/Contenido.astro";
 import Escena from "../components/Escena.astro";
 import Fondos from "../components/Fondos.astro";
 import Inicio from "../components/Inicio.astro";
@@ -23,6 +25,8 @@ import Layout from "../layouts/Layout.astro";
   <Inicio />
 
   {/* ── ESCENA 1 · CARTA ── */}
+  <Carta />
 
-  {/* ── ESCENA 2 · APOYAMOS ── */}
+  {/* ── ESCENA 2 · CONTENIDO ── */}
+  <Contenido />
 </Layout>
