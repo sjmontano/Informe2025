@@ -92,14 +92,14 @@ const { titulo } = Astro.props;
   /* Usar las variables CSS definidas en DESIGN.md (Layout.astro :root). */
 
   .mi-componente {
-    background-color: var(--bg-sand);
-    padding: var(--spacing-xl, 32px);
+    background-color: var(--arena);
+    padding: var(--espacio-xl);
   }
 
   .mi-componente__titulo {
-    font-family: var(--font-heading);
-    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-    color: var(--text-main);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 0.25 / 100);
+    color: var(--azul-noche);
   }
 </style>
 ```
@@ -253,27 +253,68 @@ font-family: 'Discordia', serif;
 
 ```css
 /* Fondos */
---bg-sand       /* #F4C454 — Arena, fondo general */
---bg-ocean      /* #0B6B6D — Océano profundo, secciones narrativas */
+--arena         /* #F4C454 — Arena, fondo general */
+--oceano        /* #0B6B6D — Océano profundo, secciones narrativas */
 
 /* Textos */
---text-main     /* #28275B — Azul noche, texto principal */
---wood-accent   /* #ED7A22 — Naranja madera, letreros y flechas */
+--azul-noche    /* #28275B — Azul noche, texto principal */
+--naranja-madera /* #ED7A22 — Naranja madera, letreros y flechas */
 
 /* Botones */
---cta-coral     /* #EF7E7B — Botones principales */
---cta-pink      /* #EBA5C8 — Botones secundarios */
+--coral         /* #EF7E7B — Botones principales */
+--rosa          /* #EBA5C8 — Botones secundarios */
 
 /* Componentes específicos */
---circle-bg     /* #1F1A3E — Fondo de círculos numerados */
---circle-text   /* #FDE070 — Texto en círculos numerados */
---map-base      /* #28275B — Mapa inactivo */
---map-selected  /* #39B490 — Mapa activo/hover */
+--circulo-fondo  /* #1F1A3E — Fondo de círculos numerados */
+--circulo-texto  /* #FDE070 — Texto en círculos numerados */
+--mapa-base      /* #28275B — Mapa inactivo */
+--mapa-seleccionado /* #39B490 — Mapa activo/hover */
 
 /* Tipografía */
---font-heading  /* Discordia, serif */
---font-body     /* Lato, sans-serif */
+--font-discordia /* Discordia, serif */
+--font-lato      /* Lato, sans-serif */
+
+/* Espaciado */
+--espacio-xs … --espacio-4xl  /* 4px … 96px */
+
+/* Escena */
+--alto           /* calc(100vw * 0.5625 * N) — altura total */
 ```
+
+### Reglas de responsive
+
+- **Sin `clamp()` en fuentes**: usar `calc(var(--alto) * N / 100)` para que todo escale proporcionalmente al ancho de pantalla.
+- **Sin `@media` queries**: las posiciones y tamaños escalan con `--alto` (basado en `vw`). Si en celular se ve igual que en PC pero más pequeño, está bien.
+- **Todo se achica o agranda uniformemente**. No se reposicionan elementos ni se cambian layouts.
+
+### Reglas para videos WebM
+
+- Usar `<video autoplay loop muted playsinline preload="none">`
+- Detectar archivos `.webm` con helper `esVideo(src)`:
+```ts
+const esVideo = (src: string) => src.endsWith('.webm');
+```
+- Render condicional: `esVideo(e.src) ? <video ... /> : <img ... />`
+- Videos decorativos en `Escena.astro` usan `pointer-events: none`
+
+### Reglas para Escena.astro
+
+- Recursos repetidos 2+ veces se declaran como constantes:
+```ts
+const ARBUSTO = "/resources/escenario/escenario-arbusto.webp";
+const ESTRELLA = "/resources/escenario/escenario-estrella-mar.webp";
+```
+- Elementos que deben quedar encima del contenido usan `z: 3` (o superior):
+```ts
+{ src: ESTRELLA, css: `top:...`, alt: '...', z: 3 }
+```
+- Posicionamiento relativo a sección con `top(seccion, fraccion)` donde `fraccion` va de 0 a 1.
+
+### Reglas de stacking context
+
+- No poner `z-index` en contenedores (`.fondos`, `.escena`). Dejar que cada hijo controle su capa con `z-index: N`.
+- Capas: Fondos `z: -1`, Escena default `z: 0`, Contenido `z: 2`, Overlay `z: 3+`.
+- Elementos con `pointer-events: none` en el contenedor no interceptan clics.
 
 ### Prohibiciones absolutas en CSS
 
@@ -425,24 +466,24 @@ const { cifras } = Astro.props;
 
 <style>
   .apoyamos {
-    background-color: var(--bg-sand);
-    padding: var(--spacing-3xl, 64px) var(--spacing-xl, 32px);
+    background-color: var(--arena);
+    padding: var(--espacio-3xl) var(--espacio-xl);
     text-align: center;
   }
 
   .apoyamos__voz-mar {
-    font-family: var(--font-heading);
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    color: var(--text-main);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 0.15 / 100);
+    color: var(--azul-noche);
     max-width: 600px;
-    margin: 0 auto var(--spacing-2xl, 48px);
+    margin: 0 auto var(--espacio-2xl);
   }
 
   .apoyamos__cifras {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--spacing-2xl, 48px);
+    gap: var(--espacio-2xl);
   }
 
   .apoyamos__cifra {
@@ -451,19 +492,19 @@ const { cifras } = Astro.props;
 
   .apoyamos__numero {
     display: block;
-    font-family: var(--font-heading);
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 0.35 / 100);
     font-weight: 700;
-    color: var(--text-main);
+    color: var(--azul-noche);
     line-height: 1;
   }
 
   .apoyamos__etiqueta {
     display: block;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--text-main);
-    margin-top: var(--spacing-sm, 8px);
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 0.10 / 100);
+    color: var(--azul-noche);
+    margin-top: var(--espacio-sm);
     opacity: 0.85;
   }
 </style>
@@ -497,15 +538,21 @@ import Apoyamos from '../components/Apoyamos.astro';
 Antes de dar por terminado un componente o página:
 
 - [ ] ¿El build compila sin errores? (`npm run build`)
-- [ ] ¿`npm run agents:check` pasa sin nuevos problemas?
-- [ ] ¿Los colores, fuentes y espaciado usan variables CSS, no valores hardcodeados?
+- [ ] ¿Los colores usan `var(--azul-noche)`, `var(--rosa)`, `var(--arena)`, etc.?
+- [ ] ¿Las fuentes usan `var(--font-discordia)` o `var(--font-lato)`?
+- [ ] ¿Los espaciados usan `var(--espacio-md)`, etc.?
+- [ ] ¿No hay `@media` queries ni `clamp()`? (escala con `--alto` y `vw`)
+- [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`?
+- [ ] ¿Los tamaños de fuente usan `calc(var(--alto) * N / 100)`?
 - [ ] ¿El HTML es semántico (`<section>`, `<article>`, no solo `<div>`)?
 - [ ] ¿Las clases CSS siguen la convención `componente__elemento`?
 - [ ] ¿Las ilustraciones tienen `alt` descriptivo?
-- [ ] ¿Funciona en mobile? (probar en 320px de ancho)
-- [ ] ¿Los botones son pill-shaped y miden al menos 44x44px?
+- [ ] ¿No hay `box-shadow`, `#000`, fuentes del sistema, ni degradados purple-to-blue?
+- [ ] ¿Los textos largos usan `white-space: pre-line` en vez de `<br />` manuales?
+- [ ] ¿Los elementos decorativos duplicados se evitan? (usar `z: 3` en Escena.astro)
+- [ ] ¿Cada componente declara su escena en `/** ESCENA X · NOMBRE */`?
+- [ ] ¿Los botones son pill-shaped (`border-radius: var(--espacio-4xl)`)?
 - [ ] ¿El texto cumple el tono de AGENTS.md (voz única, sin "beneficiarias", cifras humanizadas)?
-- [ ] ¿No hay `box-shadow`, degradados purple-to-blue, ni fuentes del sistema?
 
 ---
 
