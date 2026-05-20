@@ -14,9 +14,10 @@
 export interface Props {
   desde?: number;
   hasta?: number;
+  stagger?: number;
 }
 
-const { desde = 0, hasta = 16 } = Astro.props;
+const { desde = 0, hasta = 16, stagger = 0 } = Astro.props;
 const TOTAL = hasta - desde + 1;
 const SEC = 100 / TOTAL;
 
@@ -27,8 +28,13 @@ const top = (s: number, fraccion: number) => {
 
 const enRango = (s: number) => s >= desde && s <= hasta;
 
-
-type Item = { src: string; css: string; alt: string; z?: number };
+type Item = {
+  src: string;
+  css: string;
+  alt: string;
+  z?: number;
+  anim?: boolean;
+};
 
 const NUBE = "/resources/escenario/escenario-nube-rosa.webp";
 const ARBUSTO = "/resources/escenario/escenario-arbusto.webp";
@@ -42,6 +48,7 @@ const LETRERO = "/resources/contenedor/contenedor-letrero-1.webp";
 const LETRERO_GUION =
   "/resources/contenedor/contenedor-letrero-guion-bajo.webp";
 const PALMERA = "/resources/escenario/escenario-palmera.webp";
+const HOJAS = "/resources/escenario/escenario-hojas.webp";
 
 // ─── 0 · PORTADA ────────────────────────────────────────────────────
 const PORTADA: Item[] = [
@@ -326,6 +333,27 @@ const TESTIMONIOS: Item[] = [
     src: "/resources/contenedor/contenedor-letrero.webp",
     css: `top:${top(10, -0.15)}; left:32vw; width:35vw`,
     alt: "Marco para testimonios",
+    anim: true,
+  },
+  {
+    src: HOJAS,
+    css: `top:${top(10, 0.55)}; right:0vw; width:15vw; rotate: 15deg`,
+    alt: "Marco para testimonios",
+  },
+  {
+    src: ARBUSTO,
+    css: `top:${top(10, 0.71)}; right:12vw; width:10vw`,
+    alt: "Marco para testimonios",
+  },
+  {
+    src: PIEDRAS,
+    css: `top:${top(10, 0.62)}; right:4vw; width:15vw`,
+    alt: "Marco para testimonios",
+  },
+  {
+    src: ARBUSTO,
+    css: `top:${top(10, 0.71)}; right:2vw; width:10vw`,
+    alt: "Marco para testimonios",
   },
 ];
 
@@ -405,202 +433,210 @@ const ALIADOS: Item[] = [
 ];
 ---
 
-<div class="escena" aria-hidden="true">
+<div class={`escena${stagger > 0 ? ' anim-entrada anim-entrada--fade' : ''}`} aria-hidden="true" data-anim-stagger={stagger}>
   {
     enRango(0) &&
-      PORTADA.map((e, i) =>
+      PORTADA.map((e, i) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading={i === 0 ? "eager" : "lazy"}
           fetchpriority={i === 0 ? "high" : "auto"}
           decoding="async"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(1) &&
-      CARTA.map((e) =>
+      CARTA.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(2) &&
-      APOYAMOS.map((e) =>
+      APOYAMOS.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(3) &&
-      LIBERTAD.map((e) =>
+      LIBERTAD.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(4) &&
-      AUTONOMIA.map((e) =>
+      AUTONOMIA.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(5) &&
-      FONDO_MOVIMIENTO.map((e) =>
+      FONDO_MOVIMIENTO.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(7) &&
-      DISENO.map((e) =>
+      DISENO.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(8) &&
-      TERRITORIOS.map((e) =>
+      TERRITORIOS.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(9) &&
-      CUENTAS_CLARAS.map((e) =>
+      CUENTAS_CLARAS.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(10) &&
-      TESTIMONIOS.map((e) =>
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-        />
-)
+      TESTIMONIOS.map((e) => (
+        <img class="escena__img" src={e.src} alt={e.alt} style={e.css + (e.z ? `; z-index: ${e.z}` : '')} loading="lazy" data-anim-item={e.anim ? '' : undefined} />
+      ))
   }
 
   {
     enRango(12) &&
-      ALIANZAS.map((e) =>
+      ALIANZAS.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(13) &&
-      INVESTIGACION.map((e) =>
+      INVESTIGACION.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(14) &&
-      PROYECCION.map((e) =>
+      PROYECCION.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(15) &&
-      AGRADECIMIENTOS.map((e) =>
+      AGRADECIMIENTOS.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 
   {
     enRango(16) &&
-      ALIADOS.map((e) =>
+      ALIADOS.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
           loading="lazy"
+          data-anim-item={e.anim ? '' : undefined}
         />
-)
+      ))
   }
 </div>
 
