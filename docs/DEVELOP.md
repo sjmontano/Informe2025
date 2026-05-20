@@ -523,7 +523,282 @@ import Apoyamos from '../components/Apoyamos.astro';
 
 ---
 
-## 14. Checklist de revisión de código
+## 14. Casos de uso comunes
+
+### Texto con scroll y desvanecimiento en bordes
+
+Para áreas de texto con altura fija y scroll interno, donde se necesita indicar visualmente que hay más contenido sin usar `box-shadow`:
+
+```css
+.mi-componente__scroll {
+  height: calc(var(--alto) * N / 100);
+  overflow-y: auto;
+
+  /* Fade suave en bordes superior e inferior — reemplaza box-shadow */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black calc(var(--alto) * 4 / 100),
+    black calc(100% - var(--alto) * 8 / 100),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black calc(var(--alto) * 4 / 100),
+    black calc(100% - var(--alto) * 8 / 100),
+    transparent 100%
+  );
+}
+```
+
+> **Regla:** nunca usar `box-shadow` para simular desvanecimiento. Usar `mask-image`.
+
+### Texto multi-párrafo sin `<br />` manuales
+
+```css
+.mi-componente__texto p {
+  white-space: pre-line;
+  font-family: var(--font-lato);
+  font-size: calc(var(--alto) * 0.12 / 100);
+  line-height: 1.4;
+  margin: 0;
+}
+```
+
+Los saltos de párrafo se logran con líneas en blanco en el HTML, no con `<br /><br />`. El navegador hace el wrapping automático según el ancho del contenedor.
+
+Para separar párrafos con espaciado fijo:
+
+```css
+.mi-componente__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+```
+
+### Página sin scroll (full viewport)
+
+Para subpáginas que llenan exactamente la pantalla sin scroll:
+
+```astro
+<!-- pages/mi-pagina.astro -->
+<Layout>
+  <style is:global>
+    :root { --alto: calc(100vw * 0.5625 * N); }
+    html, body { overflow: hidden; height: 100%; }
+    .scene-wrapper { min-height: auto; height: var(--alto); }
+  </style>
+  <Fondos desde={X} hasta={Y} />
+  <Escena desde={X} hasta={Y} />
+  <MiComponente />
+</Layout>
+```
+
+### Navegación por botones pill-shaped
+
+```astro
+---
+const ENLACES = [
+  { href: '/ruta', texto: 'Texto', top: 1.0, left: 74 },
+];
+---
+
+<nav class="nav" aria-label="Navegación">
+  {ENLACES.map(e => (
+    <a class="nav__btn" href={e.href} style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}>
+      {e.texto}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .nav__btn {
+    position: absolute;
+    text-decoration: none;
+    background-color: var(--rosa);
+    color: var(--azul-noche);
+    padding: 0.6vw 1.2vw;
+    border-radius: var(--espacio-4xl);
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 0.13 / 100);
+    font-weight: 700;
+    transition: transform 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav__btn:hover { transform: scale(1.05); }
+</style>
+```
+
+### Carrusel con auto-rotación e indicadores
+
+Mostrar N tarjetas a la vez con rotación automática, flechas e indicadores:
+
+```astro
+---
+const ITEMS = [ /* array de contenido */ ];
+---
+
+<section class="carrusel">
+  <div class="carrusel__pista">
+    {ITEMS.map((item, i) => (
+      <article class="carrusel__tarjeta" data-index={i}>
+        <!-- contenido -->
+      </article>
+    ))}
+  </div>
+
+  <div class="carrusel__controles">
+    <button class="carrusel__flecha--izq" aria-label="Anterior" />
+    <div class="carrusel__puntos">
+      {ITEMS.map((_, i) => <button class="carrusel__punto" data-index={i} />)}
+    </div>
+    <button class="carrusel__flecha--der" aria-label="Siguiente" />
+  </div>
+</section>
+
+<style>
+  .carrusel__tarjeta { display: none; }
+  .carrusel__tarjeta[data-activa] { display: flex; }
+  .carrusel__punto[data-activo] { background: var(--coral); }
+</style>
+
+<script>
+  const mostrar = idx => {
+    tarjetas.forEach(t => t.removeAttribute('data-activa'));
+    puntos.forEach(p => p.removeAttribute('data-activo'));
+    // Mostrar 2 tarjetas: idx e idx+1
+    tarjetas[idx]?.setAttribute('data-activa', '');
+    tarjetas[(idx+1) % total]?.setAttribute('data-activa', '');
+    puntos[idx]?.setAttribute('data-activo', '');
+  };
+  setInterval(() => mostrar((actual+1) % total), 5000);
+</script>
+```
+
+### Ticker infinito de logos con hover pause
+
+```astro
+<div class="ticker">
+  <div class="ticker__pista">
+    {MARCAS.concat(MARCAS).map(m => <img class="ticker__logo" src={m.src} alt={m.alt} />)}
+  </div>
+</div>
+
+<style>
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker__pista {
+    display: flex;
+    width: max-content;
+    animation: ticker-scroll 40s linear infinite;
+  }
+  .ticker__pista:hover { animation-play-state: paused; }
+  .ticker__logo:hover { transform: scale(1.08); transition: transform 0.3s ease; }
+</style>
+```
+
+> **Regla:** duplicar el array (`MARCAS.concat(MARCAS)`) para que el loop sea sin costura. El `translateX(-50%)` recorre exactamente una copia del array.
+
+### Animaciones de entrada reusables
+
+Sistema global en `src/styles/animaciones.css`. No requiere JS por componente — el IntersectionObserver está en `Layout.astro`.
+
+**Cómo usar (3 pasos):**
+
+```html
+<!-- 1. Elegir tipo: --blur, --fade, --slide -->
+<div class="anim-entrada anim-entrada--blur" data-anim-stagger="50">
+  <!-- 2. Marcar hijos con data-anim-item -->
+  <h2 data-anim-item>Título</h2>
+  <p data-anim-item>Párrafo 1</p>
+</div>
+```
+
+| Clase | Efecto | Cuándo usarla |
+|-------|--------|---------------|
+| `anim-entrada--blur` | blur(8px) + scale(0.97) → nítido | Tarjetas, bloques con imagen |
+| `anim-entrada--fade` | translateY(18px) + opacity → visible | Texto, párrafos, títulos |
+| `anim-entrada--slide` | translateY(25px) → 0 | Bloques grandes |
+
+| Atributo | Descripción | Valores típicos |
+|----------|-------------|:--:|
+| `data-anim-stagger="50"` | Retraso en ms entre cada `data-anim-item` | 50 (rápido) — 350 (lento) |
+| `data-anim-item` | Hijo animado secuencialmente | — |
+
+**Ejemplos reales del proyecto:**
+
+| Componente | Tipo | Stagger | Por qué |
+|------------|------|:---:|---------|
+| Testimonios (tarjetas) | `--blur` | 50 | 7 tarjetas, rápido |
+| Testimonios (título) | `--fade` | 150 | Título solo, entrada pausada |
+| Testimonios (flechas + indicadores) | `--fade` | 100 | 3 elementos (izq, der, puntos) |
+| Inicio (título + subtítulo) | `--fade` | 200 | 2 elementos, ritmo pausado |
+| Carta (párrafos) | `--fade` | 350 | Texto denso, lectura progresiva |
+| Carta (cifras) | `--blur` | 250 | 3 cifras, impacto visual |
+
+**Timing global (configurable en `animaciones.css`):**
+
+| Qué | Dónde | Valor |
+|-----|-------|:---:|
+| Duración blur | `anim-blur-in` keyframes | `0.8s` |
+| Duración fade | `anim-fade-in` keyframes | `0.9s` |
+| Duración slide | `anim-slide-up` keyframes | `0.7s` |
+| Anticipación observer | `rootMargin` en Layout | `100px` |
+| Threshold observer | `threshold` en Layout | `0.1` (10% visible) |
+
+**Animaciones en Escena.astro:**
+
+Los elementos decorativos se animan con el campo `anim: true` y el prop `stagger`:
+
+```ts
+// En el array de la sección
+const TESTIMONIOS: Item[] = [
+  {
+    src: "/resources/contenedor/contenedor-letrero.webp",
+    css: `top:${top(10, -0.15)}; left:32vw; width:35vw`,
+    alt: "Marco para testimonios",
+    anim: true,  // ← activa animación
+  },
+];
+```
+
+```astro
+<!-- En la página, stagger controla la velocidad -->
+<Escena desde={10} hasta={10} stagger={200} />
+```
+
+| `stagger` | Efecto |
+|:---:|---|
+| `{0}` | Sin animación (default) |
+| `{200}` | Medio, para letreros/imágenes decorativas |
+
+**Animaciones de interacción:**
+
+```css
+/* Hover: agrandar */
+.mi-btn:hover { transform: scale(1.15); transition: transform 0.2s ease; }
+
+/* Click: presionar */
+.mi-btn:active { transform: scale(0.9); transition: transform 0.15s ease; }
+```
+
+> **⚠️ Títulos centrados con animación:** no usar `transform: translateX(-50%)` para centrar — la animación `translateY` del fade lo sobreescribe. Usar `left: 0; right: 0; text-align: center` en su lugar.
+
+**Reglas:**
+- Solo `transform` y `opacity` — sin animar layout.
+- `prefers-reduced-motion: reduce` desactiva todo.
+- Los contenedores anidados con animación son independientes (cada uno tiene su propio observer).
+- El `data-anim-item` debe estar en el hijo directo del contenedor `anim-entrada`.
+- El observer usa `threshold: 0.1` (10% visible = dispara).
+- `will-change` se quita solos al terminar la animación (no se acumula).
+
+---
+
+## 15. Checklist de revisión de código
 
 Antes de dar por terminado un componente o página:
 

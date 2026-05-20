@@ -231,3 +231,77 @@ export default function RootLayout({ children }) {
 - **Animating layout properties** — `height`, `width`, `padding` — causes jank
 - **Long entrance animations** — >500ms makes the UI feel slow, not polished
 - **Identical stagger amounts for any list length** — large lists with 100ms stagger take 10 seconds to fully reveal
+
+---
+
+## Project-Specific: Fondo Lunaria · Informe 2025
+
+### Architecture
+
+Animations are **global** — no per-component JS needed. The system lives in:
+
+| File | Role |
+|------|------|
+| `src/styles/animaciones.css` | CSS classes and @keyframes |
+| `src/layouts/Layout.astro` | Single IntersectionObserver |
+| Component HTML | Only needs CSS classes + `data-anim-item` attributes |
+
+### Usage Pattern
+
+```html
+<!-- Container decides type and timing -->
+<div class="anim-entrada anim-entrada--fade" data-anim-stagger="150">
+  <!-- Children marked for animation -->
+  <h2 data-anim-item>Título</h2>
+  <p data-anim-item>Contenido</p>
+</div>
+```
+
+### Animation Types and Their Use Cases
+
+| Type | Visual | Use for | Real examples in project |
+|------|--------|---------|--------------------------|
+| `--fade` | translateY(18px) + opacity, 0.9s ease-out | Titles, paragraphs, decorative images, arrows | `Inicio__titulo`, `Testimonios__titulo`, escena `anim: true` items |
+| `--blur` | blur(8px) → blur(0) + scale(0.97) → 1, 0.8s | Cards, stat blocks, any content with images | `Testimonios__tarjeta`, `Carta__cifras` |
+| `--slide` | translateY(25px) → 0, 0.7s | Large content blocks | Not yet used |
+
+### Stagger Values by Context
+
+| Stagger | Use when |
+|:---:|---|
+| `50` | Many items (7+), like testimonial cards — fast enough that all appear quickly |
+| `100` | 3-4 related controls, like arrows + indicators |
+| `150` | Single element or pair of elements, like a section title |
+| `200` | 2-3 elements with breathing room, like hero title + subtitle |
+| `250-350` | Dense reading content, like paragraphs or stats — reader can absorb each one |
+
+### Escena.astro Image Animations
+
+```ts
+// Enable per-item with `anim: true`
+{ src: LETRERO, css: `...`, alt: "...", anim: true }
+
+// Control speed per page with `stagger` prop
+<Escena desde={10} hasta={10} stagger={200} />
+// stagger={0} = disabled (default)
+```
+
+### Centering Titles with Animations
+
+**Don't:** use `transform: translateX(-50%)` — the fade animation's `translateY` overrides it.
+**Do:** use `left: 0; right: 0; text-align: center` or `margin: 0 auto; width: max-content`.
+
+### Interaction Animations
+
+```css
+:hover  { transform: scale(1.15); transition: transform 0.2s ease; }
+:active { transform: scale(0.9);  transition: transform 0.15s ease; }
+```
+
+### Rules
+
+- Only `transform` + `opacity` — never layout properties.
+- `prefers-reduced-motion: reduce` disables ALL animations.
+- Nested `anim-entrada` containers are independent — each has its own observer.
+- `data-anim-item` must be a direct child of the `anim-entrada` container.
+- The observer uses `threshold: 0.1, rootMargin: 100px` — triggers just before the element enters viewport.
