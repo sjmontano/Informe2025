@@ -1,0 +1,84 @@
+/*
+ * animaciones.css — Sistema global de animaciones de entrada
+ *
+ * Uso:
+ *   1. Agregar class="anim-entrada anim-entrada--tipo" al contenedor
+ *   2. Agregar data-anim-stagger="350" para retraso entre hijos
+ *   3. Marcar hijos con data-anim-item
+ *   4. El IntersectionObserver agrega .activo al entrar en viewport
+ *
+ * Tipos: --blur (blur+scale), --fade (solo fade), --slide (translateY)
+ */
+
+/* ── Base ───────────────────────────────────────────────────────── */
+.anim-entrada [data-anim-item] {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+/* ── Blur + scale ───────────────────────────────────────────────── */
+.anim-entrada--blur.activo [data-anim-item] {
+  animation: anim-blur-in 1s cubic-bezier(0.2, 0.9, 0.4, 1) var(--anim-delay, 0ms) forwards;
+}
+
+@keyframes anim-blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* ── Solo fade ──────────────────────────────────────────────────── */
+.anim-entrada--fade.activo [data-anim-item] {
+  animation: anim-fade-in 0.9s ease-out var(--anim-delay, 0ms) forwards;
+}
+
+@keyframes anim-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Slide up ───────────────────────────────────────────────────── */
+.anim-entrada--slide.activo [data-anim-item] {
+  animation: anim-slide-up 0.7s cubic-bezier(0.2, 0.9, 0.4, 1) var(--anim-delay, 0ms) forwards;
+}
+
+@keyframes anim-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .anim-entrada [data-anim-item] {
+    opacity: 1;
+  }
+
+  .anim-entrada [data-anim-item],
+  .anim-entrada.activo [data-anim-item] {
+    animation: none !important;
+    transform: none;
+    filter: none;
+  }
+}
