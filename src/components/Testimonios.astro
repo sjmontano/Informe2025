@@ -24,7 +24,7 @@ const TESTIMONIOS: Testimonio[] = [
       '"Yo pensaba que el reclutamiento era solo cuando a uno se lo llevaban para el monte y le daban un arma. Nunca creí que lo que me estaba pasando a mí fuera algo malo o prohibido. A mí solo me pedían que contara lo que veía en la vereda, quién llegaba, qué se decía en las reuniones. También me llamaban a encuentros con ellos y algunas veces me pedían que llevara paquetes de un lado a otro. Yo lo hacía porque tenía miedo y porque pensaba que era normal, que era un trabajo normal, porque me pagaban por eso, también pensaba que así ayudaba a mi mamá y que no me iba a pasar nada."',
   },
   {
-    nombre: "Juntanza Mujeres del Cesar — Valledupar, Cesar",
+    nombre: "Juntanza Mujeres del Cesar — Valledupar",
     texto:
       '"Y es que el feminismo es una palabra con sabor a mar y a río. Es la voz de la abuela que enseña sin gritar, es esa trenza apretá por la hermana, es el tambor que suena en medio del dolor, y es esa risa con amigas que se cuela entre las luchas. Nace del fogón y del mercado, del patio de tierra y de la calle polvorienta, del canto de la mujer que vende pescado y de la joven que ya no quiere callar. Es que el feminismo es eso que se hace con lo que hay y con lo que somos, con maíz trillao, con leche hervida, con la rabia, con el amor, con la pobreza, el dolor y la fuerza."',
   },
@@ -51,26 +51,40 @@ const TESTIMONIOS: Testimonio[] = [
 ];
 ---
 
-<section class="testimonios" aria-label="Testimonios">
-  <h2 class="testimonios__titulo">Testimonios</h2>
+<section
+  class="testimonios anim-entrada anim-entrada--fade"
+  aria-label="Testimonios"
+  data-anim-stagger="150"
+>
+  <h2 class="testimonios__titulo" data-anim-item>Testimonios</h2>
 
-  <div class="testimonios__contenedor">
+  <div
+    class="testimonios__contenedor anim-entrada anim-entrada--fade"
+    data-anim-stagger="100"
+  >
     <button
       class="testimonios__flecha testimonios__flecha--izquierda"
       aria-label="Anterior"
+      data-anim-item
     >
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><polyline points="15 18 9 12 15 6"></polyline></svg
       >
     </button>
 
-    <div class="testimonios__carrusel">
+    <div
+      class="testimonios__carrusel anim-entrada anim-entrada--blur"
+      data-anim-stagger="50"
+    >
       {
         TESTIMONIOS.map((t, i) => (
-          <article class="testimonios__tarjeta" data-index={i}>
+          <article class="testimonios__tarjeta" data-index={i} data-anim-item>
             <img
               class="testimonios__marco"
               src="/resources/contenedor/contenedor-marco-fotos-1.webp"
@@ -78,8 +92,13 @@ const TESTIMONIOS: Testimonio[] = [
               loading="lazy"
             />
             <h3 class="testimonios__nombre">{t.nombre}</h3>
-            <div class="testimonios__scroll">
-              <p class="testimonios__texto">{t.texto}</p>
+            <div class="testimonios__cuerpo">
+              <div class="testimonios__scroll" data-scroll>
+                <p class="testimonios__texto">{t.texto}</p>
+              </div>
+              <div class="testimonios__barra" data-bar aria-hidden="true">
+                <div class="testimonios__thumb" data-thumb />
+              </div>
             </div>
             <button class="testimonios__leer" type="button">
               Leer más
@@ -92,17 +111,21 @@ const TESTIMONIOS: Testimonio[] = [
     <button
       class="testimonios__flecha testimonios__flecha--derecha"
       aria-label="Siguiente"
+      data-anim-item
     >
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><polyline points="9 18 15 12 9 6"></polyline></svg
       >
     </button>
   </div>
 
-  <div class="testimonios__indicadores">
+  <div class="testimonios__indicadores" data-anim-item>
     {
       TESTIMONIOS.map((_, i) => (
         <button
@@ -125,8 +148,9 @@ const TESTIMONIOS: Testimonio[] = [
   .testimonios__titulo {
     position: absolute;
     top: calc(var(--alto) * 7.5 / 100);
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    text-align: center;
     font-family: var(--font-discordia);
     font-size: calc(var(--alto) * 4.5 / 100);
     font-weight: 700;
@@ -171,6 +195,15 @@ const TESTIMONIOS: Testimonio[] = [
     display: flex;
   }
 
+  @keyframes tarjeta-aparece {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   .testimonios__marco {
     position: absolute;
     top: calc(var(--alto) * -3 / 100);
@@ -187,7 +220,7 @@ const TESTIMONIOS: Testimonio[] = [
     top: calc(var(--alto) * 12 / 100);
     left: calc(var(--alto) * 22 / 100);
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2 / 100);
+    font-size: calc(var(--alto) * 2.4 / 100);
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
@@ -195,49 +228,79 @@ const TESTIMONIOS: Testimonio[] = [
     z-index: 2;
   }
 
-  .testimonios__scroll {
-    position: relative;
+  .testimonios__cuerpo {
+    position: static;
     height: calc(var(--alto) * 30 / 100);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--turquesa) transparent;
-    padding-bottom: calc(var(--alto) * 3 / 100);
   }
 
-  .testimonios__scroll::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: calc(var(--alto) * 4 / 100);
-    background: linear-gradient(
+  .testimonios__scroll {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding-right: calc(var(--alto) * 6 / 100);
+    padding-bottom: calc(var(--alto) * 3 / 100);
+
+    /* Efecto de desvanecimiento en ambos bordes */
+    -webkit-mask-image: linear-gradient(
       to bottom,
-      rgb(from var(--naranja-madera) r g b / 0),
-      rgb(from var(--naranja-madera) r g b / 1)
+      transparent 0%,
+      black calc(var(--alto) * 4 / 100),
+      black calc(100% - var(--alto) * 8 / 100),
+      transparent 100%
     );
-    pointer-events: none;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black calc(var(--alto) * 4 / 100),
+      black calc(100% - var(--alto) * 8 / 100),
+      transparent 100%
+    );
   }
 
   .testimonios__scroll::-webkit-scrollbar {
-    width: calc(var(--alto) * 0.8 / 100);
+    width: 0;
+    height: 0;
   }
 
-  .testimonios__scroll::-webkit-scrollbar-thumb {
+  .testimonios__scroll::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .testimonios__barra {
+    position: absolute;
+    top: calc(var(--alto) * 3 / 100);
+    right: calc(var(--alto) * 3 / 100);
+    bottom: calc(var(--alto) * 3 / 100);
+    width: calc(var(--alto) * 0.8 / 100);
+    background-color: rgb(from var(--turquesa) r g b / 0.35);
+    opacity: 1;
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .testimonios__thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: var(--turquesa);
+    cursor: grab;
+    touch-action: none;
     border-radius: 9999px;
   }
 
-  .testimonios__scroll::-webkit-scrollbar-track {
-    background: transparent;
+  .testimonios__thumb:active {
+    cursor: grabbing;
   }
 
   .testimonios__texto {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 1.8 / 100);
-    line-height: calc(var(--alto) * 2.2 / 100);
+    font-size: calc(var(--alto) * 2.2 / 100);
+    line-height: calc(var(--alto) * 2.5 / 100);
     color: var(--azul-noche);
-    margin-right: 10%;
+    margin-right: 0;
   }
 
   .testimonios__leer {
@@ -271,7 +334,12 @@ const TESTIMONIOS: Testimonio[] = [
   }
 
   .testimonios__flecha:hover {
-    transform: scale(1.15);
+    transform: scale(5);
+  }
+
+  .testimonios__flecha:active {
+    transform: scale(0.9);
+    transition: transform 0.15s ease;
   }
 
   .testimonios__indicadores {
@@ -301,30 +369,46 @@ const TESTIMONIOS: Testimonio[] = [
 </style>
 
 <script>
-  const tarjetas = document.querySelectorAll(".testimonios__tarjeta");
-  const puntos = document.querySelectorAll(".testimonios__punto");
-  const btnIzq = document.querySelector(".testimonios__flecha--izquierda");
-  const btnDer = document.querySelector(".testimonios__flecha--derecha");
+  const tarjetas = document.querySelectorAll<HTMLElement>(
+    ".testimonios__tarjeta",
+  );
+  const puntos = document.querySelectorAll<HTMLElement>(".testimonios__punto");
+  const btnIzq = document.querySelector<HTMLElement>(
+    ".testimonios__flecha--izquierda",
+  );
+  const btnDer = document.querySelector<HTMLElement>(
+    ".testimonios__flecha--derecha",
+  );
+  const barras: Array<() => void> = [];
 
   let actual = 0;
   const total = tarjetas.length;
   let timer: ReturnType<typeof setInterval>;
+  let ciclando = false;
 
   const mostrar = (idx: number) => {
+    if (ciclando) return;
+    ciclando = true;
+
     tarjetas.forEach((t) => t.removeAttribute("data-activa"));
     puntos.forEach((p) => p.removeAttribute("data-activo"));
 
-    // Mostrar 2 tarjetas
     tarjetas[idx]?.setAttribute("data-activa", "");
     tarjetas[(idx + 1) % total]?.setAttribute("data-activa", "");
     puntos[idx]?.setAttribute("data-activo", "");
     actual = idx;
+    barras.forEach((actualizar) => actualizar());
+
+    setTimeout(() => {
+      ciclando = false;
+    }, 300);
   };
 
   const siguiente = () => mostrar((actual + 1) % total);
   const anterior = () => mostrar((actual - 1 + total) % total);
 
   const iniciar = () => {
+    pausar();
     timer = setInterval(siguiente, 5000);
   };
   const pausar = () => clearInterval(timer);
@@ -354,4 +438,95 @@ const TESTIMONIOS: Testimonio[] = [
   const contenedor = document.querySelector(".testimonios__contenedor");
   contenedor?.addEventListener("mouseenter", pausar);
   contenedor?.addEventListener("mouseleave", iniciar);
+
+  /* ── Scrollbar personalizada ─────────────────────────────────── */
+  const prepararBarra = (cuerpo: Element) => {
+    const scroll = cuerpo.querySelector<HTMLElement>("[data-scroll]");
+    const bar = cuerpo.querySelector<HTMLElement>("[data-bar]");
+    const thumb = cuerpo.querySelector<HTMLElement>("[data-thumb]");
+    if (!scroll || !bar || !thumb) return;
+
+    const actualizar = () => {
+      const scrollHeight = scroll.scrollHeight;
+      const clientHeight = scroll.clientHeight;
+      const barHeight = bar.clientHeight;
+      const maxScrollTop = Math.max(scrollHeight - clientHeight, 0);
+      if (barHeight === 0) return;
+      if (maxScrollTop === 0) {
+        bar.style.opacity = "0";
+        return;
+      }
+      bar.style.opacity = "1";
+      const minThumb = barHeight * 0.08;
+      const maxThumb = barHeight * 0.25;
+      const rawThumb =
+        maxScrollTop > 0
+          ? (clientHeight / scrollHeight) * barHeight
+          : barHeight * 0.18;
+      const thumbHeight = Math.min(Math.max(rawThumb, minThumb), maxThumb);
+      const maxThumbTop = Math.max(barHeight - thumbHeight, 0);
+      const thumbTop =
+        maxScrollTop > 0 ? (scroll.scrollTop / maxScrollTop) * maxThumbTop : 0;
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.transform = `translateY(${Math.min(Math.max(thumbTop, 0), maxThumbTop)}px)`;
+    };
+
+    scroll.addEventListener("scroll", actualizar, { passive: true });
+
+    let arrastrando = false,
+      inicioY = 0,
+      inicioScroll = 0;
+    const moverThumb = (evento: PointerEvent) => {
+      if (!arrastrando) return;
+      const barHeight = bar.clientHeight;
+      const thumbHeight = thumb.offsetHeight;
+      const maxThumbTop = barHeight - thumbHeight;
+      const maxScrollTop = scroll.scrollHeight - scroll.clientHeight;
+      if (maxThumbTop <= 0 || maxScrollTop <= 0) return;
+      const delta = evento.clientY - inicioY;
+      scroll.scrollTop = Math.min(
+        Math.max(inicioScroll + (delta / maxThumbTop) * maxScrollTop, 0),
+        maxScrollTop,
+      );
+    };
+
+    thumb.addEventListener("pointerdown", (evento) => {
+      arrastrando = true;
+      inicioY = evento.clientY;
+      inicioScroll = scroll.scrollTop;
+      thumb.setPointerCapture(evento.pointerId);
+    });
+    thumb.addEventListener("pointermove", moverThumb);
+    thumb.addEventListener("pointerup", () => {
+      arrastrando = false;
+    });
+    thumb.addEventListener("pointercancel", () => {
+      arrastrando = false;
+    });
+
+    bar.addEventListener("pointerdown", (evento) => {
+      if (evento.target === thumb) return;
+      const rect = bar.getBoundingClientRect();
+      const clickY = evento.clientY - rect.top;
+      const barHeight = bar.clientHeight;
+      const thumbHeight = thumb.offsetHeight;
+      const maxThumbTop = barHeight - thumbHeight;
+      const maxScrollTop = scroll.scrollHeight - scroll.clientHeight;
+      if (maxThumbTop <= 0 || maxScrollTop <= 0) return;
+      scroll.scrollTop =
+        (Math.min(Math.max(clickY - thumbHeight / 2, 0), maxThumbTop) /
+          maxThumbTop) *
+        maxScrollTop;
+    });
+
+    actualizar();
+    barras.push(actualizar);
+  };
+
+  document
+    .querySelectorAll(".testimonios__cuerpo")
+    .forEach((cuerpo) => prepararBarra(cuerpo));
+  window.addEventListener("resize", () => {
+    barras.forEach((actualizar) => actualizar());
+  });
 </script>
