@@ -287,16 +287,6 @@ font-family: 'Discordia', serif;
 - **Sin `@media` queries**: las posiciones y tamaños escalan con `--alto` (basado en `vw`). Si en celular se ve igual que en PC pero más pequeño, está bien.
 - **Todo se achica o agranda uniformemente**. No se reposicionan elementos ni se cambian layouts.
 
-### Reglas para videos WebM
-
-- Usar `<video autoplay loop muted playsinline preload="none">`
-- Detectar archivos `.webm` con helper `esVideo(src)`:
-```ts
-const esVideo = (src: string) => src.endsWith('.webm');
-```
-- Render condicional: `esVideo(e.src) ? <video ... /> : <img ... />`
-- Videos decorativos en `Escena.astro` usan `pointer-events: none`
-
 ### Reglas para Escena.astro
 
 - Recursos repetidos 2+ veces se declaran como constantes:

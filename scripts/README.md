@@ -50,7 +50,43 @@ cd public\organizar\gifs
 ..\..\..\scripts\renombrar-gifs.bat
 ```
 
-### `convertir-a-webp.bat`
+### `convertir-a-webp.bat` ⭐ (recomendado)
+
+Convierte GIFs originales a WebP animado con máxima compresión y transparencia.
+Usa ImageMagick + gif2webp (preserva alpha sin problemas).
+
+**Requisito:** ImageMagick instalado (`magick --version` en cmd).
+Descarga: https://imagemagick.org/script/download.php#windows
+
+```cmd
+cd public\resources\gifs\gif
+..\..\..\scripts\convertir-a-webp.bat
+```
+
+| Parámetro | Valor | Efecto |
+|-----------|:---:|--------|
+| MAX_WIDTH | 800 | ¼ de píxeles vs original |
+| COLORS | 192 | Paleta reducida, archivo más chico |
+| WEBP_QUALITY | 50 | Calidad media-alta |
+| FRAME_SKIP | 0 | Sin reducción de frames |
+| REMOVE_ALPHA | no | Preserva transparencia |
+| COMPRESSION_MODE | lossy | 10-20× más chico que lossless |
+| MINIMIZE_SIZE | yes | Minimiza archivo final |
+| COMPRESSION_METHOD | 6 | Método de compresión máximo |
+| USE_MT | yes | Usa todos los núcleos CPU |
+
+Salida en `optimizados final/`.
+
+### `gif-a-webp.bat` (fallback, solo ffmpeg)
+
+Alternativa que usa solo ffmpeg (sin ImageMagick). Funciona pero puede tener problemas con transparencia en algunos GIFs.
+
+```cmd
+cd public\resources\gifs\gif
+..\..\..\..\scripts\gif-a-webp.bat
+```
+
+Salida en la misma carpeta.
 
 Convierte todos los `gif-*.gif` de la carpeta actual a WebP animado optimizado. Usa ImageMagick (`magick`) para preprocesar y `gif2webp` para la conversión final.
 

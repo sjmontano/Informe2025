@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # backup de fondos originales
 public/resources/fondos/_originales/
+
+# webm archivados (se usa webp)
+public/resources/gifs/webm/

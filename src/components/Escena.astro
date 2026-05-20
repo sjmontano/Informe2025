@@ -27,7 +27,6 @@ const top = (s: number, fraccion: number) => {
 
 const enRango = (s: number) => s >= desde && s <= hasta;
 
-const esVideo = (src: string) => src.endsWith(".webm");
 
 type Item = { src: string; css: string; alt: string; z?: number };
 
@@ -78,7 +77,7 @@ const PORTADA: Item[] = [
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-pescadores-ensamblado-3-1.webm",
+    src: "/resources/gifs/gif-pescadores-ensamblado-3-1.webp",
     css: `top:${top(0, 0.5)}; right:3vw; width:40vw`,
     alt: "Pescadores, ilustración de Aquelarre",
     z: 3,
@@ -141,7 +140,7 @@ const CARTA: Item[] = [
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-iguana-vendedora.webm",
+    src: "/resources/gifs/gif-iguana-vendedora.webp",
     css: `top:${top(1, 0.5)}; right:12vw; width:35vw`,
     alt: "Vendedor de coco, ilustración de Aquelarre",
     z: 3,
@@ -151,55 +150,55 @@ const CARTA: Item[] = [
 // ─── 2 · APOYAMOS ───────────────────────────────────────────────────
 const APOYAMOS: Item[] = [
   {
-    src: "/resources/gifs/gif-vendedor-jugos-ensamblado-2.webm",
+    src: "/resources/gifs/gif-vendedor-jugos-ensamblado-2.webp",
     css: `top:${top(2, 0.37)}; left:37vw; width:35vw`,
     alt: "Vendedor de jugos, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-canoa-2-ensamblado.webm",
+    src: "/resources/gifs/gif-canoa-2-ensamblado.webp",
     css: `top:${top(2, 0.56)}; left:29.5vw; width:40vw`,
     alt: "Canoa, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-cangrejo-guitarrista-2.webm",
+    src: "/resources/gifs/gif-cangrejo-guitarrista-2.webp",
     css: `top:${top(2, 0.2)}; right:20vw; width:14vw`,
     alt: "Músicos, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-langosta-bongoes.webm",
+    src: "/resources/gifs/gif-langosta-bongoes.webp",
     css: `top:${top(2, 0.25)}; right:27vw; width:15vw`,
     alt: "Langosta bongoes, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-artesana-paujil-1.webm",
+    src: "/resources/gifs/gif-artesana-paujil-1.webp",
     css: `top:${top(2, 0.4)}; left:21vw; width:22vw`,
     alt: "Artesana, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-pez-nadador-ensamblado-1.webm",
+    src: "/resources/gifs/gif-pez-nadador-ensamblado-1.webp",
     css: `top:${top(2, 0.67)}; right:6.5vw; width:25vw`,
     alt: "Pez nadador, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-medusa-ensamblada.webm",
+    src: "/resources/gifs/gif-medusa-ensamblada.webp",
     css: `top:${top(2, 0.52)}; right:14vw; width:20vw`,
     alt: "Medusa, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-flamenco-ensamblado.webm",
+    src: "/resources/gifs/gif-flamenco-ensamblado.webp",
     css: `top:${top(2, 0.5)}; left:8vw; width:20vw`,
     alt: "Flamenco, ilustración de Aquelarre",
     z: 3,
   },
   {
-    src: "/resources/gifs/gif-lagartija.webm",
+    src: "/resources/gifs/gif-lagartija.webp",
     css: `top:${top(2, 0.32)}; right:5vw; width:20vw`,
     alt: "Lagartija, ilustración de Aquelarre",
     z: 3,
@@ -259,7 +258,7 @@ const AUTONOMIA: Item[] = [
     alt: "Letrero estadísticas",
   },
   {
-    src: "/resources/gifs/gif-canoas-ensamblado-2.webm",
+    src: "/resources/gifs/gif-canoas-ensamblado-2.webp",
     css: `top:${top(4, 0.17)}; left:30vw; width:40vw`,
     alt: "Canoas, ilustración de Aquelarre",
   },
@@ -278,7 +277,7 @@ const FONDO_MOVIMIENTO: Item[] = [
     alt: "Letrero Fondo en Movimiento",
   },
   {
-    src: "/resources/gifs/gif-leona-marina-ensamblado.webm",
+    src: "/resources/gifs/gif-leona-marina-ensamblado.webp",
     css: `top:${top(5, 0.17)}; left:40vw; width:35vw`,
     alt: "Leona marina, ilustración de Aquelarre",
   },
@@ -338,7 +337,7 @@ const ALIANZAS: Item[] = [
     alt: "Letrero Alianzas",
   },
   {
-    src: "/resources/gifs/gif-pescador-ensamblado.webm",
+    src: "/resources/gifs/gif-pescador-ensamblado.webp",
     css: `top:${top(12, 0.34)}; left:10vw; width:40vw`,
     alt: "Pescador, ilustración de Aquelarre",
   },
@@ -385,7 +384,7 @@ const PROYECCION: Item[] = [
 // ─── 15 · AGRADECIMIENTOS ───────────────────────────────────────────
 const AGRADECIMIENTOS: Item[] = [
   {
-    src: "/resources/gifs/gif-pescador-ensamblado.webm",
+    src: "/resources/gifs/gif-pescador-ensamblado.webp",
     css: `top:${top(15, 0.17)}; right:5vw; width:25vw`,
     alt: "Pescador, ilustración de Aquelarre",
   },
@@ -410,417 +409,200 @@ const ALIADOS: Item[] = [
   {
     enRango(0) &&
       PORTADA.map((e, i) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            preload="none"
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchpriority={i === 0 ? "high" : "auto"}
-            decoding="async"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading={i === 0 ? "eager" : "lazy"}
+          fetchpriority={i === 0 ? "high" : "auto"}
+          decoding="async"
+        />
+)
   }
 
   {
     enRango(1) &&
       CARTA.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(2) &&
       APOYAMOS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(3) &&
       LIBERTAD.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(4) &&
       AUTONOMIA.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(5) &&
       FONDO_MOVIMIENTO.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(7) &&
       DISENO.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(8) &&
       TERRITORIOS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(9) &&
       CUENTAS_CLARAS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(10) &&
       TESTIMONIOS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(12) &&
       ALIANZAS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(13) &&
       INVESTIGACION.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(14) &&
       PROYECCION.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(15) &&
       AGRADECIMIENTOS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 
   {
     enRango(16) &&
       ALIADOS.map((e) =>
-        esVideo(e.src) ? (
-          <video
-            class="escena__img"
-            src={e.src}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            autoplay
-            loop
-            muted
-            playsinline
-            aria-label={e.alt}
-          />
-        ) : (
-          <img
-            class="escena__img"
-            src={e.src}
-            alt={e.alt}
-            style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-            loading="lazy"
-          />
-        ),
-      )
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+        />
+)
   }
 </div>
-
-<script>
-  const videos = document.querySelectorAll<HTMLVideoElement>(".escena video");
-  if (videos.length) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target as HTMLVideoElement;
-          if (entry.isIntersecting) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { rootMargin: "300px" },
-    );
-
-    videos.forEach((video) => observer.observe(video));
-  }
-</script>
 
 <style>
   .escena {
