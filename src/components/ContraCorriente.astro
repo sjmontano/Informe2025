@@ -1,0 +1,182 @@
+---
+/**
+ * ESCENA 14 · A CONTRACORRIENTE
+ *
+ * Podcast con descripción, botón de volver e íconos de
+ * Spotify y YouTube con doble círculo decorativo.
+ */
+import BotonVolver from "./BotonVolver.astro";
+
+const SPOTIFY_URL =
+  "https://open.spotify.com/show/318xWjM52nEA659i9iKKTj?si=98a77bfca9eb4aef";
+const YOUTUBE_URL =
+  "https://www.youtube.com/playlist?list=PLkwIXeK8TV-_4trn-s-6Ya9CCIsMTGnqd";
+---
+
+<section
+  class="contracorriente anim-entrada anim-entrada--fade"
+  data-anim-stagger="200"
+>
+  <BotonVolver href="/investigacion" texto="Investigación" top={3} right={6} z={3} />
+
+  <!-- COLUMNA IZQUIERDA: título + descripción -->
+  <div class="contracorriente__izquierda">
+    <h1 class="contracorriente__titulo" data-anim-item>A contra corriente</h1>
+
+    <p class="contracorriente__intro" data-anim-item>
+      El podcast A contracorriente es el resultado de un proceso de
+      investigación colaborativo con colectivas y organizaciones de mujeres
+      con discapacidades de Cartagena, que responde preguntas alrededor de
+      la experiencia de discapacidad y la intersección de la violencia
+      capacitista con otras formas de opresión.
+
+      Esta investigación se consolida como una apuesta alrededor de
+      problemas poco indagados e invisibilizados; y como un llamado urgente
+      y profundamente político a reflexionar sobre las lógicas de exclusión
+      capacitista, no solo como un asunto individual, sino estructural, en
+      una sociedad que configura la diversidad de cuerpos en «normales» y
+      «anormales».
+    </p>
+  </div>
+
+  <!-- COLUMNA DERECHA: investigación + plataformas -->
+  <div class="contracorriente__derecha" data-anim-item>
+    <h2 class="contracorriente__subtitulo">Investigación</h2>
+
+    <!-- Íconos de plataformas con doble círculo -->
+    <div class="contracorriente__plataformas">
+      <a
+        class="contracorriente__circulo-ext"
+        href={SPOTIFY_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Escuchar en Spotify"
+      >
+        <span class="contracorriente__circulo-int">
+          <img
+            class="contracorriente__logo"
+            src="/resources/iconos/icon-spotify.webp"
+            alt=""
+            width="48"
+            height="48"
+            loading="lazy"
+          />
+        </span>
+      </a>
+
+      <a
+        class="contracorriente__circulo-ext"
+        href={YOUTUBE_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Ver en YouTube"
+      >
+        <span class="contracorriente__circulo-int">
+          <img
+            class="contracorriente__logo"
+            src="/resources/iconos/icon-youtube.svg"
+            alt=""
+            width="48"
+            height="48"
+            loading="lazy"
+          />
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contracorriente {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  /* ─── Columna izquierda ─── */
+
+  .contracorriente__izquierda {
+    position: absolute;
+    top: calc(var(--alto) * 16 / 100);
+    left: 14vw;
+    width: 36vw;
+  }
+
+  .contracorriente__titulo {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 5.4 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0 0 calc(var(--alto) * 3 / 100);
+    line-height: 1.1;
+  }
+
+  .contracorriente__intro {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 1.9 / 100);
+    line-height: 1.7;
+    color: var(--azul-noche);
+    white-space: pre-line;
+    margin: 0;
+  }
+
+  /* ─── Columna derecha ─── */
+
+  .contracorriente__derecha {
+    position: absolute;
+    top: calc(var(--alto) * 16 / 100);
+    right: 10vw;
+    width: 34vw;
+  }
+
+  .contracorriente__subtitulo {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 5.4 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0 0 calc(var(--alto) * 3 / 100);
+    line-height: 1.1;
+  }
+
+  /* ─── Plataformas: doble círculo ─── */
+
+  .contracorriente__plataformas {
+    display: flex;
+    gap: calc(var(--alto) * 2 / 100);
+  }
+
+  .contracorriente__circulo-ext,
+  .contracorriente__circulo-int {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .contracorriente__circulo-ext {
+    background-color: var(--azul-noche);
+    width: calc(var(--alto) * 6.5 / 100);
+    height: calc(var(--alto) * 6.5 / 100);
+    text-decoration: none;
+    transition: transform 0.3s ease, outline 0.3s ease;
+  }
+
+  .contracorriente__circulo-ext:hover {
+    transform: scale(1.1);
+    outline: 3px solid var(--salmon);
+    outline-offset: 3px;
+  }
+
+  .contracorriente__circulo-int {
+    background-color: var(--salmon);
+    width: 80%;
+    height: 80%;
+  }
+
+  .contracorriente__logo {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+</style>

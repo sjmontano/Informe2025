@@ -6,6 +6,7 @@
  * Cada tarjeta tiene marco decorativo fijo, nombre y texto con scroll.
  * Tamaño de tarjeta fijo — el contenido largo usa scroll interno.
  */
+import BotonVolver from "./BotonVolver.astro";
 
 interface Testimonio {
   nombre: string;
@@ -56,6 +57,8 @@ const TESTIMONIOS: Testimonio[] = [
   aria-label="Testimonios"
   data-anim-stagger="150"
 >
+  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+
   <h2 class="testimonios__titulo" data-anim-item>Testimonios</h2>
 
   <div
@@ -147,7 +150,7 @@ const TESTIMONIOS: Testimonio[] = [
 
   .testimonios__titulo {
     position: absolute;
-    top: calc(var(--alto) * 7.5 / 100);
+    top: calc(var(--alto) * 12 / 100);
     left: 0;
     right: 0;
     text-align: center;
@@ -160,7 +163,7 @@ const TESTIMONIOS: Testimonio[] = [
 
   .testimonios__contenedor {
     position: absolute;
-    top: calc(var(--alto) * 21 / 100);
+    top: calc(var(--alto) * 28 / 100);
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -344,7 +347,7 @@ const TESTIMONIOS: Testimonio[] = [
 
   .testimonios__indicadores {
     position: absolute;
-    top: calc(var(--alto) * 82 / 100);
+    top: calc(var(--alto) * 92 / 100);
     left: 50%;
     transform: translateX(-50%);
     display: flex;

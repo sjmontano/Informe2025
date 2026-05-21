@@ -1,0 +1,37 @@
+---
+/**
+ * ESCENA 9 · PROGRAMAS
+ *
+ * Sección de Programas.
+ */
+import BotonVolver from "./BotonVolver.astro";
+---
+
+<section
+  class="programas anim-entrada anim-entrada--fade"
+  data-anim-stagger="200"
+>
+  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+
+  <h1 class="programas__titulo" data-anim-item>Programas</h1>
+</section>
+
+<style>
+  .programas {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .programas__titulo {
+    position: absolute;
+    top: calc(var(--alto) * 14 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 5.4 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
+  }
+</style>

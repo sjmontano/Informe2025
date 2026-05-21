@@ -1,0 +1,37 @@
+---
+/**
+ * ESCENA 6 · MEMORIAS
+ *
+ * Sección Memorias, dentro de Estrategias de Acción.
+ */
+import BotonVolver from "./BotonVolver.astro";
+---
+
+<section
+  class="memorias anim-entrada anim-entrada--fade"
+  data-anim-stagger="200"
+>
+  <BotonVolver href="/estrategias" texto="Estrategias" top={3} right={6} z={3} />
+
+  <h1 class="memorias__titulo" data-anim-item>Memorias</h1>
+</section>
+
+<style>
+  .memorias {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .memorias__titulo {
+    position: absolute;
+    top: calc(var(--alto) * 14 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 5.4 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
+  }
+</style>

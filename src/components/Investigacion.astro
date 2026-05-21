@@ -3,14 +3,16 @@
  * ESCENA 11 · INVESTIGACIÓN
  *
  * Título, texto introductorio y 3 enlaces a subsecciones.
- * Posicionado con calc() relativo a --alto definido en Layout.
  */
+import BotonVolver from "./BotonVolver.astro";
 ---
 
 <section
   class="investigacion anim-entrada anim-entrada--fade"
   data-anim-stagger="250"
 >
+  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+
   <div class="investigacion__texto" data-anim-item>
     <h1 class="investigacion__titulo">Investigación</h1>
     <p class="investigacion__intro">

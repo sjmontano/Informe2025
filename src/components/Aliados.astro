@@ -3,8 +3,8 @@
  * ESCENA 16 · ALIADOS
  *
  * Cuadro blanco con logos de donantes y copartes.
- * Posicionado con calc() relativo a --alto definido en Layout.
  */
+import BotonVolver from "./BotonVolver.astro";
 
 const MARCAS = [
   { src: "/resources/marcas/marca-equality-fund.webp", alt: "Equality Fund" },
@@ -37,14 +37,18 @@ const MARCAS = [
 ---
 
 <section class="aliados">
+  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+
   <p class="aliados__titulo">Contamos con el apoyo de:</p>
   <div class="aliados__contenedor">
-    <div class="aliados__pista">
-      {
-        MARCAS.concat(MARCAS).map((m, i) => (
-          <img class="aliados__logo" src={m.src} alt={m.alt} loading="lazy" />
-        ))
-      }
+    <div class="aliados__ventana">
+      <div class="aliados__pista">
+        {
+          MARCAS.concat(MARCAS).map((m, i) => (
+            <img class="aliados__logo" src={m.src} alt={m.alt} loading="lazy" />
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
@@ -65,33 +69,50 @@ const MARCAS = [
     z-index: 2;
   }
 
+  .aliados__titulo {
+    position: absolute;
+    left: 35%;
+    top: calc(var(--alto) * 40 / 100);
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 3.6 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0 0 var(--espacio-lg);
+  }
+
   .aliados__contenedor {
     position: absolute;
     top: calc(var(--alto) * 50 / 100);
     width: 100%;
     background-color: var(--blanco);
     padding: var(--espacio-xl) 0;
-    overflow: hidden;
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    /* sin máscara */
   }
 
-  .aliados__titulo {
-    position: absolute;
-    left: 35%;
-    top: calc(var(--alto) * 42 / 100);
-    transform: translateX(-50%);
-    font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 3 / 100);
-    font-weight: 700;
-    color: var(--azul-noche);
-    margin: 0 0 var(--espacio-lg);
+  .aliados__ventana {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 30%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 30%,
+      black 92%,
+      transparent 100%
+    );
   }
 
   .aliados__pista {
     display: flex;
     width: max-content;
     animation: aliados-scroll 60s linear infinite;
+    /* sin máscara */
   }
 
   .aliados__pista:hover {
@@ -114,5 +135,4 @@ const MARCAS = [
     opacity: 1;
     transform: scale(1.08);
   }
-
 </style>

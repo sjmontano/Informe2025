@@ -1,0 +1,70 @@
+---
+/**
+ * ESCENA 5 · ESTRATEGIAS DE ACCIÓN
+ *
+ * Navegación con 4 botones pill-shaped hacia subpáginas.
+ */
+import BotonVolver from "./BotonVolver.astro";
+
+const ENLACES = [
+  { href: "/estrategias/memorias", texto: "Memorias", top: 24, left: 35 },
+  { href: "/estrategias/en-movimiento", texto: "En movimiento", top: 33, left: 65 },
+  { href: "/estrategias/alternativas", texto: "Alternativas", top: 48, left: 20 },
+  { href: "/estrategias/narrarnos", texto: "Narrarnos", top: 48, left: 72 },
+];
+---
+
+<nav class="estrategias anim-entrada anim-entrada--fade" data-anim-stagger="250">
+  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+
+  <h1 class="estrategias__titulo" data-anim-item>Estrategias de acción</h1>
+
+  {ENLACES.map((e) => (
+    <a
+      class="estrategias__btn"
+      href={e.href}
+      style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}
+      data-anim-item
+    >
+      {e.texto}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .estrategias {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .estrategias__titulo {
+    position: absolute;
+    top: calc(var(--alto) * 12 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 5.4 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
+  }
+
+  .estrategias__btn {
+    position: absolute;
+    text-decoration: none;
+    background-color: var(--salmon);
+    color: var(--azul-noche);
+    padding: calc(var(--alto) * 1.1 / 100) calc(var(--alto) * 2.8 / 100);
+    border-radius: var(--espacio-4xl);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 2.1 / 100);
+    font-weight: 700;
+    transition: transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .estrategias__btn:hover {
+    transform: scale(1.05);
+  }
+</style>

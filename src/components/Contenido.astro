@@ -36,6 +36,7 @@ const ENLACES: Enlace[] = [
 ---
 
 <nav class="contenido" aria-label="Navegación del informe">
+  <h1 class="contenido__titulo">Contenido</h1>
   {
     ENLACES.map((e) => (
       <a
@@ -56,6 +57,18 @@ const ENLACES: Enlace[] = [
     height: calc(var(--alto) * 15 / 100);
     top: calc(var(--alto) * 4 / 100);
     z-index: 2;
+  }
+
+  .contenido__titulo {
+    position: absolute;
+    top: calc(var(--alto) * -12 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 4.5 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
   }
 
   .contenido__btn {

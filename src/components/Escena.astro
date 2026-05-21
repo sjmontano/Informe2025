@@ -34,6 +34,11 @@ const LETRERO_GUION =
   "/resources/contenedor/contenedor-letrero-guion-bajo.webp";
 const PALMERA = "/resources/escenario/escenario-palmera.webp";
 const HOJAS = "/resources/escenario/escenario-hojas.webp";
+const SOL = "/resources/escenario/escenario-sol.webp";
+const LETRERO_BASE = "/resources/contenedor/contenedor-letrero.webp";
+const LETRERO_4 = "/resources/contenedor/contenedor-letrero-4.webp";
+const HOJA = "/resources/contenedor/contenedor-hoja.webp";
+const FLECHA = "/resources/contenedor/contenedor-flecha.webp";
 
 // ─── 17 escenas ──────────────────────────────────────────────────────
 
@@ -128,113 +133,25 @@ const ESCENAS = [
     },
   ],
 
-  /*  2 · APOYAMOS */
+  /*  2 · ALTERNATIVAS */
   [
-    {
-      src: "/resources/gifs/gif-vendedor-jugos-ensamblado-2.webp",
-      top: 0.37,
-      left: "37vw",
-      width: "35vw",
-      alt: "Vendedor de jugos, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-canoa-2-ensamblado.webp",
-      top: 0.56,
-      left: "29.5vw",
-      width: "40vw",
-      alt: "Canoa, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-cangrejo-guitarrista-2.webp",
-      top: 0.2,
-      right: "20vw",
-      width: "14vw",
-      alt: "Músicos, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-langosta-bongoes.webp",
-      top: 0.25,
-      right: "27vw",
-      width: "15vw",
-      alt: "Langosta bongoes, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: HOJAS,
-      top: 0.4,
-      left: "22vw",
-      width: "15vw",
-      alt: "Hojas decorativo",
-    },
-    {
-      src: "/resources/gifs/gif-artesana-paujil-1.webp",
-      top: 0.4,
-      left: "21vw",
-      width: "22vw",
-      alt: "Artesana, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-pez-nadador-ensamblado-1.webp",
-      top: 0.67,
-      right: "6.5vw",
-      width: "25vw",
-      alt: "Pez nadador, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-medusa-ensamblada.webp",
-      top: 0.52,
-      right: "14vw",
-      width: "20vw",
-      alt: "Medusa, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-flamenco-ensamblado.webp",
-      top: 0.5,
-      left: "8vw",
-      width: "20vw",
-      alt: "Flamenco, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: "/resources/gifs/gif-lagartija.webp",
-      top: 0.32,
-      right: "5vw",
-      width: "20vw",
-      alt: "Lagartija, ilustración de Aquelarre",
-      z: 3,
-    },
-    {
-      src: ARBUSTO,
-      top: 0.75,
-      left: "8vw",
-      width: "12vw",
-      alt: "Arbusto decorativo",
-      z: 4,
-    },
-    {
-      src: PALMERA,
-      top: 0.06,
-      right: "-17vw",
-      width: "32vw",
-      alt: "Palmera, ilustración de Aquelarre",
-      extra: "transform: scaleX(-1)",
-    },
-    {
-      src: PALMERA,
-      top: 0.08,
-      left: "20vw",
-      width: "35vw",
-      alt: "Palmera, ilustración de Aquelarre",
-    },
+    { src: "/resources/gifs/gif-vendedor-jugos-ensamblado-2.webp", top: 0.37, left: "37vw", width: "35vw", alt: "Vendedor de jugos, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-canoa-2-ensamblado.webp", top: 0.56, left: "29.5vw", width: "40vw", alt: "Canoa, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-cangrejo-guitarrista-2.webp", top: 0.2, right: "20vw", width: "14vw", alt: "Músicos, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-langosta-bongoes.webp", top: 0.25, right: "27vw", width: "15vw", alt: "Langosta bongoes, ilustración de Aquelarre", z: 3 },
+    { src: HOJAS, top: 0.4, left: "22vw", width: "15vw", alt: "Hojas decorativo" },
+    { src: "/resources/gifs/gif-artesana-paujil-1.webp", top: 0.4, left: "21vw", width: "22vw", alt: "Artesana, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-pez-nadador-ensamblado-1.webp", top: 0.67, right: "6.5vw", width: "25vw", alt: "Pez nadador, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-medusa-ensamblada.webp", top: 0.52, right: "14vw", width: "20vw", alt: "Medusa, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-flamenco-ensamblado.webp", top: 0.5, left: "8vw", width: "20vw", alt: "Flamenco, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-lagartija.webp", top: 0.32, right: "5vw", width: "20vw", alt: "Lagartija, ilustración de Aquelarre", z: 3 },
+    { src: ARBUSTO, top: 0.75, left: "8vw", width: "12vw", alt: "Arbusto decorativo", z: 4 },
+    { src: PALMERA, top: 0.06, right: "-17vw", width: "32vw", alt: "Palmera, ilustración de Aquelarre", extra: "transform: scaleX(-1)" },
+    { src: PALMERA, top: 0.08, left: "20vw", width: "35vw", alt: "Palmera, ilustración de Aquelarre" },
+    { src: FLECHA, top: 0.78, right: "15vw", width: "8vw", alt: "Flecha decorativa" },
   ],
 
-  /*  3 · LIBERTAD Y DEMOCRACIA */
+  /*  3 · NARRARNOS */
   [
     {
       src: LETRERO,
@@ -254,86 +171,46 @@ const ESCENAS = [
     { src: PIEDRAS, top: 0.85, left: "60vw", width: "10vw", alt: "Piedras" },
   ],
 
-  /*  4 · AUTONOMÍA Y SOSTENIBILIDAD */
+  /*  4 · CUENTAS CLARAS */
   [
-    {
-      src: LETRERO_GUION,
-      top: 0,
-      left: "0vw",
-      width: "80vw",
-      alt: "Letrero cifras",
-    },
-    {
-      src: LETRERO_GUION,
-      top: 0,
-      left: "50vw",
-      width: "46vw",
-      alt: "Letrero estadísticas",
-    },
-    {
-      src: "/resources/gifs/gif-canoas-ensamblado-2.webp",
-      top: 0.17,
-      left: "30vw",
-      width: "40vw",
-      alt: "Canoas, ilustración de Aquelarre",
-    },
-    {
-      src: ESTRELLA,
-      top: 0.68,
-      right: "5vw",
-      width: "5vw",
-      alt: "Estrella de mar",
-    },
+    { src: LETRERO_BASE, top: 0.05, left: "5vw", width: "35vw", alt: "Letrero Cuentas Claras" },
+    { src: LETRERO_BASE, top: 0.08, right: "5vw", width: "35vw", alt: "Letrero Cuentas Claras" },
+    { src: "/resources/gifs/gif-canoas-ensamblado-2.webp", top: 0.17, left: "30vw", width: "40vw", alt: "Canoas, ilustración de Aquelarre" },
   ],
 
-  /*  5 · FONDO EN MOVIMIENTO */
+  /*  5 · ESTRATEGIAS DE ACCIÓN */
   [
-    {
-      src: LETRERO,
-      top: 0.051,
-      left: "3vw",
-      width: "35vw",
-      alt: "Letrero Fondo en Movimiento",
-    },
-    {
-      src: "/resources/gifs/gif-leona-marina-ensamblado.webp",
-      top: 0.17,
-      left: "40vw",
-      width: "35vw",
-      alt: "Leona marina, ilustración de Aquelarre",
-    },
+    { src: "/resources/gifs/gif-delfin-ensamblado.webp", top: 0.1, left: "8vw", width: "35vw", alt: "Delfín, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-foca-ensamblado.webp", top: 0.5, right: "5vw", width: "25vw", alt: "Foca, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-orca-ensamblada.webp", top: 0.3, right: "30vw", width: "20vw", alt: "Orca, ilustración de Aquelarre", z: 3 },
+    { src: "/resources/gifs/gif-tortuga-ensamblada-1.webp", top: 0.65, left: "40vw", width: "28vw", alt: "Tortuga, ilustración de Aquelarre", z: 3 },
   ],
 
-  /*  6 · (sin elementos decorativos) */
-  [],
-
-  /*  7 · DISEÑO E ILUSTRACIÓN */
+  /*  6 · MEMORIAS */
   [
-    {
-      src: MARCO,
-      top: 0.17,
-      left: "15vw",
-      width: "70vw",
-      alt: "Marco para video",
-    },
+    { src: "/resources/gifs/gif-tortuga-ensamblada-1.webp", top: 0.4, left: "30vw", width: "35vw", alt: "Tortuga, ilustración de Aquelarre", z: 3 },
+    { src: LETRERO_BASE, top: 0.05, left: "5vw", width: "35vw", alt: "Letrero Memorias" },
+    { src: HOJA, top: 0.7, right: "5vw", width: "15vw", alt: "Hoja decorativa", extra: "rotate: 10deg" },
   ],
 
-  /*  8 · TERRITORIOS */
+  /*  7 · EN MOVIMIENTO */
   [
-    {
-      src: MARCO,
-      top: 0.085,
-      left: "10vw",
-      width: "35vw",
-      alt: "Marco para testimonios",
-    },
+    { src: LETRERO_BASE, top: 0.05, left: "5vw", width: "35vw", alt: "Letrero En Movimiento" },
+    { src: "/resources/ilustraciones/ilustracion-apoyos.webp", top: 0.2, left: "8vw", width: "35vw", alt: "Ilustración de apoyos" },
+    { src: "/resources/ilustraciones/ilustracion-departamentos.webp", top: 0.2, right: "8vw", width: "35vw", alt: "Ilustración de departamentos" },
   ],
 
-  /*  9 · CUENTAS CLARAS */
+  /*  8 · TALLERES */
   [
-    { src: CACTUS, top: 0.085, left: "1vw", width: "12vw", alt: "Cactus" },
-    { src: ARBUSTO, top: 0.17, right: "2vw", width: "10vw", alt: "Arbusto" },
-    { src: CONCHAS, top: 0.51, right: "5vw", width: "6vw", alt: "Conchas" },
+    { src: LETRERO_BASE, top: 0.05, left: "5vw", width: "35vw", alt: "Letrero Talleres" },
+  ],
+
+  /*  9 · PROGRAMAS */
+  [
+    { src: LETRERO, top: 0.03, left: "5vw", width: "40vw", alt: "Letrero Programas" },
+    { src: LETRERO_4, top: 0.06, right: "5vw", width: "40vw", alt: "Letrero Programas" },
+    { src: FLECHA, top: 0.4, left: "22vw", width: "15vw", alt: "Flecha decorativa" },
+    { src: PALMERAS, top: 0.6, left: "-5vw", width: "50vw", alt: "Palmeras" },
   ],
 
   /* 10 · TESTIMONIOS */
@@ -379,21 +256,9 @@ const ESCENAS = [
 
   /* 11 · INVESTIGACIÓN */
   [
-    {
-      src: "/resources/contenedor/contenedor-letrero-3.webp",
-      top: 0.03,
-      right: "4vw",
-      width: "40vw",
-      alt: "Letrero Investigación",
-      extra: "rotate: 5deg",
-    },
-    {
-      src: "/resources/gifs/gif-artesanas-ensambladas.webp",
-      top: 0.3,
-      left: "10vw",
-      width: "50vw",
-      alt: "Artesana, ilustración de Aquelarre",
-    },
+    { src: "/resources/contenedor/contenedor-letrero-3.webp", top: 0.03, right: "4vw", width: "40vw", alt: "Letrero Investigación", extra: "rotate: 5deg" },
+    { src: "/resources/gifs/gif-artesanas-ensambladas.webp", top: 0.3, left: "10vw", width: "50vw", alt: "Artesana, ilustración de Aquelarre" },
+    { src: SOL, top: 0.05, right: "5vw", width: "12vw", alt: "Sol decorativo" },
   ],
 
   /* 12 · ALIANZAS */
@@ -428,28 +293,29 @@ const ESCENAS = [
     { src: CACTUS_1, top: 0.6, right: "0vw", width: "18vw", alt: "Marco" },
   ],
 
-  /* 14 · LABORATORIO */
+  /* 14 · A CONTRACORRIENTE / LABORATORIO */
   [
+    { src: "/resources/gifs/gif-leona-marina-ensamblado.webp", top: 0.15, left: "25vw", width: "35vw", alt: "Leona marina, ilustración de Aquelarre", z: 3 },
     { src: CACTUS, top: 0.68, left: "1vw", width: "12vw", alt: "Cactus" },
-    { src: PIEDRAS, top: 0.765, right: "3vw", width: "10vw", alt: "Piedras" },
+    { src: CACTUS_1, top: 0.72, left: "10vw", width: "12vw", alt: "Cactus" },
+    { src: PIEDRAS, top: 0.75, right: "3vw", width: "10vw", alt: "Rocas" },
+    { src: PIEDRAS, top: 0.78, right: "12vw", width: "8vw", alt: "Rocas" },
+    { src: ARBUSTO, top: 0.6, right: "2vw", width: "10vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.65, right: "10vw", width: "10vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.55, left: "25vw", width: "10vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.7, left: "35vw", width: "10vw", alt: "Arbusto" },
   ],
 
-  /* 15 · AGRADECIMIENTOS */
+  /* 15 · SACANDO LOS TRAPOS */
   [
-    {
-      src: "/resources/gifs/gif-pescador-ensamblado.webp",
-      top: 0.17,
-      right: "5vw",
-      width: "25vw",
-      alt: "Pescador, ilustración de Aquelarre",
-    },
-    {
-      src: ESTRELLA,
-      top: 0.68,
-      left: "5vw",
-      width: "5vw",
-      alt: "Estrella de mar",
-    },
+    { src: "/resources/gifs/gif-pescador-ensamblado.webp", top: 0.15, right: "5vw", width: "30vw", alt: "Pescador, ilustración de Aquelarre", z: 3 },
+    { src: ARBUSTO, top: 0.6, right: "2vw", width: "10vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.65, right: "12vw", width: "10vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.7, left: "5vw", width: "10vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.75, left: "15vw", width: "10vw", alt: "Arbusto" },
+    { src: PALMERAS, top: 0.05, left: "-5vw", width: "50vw", alt: "Palmeras" },
+    { src: PALMERAS, top: 0.08, right: "-5vw", width: "50vw", alt: "Palmeras", extra: "transform: scaleX(-1)" },
+    { src: LETRERO_BASE, top: 0.05, left: "5vw", width: "35vw", alt: "Letrero Sacando los trapos" },
   ],
 
   /* 16 · ALIADOS */
