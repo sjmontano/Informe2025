@@ -7,7 +7,10 @@
  */
 ---
 
-<section class="laboratorio anim-entrada anim-entrada--fade" data-anim-stagger="200">
+<section
+  class="laboratorio anim-entrada anim-entrada--fade"
+  data-anim-stagger="200"
+>
   <a class="laboratorio__volver" href="/investigacion" data-anim-item>
     <img
       class="laboratorio__volver-icono"
@@ -38,8 +41,8 @@
       </h1>
       <h2 class="laboratorio__subtitulo">Laboratorio de género y feminismos</h2>
       <p class="laboratorio__parrafo">
-        El laboratorio en feminismos fue un proceso formativo virtual abierto
-        a mujeres jóvenes que han empezado una exploración inicial en los
+        El laboratorio en feminismos fue un proceso formativo virtual abierto a
+        mujeres jóvenes que han empezado una exploración inicial en los
         feminismos. Este tenía como objetivo que las jóvenes desarrollaran un
         pensamiento y una práctica feminista amplia, diversa e incluyente,
         mediante el diálogo y reflexión de referentes teóricos y prácticas
@@ -47,11 +50,11 @@
         racistas y transexcluyentes.
       </p>
       <p class="laboratorio__parrafo">
-        El laboratorio habilitó un espacio seguro para la reflexión y el
-        debate sobre el sujeto político del feminismo y la
-        interseccionalidad; los feminismos antirracistas, transfeminismo y
-        feminismos trans-excluyentes; y los relevos generacionales y buenas
-        prácticas dentro de los activismos feministas.
+        El laboratorio habilitó un espacio seguro para la reflexión y el debate
+        sobre el sujeto político del feminismo y la interseccionalidad; los
+        feminismos antirracistas, transfeminismo y feminismos trans-excluyentes;
+        y los relevos generacionales y buenas prácticas dentro de los activismos
+        feministas.
       </p>
     </div>
   </div>
@@ -155,6 +158,7 @@
     font-family: var(--font-lato);
     font-size: calc(var(--alto) * 4.9 / 100);
     font-weight: 700;
+    font-style: italic;
     color: var(--azul-noche);
     margin-bottom: calc(var(--alto) * 1.7 / 100);
   }
@@ -182,12 +186,14 @@
 </style>
 
 <script>
-  document.querySelector('.laboratorio__descargar')?.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.href = '/Silencios_2024.pdf';
-    link.download = 'Silencios_2024.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
+  document
+    .querySelector(".laboratorio__descargar")
+    ?.addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.href = "/Silencios_2024.pdf";
+      link.download = "Silencios_2024.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
 </script>
