@@ -127,6 +127,29 @@ const { titulo } = Astro.props;
   - `HeroCifras.astro` → clases `.hero-cifras`, `.hero-cifras__numero`
   - `Testimonios.astro` → clases `.testimonios`, `.testimonios__tarjeta`
 
+### Reglas de posicionamiento
+
+**Todos los elementos de contenido deben posicionarse con `position: absolute` y `calc(var(--alto) * N / 100)`.**
+
+```css
+/* ✅ CORRECTO — control total sobre horizontal y vertical */
+.mi-componente {
+  position: absolute;
+  top: calc(var(--alto) * 5 / 100);
+  left: calc(var(--alto) * 8 / 100);
+}
+
+/* ❌ INCORRECTO — margen no da control vertical preciso */
+.mi-componente {
+  margin-left: 30vw;
+  margin-top: calc(var(--alto) * 3 / 100);
+}
+```
+
+Esto aplica **siempre**. No usar `margin` para posicionar. No usar `display: flex` + `align-items` como sustituto de `position: absolute`. Cada elemento controla su `top` y `left` explícitamente con `calc()`.
+
+> **Razón:** `--alto` es vw-based y escala con el ancho de pantalla. Las posiciones calculadas con `calc(var(--alto) * N / 100)` escalan uniformemente. Los `margin` no dan control vertical directo y dependen del flujo del layout.
+
 ---
 
 ## 5. El Layout base (`Layout.astro`)
@@ -596,6 +619,13 @@ Para subpáginas que llenan exactamente la pantalla sin scroll:
 </Layout>
 ```
 
+> **⚠️ CRÍTICO: Escala de valores en páginas de 1 sección.**  
+> Cuando un componente se usa en una página con 1 sola sección (`--alto = 56.25vw`), los valores `calc(var(--alto) * N / 100)` son **17× más chicos** que en la página principal de 17 secciones (`--alto = 956.25vw`).  
+> **Solución:** multiplicar todos los porcentajes del CSS por ~17× para mantener el tamaño visual.  
+> *Ejemplo:* `font-size: calc(var(--alto) * 0.12 / 100)` (17 secciones) → `font-size: calc(var(--alto) * 2 / 100)` (1 sección).  
+> Esto ya se aplicó en `Testimonios.astro` e `Investigacion.astro`.  
+> Si el texto se ve microscópico o invisible, revisar los multiplicadores.
+
 ### Navegación por botones pill-shaped
 
 ```astro
@@ -721,7 +751,7 @@ Sistema global en `src/styles/animaciones.css`. No requiere JS por componente �
 | Clase | Efecto | Cuándo usarla |
 |-------|--------|---------------|
 | `anim-entrada--blur` | blur(8px) + scale(0.97) → nítido | Tarjetas, bloques con imagen |
-| `anim-entrada--fade` | translateY(18px) + opacity → visible | Texto, párrafos, títulos |
+| `anim-entrada--fade` | opacity 0 → 1, 0.9s ease-out | Texto, párrafos, títulos, botones |
 | `anim-entrada--slide` | translateY(25px) → 0 | Bloques grandes |
 
 | Atributo | Descripción | Valores típicos |
@@ -807,7 +837,7 @@ Antes de dar por terminado un componente o página:
 - [ ] ¿Las fuentes usan `var(--font-discordia)` o `var(--font-lato)`?
 - [ ] ¿Los espaciados usan `var(--espacio-md)`, etc.?
 - [ ] ¿No hay `@media` queries ni `clamp()`? (escala con `--alto` y `vw`)
-- [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`?
+- [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`? (sin `margin` para posicionar, siempre `position: absolute`)
 - [ ] ¿Los tamaños de fuente usan `calc(var(--alto) * N / 100)`?
 - [ ] ¿El HTML es semántico (`<section>`, `<article>`, no solo `<div>`)?
 - [ ] ¿Las clases CSS siguen la convención `componente__elemento`?

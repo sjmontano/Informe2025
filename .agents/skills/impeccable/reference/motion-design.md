@@ -261,7 +261,7 @@ Animations are **global** — no per-component JS needed. The system lives in:
 
 | Type | Visual | Use for | Real examples in project |
 |------|--------|---------|--------------------------|
-| `--fade` | translateY(18px) + opacity, 0.9s ease-out | Titles, paragraphs, decorative images, arrows | `Inicio__titulo`, `Testimonios__titulo`, escena `anim: true` items |
+| `--fade` | opacity 0 → 1, 0.9s ease-out | Titles, paragraphs, decorative images, arrows, buttons | `Inicio__titulo`, `Testimonios__titulo`, escena `anim: true` items |
 | `--blur` | blur(8px) → blur(0) + scale(0.97) → 1, 0.8s | Cards, stat blocks, any content with images | `Testimonios__tarjeta`, `Carta__cifras` |
 | `--slide` | translateY(25px) → 0, 0.7s | Large content blocks | Not yet used |
 

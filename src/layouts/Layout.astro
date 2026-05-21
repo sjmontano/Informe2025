@@ -1,5 +1,5 @@
 ---
-import '../styles/animaciones.css';
+import "../styles/animaciones.css";
 ---
 
 <!doctype html>
@@ -50,21 +50,26 @@ import '../styles/animaciones.css';
   </body>
 
   <script>
-    const obsAnim = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const root = entry.target as HTMLElement;
-        const stagger = parseInt(root.dataset.animStagger || '0', 10);
-        const items = root.querySelectorAll<HTMLElement>('[data-anim-item]');
-        items.forEach((item, i) => {
-          item.style.setProperty('--anim-delay', ((i + 1) * stagger) + 'ms');
+    const obsAnim = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const root = entry.target as HTMLElement;
+          const stagger = parseInt(root.dataset.animStagger || "0", 10);
+          const items = root.querySelectorAll<HTMLElement>("[data-anim-item]");
+          items.forEach((item, i) => {
+            item.style.setProperty("--anim-delay", (i + 1) * stagger + "ms");
+          });
+          root.classList.add("activo");
+          obsAnim.unobserve(root);
         });
-        root.classList.add('activo');
-        obsAnim.unobserve(root);
-      });
-    }, { threshold: 0.1, rootMargin: '100px' });
+      },
+      { threshold: 0.1, rootMargin: "100px" },
+    );
 
-    document.querySelectorAll<HTMLElement>('.anim-entrada').forEach(el => obsAnim.observe(el));
+    document
+      .querySelectorAll<HTMLElement>(".anim-entrada")
+      .forEach((el) => obsAnim.observe(el));
   </script>
 </html>
 
@@ -111,7 +116,7 @@ import '../styles/animaciones.css';
   :root {
     /* Fondos */
     --arena: #f4c454;
-    --oceano: #0b6b6d;
+    --oceano: #148979;
 
     /* Textos */
     --azul-noche: #1b174b;
