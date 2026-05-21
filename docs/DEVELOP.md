@@ -42,7 +42,8 @@ El diseño visual es de **Aquelarre Laboratorio de Diseño Feminista**. Las regl
 │   ├── components/       # Componentes .astro reutilizables (una pieza visual por archivo)
 │   ├── layouts/          # Plantillas de página (Layout.astro)
 │   ├── pages/            # Rutas del sitio (index.astro, about.astro, etc.)
-│   └── styles/           # (futuro) Estilos globales compartidos
+│   ├── styles/           # Estilos globales (animaciones.css)
+│   └── utils/            # Utilidades JS (escena.js — generación de CSS)
 ├── .agents/
 │   └── skills/           # Skills para agentes de IA (accessibility, google-design-md, impeccable, seo, typescript)
 ├── docs/
@@ -62,7 +63,8 @@ El diseño visual es de **Aquelarre Laboratorio de Diseño Feminista**. Las regl
 | Una página nueva del sitio | `src/pages/mi-pagina.astro` | `src/pages/cuentas-claras.astro` |
 | Una ilustración de Aquelarre | `public/illustrations/` | `public/illustrations/faro.svg` |
 | Una textura de papel rasgado | `public/textures/` | `public/textures/papel-rasgado.png` |
-| Estilos que comparten varios componentes | `src/styles/mi-utilidad.css` | `src/styles/design-tokens.css` |
+| Estilos que comparten varios componentes | `src/styles/mi-utilidad.css` | `src/styles/animaciones.css` |
+| Lógica extractable (helpers) | `src/utils/mi-utilidad.js` | `src/utils/escena.js` |
 | Un ícono o logo importado desde código | `src/assets/` | `src/assets/logo.svg` |
 
 ---
@@ -129,15 +131,27 @@ const { titulo } = Astro.props;
 
 ### Reglas de posicionamiento
 
-**Todos los elementos de contenido deben posicionarse con `position: absolute` y `calc(var(--alto) * N / 100)`.**
+**Posicionamiento vertical con `--alto`, horizontal con `vw` o `--alto` según el tipo de página:**
 
 ```css
-/* ✅ CORRECTO — control total sobre horizontal y vertical */
-.mi-componente {
+/* Páginas multi-sección: --alto = 56.25vw (basado en ancho).
+   Horizontal y vertical usan --alto. */
+.en-multi {
   position: absolute;
   top: calc(var(--alto) * 5 / 100);
   left: calc(var(--alto) * 8 / 100);
 }
+
+/* Páginas single-sección: --alto = 100dvh (basado en altura).
+   Vertical con --alto, horizontal con vw. */
+.en-single {
+  position: absolute;
+  top: calc(var(--alto) * 24 / 100);   /* ✅ basado en altura */
+  right: 12vw;                          /* ✅ basado en ancho */
+}
+```
+
+> **Regla**: `calc(var(--alto) * N / 100)` para posiciones verticales siempre. Para posiciones horizontales, usar `--alto` en multi-sección y `vw` en single-sección. Nunca usar `margin` para posicionar.
 
 /* ❌ INCORRECTO — margen no da control vertical preciso */
 .mi-componente {
@@ -160,6 +174,41 @@ Esto aplica **siempre**. No usar `margin` para posicionar. No usar `display: fle
 2. Las Custom Properties globales (`:root` con los tokens de DESIGN.md)
 3. El `<slot />` donde se inyecta el contenido de cada página
 
+### Prop `scroll`
+
+```astro
+<!-- Página multi-sección (scroll vertical): default -->
+<Layout>
+  ...
+</Layout>
+
+<!-- Página de 1 sección (sin scroll, llena la pantalla): -->
+<Layout scroll={false}>
+  ...
+</Layout>
+```
+
+Cuando `scroll={false}`, Layout agrega al body `overflow: hidden; height: 100%` y cambia `--alto` a `100dvh` para que la sección ocupe toda la pantalla.
+
+### `--alto` — altura de una sección
+
+`--alto` se define automáticamente en Layout.astro según el tipo de página:
+
+| Tipo | `--alto` | Cuándo |
+|------|---------|--------|
+| Multi-sección | `calc(100vw * 0.5625)` | Páginas con scroll (default) |
+| Single-sección | `100dvh` | Páginas con `scroll={false}` |
+
+- **`100dvh` se adapta a cualquier pantalla**: Mac, tablet vertical, celular, ultra-wide.
+- **`100vw * 0.5625`** mantiene el ratio 16:9 para scroll cómodo en páginas largas.
+- El equipo **nunca toca `--alto`**. Es interno de Layout.astro.
+
+### `Escena.astro` como contenedor
+
+`Escena.astro` ahora incluye el fondo (`Fondos`), los elementos decorativos y un `<slot />` para el contenido. Su `.escena-wrapper` ya provee `position: relative; height: var(--alto)`.
+
+Las páginas **no necesitan wrappers adicionales** ni importar `Fondos` por separado.
+
 **Reglas del Layout:**
 - Todo lo que es común a todas las páginas va aquí (fuentes, meta viewport, favicon).
 - Los estilos en `<style is:global>` aplican a todo el sitio.
@@ -170,24 +219,45 @@ Esto aplica **siempre**. No usar `margin` para posicionar. No usar `display: fle
 
 ## 6. Cómo crear una página nueva
 
-### Página estándar (ruta directa)
+### Página de 1 sección (sin scroll)
 
-1. Crear `src/pages/mi-pagina.astro`
-2. Estructura:
 ```astro
 ---
 import Layout from '../layouts/Layout.astro';
+import Escena from '../components/Escena.astro';
 import MiComponente from '../components/MiComponente.astro';
+---
 
-const pageTitle = 'Título de la página';
+<Layout scroll={false}>
+  <Escena escena={12}>
+    <MiComponente />
+  </Escena>
+</Layout>
+```
+
+> `scroll={false}` hace que `--alto = 100dvh` y la página llene la pantalla completa. `Escena` ya incluye el fondo + decorativos + `<slot />` para el contenido.
+
+### Página multi-sección (con scroll)
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+import Escena from '../components/Escena.astro';
+import Inicio from '../components/Inicio.astro';
+import Carta from '../components/Carta.astro';
 ---
 
 <Layout>
-  <MiComponente />
-  <!-- Más componentes... -->
+  <Escena escena={0}>
+    <Inicio />
+  </Escena>
+  <Escena escena={1}>
+    <Carta />
+  </Escena>
 </Layout>
 ```
-3. La URL será `/mi-pagina`
+
+> Cada `<Escena>` es autocontenida: fondo, decorativos y contenido. Se apilan verticalmente y la página hace scroll. `--alto = 100vw * 0.5625` (ratio 16:9).
 
 ### Página con ruta personalizada
 
@@ -301,7 +371,8 @@ font-family: 'Discordia', serif;
 --espacio-xs … --espacio-4xl  /* 4px … 96px */
 
 /* Escena */
---alto           /* calc(100vw * 0.5625 * N) — altura total */
+--alto           /* Multi-sección: calc(100vw * 0.5625).
+                    Single-sección: 100dvh (llena la pantalla). */
 ```
 
 ### Reglas de responsive
@@ -312,16 +383,28 @@ font-family: 'Discordia', serif;
 
 ### Reglas para Escena.astro
 
-- Recursos repetidos 2+ veces se declaran como constantes:
+- Recibe `escena={N}` (índice 0-16) y `stagger` (ms de retraso entre animaciones).
+- Los 17 arrays de elementos decorativos están en el frontmatter del mismo archivo.
+- Agregar un elemento = una línea en el array de su escena:
+
 ```ts
-const ARBUSTO = "/resources/escenario/escenario-arbusto.webp";
-const ESTRELLA = "/resources/escenario/escenario-estrella-mar.webp";
+// Dentro del array de la escena correspondiente (ESCENAS[N])
+{
+  src: "/resources/escenario/...",
+  top: 0.55,               // fracción 0-1 (55% abajo de la sección)
+  left: "30vw",            // opcional
+  right: "50vw",           // opcional (left o right)
+  width: "6vw",            // opcional
+  extra: "rotate: 15deg",  // opcional (transform, rotate, etc.)
+  z: 3,                    // opcional (z-index)
+  anim: true,              // opcional (animación de entrada)
+  alt: "Descripción...",
+}
 ```
-- Elementos que deben quedar encima del contenido usan `z: 3` (o superior):
-```ts
-{ src: ESTRELLA, css: `top:...`, alt: '...', z: 3 }
-```
-- Posicionamiento relativo a sección con `top(seccion, fraccion)` donde `fraccion` va de 0 a 1.
+
+- La función `css()` convierte estos campos a CSS inline automáticamente.
+- Para overlay (encima del contenido): usar `z: 3` o superior.
+- Sin `z`: queda en capa 0 (detrás del contenido).
 
 ### Reglas de stacking context
 
@@ -418,12 +501,11 @@ import miImagen from '../assets/mi-imagen.svg';
 
 | Tipo | Convención | Ejemplo |
 |------|-----------|---------|
-| Componentes Astro | PascalCase | `HeroCifras.astro`, `TarjetaTestimonio.astro` |
+| Componentes Astro | PascalCase | `HeroCifras.astro`, `TarjetaTestimonio.astro`, `BotonVolver.astro` |
 | Páginas | kebab-case | `cuentas-claras.astro`, `fondo-en-movimiento.astro` |
 | Layouts | PascalCase | `Layout.astro` |
-| Utilidades/helpers | camelCase | `formatoMoneda.ts` |
-| Imágenes/ilustraciones | kebab-case | `faro-principal.svg`, `papel-rasgado-01.png` |
-| CSS (si se extrae) | kebab-case | `design-tokens.css` |
+| Utilidades JS | camelCase | `escena.js` |
+| CSS global | kebab-case | `animaciones.css` |
 
 ---
 
@@ -606,25 +688,15 @@ Para separar párrafos con espaciado fijo:
 Para subpáginas que llenan exactamente la pantalla sin scroll:
 
 ```astro
-<!-- pages/mi-pagina.astro -->
-<Layout>
-  <style is:global>
-    :root { --alto: calc(100vw * 0.5625 * N); }
-    html, body { overflow: hidden; height: 100%; }
-    .scene-wrapper { min-height: auto; height: var(--alto); }
-  </style>
-  <Fondos desde={X} hasta={Y} />
-  <Escena desde={X} hasta={Y} />
-  <MiComponente />
+<Layout scroll={false}>
+  <Escena escena={10} stagger={200}>
+    <MiComponente />
+  </Escena>
 </Layout>
 ```
 
-> **⚠️ CRÍTICO: Escala de valores en páginas de 1 sección.**  
-> Cuando un componente se usa en una página con 1 sola sección (`--alto = 56.25vw`), los valores `calc(var(--alto) * N / 100)` son **17× más chicos** que en la página principal de 17 secciones (`--alto = 956.25vw`).  
-> **Solución:** multiplicar todos los porcentajes del CSS por ~17× para mantener el tamaño visual.  
-> *Ejemplo:* `font-size: calc(var(--alto) * 0.12 / 100)` (17 secciones) → `font-size: calc(var(--alto) * 2 / 100)` (1 sección).  
-> Esto ya se aplicó en `Testimonios.astro` e `Investigacion.astro`.  
-> Si el texto se ve microscópico o invisible, revisar los multiplicadores.
+> **`scroll={false}`** en Layout maneja todo automáticamente: `overflow: hidden`, `--alto: 100dvh`.
+> La sección llena la pantalla en cualquier dispositivo: Mac, tablet vertical, celular.
 
 ### Navegación por botones pill-shaped
 
@@ -785,20 +857,22 @@ Sistema global en `src/styles/animaciones.css`. No requiere JS por componente �
 Los elementos decorativos se animan con el campo `anim: true` y el prop `stagger`:
 
 ```ts
-// En el array de la sección
-const TESTIMONIOS: Item[] = [
-  {
-    src: "/resources/contenedor/contenedor-letrero.webp",
-    css: `top:${top(10, -0.15)}; left:32vw; width:35vw`,
-    alt: "Marco para testimonios",
-    anim: true,  // ← activa animación
-  },
-];
+// En el array de la escena dentro de Escena.astro:
+{
+  src: "/resources/contenedor/contenedor-letrero.webp",
+  top: -0.15,
+  left: "32vw",
+  width: "35vw",
+  alt: "Marco para testimonios",
+  anim: true,  // ← activa animación
+}
 ```
 
 ```astro
 <!-- En la página, stagger controla la velocidad -->
-<Escena desde={10} hasta={10} stagger={200} />
+<Escena escena={10} stagger={200}>
+  <SeccionTestimonios />
+</Escena>
 ```
 
 | `stagger` | Efecto |
@@ -836,17 +910,18 @@ Antes de dar por terminado un componente o página:
 - [ ] ¿Los colores usan `var(--azul-noche)`, `var(--rosa)`, `var(--arena)`, etc.?
 - [ ] ¿Las fuentes usan `var(--font-discordia)` o `var(--font-lato)`?
 - [ ] ¿Los espaciados usan `var(--espacio-md)`, etc.?
-- [ ] ¿No hay `@media` queries ni `clamp()`? (escala con `--alto` y `vw`)
+- [ ] ¿No hay `@media` queries? (escala con `--alto`)
 - [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`? (sin `margin` para posicionar, siempre `position: absolute`)
 - [ ] ¿Los tamaños de fuente usan `calc(var(--alto) * N / 100)`?
 - [ ] ¿El HTML es semántico (`<section>`, `<article>`, no solo `<div>`)?
 - [ ] ¿Las clases CSS siguen la convención `componente__elemento`?
 - [ ] ¿Las ilustraciones tienen `alt` descriptivo?
-- [ ] ¿No hay `box-shadow`, `#000`, fuentes del sistema, ni degradados purple-to-blue?
+- [ ] ¿No hay `box-shadow`, colores hardcodeados, fuentes del sistema, ni degradados?
 - [ ] ¿Los textos largos usan `white-space: pre-line` en vez de `<br />` manuales?
-- [ ] ¿Los elementos decorativos duplicados se evitan? (usar `z: 3` en Escena.astro)
 - [ ] ¿Cada componente declara su escena en `/** ESCENA X · NOMBRE */`?
 - [ ] ¿Los botones son pill-shaped (`border-radius: var(--espacio-4xl)`)?
+- [ ] ¿La página usa `<Escena escena={N}>` con slot en vez de `<Fondos>` + `<Escena>` separados?
+- [ ] ¿No hay `<style is:global>` manual? (usar `scroll={false}` en Layout)
 - [ ] ¿El texto cumple el tono de AGENTS.md (voz única, sin "beneficiarias", cifras humanizadas)?
 
 ---

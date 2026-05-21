@@ -54,13 +54,19 @@ Requisitos: Node.js >= 22.12.0
 
 ```text
 /
-├── public/            # Assets estáticos (favicon, fuentes, imágenes)
+├── public/            # Assets estáticos (favicon, fuentes, fondos, GIFs)
 ├── src/
-│   ├── assets/        # Imágenes, íconos, ilustraciones
 │   ├── components/    # Componentes Astro reutilizables
-│   ├── layouts/       # Plantillas de página
-│   └── pages/         # Rutas del sitio (index.astro, etc.)
-├── astro.config.mjs   # Configuración de Astro
+│   ├── layouts/       # Plantilla base (Layout.astro)
+│   ├── pages/         # Rutas del sitio
+│   ├── styles/        # Estilos globales (animaciones.css)
+│   └── utils/         # Utilidades JS (escena.js)
+├── docs/
+│   ├── DESIGN.md      # Sistema de diseño visual
+│   ├── DEVELOP.md     # Convenciones de desarrollo
+│   └── motion-design.md
+├── AGENTS.md          # Guía de tono y audiencia
+├── astro.config.mjs
 └── package.json
 ```
 
