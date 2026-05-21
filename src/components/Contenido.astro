@@ -14,22 +14,22 @@ interface Enlace {
 }
 
 const ENLACES: Enlace[] = [
-  { href: "/testimonios", texto: "Testimonios", top: 8, left: 73 },
-  { href: "/investigacion", texto: "Investigación", top: 11, left: 85 },
-  { href: "/talleres", texto: "Talleres", top: 18, left: 35 },
+  { href: "/testimonios", texto: "Testimonios", top: 24, left: 73 },
+  { href: "/investigacion", texto: "Investigación", top: 33, left: 85 },
+  { href: "/talleres", texto: "Talleres", top: 54, left: 35 },
   {
     href: "/sacando-los-trapos",
     texto: "Sacando los trapos",
-    top: 15.3,
+    top: 45.9,
     left: 58,
   },
-  { href: "/estrategias", texto: "Estrategias de acción", top: 19, left: 77 },
-  { href: "/cuentas-claras", texto: "Cuentas Claras", top: 22, left: 17 },
-  { href: "/programas", texto: "Programas", top: 25, left: 48 },
+  { href: "/estrategias", texto: "Estrategias de acción", top: 57, left: 77 },
+  { href: "/cuentas-claras", texto: "Cuentas Claras", top: 66, left: 17 },
+  { href: "/programas", texto: "Programas", top: 75, left: 48 },
   {
     href: "/aliados",
     texto: "¿Quiénes nos apoyan?",
-    top: 25,
+    top: 75,
     left: 73,
   },
 ];
@@ -53,8 +53,8 @@ const ENLACES: Enlace[] = [
   .contenido {
     position: absolute;
     width: 100%;
-    height: calc(var(--alto) * 5 / 100);
-    top: calc(var(--alto) * 68 / 100);
+    height: calc(var(--alto) * 15 / 100);
+    top: calc(var(--alto) * 4 / 100);
     z-index: 2;
   }
 
@@ -63,14 +63,14 @@ const ENLACES: Enlace[] = [
     text-decoration: none;
     background-color: var(--salmon);
     color: var(--azul-noche);
-    padding: 0.6vw 1.2vw;
+    padding: calc(var(--alto) * 1.1 / 100) calc(var(--alto) * 2.1 / 100);
+    padding-left: calc(var(--alto) * 6 / 100);
     border-radius: var(--espacio-4xl);
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 0.7 / 100);
+    font-size: calc(var(--alto) * 2.1 / 100);
     font-weight: 700;
     transition: transform 0.2s ease;
     white-space: nowrap;
-    padding-left: var(--espacio-3xl);
   }
 
   .contenido__btn:hover {

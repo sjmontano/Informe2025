@@ -39,7 +39,6 @@ const MARCAS = [
 <section class="aliados">
   <p class="aliados__titulo">Contamos con el apoyo de:</p>
   <div class="aliados__contenedor">
-    <div class="aliados__borde izquierdo" aria-hidden="true"></div>
     <div class="aliados__pista">
       {
         MARCAS.concat(MARCAS).map((m, i) => (
@@ -47,7 +46,6 @@ const MARCAS = [
         ))
       }
     </div>
-    <div class="aliados__borde derecho" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -71,9 +69,11 @@ const MARCAS = [
     position: absolute;
     top: calc(var(--alto) * 50 / 100);
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--blanco);
     padding: var(--espacio-xl) 0;
     overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
 
   .aliados__titulo {
@@ -115,22 +115,4 @@ const MARCAS = [
     transform: scale(1.08);
   }
 
-  .aliados__borde {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 8%;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .aliados__borde.izquierdo {
-    left: 0;
-    background: linear-gradient(to right, #ece9e9 0%, transparent 100%);
-  }
-
-  .aliados__borde.derecho {
-    right: 0;
-    background: linear-gradient(to left, #ece9e9 0%, transparent 100%);
-  }
 </style>
