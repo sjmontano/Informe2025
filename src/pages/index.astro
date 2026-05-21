@@ -2,15 +2,18 @@
 import Carta from "../components/Carta.astro";
 import Contenido from "../components/Contenido.astro";
 import Escena from "../components/Escena.astro";
-import Fondos from "../components/Fondos.astro";
 import Inicio from "../components/Inicio.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-  <Fondos desde={0} hasta={2} />
-  <Escena desde={0} hasta={2} />
-  <Inicio />
-  <Carta />
-  <Contenido />
+  <Escena escena={0}>
+    <Inicio />
+  </Escena>
+  <Escena escena={1}>
+    <Carta />
+  </Escena>
+  <Escena escena={2}>
+    <Contenido />
+  </Escena>
 </Layout>

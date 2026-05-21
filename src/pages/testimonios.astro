@@ -1,25 +1,17 @@
 ---
 /**
- * PÁGINA TESTIMONIOS — Escena 8
+ * PÁGINA TESTIMONIOS — Escena 10
  *
- * Subpágina independiente con carrusel de testimonios.
+ * Carrusel de testimonios con 2 tarjetas visibles.
  */
 
 import Escena from "../components/Escena.astro";
-import Fondos from "../components/Fondos.astro";
 import SeccionTestimonios from "../components/Testimonios.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-  <style is:global>
-    :root {
-      --alto: calc(100vw * 0.5625 * 1);
-    }
-    html, body { overflow: hidden; height: 100%; }
-    .scene-wrapper { min-height: auto; height: var(--alto); }
-  </style>
-  <Fondos desde={10} hasta={10} />
-  <Escena desde={10} hasta={10} stagger={200} />
-  <SeccionTestimonios />
+<Layout scroll={false}>
+  <Escena escena={10} stagger={200}>
+    <SeccionTestimonios />
+  </Escena>
 </Layout>

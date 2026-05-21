@@ -2,32 +2,16 @@
 /**
  * PÁGINA LABORATORIO — Escena 14
  *
- * Subpágina para "Laboratorio de género y feminismos" dentro de Investigación.
- * Fondo: fondo-seccion-15
+ * Visor PDF y descripción del Laboratorio de género y feminismos.
  */
 
 import Escena from "../../components/Escena.astro";
-import Fondos from "../../components/Fondos.astro";
 import EscenaLaboratorio from "../../components/Laboratorio.astro";
 import Layout from "../../layouts/Layout.astro";
 ---
 
-<Layout>
-  <style is:global>
-    :root {
-      --alto: calc(100vw * 0.5625 * 1);
-    }
-    html,
-    body {
-      overflow: hidden;
-      height: 100%;
-    }
-    .scene-wrapper {
-      min-height: auto;
-      height: var(--alto);
-    }
-  </style>
-  <Fondos desde={14} hasta={14} />
-  <Escena desde={14} hasta={14} />
-  <EscenaLaboratorio />
+<Layout scroll={false}>
+  <Escena escena={14}>
+    <EscenaLaboratorio />
+  </Escena>
 </Layout>
