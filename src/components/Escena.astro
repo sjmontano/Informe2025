@@ -181,6 +181,11 @@ const APOYAMOS: Item[] = [
     z: 3,
   },
   {
+    src: HOJAS,
+    css: `top:${top(2, 0.4)}; left:22vw; width:15vw`,
+    alt: "Hojas decorativo",
+  },
+  {
     src: "/resources/gifs/gif-artesana-paujil-1.webp",
     css: `top:${top(2, 0.4)}; left:21vw; width:22vw`,
     alt: "Artesana, ilustración de Aquelarre",
@@ -357,6 +362,20 @@ const TESTIMONIOS: Item[] = [
   },
 ];
 
+// ─── 11 · INVESTIGACIÓN ─────────────────────────────────────────────
+const INVESTIGACION: Item[] = [
+  {
+    src: "/resources/contenedor/contenedor-letrero-3.webp",
+    css: `top:${top(11, 0.03)}; right:4vw; width:40vw; rotate: 5deg`,
+    alt: "Letrero Investigación",
+  },
+  {
+    src: "/resources/gifs/gif-artesanas-ensambladas.webp",
+    css: `top:${top(11, 0.3)}; left:10vw; width:50vw`,
+    alt: "Artesana, ilustración de Aquelarre",
+  },
+];
+
 // ─── 12 · ALIANZAS ──────────────────────────────────────────────────
 const ALIANZAS: Item[] = [
   {
@@ -371,27 +390,17 @@ const ALIANZAS: Item[] = [
   },
 ];
 
-// ─── 13 · INVESTIGACIÓN ─────────────────────────────────────────────
-const INVESTIGACION: Item[] = [
+// ─── 13 · DIPLOMADO ─────────────────────────────────────────────────
+const DIPLOMADO: Item[] = [
   {
     src: MARCO,
-    css: `top:${top(13, 0.085)}; right:3vw; width:30vw`,
+    css: `top:${top(13, 0.085)}; right:3vw; width:1vw`,
     alt: "Marco para diplomado",
-  },
-  {
-    src: "/resources/escenario/escenario-cactus-1.webp",
-    css: `top:${top(13, 0.68)}; left:1vw; width:12vw`,
-    alt: "Cactus",
-  },
-  {
-    src: "/resources/escenario/escenario-planta-1.webp",
-    css: `top:${top(13, 0.765)}; right:2vw; width:18vw`,
-    alt: "Planta",
   },
 ];
 
-// ─── 14 · PROYECCIÓN ────────────────────────────────────────────────
-const PROYECCION: Item[] = [
+// ─── 14 · LABORATORIO ────────────────────────────────────────────────
+const LABORATORIO: Item[] = [
   {
     src: MARCO,
     css: `top:${top(14, 0.085)}; left:5vw; width:40vw`,
@@ -433,7 +442,11 @@ const ALIADOS: Item[] = [
 ];
 ---
 
-<div class={`escena${stagger > 0 ? ' anim-entrada anim-entrada--fade' : ''}`} aria-hidden="true" data-anim-stagger={stagger}>
+<div
+  class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}
+  aria-hidden="true"
+  data-anim-stagger={stagger}
+>
   {
     enRango(0) &&
       PORTADA.map((e, i) => (
@@ -441,11 +454,11 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading={i === 0 ? "eager" : "lazy"}
           fetchpriority={i === 0 ? "high" : "auto"}
           decoding="async"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -457,9 +470,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -471,9 +484,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -485,9 +498,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -499,9 +512,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -513,9 +526,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -527,9 +540,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -541,9 +554,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -555,9 +568,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -565,7 +578,28 @@ const ALIADOS: Item[] = [
   {
     enRango(10) &&
       TESTIMONIOS.map((e) => (
-        <img class="escena__img" src={e.src} alt={e.alt} style={e.css + (e.z ? `; z-index: ${e.z}` : '')} loading="lazy" data-anim-item={e.anim ? '' : undefined} />
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+          data-anim-item={e.anim ? "" : undefined}
+        />
+      ))
+  }
+
+  {
+    enRango(11) &&
+      INVESTIGACION.map((e) => (
+        <img
+          class="escena__img"
+          src={e.src}
+          alt={e.alt}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
+          loading="lazy"
+          data-anim-item={e.anim ? "" : undefined}
+        />
       ))
   }
 
@@ -576,37 +610,37 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
 
   {
     enRango(13) &&
-      INVESTIGACION.map((e) => (
+      DIPLOMADO.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
 
   {
     enRango(14) &&
-      PROYECCION.map((e) => (
+      LABORATORIO.map((e) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -618,9 +652,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
@@ -632,9 +666,9 @@ const ALIADOS: Item[] = [
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : '')}
+          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
           loading="lazy"
-          data-anim-item={e.anim ? '' : undefined}
+          data-anim-item={e.anim ? "" : undefined}
         />
       ))
   }
