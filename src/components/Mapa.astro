@@ -1,0 +1,200 @@
+---
+/**
+ * Mapa.astro — Mapa interactivo de Colombia
+ *
+ * Props:
+ *   svgContent — string SVG crudo de mapa-colombia.svg
+ *   (usá import svgMap from "../assets/mapa-colombia.svg?raw")
+ *
+ * Los <path> del SVG deben tener atributo "name" con el
+ * nombre del departamento.
+ */
+
+export interface Props {
+  svgContent?: string;
+}
+
+const { svgContent } = Astro.props;
+
+const statsByDept = [
+  { name: "Amazonas", libertad: 0, autonomia: 0 },
+  { name: "Antioquia", libertad: 9, autonomia: 5 },
+  { name: "Arauca", libertad: 1, autonomia: 3 },
+  { name: "Atlántico", libertad: 3, autonomia: 1 },
+  { name: "Bolívar", libertad: 7, autonomia: 8 },
+  { name: "Boyacá", libertad: 3, autonomia: 3 },
+  { name: "Caldas", libertad: 1, autonomia: 1 },
+  { name: "Caquetá", libertad: 0, autonomia: 0 },
+  { name: "Casanare", libertad: 1, autonomia: 0 },
+  { name: "Cauca", libertad: 6, autonomia: 3 },
+  { name: "Cesar", libertad: 0, autonomia: 2 },
+  { name: "Chocó", libertad: 3, autonomia: 6 },
+  { name: "Córdoba", libertad: 1, autonomia: 2 },
+  { name: "Cundinamarca", libertad: 1, autonomia: 0 },
+  { name: "Guainía", libertad: 0, autonomia: 0 },
+  { name: "Guaviare", libertad: 0, autonomia: 0 },
+  { name: "Huila", libertad: 1, autonomia: 4 },
+  { name: "La Guajira", libertad: 0, autonomia: 2 },
+  { name: "Magdalena", libertad: 0, autonomia: 1 },
+  { name: "Meta", libertad: 0, autonomia: 1 },
+  { name: "Nariño", libertad: 4, autonomia: 3 },
+  { name: "Norte de Santander", libertad: 2, autonomia: 0 },
+  { name: "Putumayo", libertad: 4, autonomia: 1 },
+  { name: "Quindío", libertad: 3, autonomia: 0 },
+  { name: "Risaralda", libertad: 4, autonomia: 3 },
+  { name: "San Andrés y Providencia", libertad: 1, autonomia: 1 },
+  { name: "Santander", libertad: 5, autonomia: 2 },
+  { name: "Sucre", libertad: 3, autonomia: 0 },
+  { name: "Tolima", libertad: 2, autonomia: 3 },
+  { name: "Valle del Cauca", libertad: 5, autonomia: 9 },
+  { name: "Vaupés", libertad: 0, autonomia: 0 },
+  { name: "Vichada", libertad: 0, autonomia: 0 },
+];
+---
+
+<div class="mapa">
+  <div class="mapa__visor" id="mapa-visor">
+    {svgContent && <div set:html={svgContent} />}
+  </div>
+
+  <!-- Tooltips flotantes -->
+  <div class="mapa__tooltip mapa__tooltip--libertad" id="mapa-tooltip-libertad"></div>
+  <div class="mapa__tooltip mapa__tooltip--autonomia" id="mapa-tooltip-autonomia"></div>
+  <div class="mapa__tooltip mapa__tooltip--nombre" id="mapa-tooltip-nombre"></div>
+</div>
+
+<style>
+  .mapa {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mapa__visor {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── Estilos del SVG ─── */
+  .mapa__visor :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mapa__visor :global(svg path) {
+    fill: var(--mapa-base);
+    stroke: var(--oceano);
+    cursor: pointer;
+    transition: fill 0.2s ease;
+  }
+
+  .mapa__visor :global(svg path:hover) {
+    fill: var(--mapa-seleccionado);
+  }
+
+  /* ─── Tooltips flotantes ─── */
+  .mapa__tooltip {
+    position: fixed;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-family: var(--font-lato);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
+    color: var(--blanco);
+  }
+
+  .mapa__tooltip--libertad {
+    background: var(--arena);
+    color: var(--azul-noche);
+  }
+
+  .mapa__tooltip--autonomia {
+    background: var(--salmon);
+    color: var(--azul-noche);
+  }
+
+  .mapa__tooltip--nombre {
+    background: var(--azul-noche);
+  }
+</style>
+
+<script>
+  const statsByDept = [
+    { name: "Amazonas", libertad: 0, autonomia: 0 },
+    { name: "Antioquia", libertad: 9, autonomia: 5 },
+    { name: "Arauca", libertad: 1, autonomia: 3 },
+    { name: "Atlántico", libertad: 3, autonomia: 1 },
+    { name: "Bolívar", libertad: 7, autonomia: 8 },
+    { name: "Boyacá", libertad: 3, autonomia: 3 },
+    { name: "Caldas", libertad: 1, autonomia: 1 },
+    { name: "Caquetá", libertad: 0, autonomia: 0 },
+    { name: "Casanare", libertad: 1, autonomia: 0 },
+    { name: "Cauca", libertad: 6, autonomia: 3 },
+    { name: "Cesar", libertad: 0, autonomia: 2 },
+    { name: "Chocó", libertad: 3, autonomia: 6 },
+    { name: "Córdoba", libertad: 1, autonomia: 2 },
+    { name: "Cundinamarca", libertad: 1, autonomia: 0 },
+    { name: "Guainía", libertad: 0, autonomia: 0 },
+    { name: "Guaviare", libertad: 0, autonomia: 0 },
+    { name: "Huila", libertad: 1, autonomia: 4 },
+    { name: "La Guajira", libertad: 0, autonomia: 2 },
+    { name: "Magdalena", libertad: 0, autonomia: 1 },
+    { name: "Meta", libertad: 0, autonomia: 1 },
+    { name: "Nariño", libertad: 4, autonomia: 3 },
+    { name: "Norte de Santander", libertad: 2, autonomia: 0 },
+    { name: "Putumayo", libertad: 4, autonomia: 1 },
+    { name: "Quindío", libertad: 3, autonomia: 0 },
+    { name: "Risaralda", libertad: 4, autonomia: 3 },
+    { name: "San Andrés y Providencia", libertad: 1, autonomia: 1 },
+    { name: "Santander", libertad: 5, autonomia: 2 },
+    { name: "Sucre", libertad: 3, autonomia: 0 },
+    { name: "Tolima", libertad: 2, autonomia: 3 },
+    { name: "Valle del Cauca", libertad: 5, autonomia: 9 },
+    { name: "Vaupés", libertad: 0, autonomia: 0 },
+    { name: "Vichada", libertad: 0, autonomia: 0 },
+  ];
+
+  const tipLib = document.getElementById("mapa-tooltip-libertad");
+  const tipAuto = document.getElementById("mapa-tooltip-autonomia");
+  const tipNom = document.getElementById("mapa-tooltip-nombre");
+
+  const visor = document.getElementById("mapa-visor");
+  if (visor) {
+    const paths = visor.querySelectorAll("svg path[name]");
+
+    paths.forEach((path) => {
+    path.addEventListener("mousemove", (e) => {
+      if (tipLib) tipLib.style.display = "block";
+      if (tipAuto) tipAuto.style.display = "block";
+      if (tipNom) tipNom.style.display = "block";
+
+      const deptName = path.getAttribute("name");
+      const data = statsByDept.find((d) => d.name === deptName) ?? { libertad: 0, autonomia: 0 };
+
+      if (tipLib) {
+        tipLib.textContent = `${data.libertad} libre`;
+        tipLib.style.left = `${e.pageX - 50}px`;
+        tipLib.style.top = `${e.pageY - 50}px`;
+      }
+      if (tipAuto) {
+        tipAuto.textContent = `${data.autonomia} auto`;
+        tipAuto.style.left = `${e.pageX - 60}px`;
+        tipAuto.style.top = `${e.pageY - 20}px`;
+      }
+      if (tipNom) {
+        tipNom.textContent = deptName;
+        tipNom.style.left = `${e.pageX}px`;
+        tipNom.style.top = `${e.pageY + 25}px`;
+      }
+    });
+
+    path.addEventListener("mouseleave", () => {
+      if (tipLib) tipLib.style.display = "none";
+      if (tipAuto) tipAuto.style.display = "none";
+      if (tipNom) tipNom.style.display = "none";
+    });
+  });
+  }
+</script>

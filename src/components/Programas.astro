@@ -2,9 +2,18 @@
 /**
  * ESCENA 9 · PROGRAMAS
  *
- * Sección de Programas.
+ * Mapa interactivo de Colombia + dos bloques de estadísticas:
+ * Libertad y Democracia, y Autonomía, Derechos y Sostenibilidad.
  */
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import BotonVolver from "./BotonVolver.astro";
+import Mapa from "./Mapa.astro";
+
+const svgMap = readFileSync(
+  join(process.cwd(), "public", "resources", "mapa", "mapa-colombia.svg"),
+  "utf-8",
+);
 ---
 
 <section
@@ -14,6 +23,69 @@ import BotonVolver from "./BotonVolver.astro";
   <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
 
   <h1 class="programas__titulo" data-anim-item>Programas</h1>
+
+  <!-- MAPA INTERACTIVO DE COLOMBIA -->
+  <div class="programas__mapa">
+    <Mapa svgContent={svgMap} />
+  </div>
+
+  <!-- BLOQUE 1 · LIBERTAD Y DEMOCRACIA -->
+  <article class="programas__bloque programas__bloque--libertad" data-anim-item>
+    <div class="programas__circulo programas__circulo--libertad">
+      <img
+        src="/resources/escenario/escenario-conchas.webp"
+        alt=""
+        class="programas__icono"
+        width="48"
+        height="48"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="programas__info">
+      <h2 class="programas__subtitulo">Libertad y democracia</h2>
+      <p class="programas__texto">
+        Han sido tiempos en que la marea sube y las tormentas amenazan con
+        llevarse todo por delante, por eso la esperanza late de la mano de las
+        iniciativas que fortalecen la democracia a través de procesos que
+        abordan discursos y narrativas contra los fundamentalismos; la promoción
+        de la autonomía y el derecho al cuerpo; la defensa de los derechos de
+        las personas LBTIQ+; y de quienes construyen espacios que abrazan a las
+        familias amplias y diversas.
+      </p>
+      <span class="programas__cifra">88 propuestas</span>
+    </div>
+  </article>
+
+  <!-- BLOQUE 2 · AUTONOMÍA, DERECHOS Y SOSTENIBILIDAD -->
+  <article
+    class="programas__bloque programas__bloque--autonomia"
+    data-anim-item
+  >
+    <div class="programas__circulo programas__circulo--autonomia">
+      <img
+        src="/resources/escenario/escenario-caracol.webp"
+        alt=""
+        class="programas__icono"
+        width="48"
+        height="48"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="programas__info">
+      <h2 class="programas__subtitulo">Autonomía, derechos y sostenibilidad</h2>
+      <p class="programas__texto">
+        El mar con su riqueza e inmensidad nos enseñó la importancia de
+        fortalecer las colectividades en su sostenibilidad y autonomía para
+        navegar con firmeza, por eso navegamos junto a organizaciones que
+        transforman sus territorios para la construcción de paz, que le apuestan
+        a la defensa del territorio y la eliminación de cualquier tipo de
+        violencia.
+      </p>
+      <span class="programas__cifra">94 propuestas</span>
+    </div>
+  </article>
 </section>
 
 <style>
@@ -25,13 +97,111 @@ import BotonVolver from "./BotonVolver.astro";
 
   .programas__titulo {
     position: absolute;
-    top: calc(var(--alto) * 14 / 100);
-    left: 50%;
+    top: calc(var(--alto) * 18 / 100);
+    left: 54%;
     transform: translateX(-50%);
     font-family: var(--font-discordia);
     font-size: calc(var(--alto) * 5.4 / 100);
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
+  }
+
+  /* ─── Mapa ─── */
+
+  .programas__mapa {
+    position: absolute;
+    top: calc(var(--alto) * 30 / 100);
+    left: 8vw;
+    width: 38vw;
+    height: calc(var(--alto) * 50 / 100);
+  }
+
+  /* ─── Bloques ─── */
+
+  .programas__bloque {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--alto) * 1.5 / 100);
+    width: 42vw;
+  }
+
+  .programas__bloque--libertad {
+    top: calc(var(--alto) * 38 / 100);
+    right: 14vw;
+  }
+
+  .programas__bloque--autonomia {
+    top: calc(var(--alto) * 38 / 100);
+    right: -14vw;
+  }
+
+  /* ─── Estrella decorativa de 12 puntas ─── */
+
+  .programas__circulo {
+    flex-shrink: 0;
+    width: calc(var(--alto) * 8 / 100);
+    height: calc(var(--alto) * 8 / 100);
+    clip-path: polygon(50% 0%, 56% 20%, 78% 15%, 68% 35%, 95% 32%, 78% 50%, 95% 68%, 68% 65%, 78% 85%, 56% 80%, 50% 100%, 44% 80%, 22% 85%, 32% 65%, 5% 68%, 22% 50%, 5% 32%, 32% 35%, 22% 15%, 44% 20%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .programas__circulo--libertad {
+    background-color: var(--arena);
+  }
+
+  .programas__circulo--autonomia {
+    background-color: var(--salmon);
+  }
+
+  .programas__icono {
+    width: 55%;
+    height: 55%;
+    object-fit: contain;
+  }
+
+  /* ─── Info ─── */
+
+  .programas__info {
+    position: relative;
+    width: 45%;
+    height: calc(var(--alto) * 38 / 100);
+  }
+
+  .programas__subtitulo {
+    position: absolute;
+    top: 0;
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 3.2 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .programas__texto {
+    position: absolute;
+    top: calc(var(--alto) * 5.5 / 100);
+    height: calc(var(--alto) * 22 / 100);
+    overflow: hidden;
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2.4 / 100);
+    line-height: calc(var(--alto) * 2.8 / 100);
+    color: var(--azul-noche);
+    margin: 0;
+  }
+
+  .programas__cifra {
+    position: absolute;
+    bottom: 0;
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 2.8 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    display: inline-block;
+    text-align: center;
   }
 </style>
