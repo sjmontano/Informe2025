@@ -1,0 +1,70 @@
+---
+/**
+ * BotonVolver.astro — Botón de navegación hacia atrás
+ *
+ * Props:
+ *   href   — destino (ej. "/investigacion")
+ *   texto  — etiqueta (default "Volver")
+ *   top    — posición desde arriba como N en calc(var(--alto) * N / 100)
+ *   right  — posición desde la derecha
+ *   z      — z-index (default 3)
+ */
+
+export interface Props {
+  href: string;
+  texto?: string;
+  top?: number;
+  right?: number;
+  z?: number;
+}
+
+const { href, texto = "Volver", top = 14, right = 10, z = 3 } = Astro.props;
+---
+
+<a
+  class="boton-volver"
+  href={href}
+  style={`top: calc(var(--alto) * ${top} / 100); right: calc(var(--alto) * ${right} / 100); z-index: ${z}`}
+  data-anim-item
+>
+  <img
+    class="boton-volver__icono"
+    src="/resources/ui/regresar.webp"
+    alt=""
+    loading="lazy"
+    width="48"
+    height="48"
+  />
+  <span class="boton-volver__texto">{texto}</span>
+</a>
+
+<style>
+  .boton-volver {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--alto) * 1.7 / 100);
+    background-color: var(--oceano);
+    color: var(--arena);
+    text-decoration: none;
+    border-radius: var(--espacio-4xl);
+    padding: calc(var(--alto) * 0.7 / 100) calc(var(--alto) * 2 / 100);
+    transition: transform 0.2s ease;
+  }
+
+  .boton-volver:hover {
+    transform: scale(1.05);
+  }
+
+  .boton-volver__icono {
+    width: calc(var(--alto) * 4 / 100);
+    height: calc(var(--alto) * 4 / 100);
+    object-fit: contain;
+  }
+
+  .boton-volver__texto {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2.6 / 100);
+    font-weight: 700;
+  }
+</style>
