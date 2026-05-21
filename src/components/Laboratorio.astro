@@ -1,0 +1,193 @@
+---
+/**
+ * ESCENA 14 · LABORATORIO DE GÉNERO Y FEMINISMOS
+ *
+ * Visor PDF, texto descriptivo y botón de descarga + volver a Investigación.
+ * Abierto desde "Laboratorio de género y feminismos" en Investigacion.astro.
+ */
+---
+
+<section class="laboratorio anim-entrada anim-entrada--fade" data-anim-stagger="200">
+  <a class="laboratorio__volver" href="/investigacion" data-anim-item>
+    <img
+      class="laboratorio__volver-icono"
+      src="/resources/ui/regresar.webp"
+      alt="Volver a Investigación"
+      loading="lazy"
+    />
+    <span class="laboratorio__volver-texto">Investigación</span>
+  </a>
+
+  <div class="laboratorio__contenido">
+    <div class="laboratorio__visor" data-anim-item>
+      <embed
+        class="laboratorio__pdf"
+        src="/Silencios_2024.pdf"
+        type="application/pdf"
+        width="100%"
+        height="100%"
+      />
+      <button class="laboratorio__descargar" type="button">Descargar</button>
+    </div>
+
+    <div class="laboratorio__texto" data-anim-item>
+      <h1 class="laboratorio__titulo">
+        Puntos de partida.<br />
+        Hilando feminismos<br />
+        para quienes inician
+      </h1>
+      <h2 class="laboratorio__subtitulo">Laboratorio de género y feminismos</h2>
+      <p class="laboratorio__parrafo">
+        El laboratorio en feminismos fue un proceso formativo virtual abierto
+        a mujeres jóvenes que han empezado una exploración inicial en los
+        feminismos. Este tenía como objetivo que las jóvenes desarrollaran un
+        pensamiento y una práctica feminista amplia, diversa e incluyente,
+        mediante el diálogo y reflexión de referentes teóricos y prácticas
+        políticas que contrarrestan discursos y militancias esencialistas,
+        racistas y transexcluyentes.
+      </p>
+      <p class="laboratorio__parrafo">
+        El laboratorio habilitó un espacio seguro para la reflexión y el
+        debate sobre el sujeto político del feminismo y la
+        interseccionalidad; los feminismos antirracistas, transfeminismo y
+        feminismos trans-excluyentes; y los relevos generacionales y buenas
+        prácticas dentro de los activismos feministas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .laboratorio {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .laboratorio__volver {
+    position: absolute;
+    top: calc(var(--alto) * 3 / 100);
+    right: calc(var(--alto) * 6 / 100);
+    display: flex;
+    align-items: center;
+    gap: calc(var(--alto) * 1.7 / 100);
+    background-color: var(--oceano);
+    color: var(--arena);
+    text-decoration: none;
+    border-radius: var(--espacio-4xl);
+    padding: calc(var(--alto) * 0.7 / 100) calc(var(--alto) * 2 / 100);
+    transition: transform 0.2s ease;
+    z-index: 3;
+  }
+
+  .laboratorio__volver:hover {
+    transform: scale(1.05);
+  }
+
+  .laboratorio__volver-icono {
+    width: calc(var(--alto) * 4 / 100);
+    height: calc(var(--alto) * 4 / 100);
+    object-fit: contain;
+  }
+
+  .laboratorio__volver-texto {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 3.7 / 100);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .laboratorio__contenido {
+    position: absolute;
+    top: calc(var(--alto) * 18 / 100);
+    left: calc(var(--alto) * 5 / 100);
+    width: 90%;
+    display: flex;
+    gap: calc(var(--alto) * 6 / 100);
+  }
+
+  .laboratorio__visor {
+    position: relative;
+    width: 35%;
+    flex-shrink: 0;
+  }
+
+  .laboratorio__pdf {
+    width: 100%;
+    height: calc(var(--alto) * 34 / 100);
+    border: none;
+    background-color: var(--azul-noche);
+    border-radius: var(--espacio-lg);
+  }
+
+  .laboratorio__descargar {
+    position: absolute;
+    top: calc(var(--alto) * 31.5 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--arena);
+    color: var(--azul-noche);
+    border: none;
+    border-radius: var(--espacio-4xl);
+    padding: calc(var(--alto) * 0.8 / 100) calc(var(--alto) * 2.5 / 100);
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2.2 / 100);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 2;
+  }
+
+  .laboratorio__descargar:hover {
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  .laboratorio__descargar:active {
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  .laboratorio__texto {
+    flex: 1;
+    color: var(--azul-noche);
+  }
+
+  .laboratorio__titulo {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 4.9 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin-bottom: calc(var(--alto) * 1.7 / 100);
+  }
+
+  .laboratorio__subtitulo {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 2.6 / 100);
+    font-style: italic;
+    font-weight: 400;
+    background-color: var(--oceano);
+    color: var(--arena);
+    width: fit-content;
+    border-radius: var(--espacio-4xl);
+    padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 2 / 100);
+    margin-bottom: calc(var(--alto) * 2.6 / 100);
+  }
+
+  .laboratorio__parrafo {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2.4 / 100);
+    line-height: calc(var(--alto) * 3.2 / 100);
+    color: var(--azul-noche);
+    margin: 0 0 calc(var(--alto) * 2.6 / 100);
+  }
+</style>
+
+<script>
+  document.querySelector('.laboratorio__descargar')?.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.href = '/Silencios_2024.pdf';
+    link.download = 'Silencios_2024.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+</script>
