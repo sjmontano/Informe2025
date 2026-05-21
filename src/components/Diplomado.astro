@@ -1,0 +1,128 @@
+---
+/**
+ * ESCENA 13 · DIPLOMADO 3.0
+ *
+ * Título, subtítulo, texto descriptivo y botón de regreso a Investigación.
+ * Abierto desde "Diplomado 3.0" en Investigacion.astro.
+ */
+---
+
+<section
+  class="diplomado anim-entrada anim-entrada--fade"
+  data-anim-stagger="200"
+>
+  <a class="diplomado__volver" href="/investigacion" data-anim-item>
+    <img
+      class="diplomado__volver-icono"
+      src="/resources/ui/regresar.webp"
+      alt="Volver a Investigación"
+      loading="lazy"
+    />
+    <span class="diplomado__volver-texto">Investigación</span>
+  </a>
+
+  <div class="diplomado__contenido">
+    <div class="diplomado__texto" data-anim-item>
+      <h1 class="diplomado__titulo">
+        Investigar en tiempos de crisis.<br />
+        Un análisis desde las márgenes
+      </h1>
+      <h2 class="diplomado__subtitulo">Diplomado 3.0</h2>
+      <p class="diplomado__parrafo">
+        En esta tercera versión del diplomado, promovimos un ejercicio colectivo
+        de problematización y reflexión sobre el panorama internacional y
+        nacional, brindando herramientas para el análisis de los contextos,
+        problemas y las coyunturas político-sociales actuales. Esto habilitó en
+        las colectivas participantes reconocer que el mundo, la región y
+        Colombia están atravesadas por múltiples crisis y disputas geopolíticas
+        que representan retos estructurales cada vez más complejos para las
+        colectivas y organizaciones de mujeres y personas trans jóvenes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .diplomado {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .diplomado__volver {
+    position: absolute;
+    top: calc(var(--alto) * 14 / 100);
+    right: calc(var(--alto) * 10 / 100);
+    display: flex;
+    align-items: center;
+    gap: calc(var(--alto) * 1.7 / 100);
+    background-color: var(--oceano);
+    color: var(--arena);
+    text-decoration: none;
+    border-radius: var(--espacio-md);
+    padding: calc(var(--alto) * 0.7 / 100) calc(var(--alto) * 2 / 100);
+    transition: transform 0.2s ease;
+    z-index: 2;
+  }
+
+  .diplomado__volver:hover {
+    transform: scale(1.05);
+  }
+
+  .diplomado__volver-icono {
+    width: calc(var(--alto) * 4 / 100);
+    height: calc(var(--alto) * 4 / 100);
+    object-fit: contain;
+  }
+
+  .diplomado__volver-texto {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 2.6 / 100);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .diplomado__contenido {
+    position: absolute;
+    top: calc(var(--alto) * 20 / 100);
+    left: calc(var(--alto) * 50 / 100);
+    width: 60%;
+  }
+
+  .diplomado__texto {
+    color: var(--azul-noche);
+  }
+
+  .diplomado__titulo {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 4.5 / 100);
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin-bottom: calc(var(--alto) * 1.7 / 100);
+  }
+
+  .diplomado__subtitulo {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 2.6 / 100);
+    font-style: italic;
+    font-weight: 400;
+    background-color: var(--oceano);
+    color: var(--arena);
+    width: fit-content;
+    text-align: center;
+    border-radius: var(--espacio-4xl);
+    padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 4 / 100);
+    margin-bottom: calc(var(--alto) * 2.6 / 100);
+  }
+
+  .diplomado__parrafo {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2.4 / 100);
+    line-height: calc(var(--alto) * 2.8 / 100);
+    color: var(--azul-noche);
+    width: 66%;
+    margin: 0;
+    hyphens: none;
+  }
+</style>
