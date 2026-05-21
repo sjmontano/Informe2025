@@ -1,89 +1,86 @@
 ---
 /**
- * Fondos.astro — Capas de fondo del Informe de Gestión 2025
+ * Fondos.astro — Fondo ilustrado de una escena
  *
  * Props:
- *   desde  (default 0)  — primera sección a mostrar
- *   hasta  (default 16) — última sección a mostrar
+ *   escena — índice de la escena (0 a 16)
  *
- * Cada capa ocupa 1/N de la altura total (--alto).
- * El posicionamiento se recalcula automáticamente según el rango.
+ * Capa de fondo con LQIP + transición. Solo renderiza el fondo
+ * de la escena indicada. Debe estar dentro de un contenedor
+ * con position: relative y height: var(--alto).
  */
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 export interface Props {
-  desde?: number;
-  hasta?: number;
+  escena: number;
 }
 
-const { desde = 0, hasta = 16 } = Astro.props;
+const { escena } = Astro.props;
 
-const TOTAL_GLOBAL = 17;
 const SECCIONES = [
-  "Portada", "Carta", "Apoyamos",
+  "Portada",
+  "Carta",
+  "Apoyamos",
   "Programas — Libertad y Democracia",
   "Programas — Autonomía y Sostenibilidad",
-  "Fondo en Movimiento", "Investigación", "Diseño e ilustración",
-  "Testimonios", "Cuentas Claras", "Territorios",
-  "Detalle de programas", "Alianzas", "Investigación",
-  "Proyección", "Agradecimientos", "Cierre",
+  "Fondo en Movimiento",
+  "Investigación",
+  "Diseño e ilustración",
+  "Testimonios",
+  "Cuentas Claras",
+  "Territorios",
+  "Detalle de programas",
+  "Alianzas",
+  "Investigación",
+  "Proyección",
+  "Agradecimientos",
+  "Cierre",
 ] as const;
 
 const BASE = join(process.cwd(), "public", "resources", "fondos");
 
-const TOTAL = hasta - desde + 1;
-const ALTURA = 100 / TOTAL;
+const nro = String(escena + 1).padStart(2, "0");
+let lqip = "";
+try {
+  const buf = readFileSync(join(BASE, `fondo-seccion-${nro}-lqip.webp`));
+  lqip = `data:image/webp;base64,${buf.toString("base64")}`;
+} catch {
+  /* sin LQIP */
+}
 
-const FONDOS = Array.from({ length: TOTAL_GLOBAL }, (_, i) => {
-  const nro = String(i + 1).padStart(2, "0");
-  let lqip = "";
-  try {
-    const buf = readFileSync(join(BASE, `fondo-seccion-${nro}-lqip.webp`));
-    lqip = `data:image/webp;base64,${buf.toString("base64")}`;
-  } catch { /* sin LQIP */ }
-
-  return {
-    nro,
-    seccion: SECCIONES[i],
-    src: `/resources/fondos/fondo-seccion-${nro}.webp`,
-    srcSm: `/resources/fondos/fondo-seccion-${nro}-sm.webp`,
-    lqip,
-    alt: `${SECCIONES[i]}, ilustración de Aquelarre Laboratorio de Diseño Feminista`,
-  };
-});
-
-const visibles = FONDOS.slice(desde, hasta + 1).map((f, i) => ({
-  ...f,
-  top: i * ALTURA,
-  eager: i < 3,
-  esPrimero: i === 0,
-}));
+const fondo = {
+  nro,
+  seccion: SECCIONES[escena],
+  src: `/resources/fondos/fondo-seccion-${nro}.webp`,
+  srcSm: `/resources/fondos/fondo-seccion-${nro}-sm.webp`,
+  lqip,
+  alt: `${SECCIONES[escena]}, ilustración de Aquelarre Laboratorio de Diseño Feminista`,
+  eager: escena === 0,
+};
 ---
 
-<div class="fondos" aria-hidden="true" style={`--total: ${TOTAL}`}>
-  {visibles.map((f) => (
-    <div
-      class={`fondos__capa fondos__capa--${f.nro}`}
-      style={`top: ${f.top.toFixed(4)}%; height: ${ALTURA.toFixed(4)}%`}
-    >
-      {f.lqip && (
-        <div class="fondos__lqip" style={`background-image: url(${f.lqip})`} />
-      )}
-      <picture>
-        <source srcset={f.srcSm} media="(max-width: 640px)" />
-        <img
-          class="fondos__img"
-          src={f.src}
-          alt={f.alt}
-          loading={f.eager ? "eager" : "lazy"}
-          decoding="async"
-          fetchpriority={f.esPrimero ? "high" : "auto"}
-        />
-      </picture>
-    </div>
-  ))}
+<div class="fondos" aria-hidden="true">
+  {
+    fondo.lqip && (
+      <div
+        class="fondos__lqip"
+        style={`background-image: url(${fondo.lqip})`}
+      />
+    )
+  }
+  <picture>
+    <source srcset={fondo.srcSm} media="(max-width: 640px)" />
+    <img
+      class="fondos__img"
+      src={fondo.src}
+      alt={fondo.alt}
+      loading={fondo.eager ? "eager" : "lazy"}
+      decoding="async"
+      fetchpriority={fondo.eager ? "high" : "auto"}
+    />
+  </picture>
 </div>
 
 <script>
@@ -92,14 +89,20 @@ const visibles = FONDOS.slice(desde, hasta + 1).map((f, i) => ({
     const img = el;
     const revelar = () => {
       img.style.opacity = "1";
-      const lqip = img.closest(".fondos__capa")?.querySelector(".fondos__lqip");
+      const lqip = img.closest(".fondos")?.querySelector(".fondos__lqip");
       if (lqip instanceof HTMLElement) lqip.style.opacity = "0";
     };
     if (img.complete && img.naturalWidth > 0) {
       revelar();
     } else {
       img.addEventListener("load", revelar, { once: true });
-      img.addEventListener("error", () => { img.style.opacity = "1"; }, { once: true });
+      img.addEventListener(
+        "error",
+        () => {
+          img.style.opacity = "1";
+        },
+        { once: true },
+      );
     }
   });
 </script>
@@ -108,21 +111,14 @@ const visibles = FONDOS.slice(desde, hasta + 1).map((f, i) => ({
   .fondos {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: var(--alto);
-    overflow: hidden;
     z-index: -1;
+    overflow: hidden;
     pointer-events: none;
   }
 
-  .fondos__capa {
+  .fondos picture {
     position: absolute;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    user-select: none;
-    content-visibility: auto;
-    contain-intrinsic-size: auto calc(var(--alto) / 17);
+    inset: 0;
   }
 
   .fondos__lqip {
@@ -137,13 +133,12 @@ const visibles = FONDOS.slice(desde, hasta + 1).map((f, i) => ({
   }
 
   .fondos__img {
-    position: relative;
-    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     opacity: 0;
+    z-index: 1;
     transition: opacity 0.5s ease;
     will-change: opacity;
   }

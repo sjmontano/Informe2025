@@ -1,45 +1,30 @@
 ---
 /**
- * Escena.astro — Elementos decorativos por sección
+ * Escena.astro — Elementos decorativos de una escena
  *
  * Props:
- *   desde  (default 0)  — primera sección a mostrar
- *   hasta  (default 16) — última sección a mostrar
+ *   escena  — índice de la escena (0 a 16)
+ *   stagger — ms de retraso entre animaciones (0 = sin animación)
  *
- * Cada sección es un array plano. Agregar/borrar un elemento = una línea.
- * top(seccion, offset): calcula posición relativa a las secciones visibles.
- * Sección global s se convierte a índice local automáticamente.
+ * Contiene los 17 arrays de elementos decorativos.
+ * Agregar un elemento = una línea con: src, top (fracción 0-1),
+ * alt, y opcionalmente left, right, width, extra, z, anim.
+ * Debe estar dentro de un contenedor con position: relative y height: var(--alto).
  */
 
 export interface Props {
-  desde?: number;
-  hasta?: number;
+  escena: number;
   stagger?: number;
 }
 
-const { desde = 0, hasta = 16, stagger = 0 } = Astro.props;
-const TOTAL = hasta - desde + 1;
-const SEC = 100 / TOTAL;
-
-const top = (s: number, fraccion: number) => {
-  const local = s - desde;
-  return `calc(${((local + fraccion) * SEC).toFixed(4)} * var(--alto) / 100)`;
-};
-
-const enRango = (s: number) => s >= desde && s <= hasta;
-
-type Item = {
-  src: string;
-  css: string;
-  alt: string;
-  z?: number;
-  anim?: boolean;
-};
+// ─── Constantes de recursos ──────────────────────────────────────────
 
 const NUBE = "/resources/escenario/escenario-nube-rosa.webp";
 const ARBUSTO = "/resources/escenario/escenario-arbusto.webp";
 const ESTRELLA = "/resources/escenario/escenario-estrella-mar.webp";
 const CACTUS = "/resources/escenario/escenario-cactus.webp";
+const CACTUS_1 = "/resources/escenario/escenario-cactus-1.webp";
+const CACTUS_2 = "/resources/escenario/escenario-cactus-2.webp";
 const PIEDRAS = "/resources/escenario/escenario-piedras.webp";
 const CONCHAS = "/resources/escenario/escenario-conchas.webp";
 const PALMERAS = "/resources/escenario/escenario-palmeras.webp";
@@ -50,636 +35,475 @@ const LETRERO_GUION =
 const PALMERA = "/resources/escenario/escenario-palmera.webp";
 const HOJAS = "/resources/escenario/escenario-hojas.webp";
 
-// ─── 0 · PORTADA ────────────────────────────────────────────────────
-const PORTADA: Item[] = [
-  {
-    src: "/resources/marcas/marca-lunaria-alta-2023.webp",
-    css: `top:${top(0, 0.13)}; left:30vw; width:15vw`,
-    alt: "Fondo Lunaria, fondo feminista colombiano",
-  },
-  {
-    src: NUBE,
-    css: `top:${top(0, 0.12)}; left:-4vw; width:20vw`,
-    alt: "Nube rosa",
-  },
-  {
-    src: NUBE,
-    css: `top:${top(0, -0.13)}; left:15vw; width:25vw`,
-    alt: "Nube rosa",
-  },
-  {
-    src: NUBE,
-    css: `top:${top(0, 0.38)}; right:25vw; width:10vw`,
-    alt: "Nube rosa",
-  },
-  {
-    src: NUBE,
-    css: `top:${top(0, -0.03)}; right:-10vw; width:25vw`,
-    alt: "Nube rosa",
-  },
-  {
-    src: ESTRELLA,
-    css: `top:${top(0, 0.54)}; right:50vw; width:6vw`,
-    alt: "Estrella de mar",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-pescadores-ensamblado-3-1.webp",
-    css: `top:${top(0, 0.5)}; right:3vw; width:40vw`,
-    alt: "Pescadores, ilustración de Aquelarre",
-    z: 3,
-  },
+// ─── 17 escenas ──────────────────────────────────────────────────────
+
+const ESCENAS = [
+  /*  0 · PORTADA */
+  [
+    {
+      src: "/resources/marcas/marca-lunaria-alta-2023.webp",
+      top: 0.13,
+      left: "30vw",
+      width: "15vw",
+      alt: "Fondo Lunaria, fondo feminista colombiano",
+    },
+    { src: NUBE, top: 0.12, left: "-4vw", width: "20vw", alt: "Nube rosa" },
+    { src: NUBE, top: -0.13, left: "15vw", width: "25vw", alt: "Nube rosa" },
+    { src: NUBE, top: 0.38, right: "25vw", width: "10vw", alt: "Nube rosa" },
+    { src: NUBE, top: -0.03, right: "-10vw", width: "25vw", alt: "Nube rosa" },
+    {
+      src: ESTRELLA,
+      top: 0.54,
+      right: "50vw",
+      width: "6vw",
+      alt: "Estrella de mar",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-pescadores-ensamblado-3-1.webp",
+      top: 0.5,
+      right: "3vw",
+      width: "40vw",
+      alt: "Pescadores, ilustración de Aquelarre",
+      z: 3,
+    },
+  ],
+
+  /*  1 · CARTA */
+  [
+    {
+      src: "/resources/contenedor/contenedor-letrero-presentacion-1.webp",
+      top: 0.12,
+      left: "4vw",
+      width: "56vw",
+      alt: "Letrero de presentación",
+    },
+    { src: CACTUS, top: 0.725, left: "0.6vw", width: "18vw", alt: "Cactus" },
+    { src: PIEDRAS, top: 0.725, left: "44.4vw", width: "11vw", alt: "Piedras" },
+    { src: PALMERAS, top: 0.1, right: "-6vw", width: "45vw", alt: "Palmeras" },
+    { src: ARBUSTO, top: 0.735, left: "3.5vw", width: "12vw", alt: "Arbusto" },
+    {
+      src: ARBUSTO,
+      top: 0.62,
+      right: "4vw",
+      width: "12vw",
+      alt: "Arbusto",
+      extra: "transform: scaleX(-1)",
+    },
+    { src: ARBUSTO, top: 0.64, right: "11vw", width: "12vw", alt: "Arbusto" },
+    {
+      src: "/resources/escenario/escenario-caracol.webp",
+      top: 0.4,
+      right: "39.5vw",
+      width: "4vw",
+      alt: "Caracol",
+      extra: "transform: rotate(260deg)",
+      z: 3,
+    },
+    {
+      src: ESTRELLA,
+      top: 0.38,
+      right: "18.5vw",
+      width: "4vw",
+      alt: "Estrella de mar",
+      extra: "transform: rotate(-15deg)",
+      z: 3,
+    },
+    {
+      src: CONCHAS,
+      top: 0.38,
+      right: "28.5vw",
+      width: "4vw",
+      alt: "Conchas",
+      extra: "transform: rotate(-15deg)",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-iguana-vendedora.webp",
+      top: 0.5,
+      right: "12vw",
+      width: "35vw",
+      alt: "Vendedor de coco, ilustración de Aquelarre",
+      z: 3,
+    },
+  ],
+
+  /*  2 · APOYAMOS */
+  [
+    {
+      src: "/resources/gifs/gif-vendedor-jugos-ensamblado-2.webp",
+      top: 0.37,
+      left: "37vw",
+      width: "35vw",
+      alt: "Vendedor de jugos, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-canoa-2-ensamblado.webp",
+      top: 0.56,
+      left: "29.5vw",
+      width: "40vw",
+      alt: "Canoa, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-cangrejo-guitarrista-2.webp",
+      top: 0.2,
+      right: "20vw",
+      width: "14vw",
+      alt: "Músicos, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-langosta-bongoes.webp",
+      top: 0.25,
+      right: "27vw",
+      width: "15vw",
+      alt: "Langosta bongoes, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: HOJAS,
+      top: 0.4,
+      left: "22vw",
+      width: "15vw",
+      alt: "Hojas decorativo",
+    },
+    {
+      src: "/resources/gifs/gif-artesana-paujil-1.webp",
+      top: 0.4,
+      left: "21vw",
+      width: "22vw",
+      alt: "Artesana, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-pez-nadador-ensamblado-1.webp",
+      top: 0.67,
+      right: "6.5vw",
+      width: "25vw",
+      alt: "Pez nadador, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-medusa-ensamblada.webp",
+      top: 0.52,
+      right: "14vw",
+      width: "20vw",
+      alt: "Medusa, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-flamenco-ensamblado.webp",
+      top: 0.5,
+      left: "8vw",
+      width: "20vw",
+      alt: "Flamenco, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: "/resources/gifs/gif-lagartija.webp",
+      top: 0.32,
+      right: "5vw",
+      width: "20vw",
+      alt: "Lagartija, ilustración de Aquelarre",
+      z: 3,
+    },
+    {
+      src: ARBUSTO,
+      top: 0.75,
+      left: "8vw",
+      width: "12vw",
+      alt: "Arbusto decorativo",
+      z: 4,
+    },
+    {
+      src: PALMERA,
+      top: 0.06,
+      right: "-17vw",
+      width: "32vw",
+      alt: "Palmera, ilustración de Aquelarre",
+      extra: "transform: scaleX(-1)",
+    },
+    {
+      src: PALMERA,
+      top: 0.08,
+      left: "20vw",
+      width: "35vw",
+      alt: "Palmera, ilustración de Aquelarre",
+    },
+  ],
+
+  /*  3 · LIBERTAD Y DEMOCRACIA */
+  [
+    {
+      src: LETRERO,
+      top: 0.085,
+      left: "5vw",
+      width: "40vw",
+      alt: "Letrero Libertad y Democracia",
+    },
+    {
+      src: "/resources/escenario/escenario-silla.webp",
+      top: 0.51,
+      right: "3vw",
+      width: "15vw",
+      alt: "Silla",
+    },
+    { src: CACTUS, top: 0.68, left: "1vw", width: "15vw", alt: "Cactus" },
+    { src: PIEDRAS, top: 0.85, left: "60vw", width: "10vw", alt: "Piedras" },
+  ],
+
+  /*  4 · AUTONOMÍA Y SOSTENIBILIDAD */
+  [
+    {
+      src: LETRERO_GUION,
+      top: 0,
+      left: "0vw",
+      width: "80vw",
+      alt: "Letrero cifras",
+    },
+    {
+      src: LETRERO_GUION,
+      top: 0,
+      left: "50vw",
+      width: "46vw",
+      alt: "Letrero estadísticas",
+    },
+    {
+      src: "/resources/gifs/gif-canoas-ensamblado-2.webp",
+      top: 0.17,
+      left: "30vw",
+      width: "40vw",
+      alt: "Canoas, ilustración de Aquelarre",
+    },
+    {
+      src: ESTRELLA,
+      top: 0.68,
+      right: "5vw",
+      width: "5vw",
+      alt: "Estrella de mar",
+    },
+  ],
+
+  /*  5 · FONDO EN MOVIMIENTO */
+  [
+    {
+      src: LETRERO,
+      top: 0.051,
+      left: "3vw",
+      width: "35vw",
+      alt: "Letrero Fondo en Movimiento",
+    },
+    {
+      src: "/resources/gifs/gif-leona-marina-ensamblado.webp",
+      top: 0.17,
+      left: "40vw",
+      width: "35vw",
+      alt: "Leona marina, ilustración de Aquelarre",
+    },
+  ],
+
+  /*  6 · (sin elementos decorativos) */
+  [],
+
+  /*  7 · DISEÑO E ILUSTRACIÓN */
+  [
+    {
+      src: MARCO,
+      top: 0.17,
+      left: "15vw",
+      width: "70vw",
+      alt: "Marco para video",
+    },
+  ],
+
+  /*  8 · TERRITORIOS */
+  [
+    {
+      src: MARCO,
+      top: 0.085,
+      left: "10vw",
+      width: "35vw",
+      alt: "Marco para testimonios",
+    },
+  ],
+
+  /*  9 · CUENTAS CLARAS */
+  [
+    { src: CACTUS, top: 0.085, left: "1vw", width: "12vw", alt: "Cactus" },
+    { src: ARBUSTO, top: 0.17, right: "2vw", width: "10vw", alt: "Arbusto" },
+    { src: CONCHAS, top: 0.51, right: "5vw", width: "6vw", alt: "Conchas" },
+  ],
+
+  /* 10 · TESTIMONIOS */
+  [
+    {
+      src: "/resources/contenedor/contenedor-letrero.webp",
+      top: -0.15,
+      left: "32vw",
+      width: "35vw",
+      alt: "Marco para testimonios",
+      anim: true,
+    },
+    {
+      src: HOJAS,
+      top: 0.55,
+      right: "0vw",
+      width: "15vw",
+      alt: "Marco para testimonios",
+      extra: "rotate: 15deg",
+    },
+    {
+      src: ARBUSTO,
+      top: 0.71,
+      right: "12vw",
+      width: "10vw",
+      alt: "Marco para testimonios",
+    },
+    {
+      src: PIEDRAS,
+      top: 0.62,
+      right: "4vw",
+      width: "15vw",
+      alt: "Marco para testimonios",
+    },
+    {
+      src: ARBUSTO,
+      top: 0.71,
+      right: "2vw",
+      width: "10vw",
+      alt: "Marco para testimonios",
+    },
+  ],
+
+  /* 11 · INVESTIGACIÓN */
+  [
+    {
+      src: "/resources/contenedor/contenedor-letrero-3.webp",
+      top: 0.03,
+      right: "4vw",
+      width: "40vw",
+      alt: "Letrero Investigación",
+      extra: "rotate: 5deg",
+    },
+    {
+      src: "/resources/gifs/gif-artesanas-ensambladas.webp",
+      top: 0.3,
+      left: "10vw",
+      width: "50vw",
+      alt: "Artesana, ilustración de Aquelarre",
+    },
+  ],
+
+  /* 12 · ALIANZAS */
+  [
+    {
+      src: "/resources/contenedor/contenedor-letrero.webp",
+      top: 0.051,
+      left: "3vw",
+      width: "35vw",
+      alt: "Letrero Alianzas",
+    },
+    {
+      src: "/resources/gifs/gif-pescador-ensamblado.webp",
+      top: 0.34,
+      left: "10vw",
+      width: "40vw",
+      alt: "Pescador, ilustración de Aquelarre",
+    },
+  ],
+
+  /* 13 · DIPLOMADO */
+  [
+    {
+      src: "/resources/contenedor/contenedor-conta-fotos.webp",
+      top: 0,
+      left: "0vw",
+      width: "40vw",
+      alt: "Carrusel de fotos",
+    },
+    { src: CACTUS, top: 0.4, right: "-6.5vw", width: "18vw", alt: "Marco" },
+    { src: CACTUS_2, top: 0.5, right: "5vw", width: "20vw", alt: "Marco" },
+    { src: CACTUS_1, top: 0.6, right: "0vw", width: "18vw", alt: "Marco" },
+  ],
+
+  /* 14 · LABORATORIO */
+  [
+    { src: CACTUS, top: 0.68, left: "1vw", width: "12vw", alt: "Cactus" },
+    { src: PIEDRAS, top: 0.765, right: "3vw", width: "10vw", alt: "Piedras" },
+  ],
+
+  /* 15 · AGRADECIMIENTOS */
+  [
+    {
+      src: "/resources/gifs/gif-pescador-ensamblado.webp",
+      top: 0.17,
+      right: "5vw",
+      width: "25vw",
+      alt: "Pescador, ilustración de Aquelarre",
+    },
+    {
+      src: ESTRELLA,
+      top: 0.68,
+      left: "5vw",
+      width: "5vw",
+      alt: "Estrella de mar",
+    },
+  ],
+
+  /* 16 · ALIADOS */
+  [{ src: NUBE, top: 0, left: "72vw", width: "35vw", alt: "Nube rosa" }],
 ];
 
-// ─── 1 · CARTA ──────────────────────────────────────────────────────
-const CARTA: Item[] = [
-  {
-    src: "/resources/contenedor/contenedor-letrero-presentacion-1.webp",
-    css: `top:${top(1, 0.12)}; left:4vw; width:56vw`,
-    alt: "Letrero de presentación",
-  },
-  {
-    src: CACTUS,
-    css: `top:${top(1, 0.36)}; left:0.6vw; width:18vw`,
-    alt: "Cactus",
-  },
-  {
-    src: PIEDRAS,
-    css: `top:${top(1, 0.725)}; left:44.4vw; width:11vw`,
-    alt: "Piedras",
-  },
-  {
-    src: PALMERAS,
-    css: `top:${top(1, 0.1)}; right:-6vw; width:45vw`,
-    alt: "Palmeras",
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(1, 0.735)}; left:3.5vw; width:12vw`,
-    alt: "Arbusto",
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(1, 0.62)}; right:4vw; width:12vw; transform:scaleX(-1)`,
-    alt: "Arbusto",
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(1, 0.64)}; right:11vw; width:12vw`,
-    alt: "Arbusto",
-  },
-  {
-    src: "/resources/escenario/escenario-caracol.webp",
-    css: `top:${top(1, 0.4)}; right:39.5vw; width:4vw; transform: rotate(260deg)`,
-    alt: "Caracol",
-    z: 3,
-  },
-  {
-    src: ESTRELLA,
-    css: `top:${top(1, 0.38)}; right:18.5vw; width:4vw; transform: rotate(-15deg)`,
-    alt: "Estrella de mar",
-    z: 3,
-  },
-  {
-    src: CONCHAS,
-    css: `top:${top(1, 0.38)}; right:28.5vw; width:4vw; transform: rotate(-15deg);`,
-    alt: "Conchas",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-iguana-vendedora.webp",
-    css: `top:${top(1, 0.5)}; right:12vw; width:35vw`,
-    alt: "Vendedor de coco, ilustración de Aquelarre",
-    z: 3,
-  },
-];
+import { css } from "../utils/escena.js";
+import Fondos from "./Fondos.astro";
 
-// ─── 2 · APOYAMOS ───────────────────────────────────────────────────
-const APOYAMOS: Item[] = [
-  {
-    src: "/resources/gifs/gif-vendedor-jugos-ensamblado-2.webp",
-    css: `top:${top(2, 0.37)}; left:37vw; width:35vw`,
-    alt: "Vendedor de jugos, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-canoa-2-ensamblado.webp",
-    css: `top:${top(2, 0.56)}; left:29.5vw; width:40vw`,
-    alt: "Canoa, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-cangrejo-guitarrista-2.webp",
-    css: `top:${top(2, 0.2)}; right:20vw; width:14vw`,
-    alt: "Músicos, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-langosta-bongoes.webp",
-    css: `top:${top(2, 0.25)}; right:27vw; width:15vw`,
-    alt: "Langosta bongoes, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: HOJAS,
-    css: `top:${top(2, 0.4)}; left:22vw; width:15vw`,
-    alt: "Hojas decorativo",
-  },
-  {
-    src: "/resources/gifs/gif-artesana-paujil-1.webp",
-    css: `top:${top(2, 0.4)}; left:21vw; width:22vw`,
-    alt: "Artesana, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-pez-nadador-ensamblado-1.webp",
-    css: `top:${top(2, 0.67)}; right:6.5vw; width:25vw`,
-    alt: "Pez nadador, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-medusa-ensamblada.webp",
-    css: `top:${top(2, 0.52)}; right:14vw; width:20vw`,
-    alt: "Medusa, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-flamenco-ensamblado.webp",
-    css: `top:${top(2, 0.5)}; left:8vw; width:20vw`,
-    alt: "Flamenco, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: "/resources/gifs/gif-lagartija.webp",
-    css: `top:${top(2, 0.32)}; right:5vw; width:20vw`,
-    alt: "Lagartija, ilustración de Aquelarre",
-    z: 3,
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(2, 0.75)}; left:8vw; width:12vw`,
-    alt: "Arbusto decorativo",
-    z: 4,
-  },
-  {
-    src: PALMERA,
-    css: `top:${top(2, 0.06)}; right:-17vw; width:32vw; transform: scaleX(-1)`,
-    alt: "Palmera, ilustración de Aquelarre",
-  },
-  {
-    src: PALMERA,
-    css: `top:${top(2, 0.08)}; left:20vw; width:35vw;`,
-    alt: "Palmera, ilustración de Aquelarre",
-  },
-];
+// ─── Lógica ──────────────────────────────────────────────────────────
 
-// ─── 3 · LIBERTAD Y DEMOCRACIA ─────────────────────────────────────
-const LIBERTAD: Item[] = [
-  {
-    src: LETRERO,
-    css: `top:${top(3, 0.085)}; left:5vw; width:40vw`,
-    alt: "Letrero Libertad y Democracia",
-  },
-  {
-    src: "/resources/escenario/escenario-silla.webp",
-    css: `top:${top(3, 0.51)}; right:3vw; width:15vw`,
-    alt: "Silla",
-  },
-  {
-    src: CACTUS,
-    css: `top:${top(3, 0.68)}; left:1vw; width:15vw`,
-    alt: "Cactus",
-  },
-  {
-    src: PIEDRAS,
-    css: `top:${top(3, 0.85)}; left:60vw; width:10vw`,
-    alt: "Piedras",
-  },
-];
-
-// ─── 4 · AUTONOMÍA Y SOSTENIBILIDAD ────────────────────────────────
-const AUTONOMIA: Item[] = [
-  {
-    src: LETRERO_GUION,
-    css: `top:${top(4, 0.0)}; left:0vw; width:80vw`,
-    alt: "Letrero cifras",
-  },
-  {
-    src: LETRERO_GUION,
-    css: `top:${top(4, 0.0)}; left:50vw; width:46vw`,
-    alt: "Letrero estadísticas",
-  },
-  {
-    src: "/resources/gifs/gif-canoas-ensamblado-2.webp",
-    css: `top:${top(4, 0.17)}; left:30vw; width:40vw`,
-    alt: "Canoas, ilustración de Aquelarre",
-  },
-  {
-    src: ESTRELLA,
-    css: `top:${top(4, 0.68)}; right:5vw; width:5vw`,
-    alt: "Estrella de mar",
-  },
-];
-
-// ─── 5 · FONDO EN MOVIMIENTO ────────────────────────────────────────
-const FONDO_MOVIMIENTO: Item[] = [
-  {
-    src: LETRERO,
-    css: `top:${top(5, 0.051)}; left:3vw; width:35vw`,
-    alt: "Letrero Fondo en Movimiento",
-  },
-  {
-    src: "/resources/gifs/gif-leona-marina-ensamblado.webp",
-    css: `top:${top(5, 0.17)}; left:40vw; width:35vw`,
-    alt: "Leona marina, ilustración de Aquelarre",
-  },
-];
-
-// ─── 7 · DISEÑO E ILUSTRACIÓN ───────────────────────────────────────
-const DISENO: Item[] = [
-  {
-    src: MARCO,
-    css: `top:${top(7, 0.17)}; left:15vw; width:70vw`,
-    alt: "Marco para video",
-  },
-];
-
-// ─── 8 · TERRITORIOS ───────────────────────────────────────────────
-const TERRITORIOS: Item[] = [
-  {
-    src: MARCO,
-    css: `top:${top(8, 0.085)}; left:10vw; width:35vw`,
-    alt: "Marco para testimonios",
-  },
-];
-
-// ─── 9 · CUENTAS CLARAS ─────────────────────────────────────────────
-const CUENTAS_CLARAS: Item[] = [
-  {
-    src: CACTUS,
-    css: `top:${top(9, 0.085)}; left:1vw; width:12vw`,
-    alt: "Cactus",
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(9, 0.17)}; right:2vw; width:10vw`,
-    alt: "Arbusto",
-  },
-  {
-    src: CONCHAS,
-    css: `top:${top(9, 0.51)}; right:5vw; width:6vw`,
-    alt: "Conchas",
-  },
-];
-
-// ─── 10 · TESTIMONIOS ────────────────────────────────────────────────
-const TESTIMONIOS: Item[] = [
-  {
-    src: "/resources/contenedor/contenedor-letrero.webp",
-    css: `top:${top(10, -0.15)}; left:32vw; width:35vw`,
-    alt: "Marco para testimonios",
-    anim: true,
-  },
-  {
-    src: HOJAS,
-    css: `top:${top(10, 0.55)}; right:0vw; width:15vw; rotate: 15deg`,
-    alt: "Marco para testimonios",
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(10, 0.71)}; right:12vw; width:10vw`,
-    alt: "Marco para testimonios",
-  },
-  {
-    src: PIEDRAS,
-    css: `top:${top(10, 0.62)}; right:4vw; width:15vw`,
-    alt: "Marco para testimonios",
-  },
-  {
-    src: ARBUSTO,
-    css: `top:${top(10, 0.71)}; right:2vw; width:10vw`,
-    alt: "Marco para testimonios",
-  },
-];
-
-// ─── 11 · INVESTIGACIÓN ─────────────────────────────────────────────
-const INVESTIGACION: Item[] = [
-  {
-    src: "/resources/contenedor/contenedor-letrero-3.webp",
-    css: `top:${top(11, 0.03)}; right:4vw; width:40vw; rotate: 5deg`,
-    alt: "Letrero Investigación",
-  },
-  {
-    src: "/resources/gifs/gif-artesanas-ensambladas.webp",
-    css: `top:${top(11, 0.3)}; left:10vw; width:50vw`,
-    alt: "Artesana, ilustración de Aquelarre",
-  },
-];
-
-// ─── 12 · ALIANZAS ──────────────────────────────────────────────────
-const ALIANZAS: Item[] = [
-  {
-    src: "/resources/contenedor/contenedor-letrero.webp",
-    css: `top:${top(12, 0.051)}; left:3vw; width:35vw`,
-    alt: "Letrero Alianzas",
-  },
-  {
-    src: "/resources/gifs/gif-pescador-ensamblado.webp",
-    css: `top:${top(12, 0.34)}; left:10vw; width:40vw`,
-    alt: "Pescador, ilustración de Aquelarre",
-  },
-];
-
-// ─── 13 · DIPLOMADO ─────────────────────────────────────────────────
-const DIPLOMADO: Item[] = [
-  {
-    src: MARCO,
-    css: `top:${top(13, 0.085)}; right:3vw; width:1vw`,
-    alt: "Marco para diplomado",
-  },
-];
-
-// ─── 14 · LABORATORIO ────────────────────────────────────────────────
-const LABORATORIO: Item[] = [
-  {
-    src: MARCO,
-    css: `top:${top(14, 0.085)}; left:5vw; width:40vw`,
-    alt: "Marco",
-  },
-  {
-    src: CACTUS,
-    css: `top:${top(14, 0.68)}; left:1vw; width:12vw`,
-    alt: "Cactus",
-  },
-  {
-    src: PIEDRAS,
-    css: `top:${top(14, 0.765)}; right:3vw; width:10vw`,
-    alt: "Piedras",
-  },
-];
-
-// ─── 15 · AGRADECIMIENTOS ───────────────────────────────────────────
-const AGRADECIMIENTOS: Item[] = [
-  {
-    src: "/resources/gifs/gif-pescador-ensamblado.webp",
-    css: `top:${top(15, 0.17)}; right:5vw; width:25vw`,
-    alt: "Pescador, ilustración de Aquelarre",
-  },
-  {
-    src: ESTRELLA,
-    css: `top:${top(15, 0.68)}; left:5vw; width:5vw`,
-    alt: "Estrella de mar",
-  },
-];
-
-// ─── 16 · ALIADOS ────────────────────────────────────────────────────
-const ALIADOS: Item[] = [
-  {
-    src: NUBE,
-    css: `top:${top(16, 0.0)}; left:72vw; width:35vw`,
-    alt: "Nube rosa",
-  },
-];
+const { escena, stagger = 0 } = Astro.props;
+const elementos = ESCENAS[escena] || [];
 ---
 
-<div
-  class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}
-  aria-hidden="true"
-  data-anim-stagger={stagger}
->
-  {
-    enRango(0) &&
-      PORTADA.map((e, i) => (
+<div class="escena-wrapper">
+  <Fondos escena={escena} />
+
+  <div
+    class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}
+    aria-hidden="true"
+    data-anim-stagger={stagger}
+  >
+    {
+      elementos.map((e, i) => (
         <img
           class="escena__img"
           src={e.src}
           alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading={i === 0 ? "eager" : "lazy"}
-          fetchpriority={i === 0 ? "high" : "auto"}
+          style={css(e)}
+          loading={i === 0 && escena === 0 ? "eager" : "lazy"}
+          fetchpriority={i === 0 && escena === 0 ? "high" : "auto"}
           decoding="async"
-          data-anim-item={e.anim ? "" : undefined}
+          data-anim-item={"anim" in e && e.anim ? "" : undefined}
         />
       ))
-  }
+    }
+  </div>
 
-  {
-    enRango(1) &&
-      CARTA.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(2) &&
-      APOYAMOS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(3) &&
-      LIBERTAD.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(4) &&
-      AUTONOMIA.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(5) &&
-      FONDO_MOVIMIENTO.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(7) &&
-      DISENO.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(8) &&
-      TERRITORIOS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(9) &&
-      CUENTAS_CLARAS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(10) &&
-      TESTIMONIOS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(11) &&
-      INVESTIGACION.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(12) &&
-      ALIANZAS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(13) &&
-      DIPLOMADO.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(14) &&
-      LABORATORIO.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(15) &&
-      AGRADECIMIENTOS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
-
-  {
-    enRango(16) &&
-      ALIADOS.map((e) => (
-        <img
-          class="escena__img"
-          src={e.src}
-          alt={e.alt}
-          style={e.css + (e.z ? `; z-index: ${e.z}` : "")}
-          loading="lazy"
-          data-anim-item={e.anim ? "" : undefined}
-        />
-      ))
-  }
+  <slot />
 </div>
 
 <style>
+  .escena-wrapper {
+    position: relative;
+    height: var(--alto);
+    overflow: hidden;
+  }
+
   .escena {
     position: absolute;
     inset: 0;
     width: 100%;
-    height: var(--alto);
+    height: 100%;
     overflow: hidden;
     pointer-events: none;
   }
