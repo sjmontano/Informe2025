@@ -111,9 +111,9 @@ const svgMap = readFileSync(
 
   .programas__mapa {
     position: absolute;
-    top: calc(var(--alto) * 30 / 100);
-    left: 8vw;
-    width: 38vw;
+    top: calc(var(--alto) * 5 / 100);
+    left:-1vw;
+    width: 43vw;
     height: calc(var(--alto) * 50 / 100);
   }
 
@@ -123,27 +123,52 @@ const svgMap = readFileSync(
     position: absolute;
     display: flex;
     align-items: flex-start;
-    gap: calc(var(--alto) * 1.5 / 100);
-    width: 42vw;
+    gap: calc(var(--alto) * 0.8 / 100);
+    width: 40vw;
   }
 
   .programas__bloque--libertad {
     top: calc(var(--alto) * 38 / 100);
-    right: 14vw;
+    right: 14.5vw;
   }
 
   .programas__bloque--autonomia {
     top: calc(var(--alto) * 38 / 100);
-    right: -14vw;
+    right: -12.5vw;
   }
 
   /* ─── Estrella decorativa de 12 puntas ─── */
 
   .programas__circulo {
     flex-shrink: 0;
-    width: calc(var(--alto) * 8 / 100);
-    height: calc(var(--alto) * 8 / 100);
-    clip-path: polygon(50% 0%, 56% 20%, 78% 15%, 68% 35%, 95% 32%, 78% 50%, 95% 68%, 68% 65%, 78% 85%, 56% 80%, 50% 100%, 44% 80%, 22% 85%, 32% 65%, 5% 68%, 22% 50%, 5% 32%, 32% 35%, 22% 15%, 44% 20%);
+    width: calc(var(--alto) * 6.5 / 100);
+    height: calc(var(--alto) * 6.5 / 100);
+    clip-path: polygon(
+      50% 0%,
+      60% 10%,
+      75% 5%,
+      80% 20%,
+      95% 25%,
+      90% 40%,
+      100% 50%,
+      90% 60%,
+      95% 75%,
+      80% 80%,
+      75% 95%,
+      60% 90%,
+      50% 100%,
+      40% 90%,
+      25% 95%,
+      20% 80%,
+      5% 75%,
+      10% 60%,
+      0% 50%,
+      10% 40%,
+      5% 25%,
+      20% 20%,
+      25% 5%,
+      40% 10%
+    );
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,8 +183,8 @@ const svgMap = readFileSync(
   }
 
   .programas__icono {
-    width: 55%;
-    height: 55%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
   }
 
@@ -168,7 +193,7 @@ const svgMap = readFileSync(
   .programas__info {
     position: relative;
     width: 45%;
-    height: calc(var(--alto) * 38 / 100);
+    height: calc(var(--alto) * 45 / 100);
   }
 
   .programas__subtitulo {
@@ -184,12 +209,12 @@ const svgMap = readFileSync(
 
   .programas__texto {
     position: absolute;
-    top: calc(var(--alto) * 5.5 / 100);
-    height: calc(var(--alto) * 22 / 100);
+    top: calc(var(--alto) * 8.5 / 100);
+    height: calc(var(--alto) * 40 / 100);
     overflow: hidden;
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.4 / 100);
-    line-height: calc(var(--alto) * 2.8 / 100);
+    font-size: calc(var(--alto) * 2.2 / 100);
+    line-height: calc(var(--alto) * 2.4 / 100);
     color: var(--azul-noche);
     margin: 0;
   }

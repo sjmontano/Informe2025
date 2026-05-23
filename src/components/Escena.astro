@@ -248,22 +248,31 @@ const ESCENAS = [
 
   /*  3 · NARRARNOS */
   [
-    {
-      src: LETRERO,
-      top: 0.085,
-      left: "5vw",
-      width: "40vw",
-      alt: "Letrero Libertad y Democracia",
-    },
+        { src: CACTUS_1, top: 0.45, right: "21.7vw", width: "10.5vw", alt: "Cactus" },
+        { src: CACTUS, top: 0.33, right: "18.8vw", width: "11vw", alt: "Cactus" },
+        
     {
       src: "/resources/escenario/escenario-silla.webp",
-      top: 0.51,
-      right: "3vw",
-      width: "15vw",
+      top: 0.39,
+      right: "5vw",
+      width: "24vw",
+      extra: "transform: scaleX(-1)",
       alt: "Silla",
     },
-    { src: CACTUS, top: 0.68, left: "1vw", width: "15vw", alt: "Cactus" },
-    { src: PIEDRAS, top: 0.85, left: "60vw", width: "10vw", alt: "Piedras" },
+   
+        {
+      src: "/resources/contenedor/contenedor-letrero-guion-bajo.webp",
+      top: 0.15,
+      right: "25vw",
+      width: "45vw",
+      alt: "Silla",
+    },
+    { src: PALMERAS, top: 0.22, right: "-8.5vw", width: "25vw", extra: "transform: scaleX(-1)", alt: "Palmeras" },
+    { src: ARBUSTO, top: 0.50, right: "0.7vw", width: "8vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.73, left: "33vw", width: "10.5vw", alt: "Arbusto" },
+    { src: ARBUSTO, top: 0.73, right: "32.4vw", width: "10.5vw", alt: "Arbusto" },
+    { src: CACTUS, top: 0.37, left: "-0.18vw", width: "17.5vw", alt: "Cactus" },
+    { src: PIEDRAS, top: 0.77, right: "32vw", width: "7vw", alt: "Piedras" },
   ],
 
   /*  4 · CUENTAS CLARAS */
@@ -565,6 +574,7 @@ const ESCENAS = [
   [{ src: NUBE, top: 0, left: "72vw", width: "35vw", alt: "Nube rosa" }],
 ];
 
+import { transform } from "astro:schema";
 import { css } from "../utils/escena.js";
 import Fondos from "./Fondos.astro";
 
