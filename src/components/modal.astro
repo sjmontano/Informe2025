@@ -1,0 +1,670 @@
+---
+// Función que convierte enlaces de Drive a formato "preview"
+// y enlaces de YouTube a formato "embed"
+type EnlaceFormateado = {
+  tipo: "youtube" | "drive-preview" | "audio" | "otro";
+  url: string;
+};
+
+function formatearEnlaceMedia(link: string): EnlaceFormateado {
+  // Detectar enlaces de YouTube
+  const youtubeMatch = link.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if (youtubeMatch) {
+    return { tipo: "youtube", url: `https://www.youtube.com/embed/${youtubeMatch[1]}` };
+  }
+
+  // Detectar si es un archivo .mp3 en Drive → enlace para <audio>
+  const audioMatch = link.match(/\/file\/d\/([^/]+)\//);
+  if (audioMatch && link.endsWith(".mp3")) {
+    return { tipo: "audio", url: `https://drive.google.com/uc?export=download&id=${audioMatch[1]}` };
+  }
+
+  // Detectar enlaces de Drive tipo /view → preview
+  if (link.includes("drive.google.com") && link.includes("/view")) {
+    return { tipo: "drive-preview", url: link.replace("/view", "/preview").replace(/\?.*$/, "") };
+  }
+  
+
+  // Detectar si es un archivo en Drive pero no es audio
+  if (link.endsWith(".mp3")) {
+    return { tipo: "audio", url: link };
+  }
+
+  // Otro tipo de enlace
+  return { tipo: "otro", url: link };
+}
+
+
+function obtenerImagenAudio(colectiva: string): string {
+  const imagenes: Record<string, string> = {
+    "Changaina Penené": "/assets/audioBackgrounds/changaina.webp",
+    "Mnemosine Forjando Ciudadanías": "/assets/audioBackgrounds/mnemosine.webp",
+  };
+  return imagenes[colectiva] || "/assets/audioBackgrounds/default.webp";
+}
+
+// Definición de las interfaces para las entradas del modal
+interface ModalEntry {
+  colectiva: string;
+  proyecto: string;
+  enlaceMedia: string;
+  enlaceLunaria?: string;
+  instagram: string;
+}
+
+interface ModalData {
+  id: string;
+  entradas: ModalEntry[];
+  top:string;
+}
+
+ const modales: ModalData[] = [
+  {
+    id: "alternativx",
+    top: "calc(var(--alto) * 1.24 / 100)",
+    entradas: [
+      {
+        colectiva: "Tayras",
+        proyecto:
+          "Territorio Y Biodiversidad: Laboratorio Científico Y Creativo Para Adolescentes Rurales",
+        enlaceMedia: "https://online.fliphtml5.com/iyksp/kijj/#p=1",
+        instagram: "@colectiva__tayras",
+      },
+      {
+        colectiva: "Las diosas en la frontera",
+        proyecto:
+          "Deconstruczine: Un Fanzine Para Deconstruir Estereotipos De Género En La Frontera",
+        enlaceMedia:
+          "/assets/DECONSTRUCZINE_DIGITAL.pdf",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/forum/autonomia-derechos-y-sostenib/deconstruzine-un-fanzine-para-deconstruir-estereotipos-de-genero",
+        instagram: "@lasdiosasenlafrontera",
+      },
+      {
+        colectiva: "Malas Juntas",
+        proyecto:
+          "Queremos Caminar Sin Miedo: ¡Alerta De Violadores Y Acosadores!",
+        enlaceMedia:
+          "/assets/FANZINE SEMILLA.pdf",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/forum/autonomia-derechos-y-sostenib/fanzine-semilla-resultado-del-taller-de-fanzine-con-cuidadorxs-de-semillas-del-territorio",
+        instagram: "@lasmalasjuntas_",
+      },
+      {
+        colectiva: "Fattal",
+        proyecto:
+          "La Trama Del Sur 3.0: Arte Y Comunicación Alternativa Para La Resistencia",
+        enlaceMedia: "https://online.fliphtml5.com/qyypv/bide/#p=1",
+        instagram: "@fattal.col",
+      },
+    ],
+  }
+];
+---
+
+{
+  modales.map((modal) => (
+    <div id={modal.id} class="action-modal-container" style={`display: flex;`}>
+    
+    
+
+      <div class="action-modal" data-modal-id={modal.id}>
+      
+
+        {/* Nombre del modal (sección) en la parte superior derecha */}
+        <div class="modal-name-section">
+          <span>{modal.id.charAt(0).toUpperCase() + modal.id.slice(1)}</span>
+        </div>
+
+        {/* Carrusel multimedia con flechas de navegación */}
+        <div class="action-carrusel">
+          {/* Flecha izquierda */}
+          <div class="action-carrusel-left">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#d87a85"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline class="izquierda" points="15 18 9 12 15 6" />
+            </svg>
+          </div>
+
+           {/* Indicadores Puntos */}
+            <div class="modal-indicadores">
+              {modal.entradas.map((_, i) => (
+                <button 
+                  class={`modal-indicador ${i === 0 ? 'active' : ''}`}
+                  data-index={i}
+                  aria-label={`Ir al slide ${i + 1}`}
+                ></button>
+              ))}
+            </div>
+
+          {/* Centro del carrusel: iFrames de medios */}
+          {modal.entradas.map((entry, i) => {
+            const { tipo, url } = formatearEnlaceMedia(entry.enlaceMedia);
+            const imagenFondo = obtenerImagenAudio(entry.colectiva);
+
+            // Audio embebido de Drive con fondo personalizado
+              if (tipo === "audio") {
+                return (
+                  <div
+                    class="action-carrusel-slide audio-slide"
+                    data-index={i}
+                    style={`display: ${i === 0 ? "flex" : "none"}; background-image: url('${imagenFondo}');`}
+                  >
+                    <audio controls class="audio-controls">
+                      <source src={url} type="audio/mpeg" />
+                      Tu navegador no soporta el elemento de audio.
+                    </audio>
+                  </div>
+                );
+              }
+
+            // Otros tipos de medios
+            return (
+              <div
+                class="action-carrusel-slide"
+                data-index={i}
+                style={`display: ${i === 0 ? "flex" : "none"}`}
+              >
+                <iframe
+                  id={entry.instagram}
+                  src={url}
+                  class="action-iframe"
+                  allowfullscreen
+                  title="Media"
+                />
+              </div>
+            );
+          })}
+
+          {/* Flecha derecha (rotada horizontalmente) */}
+          <div class="action-carrusel-right">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#d87a85"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <g transform="rotate(180, 12, 12)">
+                <polyline class="derecha" points="15 18 9 12 15 6" />
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        {/* Texto y metadatos asociados a cada entrada */}
+        <div class="action-carrusel-text">
+          {modal.entradas.map((entry, i) => (
+
+            
+            <div
+              class="action-slide-text"
+              data-index={i}
+              style={`display: ${i === 0 ? "flex" : "none"}; width:100%;`}
+            >
+              <div class="textContent">
+                {/* Colectiva y proyecto */}
+                <div class="colectiva1">
+                  <span class="subtitle">Colectiva: </span>
+                  <span class="subtitle">Proyecto: </span>
+                </div>
+                <div class="colectiva2">
+                  <span class="texto" id="textoColectiva">{entry.colectiva}</span>
+                  <span class="texto" id="textoColectiva">{entry.proyecto}</span>
+                </div>
+              </div>
+
+              {/* SOLO se muestra si existe enlace a Conexión Lunaria */}
+              {entry.enlaceLunaria && (
+                <div class="lunaria-wrapper">
+                  <a
+                    href={entry.enlaceLunaria}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="lunaria-button"
+                  >
+                    <span>Ver en Conexión Lunaria</span>
+                  </a>
+                </div>
+              )}
+
+              {/* SOLO se muestra si existe Instagram */}
+              {entry.instagram && (
+                <div class="contacto">
+                  <span class="subtitle">Contacto: </span>
+                  <div class="redes">
+                    <div class="circle">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                          fill="#ceb6aa"
+                        />
+                        <path
+                          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                          fill="#ceb6aa"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                          fill="#ceb6aa"
+                        />
+                      </svg>
+                    </div>
+                    <span class="texto">{entry.instagram}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ))
+}
+
+
+
+
+<style>
+
+
+  
+
+  /* =========================================================================
+    CONTENEDOR DEL MODAL COMPLETO
+    ====================================================================== */
+
+  /* Capa envolvente; se muestra solo cuando el modal se abre */
+  .action-modal-container {
+    position: absolute;
+    top: calc(var(--alto) * 0.1 );  /* coloca el modal ~1/3 de la escena */
+    width: 100%;
+    height: calc(var(--alto) * 0.8);
+    z-index: 10;                          /* por encima de la escena */
+    display: none;                        /* se activa vía JS */
+    justify-content: center;              /* centra horizontalmente */
+    align-items: center;                  /* centra verticalmente */
+  }
+
+  /* Caja principal del modal: color, radio y layout */
+  .action-modal {
+    background-color: transparent;            /* tono beige rosado */
+    width: 70%;
+    height: 100%;
+    border-radius: calc(var(--alto) * 0.2 / 100);
+    display: flex;
+    flex-direction: column;               /* apila carrusel y texto */
+    position: relative;                   /* referencia para botones absolutos */
+    z-index: 15;                          /* encima del contenedor */
+  }
+
+  
+
+  /* =========================================================================
+    BOTÓN “VER EN CONEXIÓN LUNARIA”
+    ====================================================================== */
+
+  .lunaria-wrapper {
+    position: absolute;
+    top:   calc(var(--alto) * 0.15 / 100); /* mismo eje vertical que la ✕ */
+    right: calc(var(--alto) * 0.7 / 100);
+  }
+
+  .lunaria-button {
+    background-color: #d87a85;
+    height: calc(var(--alto) * 0.25 / 100);
+    padding: 0 1rem;                       /* relleno horizontal */
+    border-radius: calc(var(--alto) * 0.08 / 100);
+    font-size: calc(var(--alto) * 0.13 / 100);
+    color: #183533;
+    font-weight: bold;
+    display: flex;                         /* centra el texto */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .lunaria-button:hover {
+    transform: scale(1.1);
+    background-color: #db5c6b;             /* rosa más intenso */
+  }
+
+  /* =========================================================================
+    CARRUSEL MULTIMEDIA
+    ====================================================================== */
+
+  .action-carrusel {
+    display: flex;
+    width: 100%;
+    height: calc(var(--alto) *0.65);
+    margin-top: calc(var(--alto) * 0.18);
+  }
+
+  /* Slide visible (iframe de YouTube, PDF, FlipHTML5, etc.) */
+  .action-carrusel-slide {
+    width: 100%;
+    height: calc(var(--alto) * 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Flechas de navegación (izquierda y derecha) */
+  .action-carrusel-left,
+  .action-carrusel-right {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .action-carrusel-left:hover svg,
+  .action-carrusel-right:hover svg {
+    transform: scale(1.1);
+    stroke: #d81734;
+    transition: transform 0.3s ease, stroke 0.3s ease;
+  }
+
+  /* Zona central que aloja el iframe */
+  .action-carrusel-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Iframe estándar */
+  .action-iframe {
+    width: 70%;
+    height: 100%;
+    border: none;
+    margin-top: calc(var(--alto) * 0.1 / 100);
+    border-radius: 10px;
+    pointer-events: auto;  /* permite clics dentro del iframe */
+  }
+
+  /* Iframe alternativo específico para PDFs (altura diferente) */
+  .action-pdf {
+    width: 100%;
+    height: calc(var(--alto) * 5 / 100);
+    border: none;
+    margin-top: calc(var(--alto) * 0.2 / 100);
+    border-radius: 10px;
+    pointer-events: auto;
+  }
+
+  /* =========================================================================
+    BLOQUE DE TEXTO (colectiva, proyecto, contacto)
+    ====================================================================== */
+
+  /* Envoltorio inferior (se aloja bajo el carrusel) */
+  .action-carrusel-text {
+    width: 80%;
+    max-width: 90%;
+    margin: calc(var(--alto) * 0.6 / 100) auto 0 calc(var(--alto) * 1 / 100);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Fila que contiene texto + contacto */
+  .action-slide-text {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--alto) * 0.3 / 100);  /* espacio entre columnas */
+  }
+
+  /* Grid de 2×2 →  label/valor para Colectiva y Proyecto */
+  .textContent {
+    display: grid;
+    grid-template-columns: max-content 1fr; /* col1 etiqueta, col2 valor */
+    grid-template-rows: auto auto;          /* fila 1 y fila 2 */
+    gap: calc(var(--alto) * 0.2 / 100);
+    width: 100%;
+    word-break: break-word;                  /* evita desbordes horizontales */
+  }
+
+  /* Contenedor de cada par label/valor (no crece horizontalmente) */
+  .colectiva1,
+  .colectiva2 {
+    display: flex;                           /* vertical: label + label   */
+    flex-direction: column;                  /* vertical: value + value   */
+    align-items: start;
+  }
+
+  /* Etiquetas “Colectiva:” / “Proyecto:” */
+  .subtitle {
+    font-weight: bold;
+    font-size: calc(var(--alto) * 0.03 );
+    color: #133231;
+  }
+
+  /* Texto dinámico proveniente del dataset */
+  .texto {
+    font-size: calc(var(--alto) * 0.03 );
+    color: #133231;
+    font-weight: normal;
+  }
+
+  /* =========================================================================
+    BLOQUE DE CONTACTO (Instagram)
+    ====================================================================== */
+
+  .contacto {
+    flex: 0 0 30%;                          /* ocupa 30 % fijo */
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--alto) * 0.05 / 100);
+  }
+
+  /* Agrupa círculo e IG handle en línea */
+  .redes {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Ícono circular rosa */
+  .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--alto) * 0.04 );
+    height: calc(var(--alto) * 0.04 );
+    background-color: rgb(207, 68, 135);
+    border-radius: 50%;
+  }
+
+  .circle svg {
+    height: calc(var(--alto) * 0.03);
+  }
+
+  /* Indicadores */
+  .modal-indicadores {
+    position: absolute;
+    display: flex;
+    gap: calc(var(--alto) * 0.06 / 100);
+    bottom: calc(var(--alto) * 0.2 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .modal-indicador {
+    width: calc(var(--alto) * 0.09 / 100);
+    height: calc(var(--alto) * 0.09 / 100);
+    border-radius: 50%;
+    background: #8b8b8b;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .modal-indicador.active {
+    background: #d81734;
+  }
+
+  .modal-name-section {
+    position: absolute;
+    top: calc(var(--alto) * 0.17 / 100);
+    left: 9%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .modal-name-section span {
+    font-size: calc(var(--alto) * 0.04);
+    color: #133231;
+    font-weight: bold;
+    text-transform: capitalize; /* Capitaliza la primera letra de cada palabra */
+  }
+
+  .audio-slide {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: calc(var(--alto) * 0.1 / 100);
+    margin-top: calc(var(--alto) * 0.1 / 100);
+  }
+
+  /* Estilo del reproductor */
+  .audio-controls {
+    width: 60%;
+    height: calc(var(--alto) * 0.5 / 100);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .audio-modal ::-webkit-media-controls-panel {
+    background-color: #ceb6aa !important; /* Fondo del panel de controles */
+  } 
+
+
+</style>
+
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {    
+
+    function pausarVideo() {
+      document.querySelectorAll(".action-iframe").forEach((iframe) => {
+        const src = (iframe as HTMLIFrameElement).src;
+        (iframe as HTMLIFrameElement).src = src; // Esto reinicia el iframe y detiene el video
+      });
+    }
+
+    pausarVideo()
+
+    document.querySelectorAll(".action-iframe").forEach((iframe) => {
+        (iframe as HTMLIFrameElement).onload = () => {
+      const contentDoc = (iframe as HTMLIFrameElement).contentDocument;
+      if (contentDoc) {
+        const imagen = contentDoc.querySelector("img");
+        const body = contentDoc.querySelector("body");
+
+        if (imagen != null && body != null) {
+          body.style.width = "100%";
+          body.style.backgroundColor = "#282828";
+          imagen.style.width = "70%";
+          imagen.style.alignSelf = "center";
+          imagen.style.justifySelf = "center";
+          imagen.style.height = "100vh";
+        }
+      }
+      
+    };
+      });
+
+    document.querySelectorAll(".boton-volver").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const modal = btn.closest(".action-modal-container");
+        if (modal && modal instanceof HTMLElement) {
+          pausarVideo();
+          modal.style.display = "none";
+        }
+      });
+    });
+
+    document.querySelectorAll(".action-modal").forEach((modal) => {
+      const id = modal.getAttribute("data-modal-id");
+      let index = 0;
+
+      const slides = modal.querySelectorAll(".action-carrusel-slide");
+      const texts = modal.querySelectorAll(".action-slide-text");
+      const indicadores = modal.querySelectorAll(".modal-indicador");
+      const prev = modal.querySelector(".action-carrusel-left");
+      const next = modal.querySelector(".action-carrusel-right");
+
+      const update = () => {
+        slides.forEach((s, i) =>
+          (s as HTMLElement).style.display = i === index ? "flex" : "none"
+        );
+        texts.forEach((t, i) =>
+          (t as HTMLElement).style.display = i === index ? "flex" : "none"
+        );
+        indicadores.forEach((ind, i) =>
+          ind.classList.toggle("active", i === index)
+        );
+
+        // Desactiva flechas en límites
+        if (prev) {
+          (prev as HTMLElement).style.pointerEvents = index === 0 ? "none" : "auto";
+          (prev as HTMLElement).style.opacity = index === 0 ? "0.3" : "1";
+        }
+        if (next) {
+          (next as HTMLElement).style.pointerEvents = index === slides.length - 1 ? "none" : "auto";
+          (next as HTMLElement).style.opacity = index === slides.length - 1 ? "0.3" : "1";
+        }
+      };
+
+      indicadores.forEach((indicador, i) => {
+        indicador.addEventListener("click", () => {
+          pausarVideo();
+          index = i;
+          update();
+        });
+      });
+
+      // 🔄 Flechas con límite (sin loop)
+      prev?.addEventListener("click", () => {
+        if (index > 0) {
+          pausarVideo();
+          index -= 1;
+          update();
+        }
+      });
+
+      next?.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          pausarVideo();
+          index += 1;
+          update();
+        }
+      });
+
+      update(); // Inicializa primer slide
+    });
+  });
+</script>
