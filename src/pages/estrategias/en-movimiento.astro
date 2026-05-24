@@ -1,11 +1,68 @@
 ---
-import EnMovimiento from "../../components/EnMovimiento.astro";
+import BotonVolver from "../../components/BotonVolver.astro";
 import Escena from "../../components/Escena.astro";
+import Modal from "../../components/modal.astro";
 import Layout from "../../layouts/Layout.astro";
+
+// Definición de las interfaces para las entradas del modal
+interface ModalEntry {
+  colectiva: string;
+  proyecto: string;
+  enlaceMedia: string;
+  enlaceLunaria?: string;
+  instagram: string;
+}
+
+interface ModalData {
+  id: string;
+  entradas: ModalEntry[];
+  top:string;
+}
+
+const modales: ModalData[] = [
+  {
+    id: "En Movimiento",
+    top: "calc(var(--alto) * 1.24 / 100)",
+    entradas: [
+      {
+        colectiva: "Fugadxs",
+        proyecto:
+          "Fugadxs: <br>Rasgadura, Dolores y remiendos.",
+        enlaceMedia: "https://youtu.be/GTh-KRm12h0 ",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/group/libertad-y-democracia/discussion/3dd0de76-9dab-426a-b671-5de84cc7e4d2",
+        instagram: "@fugadxscolectivx",
+      },
+      {
+        colectiva: "Red de Teatro y Circo Cúcuta",
+        proyecto:
+          "Red de Teatro y Circo Cúcuta: <br>Nuestra voz, nuestra fuerza.",
+        enlaceMedia:
+          "https://www.youtube.com/watch?v=VzHkTYpuVpg",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/group/autonomia-derechos-y-sostenibilidad/discussion/aa853b1c-24df-4417-9ff9-ef69f7df37ec",
+        instagram: "@redteatroycircocucuta",
+      },
+      {
+        colectiva: "Guardianas Montañeras Kumanday:",
+        proyecto:
+          "Guardianas Montañeras Kumanday: <br>Flor-Siendo El Espiral De Memoria, Camino Al Cuidado De La Vida",
+        enlaceMedia:
+          "https://youtu.be/bHG6ogLHXLA",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/group/autonomia-derechos-y-sostenibilidad/discussion/df821793-c2cd-4038-b5a4-c2e91af0a2a6",
+        instagram: "",
+      },
+      
+    ],
+  }
+];
+
 ---
 
 <Layout scroll={false}>
-  <Escena escena={7}>
-    <EnMovimiento />
+  <Escena escena={18}>
+    <Modal modales={modales} />
+    <BotonVolver />
   </Escena>
 </Layout>

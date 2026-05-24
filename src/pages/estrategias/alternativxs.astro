@@ -1,0 +1,68 @@
+---
+import BotonVolver from "../../components/BotonVolver.astro";
+import Escena from "../../components/Escena.astro";
+import Modal from "../../components/modal.astro";
+import Layout from "../../layouts/Layout.astro";
+
+// Definición de las interfaces para las entradas del modal
+interface ModalEntry {
+  colectiva: string;
+  proyecto: string;
+  enlaceMedia: string;
+  enlaceLunaria?: string;
+  instagram: string;
+}
+
+interface ModalData {
+  id: string;
+  entradas: ModalEntry[];
+  top:string;
+}
+
+const modales: ModalData[] = [
+  {
+    id: "Alternativxs",
+    top: "calc(var(--alto) * 1.24 / 100)",
+    entradas: [
+      {
+        colectiva: "Luma Zonas Violetas: Jóvenes de paz",
+        proyecto:
+          "Luma Zonas Violetas: Jóvenes de paz: <br>Transformación de espacios digitales a través de las redes sociales, el arte y la memoria para una vida libre de violencias.",
+        enlaceMedia: "https://drive.google.com/file/d/1jweg8sdaDlBxLc1e64UAhAdpN2lRCNwQ/view?usp=sharing",
+        enlaceLunaria:
+          "",
+        instagram: "@lumazonasvioletas",
+      },
+      {
+        colectiva: "Lxs Cuerpos del Caos: CUERPOS MUTANTES",
+        proyecto:
+          "Lxs Cuerpos del Caos: CUERPOS MUTANTES: <br>Laboratorios de artes vivas y máscaras para identidades disca, RAREZAS, DISIDENCIAS y feminidades de la provincia.",
+        enlaceMedia:
+          "https://www.conexion.fondolunaria.org/group/libertad-y-democracia/discussion/4de255e4-28ac-42d6-997f-6bc8192badc7",
+        enlaceLunaria:
+          "",
+        instagram: "@lxscuerposdelcaos",
+      },
+      {
+        colectiva: "Ñambi Awadur",
+        proyecto:
+          "Ñambi Awadur: <br>Purispa Iachaikusunchi- Caminando Y Aprendiendo Del Territorio.",
+        enlaceMedia:
+          "https://drive.google.com/drive/folders/1m4v7a8mq3AjT8K-wNVkMMHqsh65YttGf?usp=sharing",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/group/autonomia-derechos-y-sostenibilidad/discussion/90a912b0-78db-49c6-bcd6-54e8e410b08a",
+        instagram: "@nambiawadur",
+      },
+      
+    ],
+  }
+];
+
+---
+
+<Layout scroll={false}>
+  <Escena escena={19}>
+    <Modal modales={modales} />
+    <BotonVolver />
+  </Escena>
+</Layout>

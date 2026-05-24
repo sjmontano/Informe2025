@@ -3,11 +3,70 @@ import BotonVolver from "../../components/BotonVolver.astro";
 import Escena from "../../components/Escena.astro";
 import Modal from "../../components/modal.astro";
 import Layout from "../../layouts/Layout.astro";
+
+// Definición de las interfaces para las entradas del modal
+interface ModalEntry {
+  colectiva: string;
+  proyecto: string;
+  enlaceMedia: string;
+  enlaceLunaria?: string;
+  instagram: string;
+}
+
+interface ModalData {
+  id: string;
+  entradas: ModalEntry[];
+  top:string;
+}
+
+const modales: ModalData[] = [
+  {
+    id: "alternativx",
+    top: "calc(var(--alto) * 1.24 / 100)",
+    entradas: [
+      {
+        colectiva: "Tayras",
+        proyecto:
+          "Semillero de Cuidado para la Vida: <br>Semilleros De Cuidado Para La Mujer Campesina",
+        enlaceMedia: "https://youtu.be/ymgEugDjbZU?si=-TvcNOnvLSB35Rit",
+        instagram: "@semillerosdecuidado",
+      },
+      {
+        colectiva: "Las diosas en la frontera",
+        proyecto:
+          "PazA la Página: <br>La Tierra Ruge La Verdad",
+        enlaceMedia:
+          "https://drive.google.com/drive/folders/1rv78lfTBxrOxvd7BuR3nF40g3FK18VVg",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/forum/autonomia-derechos-y-sostenib/deconstruzine-un-fanzine-para-deconstruir-estereotipos-de-genero",
+        instagram: "@pazalapagina",
+      },
+      {
+        colectiva: "Luminti: Bekaura: hijas del maíz",
+        proyecto:
+          "Luminti: Bekaura:<br>hijas del maíz",
+        enlaceMedia:
+          "https://drive.google.com/drive/folders/1WPuThgh4YSdf0dSX1a8slAKiZSprzmQs?usp=sharing",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/forum/autonomia-derechos-y-sostenib/fanzine-semilla-resultado-del-taller-de-fanzine-con-cuidadorxs-de-semillas-del-territorio",
+        instagram: "@luminti_colectivo",
+      },
+      {
+        colectiva: "Fattal",
+        proyecto:
+          "Mujeres tiempo de la Unión: Mujer Rural: <br>Una Constancia Viviente De Las Secuelas Causadas Por Las Violencias Basadas En Género En El Camino Comprendido Desde La Vulneración, Transformación, Exigibilidad Y No Repetición En Los Montes De María.",
+        enlaceMedia: "https://drive.google.com/file/d/1pdcUj2furpo8uRU4NNUToeHJE4fHQ_Yd/view",
+        instagram: "@mujerestiempodelaunion1",
+      },
+    ],
+  }
+];
+
 ---
 
 <Layout scroll={false}>
   <Escena escena={6}>
-    <Modal />
+    <Modal modales={modales} />
     <BotonVolver />
   </Escena>
 </Layout>

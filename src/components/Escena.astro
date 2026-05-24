@@ -304,33 +304,33 @@ const ESCENAS = [
   [
     {
       src: "/resources/gifs/gif-delfin-ensamblado.webp",
-      top: 0.1,
-      left: "8vw",
-      width: "35vw",
+      top: 0.5,
+      left: "30vw",
+      width: "13vw",
       alt: "Delfín, ilustración de Aquelarre",
       z: 3,
     },
     {
       src: "/resources/gifs/gif-foca-ensamblado.webp",
-      top: 0.5,
-      right: "5vw",
-      width: "25vw",
+      top: 0.45,
+      right: "35vw",
+      width: "13vw",
       alt: "Foca, ilustración de Aquelarre",
       z: 3,
     },
     {
       src: "/resources/gifs/gif-orca-ensamblada.webp",
-      top: 0.3,
-      right: "30vw",
-      width: "20vw",
+      top: 0.2,
+      right: "20vw",
+      width: "13vw",
       alt: "Orca, ilustración de Aquelarre",
       z: 3,
     },
     {
       src: "/resources/gifs/gif-tortuga-ensamblada-1.webp",
-      top: 0.65,
-      left: "40vw",
-      width: "28vw",
+      top: 0.35,
+      left: "10vw",
+      width: "20vw",
       alt: "Tortuga, ilustración de Aquelarre",
       z: 3,
     },
@@ -357,8 +357,8 @@ const ESCENAS = [
     {
       src: HOJA,
       top: 0.2,
-      left: "20vw",
-      width: "60vw",
+      left: "22.5vw",
+      width: "55vw",
       alt: "Hoja decorativa",
     },
   ],
@@ -572,6 +572,87 @@ const ESCENAS = [
 
   /* 16 · ALIADOS */
   [{ src: NUBE, top: 0, left: "72vw", width: "35vw", alt: "Nube rosa" }],
+
+  /*  17 · NARRARNOS */
+  [
+    {
+      src: "/resources/gifs/gif-orca-ensamblada.webp",
+      top: 0.05,
+      left: "5vw",
+      width: "15vw",
+      alt: "Tortuga, ilustración de Aquelarre",
+      z: 3,
+      extra: "transform: rotate(20deg)",
+    },
+    {
+      src: LETRERO_BASE,
+      top: -0.15,
+      left: "15vw",
+      width: "35vw",
+      alt: "Letrero Memorias",
+    },
+    {
+      src: HOJA,
+      top: 0.2,
+      left: "22.5vw",
+      width: "55vw",
+      alt: "Hoja decorativa",
+    },
+  ],
+
+  /*  18 · EN MOVIMIENTO ALTERNATIVA */
+  [
+    {
+      src: "/resources/gifs/gif-delfin-ensamblado.webp",
+      top: 0.05,
+      left: "5vw",
+      width: "15vw",
+      alt: "Tortuga, ilustración de Aquelarre",
+      z: 3,
+      extra: "transform: rotate(20deg)",
+    },
+    {
+      src: LETRERO_BASE,
+      top: -0.15,
+      left: "15vw",
+      width: "35vw",
+      alt: "Letrero Memorias",
+    },
+    {
+      src: HOJA,
+      top: 0.2,
+      left: "22.5vw",
+      width: "55vw",
+      alt: "Hoja decorativa",
+    },
+  ],
+
+  /*  19 · ALTERNATIVAS */
+  [
+    {
+      src: "/resources/gifs/gif-tortuga-ensamblada-1.webp",
+      top: 0.05,
+      left: "5vw",
+      width: "15vw",
+      alt: "Tortuga, ilustración de Aquelarre",
+      z: 3,
+      extra: "transform: rotate(20deg)",
+    },
+    {
+      src: LETRERO_BASE,
+      top: -0.15,
+      left: "15vw",
+      width: "35vw",
+      alt: "Letrero Memorias",
+    },
+    {
+      src: HOJA,
+      top: 0.2,
+      left: "22.5vw",
+      width: "55vw",
+      alt: "Hoja decorativa",
+    },
+  ],
 ];
 
 import { transform } from "astro:schema";
@@ -585,7 +666,7 @@ const elementos = ESCENAS[escena] || [];
 ---
 
 <div class="escena-wrapper">
-  <Fondos escena={escena} />
+  <Fondos escena={escena>16? 4 : escena} />
 
   <div
     class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}

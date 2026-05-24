@@ -1,11 +1,66 @@
 ---
+import BotonVolver from "../../components/BotonVolver.astro";
 import Escena from "../../components/Escena.astro";
-import Narrarnos from "../../components/Narrarnos.astro";
+import Modal from "../../components/modal.astro";
 import Layout from "../../layouts/Layout.astro";
+
+// Definición de las interfaces para las entradas del modal
+interface ModalEntry {
+  colectiva: string;
+  proyecto: string;
+  enlaceMedia: string;
+  enlaceLunaria?: string;
+  instagram: string;
+}
+
+interface ModalData {
+  id: string;
+  entradas: ModalEntry[];
+  top:string;
+}
+
+const modales: ModalData[] = [
+  {
+    id: "Nararnos",
+    top: "calc(var(--alto) * 1.24 / 100)",
+    entradas: [
+      {
+        colectiva: "Mujeres tiempo de la Unión: Mujer Rural:",
+        proyecto:
+          "Mujeres tiempo de la Unión: Mujer Rural: <br>Una Constancia Viviente De Las Secuelas Causadas Por Las Violencias Basadas En Género En El Camino Comprendido Desde La Vulneración, Transformación, Exigibilidad Y No Repetición En Los Montes De María.",
+        enlaceMedia: "https://drive.google.com/file/d/1pdcUj2furpo8uRU4NNUToeHJE4fHQ_Yd/view",
+        instagram: "@mujerestiempodelaunion1",
+      },
+      {
+        colectiva: "Colectiva Baba Yaga",
+        proyecto:
+          "Colectiva Baba Yaga: <br>Volver al alma, cuidado para la transformación.",
+        enlaceMedia: "https://online.fliphtml5.com/CBABAYAGA/vuzy/",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/group/autonomia-derechos-y-sostenibilidad/discussion/b11af96a-6687-4e70-8545-54b93f19d928",
+        
+        instagram: "@cbabayaga",
+      },
+      {
+        colectiva: "Colectiva de Mujeres Forjadoras de Futuro: Tejiendo Los Hilos De Ananse:",
+        proyecto:
+          "Colectiva de Mujeres Forjadoras de Futuro: Tejiendo Los Hilos De Ananse: <br>Guardia Cimarrona De Mujeres Del San Juan, Chocó",
+        enlaceMedia:
+          "https://drive.google.com/file/d/1pLX7jdTjlElm9p6yGMk3dD9uKCIR3Y3t/view?usp=sharing",
+        enlaceLunaria:
+          "https://www.conexion.fondolunaria.org/group/libertad-y-democracia/discussion/805773d9-3a58-4b87-a5ae-295c5c075945",
+        instagram: "",
+      },
+      
+    ],
+  }
+];
+
 ---
 
 <Layout scroll={false}>
-  <Escena escena={3}>
-    <Narrarnos />
+  <Escena escena={17}>
+    <Modal modales={modales} />
+    <BotonVolver />
   </Escena>
 </Layout>

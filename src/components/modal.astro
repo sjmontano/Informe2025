@@ -43,63 +43,10 @@ function obtenerImagenAudio(colectiva: string): string {
   return imagenes[colectiva] || "/assets/audioBackgrounds/default.webp";
 }
 
-// Definición de las interfaces para las entradas del modal
-interface ModalEntry {
-  colectiva: string;
-  proyecto: string;
-  enlaceMedia: string;
-  enlaceLunaria?: string;
-  instagram: string;
-}
 
-interface ModalData {
-  id: string;
-  entradas: ModalEntry[];
-  top:string;
-}
 
- const modales: ModalData[] = [
-  {
-    id: "alternativx",
-    top: "calc(var(--alto) * 1.24 / 100)",
-    entradas: [
-      {
-        colectiva: "Tayras",
-        proyecto:
-          "Territorio Y Biodiversidad: Laboratorio Científico Y Creativo Para Adolescentes Rurales",
-        enlaceMedia: "https://online.fliphtml5.com/iyksp/kijj/#p=1",
-        instagram: "@colectiva__tayras",
-      },
-      {
-        colectiva: "Las diosas en la frontera",
-        proyecto:
-          "Deconstruczine: Un Fanzine Para Deconstruir Estereotipos De Género En La Frontera",
-        enlaceMedia:
-          "/assets/DECONSTRUCZINE_DIGITAL.pdf",
-        enlaceLunaria:
-          "https://www.conexion.fondolunaria.org/forum/autonomia-derechos-y-sostenib/deconstruzine-un-fanzine-para-deconstruir-estereotipos-de-genero",
-        instagram: "@lasdiosasenlafrontera",
-      },
-      {
-        colectiva: "Malas Juntas",
-        proyecto:
-          "Queremos Caminar Sin Miedo: ¡Alerta De Violadores Y Acosadores!",
-        enlaceMedia:
-          "/assets/FANZINE SEMILLA.pdf",
-        enlaceLunaria:
-          "https://www.conexion.fondolunaria.org/forum/autonomia-derechos-y-sostenib/fanzine-semilla-resultado-del-taller-de-fanzine-con-cuidadorxs-de-semillas-del-territorio",
-        instagram: "@lasmalasjuntas_",
-      },
-      {
-        colectiva: "Fattal",
-        proyecto:
-          "La Trama Del Sur 3.0: Arte Y Comunicación Alternativa Para La Resistencia",
-        enlaceMedia: "https://online.fliphtml5.com/qyypv/bide/#p=1",
-        instagram: "@fattal.col",
-      },
-    ],
-  }
-];
+
+const { modales } = Astro.props;
 ---
 
 {
@@ -214,12 +161,10 @@ interface ModalData {
               <div class="textContent">
                 {/* Colectiva y proyecto */}
                 <div class="colectiva1">
-                  <span class="subtitle">Colectiva: </span>
-                  <span class="subtitle">Proyecto: </span>
                 </div>
                 <div class="colectiva2">
-                  <span class="texto" id="textoColectiva">{entry.colectiva}</span>
-                  <span class="texto" id="textoColectiva">{entry.proyecto}</span>
+                  {/*<span class="texto" id="textoColectiva">{entry.colectiva}</span>*/}
+                  <span class="texto" id="textoColectiva" set:html={entry.proyecto}></span>
                 </div>
               </div>
 
@@ -239,10 +184,9 @@ interface ModalData {
 
               {/* SOLO se muestra si existe Instagram */}
               {entry.instagram && (
-                <div class="contacto">
-                  <span class="subtitle">Contacto: </span>
+                <a class="contacto" href={`https://instagram.com/${entry.instagram.replace("@", "")}`} target="_blank" rel="noopener noreferrer">
                   <div class="redes">
-                    <div class="circle">
+                    <div class="colectiva1">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
@@ -266,9 +210,12 @@ interface ModalData {
                         />
                       </svg>
                     </div>
+                    <div class="colectiva2">
                     <span class="texto">{entry.instagram}</span>
+
+                    </div>
                   </div>
-                </div>
+                </a>
               )}
             </div>
           ))}
@@ -284,7 +231,9 @@ interface ModalData {
 <style>
 
 
-  
+  a{
+    text-decoration: none;
+  }
 
   /* =========================================================================
     CONTENEDOR DEL MODAL COMPLETO
@@ -353,14 +302,14 @@ interface ModalData {
   .action-carrusel {
     display: flex;
     width: 100%;
-    height: calc(var(--alto) *0.65);
+    height: 26vw;
     margin-top: calc(var(--alto) * 0.18);
   }
 
   /* Slide visible (iframe de YouTube, PDF, FlipHTML5, etc.) */
   .action-carrusel-slide {
     width: 100%;
-    height: calc(var(--alto) * 0.5);
+    height:22vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -419,9 +368,11 @@ interface ModalData {
   .action-carrusel-text {
     width: 80%;
     max-width: 90%;
-    margin: calc(var(--alto) * 0.6 / 100) auto 0 calc(var(--alto) * 1 / 100);
+    margin-top: calc(var(--alto) * 1 / 100);
     display: flex;
-    justify-content: center;
+        justify-content: center;
+    justify-self: center;
+    align-self: center;
   }
 
   /* Fila que contiene texto + contacto */
@@ -430,6 +381,7 @@ interface ModalData {
     display: flex;
     align-items: flex-start;
     gap: calc(var(--alto) * 0.3 / 100);  /* espacio entre columnas */
+    justify-content: center;
   }
 
   /* Grid de 2×2 →  label/valor para Colectiva y Proyecto */
@@ -438,16 +390,37 @@ interface ModalData {
     grid-template-columns: max-content 1fr; /* col1 etiqueta, col2 valor */
     grid-template-rows: auto auto;          /* fila 1 y fila 2 */
     gap: calc(var(--alto) * 0.2 / 100);
-    width: 100%;
+    
     word-break: break-word;                  /* evita desbordes horizontales */
   }
 
   /* Contenedor de cada par label/valor (no crece horizontalmente) */
-  .colectiva1,
+  .colectiva1 {
+    display: flex;                           /* vertical: label + label   */
+    flex-direction: column;                  /* vertical: value + value   */
+    
+    justify-content: center;
+    align-items: center;
+    background-color: #f05a23;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 2vw;
+  }
+  .colectiva1 svg {
+    width: 2vw;
+    height: 2vw;
+  }
+
   .colectiva2 {
     display: flex;                           /* vertical: label + label   */
     flex-direction: column;                  /* vertical: value + value   */
     align-items: start;
+    background-color: #dbab40;
+    height: 4vw;
+    border-radius: 2vw;
+    padding: 0.5vw 4vw;
+    margin-left: -2vw;
+    z-index: -1;
   }
 
   /* Etiquetas “Colectiva:” / “Proyecto:” */
@@ -459,7 +432,7 @@ interface ModalData {
 
   /* Texto dinámico proveniente del dataset */
   .texto {
-    font-size: calc(var(--alto) * 0.03 );
+    font-size: 1vw;
     color: #133231;
     font-weight: normal;
   }
@@ -471,7 +444,6 @@ interface ModalData {
   .contacto {
     flex: 0 0 30%;                          /* ocupa 30 % fijo */
     display: flex;
-    flex-direction: column;
     gap: calc(var(--alto) * 0.05 / 100);
   }
 
