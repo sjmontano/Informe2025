@@ -17,7 +17,7 @@
     "check": "npm run design:lint && npm run impeccable"
   },
   "dependencies": {
-    "astro": "^6.3.1"
+    "astro": "^6.3.7"
   },
   "devDependencies": {
     "@google/design.md": "^0.1.1",

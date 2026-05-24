@@ -4,31 +4,79 @@
  *
  * Navegación con 4 botones pill-shaped hacia subpáginas.
  */
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import BotonVolver from "./BotonVolver.astro";
 
+const iconoGlobe = readFileSync(
+  join(
+    process.cwd(),
+    "public",
+    "resources",
+    "iconos",
+    "icon-globe_network.svg",
+  ),
+  "utf-8",
+).replace('fill="#5a7197"', 'fill="currentColor"');
+
 const ENLACES = [
-  { href: "/estrategias/memorias", texto: "Memorias", top: 24, left: 35 },
-  { href: "/estrategias/en-movimiento", texto: "En movimiento", top: 33, left: 65 },
-  { href: "/estrategias/alternativxs", texto: "Alternativxs", top: 48, left: 20 },
-  { href: "/estrategias/narrarnos", texto: "Narrarnos", top: 48, left: 72 },
+  { href: "/estrategias/memorias", texto: "Memorias", top: 70, left: 57 },
+  {
+    href: "/estrategias/en-movimiento",
+    texto: "En movimiento",
+    top: 70,
+    left: 35,
+  },
+  {
+    href: "/estrategias/alternativxs",
+    texto: "Alternativxs",
+    top: 48,
+    left: 20,
+  },
+  { href: "/estrategias/narrarnos", texto: "Narrarnos", top: 45, left: 73 },
 ];
 ---
 
-<nav class="estrategias anim-entrada anim-entrada--fade" data-anim-stagger="250">
-  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+<nav
+  class="estrategias anim-entrada anim-entrada--fade"
+  data-anim-stagger="250"
+>
+  <BotonVolver href="/" texto="Inicio" top={9} right={10} z={3} />
 
   <h1 class="estrategias__titulo" data-anim-item>Estrategias de acción</h1>
 
-  {ENLACES.map((e) => (
-    <a
-      class="estrategias__btn"
-      href={e.href}
-      style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}
-      data-anim-item
-    >
-      {e.texto}
-    </a>
-  ))}
+  <p class="estrategias__subtitulo" data-anim-item>
+    Donde el mar se encuentra con la tierra: allí surge el impacto.
+  </p>
+
+  <a
+    class="estrategias__conexion"
+    href="https://www.conexion.fondolunaria.org"
+    target="_blank"
+    rel="noopener"
+    data-anim-item
+  >
+    <span class="estrategias__conexion-icono" set:html={iconoGlobe} />
+    <span class="estrategias__conexion-texto">
+      Conoce más iniciativas apoyadas en&nbsp;
+      <strong class="estrategias__conexion-url"
+        >www.conexion.fondolunaria.org</strong
+      >
+    </span>
+  </a>
+
+  {
+    ENLACES.map((e) => (
+      <a
+        class="estrategias__btn"
+        href={e.href}
+        style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}
+        data-anim-item
+      >
+        {e.texto}
+      </a>
+    ))
+  }
 </nav>
 
 <style>
@@ -40,14 +88,76 @@ const ENLACES = [
 
   .estrategias__titulo {
     position: absolute;
-    top: calc(var(--alto) * 12 / 100);
-    left: 50%;
+    top: calc(var(--alto) * 10 / 100);
+    left: 33%;
     transform: translateX(-50%);
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 5.4 / 100);
+    font-size: calc(var(--alto) * 5 / 100);
+    max-width: calc(var(--alto) * 25 / 100);
+    line-height: 1.2;
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
+  }
+
+  .estrategias__subtitulo {
+    position: absolute;
+    top: calc(var(--alto) * 27 / 100);
+    left: 35.5%;
+    transform: translateX(-50%);
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2.6 / 100);
+    max-width: calc(var(--alto) * 35 / 100);
+    color: var(--blanco);
+    margin: 0;
+    text-align: left;
+  }
+
+  /* ─── Botón Conexión ─── */
+
+  .estrategias__conexion {
+    position: absolute;
+    top: calc(var(--alto) * 85 / 100);
+    right: -15%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: calc(var(--alto) * 1.5 / 100);
+    background-color: var(--arena);
+    color: var(--petroleo);
+    text-decoration: none;
+    border-radius: var(--espacio-4xl);
+    padding: calc(var(--alto) * 1.2 / 100) calc(var(--alto) * 3 / 100);
+    padding-right: calc(var(--alto) * 8 / 100);
+    transition: transform 0.2s ease;
+    max-width: calc(var(--alto) * 55 / 100);
+  }
+
+  .estrategias__conexion:hover {
+    transform: translateX(-50%) scale(1.03);
+  }
+
+  .estrategias__conexion-icono {
+    width: calc(var(--alto) * 5 / 100);
+    height: calc(var(--alto) * 5 / 100);
+    flex-shrink: 0;
+    color: var(--petroleo);
+  }
+
+  .estrategias__conexion-icono :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .estrategias__conexion-texto {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 2 / 100);
+    font-weight: 400;
+  }
+
+  .estrategias__conexion-url {
+    font-weight: 700;
   }
 
   .estrategias__btn {
@@ -56,9 +166,10 @@ const ENLACES = [
     background-color: var(--salmon);
     color: var(--azul-noche);
     padding: calc(var(--alto) * 1.1 / 100) calc(var(--alto) * 2.8 / 100);
+    padding-left: calc(var(--alto) * 8 / 100);
     border-radius: var(--espacio-4xl);
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 2.1 / 100);
+    font-size: calc(var(--alto) * 2.6 / 100);
     font-weight: 700;
     transition: transform 0.2s ease;
     white-space: nowrap;
