@@ -1,37 +1,676 @@
 ---
-/**
- * ESCENA 8 · TALLERES
- *
- * Sección de Talleres.
- */
-import BotonVolver from "./BotonVolver.astro";
+// src/components/CardCarousel.astro
+
+const talleres = [
+  // Asegúrate de añadir la propiedad 'fecha' a cada objeto taller
+  {
+    titulo:
+      "Activismos feministas amplios y diversos para generar comunidad 26, 27 Y 28 de marzo",
+    imagen:
+      "/resources/fotografias/real/1. Activismos feministas amplios y diversos para generar comunidad.JPG",
+    fecha: "1 y 2 de Febrero",
+  },
+  {
+    titulo: "Otros Mundos son posibles 25 y 26 de abril",
+    imagen:
+      "/resources/fotografias/real/2. OTROS MUNDOS SON POSIBLES.JPG",
+    fecha: "15 y 16 de Febrero",
+  },
+  {
+    titulo:
+      "Acuerpando Nuestras Luchas Para Defender Nuestros Derechos 1 29 y 30 de mayo",
+    imagen:
+      "/resources/fotografias/real/3. Acuerpando Nuestras Luchas Para Defender Nuestros Derechos.JPG",
+    fecha: "26 y 28 de febrero",
+  },
+  {
+    titulo: "Encuentro regional LATAM OTRT 25, 26 y 27 de junio",
+    imagen: "/resources/fotografias/real/4. Encuentro regional LATAM OTRT. JPG",
+    fecha: "14 y 15 de marzo",
+  },
+  {
+    titulo: "Acuerpando Nuestras Luchas Para Defender Nuestros Derechos 2 10 y 11 de julio",
+    imagen:
+      "/resources/fotografias/real/5. Acuerpando Nuestras Luchas Para Defender Nuestros Derechos .JPG",
+    fecha: "18 y 19 de abril",
+  },
+  {
+    titulo:
+      "Construyendo Autonomías para Tejer Vida Digna 1 24 y 25 de julio",
+    imagen:
+      "/resources/fotografias/real/6. Construyendo Autonomías para Tejer Vida Digna 1.JPG",
+    fecha: "30 y 31 de mayo",
+  },
+  {
+    titulo: "Construyendo Autonomías para Tejer Vida Digna 2 14 y 15 de agosto",
+    imagen:
+      "/resources/fotografias/real/7. Construyendo Autonomías para Tejer Vida Digna 2.JPG",
+    fecha: "13 y 14 de junio",
+  },
+  {
+    titulo: "Hackearlo todo 28 y 29 de agosto",
+    imagen:
+      "/resources/fotografias/real/8. Hackearlo todo.JPG",
+    fecha: "22 y 23 de agosto",
+  },
+  {
+    titulo:
+      "Encuentro LB 16 y 17 de octubre",
+    imagen:
+      "/resources/fotografias/real/9. Encuentro LB.JPG",
+    fecha: "Septiembre 12 y 13",
+  },
+];
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const { title = "Talleres" } = Astro.props;
+const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
-<section
-  class="talleres anim-entrada anim-entrada--fade"
-  data-anim-stagger="200"
->
-  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+<section class="card-carousel-section" id={carouselId}>
+  <div class="titulos">
+    <div class="centrado">
+    <span class="talleres-title">{title}</span>
+      <span class="talleres-encuentros">9 talleres y encuentros</span>
 
-  <h1 class="talleres__titulo" data-anim-item>Talleres</h1>
+    </div>
+    <div class="subtitulos">
+      <span class="talleres-subtitle" lang="es"
+        >La playa nos enseña que la riqueza del ecosistema no está en <br>
+          la uniformidad, sino en la diversidad que late en cada rincón:<br>
+          en las mareas que van y vienen, en las especies que conviven,<br>
+          en los colores y formas que construyen un paisaje vivo y en<br>
+          constante transformación. Por esto, compartimos espacios<br>
+          colectivos para aprender juntes.<br>
+
+        </span
+      >
+      <br />
+
+    </div>
+    
+  </div>
+
+  <div class="card-carousel-container">
+    <button
+      class="nav-button prev-button"
+      aria-label="Anterior taller"
+      disabled
+    >
+      <span>&lt;</span>
+    </button>
+
+    <div class="card-carousel-wrapper">
+      <div class="card-carousel">
+        {
+          talleres.map((taller, index) => (
+            <div class="taller-card" data-index={index}>
+              <div class="taller-imagen">
+                {taller.imagen ? (
+                  <img class="marco" src="/resources/contenedor/marcoRosa.webp" alt="marco" loading="lazy" />
+                  <img class="taller-imagen-img" src={taller.imagen} alt={taller.titulo} loading="lazy" />
+                ) : (
+                  <span class="imagen-placeholder" aria-hidden="true" />
+                )}
+              </div>
+              <div class="contenedor-taller-titulo">
+                <h3 class="taller-titulo">{taller.titulo}</h3>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    {/* Indicadores Puntos */}
+    <div class="card-indicadores">
+      {
+        talleres.map((_, i) => (
+          <button
+            class={`card-indicador${i === 0 ? " active" : ""}`}
+            data-index={i}
+            aria-label={`Ir al slide ${i + 1}`}
+          />
+        ))
+      }
+    </div>
+
+    <button class="nav-button next-button" aria-label="Siguiente taller">
+      <span>&gt;</span>
+    </button>
+  </div>
 </section>
 
 <style>
-  .talleres {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-  }
+  
 
-  .talleres__titulo {
-    position: absolute;
-    top: calc(var(--alto) * 14 / 100);
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 5.4 / 100);
-    font-weight: 700;
-    color: var(--azul-noche);
+  body {
+    font-family: sans-serif;
+    /* Quita el background del body si lo defines a nivel de página/layout */
+    /* background-color: #e0e8d5; */
+    /* Quita display flex y otros estilos del body si los manejas en el layout general */
     margin: 0;
   }
+  .card-carousel-section {
+    justify-self: center;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+
+    width: 90%;
+    height: calc(var(--alto) * 0.9);
+    z-index: 2;
+    top: calc(var(--alto) * 0.05 );
+    align-items: center;
+  }
+
+  .talleres-title {
+    color: #161040;
+    margin: 0;
+    font-size: calc(var(--alto) * 0.06);
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-carousel-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    border-radius: calc(var(--alto) * 0.06);
+  }
+
+  .card-carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 1%; /* Aumentamos el gap aquí */
+    flex-wrap: nowrap;
+  }
+
+  .taller-card {
+    width: calc(98% / 3);
+    box-sizing: border-box;
+    background-color: transparent;
+    border-radius: calc(var(--alto) * 0.2 / 100);
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease-in-out;
+    flex-shrink: 0;
+  }
+
+  /** .taller-card:hover {
+    background-color: #f7b731;
+    transform: scale(1.01);
+  }*/
+
+  .taller-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    height: calc(var(--alto) * 0.42);
+  }
+  .contenedor-taller-titulo{
+    margin-top: calc(var(--alto) * 0.01);
+  }
+
+  .taller-imagen-img {
+    width: 80%;
+    height: calc(var(--alto) * 0.26 );
+    margin: 0.4vw 1vw 1vw 0.3vw;
+    border-radius: 1vw;
+  }
+  .marco{
+    width: 27vw;
+    position: absolute;
+    z-index: -1;
+    height: calc(var(--alto) * 0.42 );
+  }
+  .centrado{
+  }
+
+  .imagen-placeholder {
+    display: block;
+    width: calc(var(--alto) * 0.45);
+    height: calc(var(--alto) * 1 / 100);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: calc(var(--alto) * 0.2 / 100);
+  }
+  .titulos {
+    display: flex;
+    width: 90%;
+    margin-bottom: calc(var(--alto) * 0.04);
+    gap: 15vw;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .taller-titulo {
+    font-size: calc(var(--alto) * 0.025 );
+    color: #161040;
+    background-color: #ff8079;
+    border-radius: 2px;
+    margin-top: (var(--alto) * 0.046 / 100);
+    padding: calc(var(--alto) * 0.02);
+    border-radius: 1vw;
+  }
+
+  .taller-fecha {
+    width: 100%;
+    text-align: right;
+    padding-right: calc(var(--alto) * 0.046 / 100);
+    font-size: calc(var(--alto) * 0.02 );
+    color: #333;
+    font-weight: bold;
+    margin-top: calc(var(--alto) * 0.3 / 100);
+  }
+
+  .talleres-subtitle {
+    display: flex;
+    flex-direction: column;
+    font-size: calc(var(--alto) * 0.02 );
+    color: #161040;
+    width: 100%;
+  }
+  .talleres-encuentros {
+    display: flex; /* Permite que el contenido interno de .talleres-encuentros se organice con flexbox */
+    flex-direction: end;
+    font-size: calc(var(--alto) * 0.04);
+    color: #161040;
+    margin: 0 4% 4% 4%; /* Margen superior: 0, derecha: 4%, inferior: 4%, izquierda: 4% */
+    width: 100%;
+  }
+
+  .nav-button {
+    background-color: transparent;
+    border: none;
+    color: #f7b731;
+    font-size: calc(var(--alto) * 0.18);
+    cursor: pointer;
+    padding: 1%;
+    z-index: 2;
+    border-radius: 70%;
+    line-height: 2;
+    transition:
+      transform 0.2s ease,
+      opacity 0.3s ease;
+  }
+
+  .nav-button:hover {
+    transform: scale(1.1);
+    visibility: visible !important;
+  }
+
+  .nav-button:disabled {
+    opacity: 0.7;
+    cursor: default;
+    transform: scale(1);
+  }
+
+  .card-indicadores {
+    top: calc(var(--alto) * 3.3 / 100);
+    position: absolute;
+    display: flex;
+    gap: calc(var(--alto) * 0.06 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+
+  .card-indicador {
+    width: calc(var(--alto) * 0.09 / 100);
+    height: calc(var(--alto) * 0.09 / 100);
+    border-radius: 50%;
+    background: #8b8b8b;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .card-indicador.active {
+    background: #f7b731;
+  }
+
+
+  /** 
+
+  @media (max-width: 431px) {
+    .titulos {
+      flex-direction: column;
+      width: 93%;
+    }
+
+    .card-carousel-section {
+      width: 80%;
+      height: calc(var(--alto) * 5.6 / 100);
+      top: calc(var(--alto) * 47 / 100);
+      left: calc(var(--alto) * 1.1 / 100);
+    }
+
+    .talleres-title {
+      align-self: flex-start;
+      margin: 0;
+    }
+    .taller-imagen {
+      height: calc(var(--alto) * 4.2 / 100);
+      width: 100%;
+      height: calc(var(--alto) * 6 / 100);
+    }
+    .subtitulos {
+    }
+    .talleres-subtitle {
+      hyphens: auto;
+      font-size: calc(var(--alto) * 0.1 / 100);
+      width: 100%;
+      margin: 0;
+      margin-top: calc(var(--alto) * 0.15 / 100);
+    }
+
+    .talleres-subtitle br {
+      display: none;
+    }
+
+    .talleres-encuentros {
+      font-size: calc(var(--alto) * 0.1 / 100);
+      white-space: nowrap;
+      margin: 0 2% 2% 2%;
+      margin-bottom: calc(var(--alto) * 0.1 / 100);
+    }
+
+    .card-carousel-container {
+      margin-left: 0;
+      position: relative;
+    }
+
+    .taller-card {
+      width: calc(101% / 1);
+      height: calc(var(--alto) * 2.5 / 100);
+      padding-top: calc(var(--alto) * 0.2 / 100);
+      padding-right: calc(var(--alto) * 0.2 / 100);
+      text-align: start;
+    }
+    .nav-button {
+      font-size: calc(var(--alto) * 0.3 / 100);
+      padding: calc(var(--alto) * 0.1 / 100);
+      width: calc(var(--alto) * 0.1 / 100);
+      height: calc(var(--alto) * 0.1 / 100);
+    }
+    .prev-button {
+      position: absolute;
+      left:calc(var(--alto) * -0.32 / 100);
+      top: 38%;
+      transform: translateY(-50%);
+      z-index: 4;
+    }
+    .next-button {
+      position: absolute;
+      left: calc(var(--alto) * 2.15 / 100);
+      top: 42.5%;
+      transform: translateY(-50%);
+      z-index: 4;
+    }
+
+    .taller-titulo {
+      font-size: calc(var(--alto) * 0.11 / 100);
+      padding: calc(var(--alto) * 0.046 / 100);
+      height: 70%;
+      font-family: "Lato", sans-serif;
+      font-weight: 100;
+      color: #133231;
+    }
+
+    .taller-fecha {
+      width: 100%;
+      text-align: right;
+      padding-right: calc(var(--alto) * 0.046 / 100);
+      font-size: calc(var(--alto) * 0.12 / 100);
+      font-family: "Lato", sans-serif;
+      font-weight: 400;
+      color: #133231;
+      font-style: italic;
+      margin-top: calc(var(--alto) * 0.3 / 100);
+    }
+    .card-indicadores {
+      top: calc(var(--alto) * 2.65 / 100);
+      transform: translateX(-50%);
+    }
+    .card-indicador {
+      top: calc(var(--alto) * 4 / 100);
+      width: calc(var(--alto) * 0.08 / 100);
+      height: calc(var(--alto) * 0.08 / 100);
+    }
+
+    .card-carousel {
+      height: calc(var(--alto) * 2.5 / 100);
+    }
+  }
+
+  */
 </style>
+
+<script define:vars={{ carouselId }}>
+  const carouselElement = document.getElementById(carouselId);
+
+  if (carouselElement) {
+    const cardCarousel = carouselElement.querySelector(".card-carousel");
+    const prevButton = carouselElement.querySelector(".prev-button");
+    const nextButton = carouselElement.querySelector(".next-button");
+    const tallerCards = carouselElement.querySelectorAll(".taller-card");
+
+    let currentTallerIndex = 0;
+    let cardsToShow = 3;
+    const gap = 20;
+    let maxIndex = 0;
+    let hoverInterval = null;
+
+    function updateCardsToShowAndRecalculate() {
+      if (!tallerCards.length) return;
+
+      const screenWidth = window.innerWidth;
+      const oldCardsToShow = cardsToShow;
+
+      if (screenWidth <= 480) {
+        cardsToShow = 1;
+      } else if (screenWidth <= 768) {
+        cardsToShow = 2;
+      } else {
+        cardsToShow = 3;
+      }
+
+      maxIndex = Math.max(0, Math.ceil(tallerCards.length - cardsToShow));
+
+      if (currentTallerIndex > maxIndex || oldCardsToShow !== cardsToShow) {
+        currentTallerIndex = Math.min(currentTallerIndex, maxIndex);
+        updateCarouselPosition(false);
+      } else {
+        updateCarouselPosition(false);
+      }
+
+      updateButtonStates();
+    }
+
+    function updateActiveIndicator() {
+      const indicadores = carouselElement.querySelectorAll(".card-indicador");
+      indicadores.forEach((btn, i) => {
+        btn.classList.toggle("active", i === currentTallerIndex);
+      });
+    }
+
+    function updateCarouselPosition(animate = true) {
+      const screenWidth = window.innerWidth;
+
+      if (screenWidth <= 447) {
+        if (!tallerCards.length || !cardCarousel) return;
+
+        const cardWidth = tallerCards[0].getBoundingClientRect().width;
+        const totalWidthPerCard = cardWidth + cardWidth * 0.01;
+        console.log("si");
+        const translateX = currentTallerIndex * totalWidthPerCard;
+        cardCarousel.style.transition = animate
+          ? "transform 1s ease-in-out"
+          : "none";
+        cardCarousel.style.transform = `translateX(-${translateX}px)`;
+      } else {
+        if (!tallerCards.length || !cardCarousel) return;
+
+        const cardWidth = tallerCards[0].getBoundingClientRect().width;
+        const totalWidthPerCard = cardWidth + cardWidth * 0.03;
+
+        const translateX = currentTallerIndex * totalWidthPerCard;
+        cardCarousel.style.transition = animate
+          ? "transform 1s ease-in-out"
+          : "none";
+        cardCarousel.style.transform = `translateX(-${translateX}px)`;
+      }
+
+      updateActiveIndicator();
+    }
+
+    function updateButtonStates() {
+      const canScroll = tallerCards.length > cardsToShow;
+
+      prevButton.disabled = currentTallerIndex === 0;
+      nextButton.disabled = currentTallerIndex >= maxIndex;
+
+      prevButton.style.visibility = canScroll ? "visible" : "hidden";
+      nextButton.style.visibility = canScroll ? "visible" : "hidden";
+    }
+
+    function autoScroll(direction) {
+      hoverInterval = setInterval(() => {
+        const newIndex = Math.max(
+          0,
+          Math.min(maxIndex, currentTallerIndex + direction * cardsToShow)
+        );
+        if (newIndex !== currentTallerIndex) {
+          currentTallerIndex = newIndex;
+          updateCarouselPosition();
+          updateButtonStates();
+        }
+      }, 4000);
+    }
+
+    function stopAutoScroll() {
+      clearInterval(hoverInterval);
+      hoverInterval = null;
+    }
+
+    prevButton.addEventListener("click", () => {
+      const newIndex = Math.max(0, currentTallerIndex - cardsToShow);
+      if (newIndex !== currentTallerIndex) {
+        currentTallerIndex = newIndex;
+        updateCarouselPosition();
+        updateButtonStates();
+      }
+    });
+
+    nextButton.addEventListener("click", () => {
+      const newIndex = Math.min(maxIndex, currentTallerIndex + cardsToShow);
+      if (newIndex !== currentTallerIndex) {
+        currentTallerIndex = newIndex;
+        updateCarouselPosition();
+        updateButtonStates();
+      }
+    });
+
+    prevButton.addEventListener("mouseenter", () => autoScroll(-1));
+    prevButton.addEventListener("mouseleave", stopAutoScroll);
+    nextButton.addEventListener("mouseenter", () => autoScroll(1));
+    nextButton.addEventListener("mouseleave", stopAutoScroll);
+
+    // También, agrega el evento click a cada indicador:
+    const indicadores = carouselElement.querySelectorAll(".card-indicador");
+    indicadores.forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        currentTallerIndex = i;
+        updateCarouselPosition();
+        updateButtonStates();
+      });
+    });
+
+    window.addEventListener("resize", updateCardsToShowAndRecalculate);
+
+    // --- SWIPE SUPPORT FOR MOBILE ---
+    function addSwipeSupport() {
+      let startX = 0;
+      let isSwiping = false;
+
+      cardCarousel.addEventListener("touchstart", (e) => {
+        if (e.touches.length === 1) {
+          startX = e.touches[0].clientX;
+          isSwiping = true;
+        }
+      });
+
+      cardCarousel.addEventListener(
+        "touchmove",
+        (e) => {
+          // Prevent scrolling while swiping horizontally
+          if (isSwiping) e.preventDefault();
+        },
+        { passive: false }
+      );
+
+      cardCarousel.addEventListener("touchend", (e) => {
+        if (!isSwiping) return;
+        const endX = e.changedTouches[0].clientX;
+        const deltaX = endX - startX;
+        const threshold = 50; // px mínimo para considerar swipe
+
+        if (deltaX > threshold && currentTallerIndex > 0) {
+          // Hacia la derecha: anterior
+          currentTallerIndex = Math.max(0, currentTallerIndex - 1);
+          updateCarouselPosition();
+          updateButtonStates();
+        } else if (deltaX < -threshold && currentTallerIndex < maxIndex) {
+          // Hacia la izquierda: siguiente
+          currentTallerIndex = Math.min(maxIndex, currentTallerIndex + 1);
+          updateCarouselPosition();
+          updateButtonStates();
+        }
+        isSwiping = false;
+      });
+    }
+    // Solo activar swipe en pantallas móviles
+    if (window.innerWidth <= 480) {
+      addSwipeSupport();
+    }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 480) {
+        addSwipeSupport();
+      }
+    });
+    // --- END SWIPE SUPPORT ---
+
+    function initializeCarousel() {
+      if (tallerCards.length === 0) {
+        prevButton.style.display = "none";
+        nextButton.style.display = "none";
+        return;
+      }
+      updateCardsToShowAndRecalculate();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeCarousel);
+    } else {
+      initializeCarousel();
+    }
+  } else {
+    console.error(`Carousel container with ID "${carouselId}" not found.`);
+  }
+</script>
