@@ -7,8 +7,7 @@
 ---
 
 <section
-  class="cierre anim-entrada anim-entrada--fade"
-  data-anim-stagger="200"
+
 >
   <div class="cierre__contenido">
     <div class="cierre__texto" data-anim-item>
@@ -47,18 +46,20 @@
 
   .cierre__contenido {
     position: absolute;
-    top: calc(var(--alto) * 20 / 100);
-    right: calc(var(--alto) * 5.5 / 100);
-    width: 60%;
+    Align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
   }
 
   .cierre__texto {
-    top: calc(var(--alto) * -1.4 / 100);
-    left: 39%;
     color: #1b2985;
     overflow: visible;
-    width: auto;
+    width: 60vw;
     font-size: calc(var(--alto) * 0.15 / 100);
+
   }
 
   .cierre__parrafo {
@@ -66,16 +67,16 @@
     font-size: calc(var(--alto) * 2.5 / 100);
     line-height: calc(var(--alto) * 2.5 / 100);
     color: var(--azul-noche);
-    width: 55%;
     margin: 0;
     
   }
 
   .cierre__creditos {
-    margin-top: calc(var(--alto) * 35 / 100);;
-    font-size: calc(var(--alto) * 1 / 100);
+    font-size: calc(var(--alto) * 2 / 100);
+    margin-top: calc(var(--alto) * 10 / 100);
     font-family: var(--font-lato);
     color: #1b2985;
     text-align: center;
+    width: 35vw;
   }
 </style>
