@@ -1,5 +1,6 @@
 ---
 // src/components/CardCarousel.astro
+import FlechaNav from "./FlechaNav.astro";
 
 const talleres = [
   // Asegúrate de añadir la propiedad 'fecha' a cada objeto taller
@@ -95,13 +96,10 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   </div>
 
   <div class="card-carousel-container">
-    <button
-      class="nav-button prev-button"
-      aria-label="Anterior taller"
-      disabled
-    >
-      <span>&lt;</span>
-    </button>
+    <FlechaNav
+      direccion="izquierda"
+      class="prev-button"
+    />
 
     <div class="card-carousel-wrapper">
       <div class="card-carousel">
@@ -137,9 +135,10 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
       }
     </div>
 
-    <button class="nav-button next-button" aria-label="Siguiente taller">
-      <span>&gt;</span>
-    </button>
+    <FlechaNav
+      direccion="derecha"
+      class="next-button"
+    />
   </div>
 </section>
 

@@ -1,0 +1,65 @@
+---
+/**
+ * FlechaNav.astro — Botón de flecha de navegación
+ *
+ * Props:
+ *   direccion — "izquierda" o "derecha"
+ *   color    — CSS color (default var(--naranja-madera))
+ *   size     — porcentaje de --alto para ancho/alto (default 12)
+ */
+
+export interface Props {
+  direccion: "izquierda" | "derecha";
+  color?: string;
+  size?: number;
+  class?: string;
+}
+
+const {
+  direccion,
+  color = "var(--naranja-madera)",
+  size = 12,
+  class: extraClass = "",
+} = Astro.props;
+
+const label = direccion === "izquierda" ? "Anterior" : "Siguiente";
+const points =
+  direccion === "izquierda" ? "15 18 9 12 15 6" : "9 18 15 12 9 6";
+---
+
+<button
+  class={`flecha-nav ${extraClass}`}
+  aria-label={label}
+  style={`color: ${color}; width: calc(var(--alto) * ${size} / 100); height: calc(var(--alto) * ${size} / 100)`}
+>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <polyline points={points}></polyline>
+  </svg>
+</button>
+
+<style>
+  .flecha-nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .flecha-nav:hover {
+    transform: scale(1.2);
+  }
+
+  .flecha-nav:active {
+    transform: scale(0.9);
+    transition: transform 0.15s ease;
+  }
+</style>
