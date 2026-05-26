@@ -1,5 +1,6 @@
 ---
 // src/components/CardCarousel.astro
+import type styles from "virtual:astro:image-styles.css";
 import FlechaNav from "./FlechaNav.astro";
 
 const talleres = [
@@ -85,7 +86,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
           en las mareas que van y vienen, en las especies que conviven,<br>
           en los colores y formas que construyen un paisaje vivo y en<br>
           constante transformación. Por esto, compartimos espacios<br>
-          colectivos para aprender juntes.<br>
+          colectivos para aprender juntes.
 
         </span
       >
@@ -98,7 +99,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   <div class="card-carousel-container">
     <FlechaNav
       direccion="izquierda"
-      class="prev-button"
+      class="prev-button previo"
     />
 
     <div class="card-carousel-wrapper">
@@ -145,6 +146,11 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 <style>
   
 
+  .previo{
+    width: 6vw !important;
+
+
+  }
   body {
     font-family: sans-serif;
     /* Quita el background del body si lo defines a nivel de página/layout */
@@ -161,14 +167,14 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     width: 90%;
     height: calc(var(--alto) * 0.9);
     z-index: 2;
-    top: calc(var(--alto) * 0.05 );
+    top: 2.1vw;
     align-items: center;
   }
 
   .talleres-title {
     color: #161040;
     margin: 0;
-    font-size: calc(var(--alto) * 0.06);
+    font-size: 3vw;
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -219,15 +225,15 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     align-items: center;
     justify-content: center;
     overflow: visible;
-    height: calc(var(--alto) * 0.42);
+    height: 22vw;
   }
   .contenedor-taller-titulo{
-    margin-top: calc(var(--alto) * 0.01);
+    margin-top: 1.4vw;
   }
 
   .taller-imagen-img {
-    width: 80%;
-    height: calc(var(--alto) * 0.26 );
+    width: 77%;
+    height: 15vw;
     margin: 0.4vw 1vw 1vw 0.3vw;
     border-radius: 1vw;
   }
@@ -235,7 +241,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     width: 27vw;
     position: absolute;
     z-index: -1;
-    height: calc(var(--alto) * 0.42 );
+    height: 24vw;
   }
   .centrado{
   }
@@ -258,7 +264,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   }
 
   .taller-titulo {
-    font-size: calc(var(--alto) * 0.025 );
+    font-size: 1.2vw;
     color: #161040;
     background-color: #ff8079;
     border-radius: 2px;
@@ -271,7 +277,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     width: 100%;
     text-align: right;
     padding-right: calc(var(--alto) * 0.046 / 100);
-    font-size: calc(var(--alto) * 0.02 );
+    font-size: 1.2vw;
     color: #333;
     font-weight: bold;
     margin-top: calc(var(--alto) * 0.3 / 100);
@@ -280,14 +286,14 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   .talleres-subtitle {
     display: flex;
     flex-direction: column;
-    font-size: calc(var(--alto) * 0.02 );
+    font-size: 1.2vw;
     color: #161040;
     width: 100%;
   }
   .talleres-encuentros {
     display: flex; /* Permite que el contenido interno de .talleres-encuentros se organice con flexbox */
     flex-direction: end;
-    font-size: calc(var(--alto) * 0.04);
+    font-size: 2vw;
     color: #161040;
     margin: 0 4% 4% 4%; /* Margen superior: 0, derecha: 4%, inferior: 4%, izquierda: 4% */
     width: 100%;
