@@ -2,9 +2,27 @@
 /**
  * ESCENA 15 · SACANDO LOS TRAPOS
  *
- * Sección Sacando los trapos.
+ * Podcast con descripción, botón de volver e íconos de
+ * Spotify y YouTube con doble círculo decorativo.
  */
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import BotonVolver from "./BotonVolver.astro";
+
+const svgSpotify = readFileSync(
+  join(process.cwd(), "public", "resources", "iconos", "icon-spotify.svg"),
+  "utf-8",
+).replace(/fill="[^"]*"/g, 'fill="currentColor"');
+
+const svgYoutube = readFileSync(
+  join(process.cwd(), "public", "resources", "iconos", "icon-youtube.svg"),
+  "utf-8",
+).replace(/fill="[^"]*"/g, 'fill="currentColor"');
+
+const SPOTIFY_URL =
+  "https://open.spotify.com/show/318xWjM52nEA659i9iKKTj?si=98a77bfca9eb4aef";
+const YOUTUBE_URL =
+  "https://www.youtube.com/playlist?list=PLkwIXeK8TV-_4trn-s-6Ya9CCIsMTGnqd";
 ---
 
 <section
@@ -13,25 +31,138 @@ import BotonVolver from "./BotonVolver.astro";
 >
   <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
 
-  <h1 class="los-trapos__titulo" data-anim-item>Sacando los trapos</h1>
+  <!-- COLUMNA IZQUIERDA: título + descripción + íconos -->
+  <div class="los-trapos__izquierda">
+    <h1 class="los-trapos__titulo" data-anim-item>Sacando los trapos</h1>
+
+    <span class="los-trapos__badge" data-anim-item>Podcast</span>
+
+    <p class="los-trapos__intro" data-anim-item>
+      Seguimos creciendo y abrazando cada ola en el ritmo cambiante del entorno.
+      Mantuvimos nuestra apuesta sonora con Sacando los Trapos, el podcast
+      creado para motivar conversaciones en temas relacionados con los
+      movimientos sociales y los activismos.
+    </p><br />
+
+    <p class="los-trapos__intro" data-anim-item>
+      En esta segunda temporada se emitieron tres capítulos, que se pueden
+      conocer en nuestro canal de YouTube y Spotify.
+    </p>
+
+    <!-- Íconos de plataformas: columna, abajo-derecha -->
+    <div class="los-trapos__plataformas" data-anim-item>
+      <a
+        class="los-trapos__circulo-ext"
+        href={SPOTIFY_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Escuchar en Spotify"
+      >
+        <span class="los-trapos__circulo-int" set:html={svgSpotify} />
+      </a>
+
+      <a
+        class="los-trapos__circulo-ext"
+        href={YOUTUBE_URL}
+        target="_blank"
+        rel="noopener"
+        aria-label="Ver en YouTube"
+      >
+        <span class="los-trapos__circulo-int" set:html={svgYoutube} />
+      </a>
+    </div>
+  </div>
+
+  <style>
+    .los-trapos {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    /* ─── Columna izquierda ─── */
+
+    .los-trapos__izquierda {
+      position: absolute;
+      top: calc(var(--alto) * 14.5 / 100);
+      left: 19vw;
+      width: 30vw;
+    }
+
+    .los-trapos__titulo {
+      font-family: var(--font-discordia);
+      font-size: calc(var(--alto) * 5 / 100);
+      font-weight: 700;
+      color: var(--azul-noche);
+      margin: 0 0 calc(var(--alto) * 0 / 100);
+      line-height: 1.1;
+    }
+
+    .los-trapos__badge {
+      display: inline-block;
+      font-family: var(--font-discordia);
+      font-size: calc(var(--alto) * 2.6 / 100);
+      font-weight: 400;
+      color: var(--azul-noche);
+      width: fit-content;
+      margin-bottom: calc(var(--alto) * 32 / 100);
+    }
+
+    .los-trapos__intro {
+      font-family: var(--font-lato);
+      font-size: calc(var(--alto) * 2.6 / 100);
+      line-height: calc(var(--alto) * 3 / 100);
+      color: var(--azul-noche);
+      width: 29vw;
+      white-space: normal;
+      margin: 0;
+    }
+
+    /* ─── Plataformas: columna, abajo-derecha ─── */
+
+    .los-trapos__plataformas {
+      position: absolute;
+      right: -10vw;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--alto) * 2 / 100);
+    }
+
+    .los-trapos__circulo-ext,
+    .los-trapos__circulo-int {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .los-trapos__circulo-ext {
+      background-color: var(--azul-noche);
+      width: calc(var(--alto) * 12 / 100);
+      height: calc(var(--alto) * 12 / 100);
+      text-decoration: none;
+      transition:
+        transform 0.3s ease,
+        outline 0.3s ease;
+    }
+
+    .los-trapos__circulo-ext:hover {
+      transform: scale(1.2);
+      outline: 3px solid var(--salmon);
+      outline-offset: 3px;
+    }
+
+    .los-trapos__circulo-int {
+      background-color: var(--azul-noche);
+      color: var(--azul-noche);
+      width: 100%;
+      height: 100%;
+    }
+
+    .los-trapos__circulo-int :global(svg) {
+      width: 65%;
+      height: 65%;
+    }
+  </style>
 </section>
-
-<style>
-  .los-trapos {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-  }
-
-  .los-trapos__titulo {
-    position: absolute;
-    top: calc(var(--alto) * 14 / 100);
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 5.4 / 100);
-    font-weight: 700;
-    color: var(--azul-noche);
-    margin: 0;
-  }
-</style>
