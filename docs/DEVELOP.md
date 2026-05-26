@@ -131,7 +131,7 @@ const { titulo } = Astro.props;
 
 ### Reglas de posicionamiento
 
-**Posicionamiento vertical con `--alto`, horizontal con `vw` o `--alto` según el tipo de página:**
+**Vertical con `--alto`, horizontal con `%`.** El `%` es relativo al wrapper `.escena-contenido` que coincide con el área visible del fondo 16:9.
 
 ```css
 /* Páginas multi-sección: --alto = 56.25vw (basado en ancho).
@@ -143,13 +143,16 @@ const { titulo } = Astro.props;
 }
 
 /* Páginas single-sección: --alto = 100dvh (basado en altura).
-   Vertical con --alto, horizontal con vw. */
+   Vertical con --alto, horizontal con % (wrapper 16:9).
+   El % ancla al fondo visible, no al viewport. */
 .en-single {
   position: absolute;
-  top: calc(var(--alto) * 24 / 100);   /* ✅ basado en altura */
-  right: 12vw;                          /* ✅ basado en ancho */
+  top: calc(var(--alto) * 24 / 100);
+  right: 12%;
 }
 ```
+
+> **Regla de oro**: `calc(var(--alto) * N / 100)` para TODO lo vertical. `%` para TODO lo horizontal en single-section. El `%` es relativo al wrapper `.escena-contenido` que Escena.astro crea automáticamente con `width: calc(var(--alto) * 16 / 9)` — el mismo ancho que el fondo.
 
 > **Regla**: `calc(var(--alto) * N / 100)` para posiciones verticales siempre. Para posiciones horizontales, usar `--alto` en multi-sección y `vw` en single-sección. Nunca usar `margin` para posicionar.
 
@@ -910,6 +913,7 @@ Antes de dar por terminado un componente o página:
 - [ ] ¿Los colores usan `var(--azul-noche)`, `var(--rosa)`, `var(--arena)`, etc.?
 - [ ] ¿Las fuentes usan `var(--font-discordia)` o `var(--font-lato)`?
 - [ ] ¿Los espaciados usan `var(--espacio-md)`, etc.?
+- [ ] ¿No hay `vh`, `vw` sueltos? (vertical siempre `--alto`, horizontal siempre `%`)
 - [ ] ¿No hay `@media` queries? (escala con `--alto`)
 - [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`? (sin `margin` para posicionar, siempre `position: absolute`)
 - [ ] ¿Los tamaños de fuente usan `calc(var(--alto) * N / 100)`?
