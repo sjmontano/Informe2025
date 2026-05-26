@@ -321,6 +321,98 @@ Las secciones no se delimitan con líneas rectas. Se usan:
 
 ## Components
 
+### ⚠️ Principio de replicación exacta
+
+Cuando dos páginas comparten la misma familia visual (ej. páginas de podcast, páginas de detalle con PDF, páginas con bloques de estadísticas), **se replica la estructura exacta del componente de referencia**. Solo cambia el contenido (texto, URLs, props de BotonVolver). No se rediseña cada página desde cero. Esto garantiza consistencia visual y ahorra tiempo de desarrollo.
+
+### Layouts recurrentes
+
+#### Layout Podcast (ContraCorriente, LosTrapos)
+
+```
+┌──────────────────────────────────────────┐
+│ [BotonVolver]                            │
+│                                          │
+│ Título (Discordia Bold, 5.4%)            │
+│ [Badge pill oceano/arena] "Podcast"      │
+│                                          │
+│ Texto intro (Lato, 2.4%, 24vw ancho)     │
+│                                          │
+│ Más texto...                    [Spotify]│
+│                                 [YouTube]│
+│ ← 17vw → ← 30vw →         -8vw → columna│
+└──────────────────────────────────────────┘
+```
+
+**Estructura CSS:**
+- Contenedor: `position: absolute; inset: 0; z-index: 2`
+- Columna izquierda: `position: absolute; top: 16%; left: 17vw; width: 30vw`
+- Badge: `display: inline-block; background: var(--oceano); color: var(--arena); border-radius: var(--espacio-4xl); font-style: italic`
+- Plataformas: `position: absolute; right: -8vw; bottom: 0; flex-direction: column`
+- Íconos: doble círculo anidado (externo `--azul-noche`, interno `--azul-noche` con SVG `--salmon`)
+
+#### Layout Detalle (Diplomado, Laboratorio)
+
+```
+┌──────────────────────────────────────────┐
+│ [BotonVolver]                            │
+│                                          │
+│ Título (Discordia Bold)                  │
+│ [Badge pill oceano/arena]                │
+│                                          │
+│ ┌─────────┐  Texto descriptivo           │
+│ │ PDF /    │  (Lato, varias líneas)      │
+│ │ Visor    │                              │
+│ └─────────┘                              │
+│ [Descargar]                              │
+└──────────────────────────────────────────┘
+```
+
+**Estructura CSS:**
+- Contenedor: `position: absolute; inset: 0; z-index: 2`
+- Contenido: `display: flex; gap; top/left con calc()` — visor a la izquierda, texto a la derecha
+- Badge: `display: inline-block; background: var(--oceano); color: var(--arena); border-radius: var(--espacio-4xl); font-style: italic; width: fit-content`
+
+#### Layout Bloques (Programas)
+
+```
+┌──────────────────────────────────────────┐
+│ [BotonVolver]    Título                  │
+│                                          │
+│  ┌─ Mapa ─────┐  [estrella] Título       │
+│  │ Colombia   │  Texto descriptivo       │
+│  │ interactivo│  [88 propuestas]         │
+│  └────────────┘                          │
+│                 [estrella] Título        │
+│                 Texto descriptivo        │
+│                 [94 propuestas]          │
+└──────────────────────────────────────────┘
+```
+
+**Estructura CSS:**
+- Cada bloque: `position: absolute` con `display: flex`
+- Títulos y cifras: `position: absolute` con altura fija en `.programas__info` para que estén alineados entre bloques
+- Ícono: estrella de 12 puntas con `clip-path: polygon(...)` o círculo con `border-radius: 50%`
+
+#### Layout Navegación (Investigacion, Estrategias)
+
+```
+┌──────────────────────────────────────────┐
+│ [BotonVolver]                            │
+│                                          │
+│ Título (Discordia Bold)                  │
+│ Subtítulo (Lato italic)                  │
+│                                          │
+│ [Botón 1]    [Botón 2]                  │
+│ [Botón 3]    [Botón 4]                  │
+└──────────────────────────────────────────┘
+```
+
+**Estructura CSS:**
+- Botones pill-shaped: `background: var(--salmon); color: var(--azul-noche); border-radius: var(--espacio-4xl)`
+- Posicionados con `position: absolute` + `calc(var(--alto) * N / 100)` + `left: N%`
+- Título centrado con `left: 50%; transform: translateX(-50%)`
+
 ### button-primary
 
 Botón principal de llamado a la acción. Fondo coral, texto azul noche, forma píldora.
@@ -412,6 +504,7 @@ Tarjeta de testimonio con borde de papel rasgado.
 
 ### ✅ Do
 
+- Replicar la estructura exacta del componente de referencia cuando dos páginas comparten la misma familia visual
 - Usar Discordia Bold para títulos, cifras destacadas y letreros de navegación
 - Usar Lato para todo el cuerpo de texto, menús, botones y etiquetas
 - Alternar fondos arena (`neutral`) y océano (`secondary`) entre secciones
@@ -424,6 +517,7 @@ Tarjeta de testimonio con borde de papel rasgado.
 
 ### ❌ Don't
 
+- No rediseñar desde cero un componente que ya tiene un patrón establecido; replicar y cambiar solo el contenido
 - No usar negro puro (`#000000`) — usar `primary` (`#28275B`)
 - No usar texto gris sobre fondos de color
 - No usar `box-shadow` ni `drop-shadow` para crear profundidad
