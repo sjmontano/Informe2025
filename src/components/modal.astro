@@ -1,4 +1,6 @@
 ---
+import FlechaNav from "./FlechaNav.astro";
+
 // Función que convierte enlaces de Drive a formato "preview"
 // y enlaces de YouTube a formato "embed"
 type EnlaceFormateado = {
@@ -67,17 +69,7 @@ const { modales } = Astro.props;
         <div class="action-carrusel">
           {/* Flecha izquierda */}
           <div class="action-carrusel-left">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#d87a85"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline class="izquierda" points="15 18 9 12 15 6" />
-            </svg>
+            <FlechaNav direccion="izquierda" color="#d87a85" />
           </div>
 
            {/* Indicadores Puntos */}
@@ -132,19 +124,7 @@ const { modales } = Astro.props;
 
           {/* Flecha derecha (rotada horizontalmente) */}
           <div class="action-carrusel-right">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#d87a85"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <g transform="rotate(180, 12, 12)">
-                <polyline class="derecha" points="15 18 9 12 15 6" />
-              </g>
-            </svg>
+            <FlechaNav direccion="derecha" color="#d87a85" />
           </div>
         </div>
 
@@ -325,11 +305,11 @@ const { modales } = Astro.props;
     cursor: pointer;
   }
 
-  .action-carrusel-left:hover svg,
-  .action-carrusel-right:hover svg {
-    transform: scale(1.1);
-    stroke: #d81734;
-    transition: transform 0.3s ease, stroke 0.3s ease;
+  .action-carrusel-left:hover .flecha-nav,
+  .action-carrusel-right:hover .flecha-nav {
+    transform: scale(1.2);
+    color: #d81734;
+    transition: transform 0.3s ease, color 0.3s ease;
   }
 
   /* Zona central que aloja el iframe */
