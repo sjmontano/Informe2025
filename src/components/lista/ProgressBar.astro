@@ -1,0 +1,102 @@
+---
+/**
+ * COMPONENTE · PROGRESS BAR
+ *
+ * Barra de progreso con porcentaje animado.
+ */
+
+const { percentage = 75 } = Astro.props;
+const { text = "" } = Astro.props;
+const { value = "" } = Astro.props;
+---
+
+<div class="progress" data-anim-item>
+  <span class="progress__titulo">{text}</span>
+
+  <div class="progress__contenedor">
+    <div
+      class="progress__barra"
+      data-target={percentage}
+    ></div>
+
+    <span class="progress__valor">{value}</span>
+    <span class="progress__porcentaje">{percentage}%</span>
+  </div>
+</div>
+
+<style>
+  .progress__titulo {
+    font-size: 1vw;
+    color: var(--blanco);
+    z-index: 2;
+  }
+
+  .progress__valor {
+    font-size: 1vw;
+    position: absolute;
+    color: var(--blanco);
+    margin-left: 1vw;
+  }
+
+  .progress__porcentaje {
+    font-size: 1vw;
+    color: var(--blanco);
+    margin-right: 1vw;
+  }
+
+  .progress {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    overflow: hidden;
+    z-index: 1;
+    gap: 0.5vw;
+  }
+
+  .progress__contenedor {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--azul-noche);
+    overflow: hidden;
+    height: 2vw;
+    z-index: 1;
+    justify-content: space-between;
+  }
+
+  .progress__barra {
+    height: 100%;
+    background-color: var(--turquesa);
+    width: 0%;
+    transition: width 2s ease;
+  }
+
+</style>
+
+<script>
+  const bars = document.querySelectorAll(".progress__barra");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const bar = entry.target;
+        const target = bar.getAttribute("data-target");
+
+        if (entry.isIntersecting) {
+          bar.style.transition = "width 1.5s ease";
+          bar.style.width = `${target}%`;
+        } else {
+          bar.style.transition = "none";
+          bar.style.width = "0%";
+        }
+      });
+    },
+    {
+      threshold: 0.5,
+    }
+  );
+
+  bars.forEach((bar) => observer.observe(bar));
+</script>
