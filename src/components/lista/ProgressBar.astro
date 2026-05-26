@@ -14,10 +14,7 @@ const { value = "" } = Astro.props;
   <span class="progress__titulo">{text}</span>
 
   <div class="progress__contenedor">
-    <div
-      class="progress__barra"
-      data-target={percentage}
-    ></div>
+    <div class="progress__barra" data-target={percentage}></div>
 
     <span class="progress__valor">{value}</span>
     <span class="progress__porcentaje">{percentage}%</span>
@@ -72,7 +69,6 @@ const { value = "" } = Astro.props;
     width: 0%;
     transition: width 2s ease;
   }
-
 </style>
 
 <script>
@@ -95,7 +91,7 @@ const { value = "" } = Astro.props;
     },
     {
       threshold: 0.5,
-    }
+    },
   );
 
   bars.forEach((bar) => observer.observe(bar));
