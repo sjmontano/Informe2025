@@ -2,18 +2,95 @@
 /**
  * ESCENA 4 · CUENTAS CLARAS
  *
- * Sección de Cuentas Claras.
+ * Visualización de ingresos y gastos 2025 con barras de progreso.
  */
 import BotonVolver from "./BotonVolver.astro";
+
+const dataIngresos = [
+  { text: "SALDOS DE PROYECTOS A DIC-31-2024", value: "$ 10.165.693.195", percentage: 44.14 },
+  { text: "DONANTES EUROPEOS", value: "$ 4.646.551.991", percentage: 20.18 },
+  { text: "DONANTES NORTEAMERICANOS", value: "$ 6.330.098.770", percentage: 27.49 },
+  { text: "FISCAL SPONSOR", value: "$ 542.160.000", percentage: 2.35 },
+  { text: "OTROS", value: "$ 1.346.493.843", percentage: 5.85 },
+  { text: "Total", value: "$ 23.030.997.799", percentage: 100 },
+];
+
+const dataGastos = [
+  { text: "APOYO A ORGANIZACIONES", value: "$ 5.590.308.439", percentage: 56 },
+  { text: "GASTOS PROGRAMÁTICOS", value: "$ 658.665.474", percentage: 7 },
+  { text: "DESARROLLO INSTITUCIONAL", value: "$ 715.296.441", percentage: 7 },
+  { text: "GASTOS ADMINISTRATIVOS", value: "$ 1.099.009.043", percentage: 11 },
+  { text: "INVESTIGACIÓN", value: "$ 421.112.446", percentage: 4 },
+  { text: "FISCAL SPONSOR", value: "$ 545.918.110", percentage: 6 },
+  { text: "PROYECTOS REGIONALES LATINOAMERICANOS", value: "$ 894.102.717", percentage: 9 },
+  { text: "Total", value: "$ 9.924.412.670", percentage: 100 },
+];
 ---
 
-<section
-  class="cuentas anim-entrada anim-entrada--fade"
-  data-anim-stagger="200"
->
-  <BotonVolver href="/" texto="Inicio" top={3} right={6} z={3} />
+<section class="cuentas anim-entrada anim-entrada--fade">
+  <BotonVolver href="/" variante="circulo" bottom={4} left={4} z={3} />
 
-  <h1 class="cuentas__titulo" data-anim-item>Cuentas Claras</h1>
+  <div class="cuentas__contenido">
+    <div class="cuentas__columna">
+      <span class="cuentas__subtitulo">En mareas cambiantes, cuentas claras:</span>
+
+      <h2 class="cuentas__titulo">Ingresos 2025</h2>
+
+      <ul class="cuentas__lista">
+        {dataIngresos
+          .filter((dato) => dato.text !== "Total")
+          .map((dato) => (
+            <li>
+              <div class="progress" data-anim-item>
+                <span class="progress__titulo">{dato.text}</span>
+
+                <div class="progress__contenedor">
+                  <div class="progress__barra" data-target={dato.percentage}></div>
+
+                  <span class="progress__valor">{dato.value}</span>
+                  <span class="progress__porcentaje">{dato.percentage}%</span>
+                </div>
+              </div>
+            </li>
+          ))}
+
+        <li class="cuentas__total">
+          <span>{dataIngresos[dataIngresos.length - 1].text}</span>
+          <span class="cuentas__valor">{dataIngresos[dataIngresos.length - 1].value}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cuentas__columna">
+      <span class="cuentas__subtitulo">En mareas cambiantes, cuentas claras:</span>
+
+      <h2 class="cuentas__titulo">Gastos 2025</h2>
+
+      <ul class="cuentas__lista">
+        {dataGastos
+          .filter((dato) => dato.text !== "Total")
+          .map((dato) => (
+            <li>
+              <div class="progress" data-anim-item>
+                <span class="progress__titulo">{dato.text}</span>
+
+                <div class="progress__contenedor">
+                  <div class="progress__barra" data-target={dato.percentage}></div>
+
+                  <span class="progress__valor">{dato.value}</span>
+                  <span class="progress__porcentaje">{dato.percentage}%</span>
+                </div>
+              </div>
+            </li>
+          ))}
+
+        <li class="cuentas__total">
+          <span>{dataGastos[dataGastos.length - 1].text}</span>
+          <span class="cuentas__valor">{dataGastos[dataGastos.length - 1].value}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -23,15 +100,129 @@ import BotonVolver from "./BotonVolver.astro";
     z-index: 2;
   }
 
-  .cuentas__titulo {
+  .cuentas__contenido {
     position: absolute;
     top: calc(var(--alto) * 14 / 100);
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 5.4 / 100);
-    font-weight: 700;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: calc(var(--alto) * 15 / 100);
+  }
+
+  .cuentas__columna {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cuentas__subtitulo {
+    font-family: var(--font-lato);
+    font-size: calc(var(--alto) * 1.8 / 100);
     color: var(--azul-noche);
     margin: 0;
   }
+
+  .cuentas__titulo {
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 3.5 / 100);
+    font-weight: 700;
+    color: var(--azul-noche);
+    margin-top: 0;
+    margin-bottom: calc(var(--alto) * 3 / 100);
+  }
+
+  .cuentas__lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--alto) * 0.5 / 100);
+    padding: 0;
+    margin: 0;
+  }
+
+  .cuentas__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-discordia);
+    font-size: calc(var(--alto) * 2 / 100);
+    font-weight: 700;
+    color: var(--blanco);
+  }
+
+  .cuentas__valor {
+    text-align: right;
+  }
+
+  /* ─── Progress Bar ─── */
+
+  .progress__titulo {
+    font-size: calc(var(--alto) * 1.8 / 100);
+    color: var(--blanco);
+    z-index: 2;
+  }
+
+  .progress__valor {
+    font-size: calc(var(--alto) * 1.5 / 100);
+    position: absolute;
+    color: var(--blanco);
+    margin-left: calc(var(--alto) * 1 / 100);
+  }
+
+  .progress__porcentaje {
+    font-size: calc(var(--alto) * 1.5 / 100);
+    color: var(--blanco);
+    margin-right: calc(var(--alto) * 1 / 100);
+  }
+
+  .progress {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    overflow: hidden;
+    z-index: 1;
+    gap: calc(var(--alto) * 0.5 / 100);
+  }
+
+  .progress__contenedor {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--azul-noche);
+    overflow: hidden;
+    height: calc(var(--alto) * 3 / 100);
+    z-index: 1;
+    justify-content: space-between;
+  }
+
+  .progress__barra {
+    height: 100%;
+    background-color: var(--oceano);
+    width: 0%;
+    transition: width 2s ease;
+  }
 </style>
+
+<script>
+  const bars = document.querySelectorAll(".progress__barra");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const bar = entry.target;
+        const target = bar.getAttribute("data-target");
+
+        if (entry.isIntersecting) {
+          bar.style.transition = "width 1.5s ease";
+          bar.style.width = `${target}%`;
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  bars.forEach((bar) => observer.observe(bar));
+</script>

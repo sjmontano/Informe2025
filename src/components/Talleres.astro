@@ -1,6 +1,10 @@
 ---
 // src/components/CardCarousel.astro
+<<<<<<< Updated upstream
 import type styles from "virtual:astro:image-styles.css";
+=======
+import BotonVolver from "./BotonVolver.astro";
+>>>>>>> Stashed changes
 import FlechaNav from "./FlechaNav.astro";
 
 const talleres = [
@@ -73,6 +77,8 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
 <section class="card-carousel-section" id={carouselId}>
+  <BotonVolver href="/" variante="circulo" bottom={4} left={4} z={3} />
+
   <div class="titulos">
     <div class="centrado">
     <span class="talleres-title">{title}</span>
