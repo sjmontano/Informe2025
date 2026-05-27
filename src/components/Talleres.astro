@@ -1,6 +1,6 @@
 ---
 // src/components/CardCarousel.astro
-import type styles from "virtual:astro:image-styles.css";
+import BotonVolver from "./BotonVolver.astro";
 import FlechaNav from "./FlechaNav.astro";
 
 const talleres = [
@@ -73,6 +73,8 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 ---
 
 <section class="card-carousel-section" id={carouselId}>
+  <BotonVolver href="/" variante="circulo" bottom={4} left={4} z={3} />
+
   <div class="titulos">
     <div class="centrado">
     <span class="talleres-title">{title}</span>
@@ -93,7 +95,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
       <br />
 
     </div>
-    
+
   </div>
 
   <div class="card-carousel-container">
@@ -144,7 +146,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 </section>
 
 <style>
-  
+
 
   .previo{
     width: 6vw !important;
@@ -260,7 +262,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     gap: 15vw;
     align-items: center;
     justify-content: center;
-    
+
   }
 
   .taller-titulo {
@@ -351,7 +353,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   }
 
 
-  /** 
+  /**
 
   @media (max-width: 431px) {
     .titulos {

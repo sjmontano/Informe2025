@@ -3,11 +3,14 @@
  * BotonVolver.astro — Botón de navegación hacia atrás
  *
  * Props:
- *   href   — destino (ej. "/investigacion")
- *   texto  — etiqueta (default "Volver")
- *   top    — posición desde arriba como N en calc(var(--alto) * N / 100)
- *   right  — posición desde la derecha
- *   z      — z-index (default 3)
+ *   href     — destino (ej. "/investigacion")
+ *   texto    — etiqueta (default "Volver"). Ignorado si variante="circulo"
+ *   top      — posición desde arriba (N en --alto)
+ *   right    — posición desde la derecha
+ *   bottom   — posición desde abajo (N en --alto), reemplaza a top
+ *   left     — posición desde la izquierda, reemplaza a right
+ *   z        — z-index (default 3)
+ *   variante — "default" (regresar.webp + texto) | "circulo" (SVG con texto incluido)
  */
 
 export interface Props {
@@ -15,27 +18,56 @@ export interface Props {
   texto?: string;
   top?: number;
   right?: number;
+  bottom?: number;
+  left?: number;
   z?: number;
+  variante?: "default" | "circulo";
 }
 
-const { href, texto = "Volver", top = 14, right = 10, z = 3 } = Astro.props;
+const {
+  href,
+  texto = "Volver",
+  top,
+  right,
+  bottom,
+  left,
+  z = 3,
+  variante = "default",
+} = Astro.props;
+
+const estilo = [
+  top != null ? `top: calc(var(--alto) * ${top} / 100)` : "",
+  right != null ? `right: calc(var(--alto) * ${right} / 100)` : "",
+  bottom != null ? `bottom: calc(var(--alto) * ${bottom} / 100)` : "",
+  left != null ? `left: calc(var(--alto) * ${left} / 100)` : "",
+  `z-index: ${z}`,
+].filter(Boolean).join("; ");
 ---
 
 <a
-  class="boton-volver"
+  class={`boton-volver${variante === "circulo" ? " boton-volver--circulo" : ""}`}
   href={href}
-  style={`top: calc(var(--alto) * ${top} / 100); right: calc(var(--alto) * ${right} / 100); z-index: ${z}`}
+  style={estilo}
   data-anim-item
 >
-  <img
-    class="boton-volver__icono"
-    src="/resources/ui/regresar.webp"
-    alt=""
-    loading="lazy"
-    width="48"
-    height="48"
-  />
-  <span class="boton-volver__texto">{texto}</span>
+  {variante === "circulo" ? (
+    <img
+      class="boton-volver__circulo"
+      src="/resources/ui/ui-regresar-1.svg"
+      alt="Volver al menú principal"
+      loading="lazy"
+    />
+  ) : (
+    <>
+      <img
+        class="boton-volver__icono"
+        src="/resources/ui/regresar.webp"
+        alt=""
+        loading="lazy"
+      />
+      <span class="boton-volver__texto">{texto}</span>
+    </>
+  )}
 </a>
 
 <style>
@@ -66,5 +98,23 @@ const { href, texto = "Volver", top = 14, right = 10, z = 3 } = Astro.props;
     font-family: var(--font-lato);
     font-size: calc(var(--alto) * 2.6 / 100);
     font-weight: 700;
+  }
+
+  /* ─── Variante círculo ─── */
+
+  .boton-volver--circulo {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .boton-volver--circulo:hover {
+    transform: scale(1.1);
+  }
+
+  .boton-volver__circulo {
+    width: calc(var(--alto) * 14 / 100);
+    height: calc(var(--alto) * 14 / 100);
+    object-fit: contain;
   }
 </style>
