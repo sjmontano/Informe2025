@@ -1,5 +1,6 @@
 ---
 import Carta from "../components/Carta.astro";
+import EscenaCierre from "../components/Cierre.astro";
 import Contenido from "../components/Contenido.astro";
 import Escena from "../components/Escena.astro";
 import Inicio from "../components/Inicio.astro";
@@ -15,5 +16,8 @@ import Layout from "../layouts/Layout.astro";
   </Escena>
   <Escena escena={2}>
     <Contenido />
+  </Escena>
+  <Escena escena={3}>
+    <EscenaCierre />
   </Escena>
 </Layout>
