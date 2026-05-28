@@ -146,6 +146,29 @@ El sitio se recorre como se navega un archipiélago:
 3. **Contraste con intención.** Azul noche sobre arena cálida, coral vibrante sobre océano profundo. Cada par de contraste cuenta una historia.
 4. **Mobile-first radical.** La mayoría de las lectoras acceden desde celular. El diseño colapsa con gracia sin perder la expresividad.
 
+### Wrapper `.escena-contenido` — Anclaje 16:9
+
+Todas las páginas single-section envuelven su contenido y elementos decorativos en un wrapper centrado de ancho `calc(var(--alto) * 16 / 9)`. Esto garantiza que las posiciones horizontales (`%`) estén siempre ancladas al área visible del fondo, no al viewport. En pantallas 16:9 el wrapper coincide exactamente con el viewport; en otros ratios se mantiene la alineación fondo↔contenido.
+
+```css
+.escena-contenido {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--alto) * 16 / 9);
+  height: var(--alto);
+}
+```
+
+### `@media` — Uso obligatorio para responsive
+
+Se permite y **se recomienda** usar `@media` para garantizar funcionalidad en celular. Usamos un breakpoint principal:
+
+- `@media (max-width: 640px)` para cambios estructurales: mostrar/ocultar columnas, cambiar `flex-direction`, activar navegación por flechas.
+
+**Regla complementaria:** priorizar `vw` y `%` en posiciones/tamaños. Evitar `calc()` salvo que sea estrictamente necesario (por ejemplo, anclajes a `--alto` en fondos o wrappers).
+
 ## Colors
 
 La paleta se organiza en cuatro familias funcionales, todas con nombres que evocan el universo marítimo del informe:

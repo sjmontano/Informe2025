@@ -131,30 +131,25 @@ const { titulo } = Astro.props;
 
 ### Reglas de posicionamiento
 
-**Vertical con `--alto`, horizontal con `%`.** El `%` es relativo al wrapper `.escena-contenido` que coincide con el área visible del fondo 16:9.
+**Priorizar `vw` y `%` en posiciones y tamaños.** Usar `calc()` solo cuando sea estrictamente necesario (por ejemplo, anclajes a `--alto` en fondos o wrappers).
 
 ```css
-/* Páginas multi-sección: --alto = 56.25vw (basado en ancho).
-   Horizontal y vertical usan --alto. */
+/* Páginas multi-sección: usar vw/% para anclar al collage */
 .en-multi {
   position: absolute;
-  top: calc(var(--alto) * 5 / 100);
-  left: calc(var(--alto) * 8 / 100);
+  top: 6vw;
+  left: 8vw;
 }
 
-/* Páginas single-sección: --alto = 100dvh (basado en altura).
-   Vertical con --alto, horizontal con % (wrapper 16:9).
-   El % ancla al fondo visible, no al viewport. */
+/* Páginas single-sección: % relativo al wrapper 16:9 */
 .en-single {
   position: absolute;
-  top: calc(var(--alto) * 24 / 100);
+  top: 24%;
   right: 12%;
 }
 ```
 
-> **Regla de oro**: `calc(var(--alto) * N / 100)` para TODO lo vertical. `%` para TODO lo horizontal en single-section. El `%` es relativo al wrapper `.escena-contenido` que Escena.astro crea automáticamente con `width: calc(var(--alto) * 16 / 9)` — el mismo ancho que el fondo.
-
-> **Regla**: `calc(var(--alto) * N / 100)` para posiciones verticales siempre. Para posiciones horizontales, usar `--alto` en multi-sección y `vw` en single-sección. Nunca usar `margin` para posicionar.
+> **Regla de oro**: usar `vw` y `%` para posiciones y tamaños. Reservar `calc(var(--alto) * N / 100)` solo cuando sea imprescindible para mantener el anclaje al fondo.
 
 /* ❌ INCORRECTO — margen no da control vertical preciso */
 .mi-componente {
@@ -163,9 +158,17 @@ const { titulo } = Astro.props;
 }
 ```
 
-Esto aplica **siempre**. No usar `margin` para posicionar. No usar `display: flex` + `align-items` como sustituto de `position: absolute`. Cada elemento controla su `top` y `left` explícitamente con `calc()`.
+Esto aplica **siempre**. No usar `margin` para posicionar. No usar `display: flex` + `align-items` como sustituto de `position: absolute`. Cada elemento controla su `top` y `left` explícitamente con `vw` o `%`.
 
 > **Razón:** `--alto` es vw-based y escala con el ancho de pantalla. Las posiciones calculadas con `calc(var(--alto) * N / 100)` escalan uniformemente. Los `margin` no dan control vertical directo y dependen del flujo del layout.
+
+### Responsive con `@media`
+
+Usamos `@media` de forma explícita para asegurar funcionalidad en celular. Breakpoint principal:
+
+- `@media (max-width: 640px)` para cambios estructurales: una sola columna, ocultar/mostrar bloques, activar navegación por flechas.
+
+**Regla:** el responsive se resuelve con `@media` + `vw/%` para posiciones y tamaños. Evitar `calc()` salvo que sea imprescindible.
 
 ---
 
@@ -913,8 +916,9 @@ Antes de dar por terminado un componente o página:
 - [ ] ¿Los colores usan `var(--azul-noche)`, `var(--rosa)`, `var(--arena)`, etc.?
 - [ ] ¿Las fuentes usan `var(--font-discordia)` o `var(--font-lato)`?
 - [ ] ¿Los espaciados usan `var(--espacio-md)`, etc.?
+- [ ] ¿Las `@media (max-width: 640px)` solo se usan para cambios estructurales mobile?
 - [ ] ¿No hay `vh`, `vw` sueltos? (vertical siempre `--alto`, horizontal siempre `%`)
-- [ ] ¿No hay `@media` queries? (escala con `--alto`)
+- [ ] ¿No hay `clamp()`, `min()`, `max()` en dimensiones?
 - [ ] ¿Las posiciones usan `calc(var(--alto) * N / 100)`? (sin `margin` para posicionar, siempre `position: absolute`)
 - [ ] ¿Los tamaños de fuente usan `calc(var(--alto) * N / 100)`?
 - [ ] ¿El HTML es semántico (`<section>`, `<article>`, no solo `<div>`)?
