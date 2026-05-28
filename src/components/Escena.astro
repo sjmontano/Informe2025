@@ -17,6 +17,20 @@ export interface Props {
   stagger?: number;
 }
 
+interface Item {
+  src: string;
+  alt: string;
+  top?: number;
+  bottom?: number;
+  left?: string;
+  right?: string;
+  width?: string;
+  extra?: string;
+  z?: number;
+  anim?: boolean;
+  ocultarEnMovil?: boolean;
+}
+
 // ─── Constantes de recursos ──────────────────────────────────────────
 
 const NUBE = "/resources/escenario/escenario-nube-rosa.webp";
@@ -42,7 +56,7 @@ const FLECHA = "/resources/contenedor/contenedor-flecha.webp";
 
 // ─── 17 escenas ──────────────────────────────────────────────────────
 
-const ESCENAS = [
+const ESCENAS: Item[][] = [
   /*  0 · PORTADA */
   [
     {
@@ -298,17 +312,17 @@ const ESCENAS = [
   [
     {
       src: LETRERO_BASE,
-      left: "6vw",
+      left: "-5vw",
       width: "40vw",
       alt: "Letrero Cuentas Claras",
-      extra: "top: calc(var(--espacio-3xl) * -2)",
+      extra: "top: -11vw",
     },
     {
       src: LETRERO_BASE,
-      right: "12vw",
+      right: "0vw",
       width: "40vw",
       alt: "Letrero Cuentas Claras",
-      extra: "top: calc(var(--espacio-3xl) * -2)",
+      extra: "top: -11vw",
       ocultarEnMovil: true,
     },
     {
@@ -498,19 +512,18 @@ const ESCENAS = [
   [
     {
       src: "/resources/contenedor/contenedor-letrero-3.webp",
-      bottom: -0.33,
+      bottom: -0.15,
       right: "2vw",
       width: "40vw",
       alt: "Letrero Investigación",
-      extra: "rotate: 5deg; bottom: -15vw;",
+      extra: "rotate: 5deg",
     },
     {
       src: "/resources/gifs/gif-artesanas-ensambladas.webp",
-      top: 0.3,
+      bottom: 0.02,
       left: "10vw",
       width: "50vw",
       alt: "Artesana, ilustración de Aquelarre",
-      extra: "top:auto; bottom: 2vw;",
     },
     {
       src: SOL,
@@ -734,28 +747,30 @@ const elementos = ESCENAS[escena] || [];
 <div class="escena-wrapper">
   <Fondos escena={escena > 16 ? 4 : escena} />
 
-  <div
-    class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}
-    aria-hidden="true"
-    data-anim-stagger={stagger}
-  >
-    {
-      elementos.map((e, i) => (
-        <img
-          class={`escena__img${e.ocultarEnMovil ? " escena__img--ocultar-movil" : ""}`}
-          src={e.src}
-          alt={e.alt}
-          style={css(e)}
-          loading={i === 0 && escena === 0 ? "eager" : "lazy"}
-          fetchpriority={i === 0 && escena === 0 ? "high" : "auto"}
-          decoding="async"
-          data-anim-item={"anim" in e && e.anim ? "" : undefined}
-        />
-      ))
-    }
-  </div>
+  <div class="escena-contenido">
+    <div
+      class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}
+      aria-hidden="true"
+      data-anim-stagger={stagger}
+    >
+      {
+        elementos.map((e, i) => (
+          <img
+            class={`escena__img${e.ocultarEnMovil ? " escena__img--ocultar-movil" : ""}`}
+            src={e.src}
+            alt={e.alt}
+            style={css(e)}
+            loading={i === 0 && escena === 0 ? "eager" : "lazy"}
+            fetchpriority={i === 0 && escena === 0 ? "high" : "auto"}
+            decoding="async"
+            data-anim-item={"anim" in e && e.anim ? "" : undefined}
+          />
+        ))
+      }
+    </div>
 
-  <slot />
+    <slot />
+  </div>
 </div>
 
 <style>
@@ -763,6 +778,15 @@ const elementos = ESCENAS[escena] || [];
     position: relative;
     height: var(--alto);
     overflow: hidden;
+  }
+
+  .escena-contenido {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(var(--alto) * 16 / 9);
+    height: var(--alto);
   }
 
   .escena {
@@ -781,25 +805,13 @@ const elementos = ESCENAS[escena] || [];
     z-index: 0;
   }
 
-  .es-movil .escena__img--ocultar-movil {
-    display: none;
+  .escena__img--ocultar-movil {
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .escena__img--ocultar-movil {
+      display: none;
+    }
   }
 </style>
-
-<script>
-  const claveBandera = "__banderaVistaMarea";
-  const raiz = document.body;
-
-  if (!window[claveBandera]) {
-    const aplicarBanderaMovil = () => {
-      const esMovil = window.innerWidth <= 640;
-      raiz.classList.toggle("es-movil", esMovil);
-    };
-
-    aplicarBanderaMovil();
-    window.addEventListener("resize", () =>
-      requestAnimationFrame(aplicarBanderaMovil),
-    );
-    window[claveBandera] = true;
-  }
-</script>
