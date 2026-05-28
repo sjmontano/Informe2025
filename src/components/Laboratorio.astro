@@ -46,19 +46,23 @@ import BotonVolver from "./BotonVolver.astro";
       </h1>
       <h2 class="laboratorio__subtitulo">Laboratorio de género y feminismos</h2>
       <p class="laboratorio__parrafo">
-        El laboratorio en feminismos fue un proceso formativo virtual abierto a
-        mujeres jóvenes que han empezado una exploración inicial en los
-        feminismos. Este tenía como objetivo que las jóvenes desarrollaran un
-        pensamiento y una práctica feminista amplia, diversa e incluyente,
-        mediante el diálogo y reflexión de referentes teóricos y prácticas
-        políticas que contrarrestan discursos y militancias esencialistas,
+        El laboratorio en feminismos fue un proceso formativo<br />
+        virtual abierto a mujeres jóvenes que han empezado<br />
+        una exploración inicial en los feminismos. Este tenía <br />
+        como objetivo que las jóvenes desarrollaran un<br />
+        pensamiento y una práctica feminista amplia, diversa<br /> 
+        e incluyente, mediante el diálogo y reflexión de <br />
+        referentes teóricos y prácticas políticas que <br />
+        contrarrestan discursos y militancias esencialistas,<br />
         racistas y transexcluyentes.
       </p>
       <p class="laboratorio__parrafo">
-        El laboratorio habilitó un espacio seguro para la reflexión y el debate
-        sobre el sujeto político del feminismo y la interseccionalidad; los
-        feminismos antirracistas, transfeminismo y feminismos trans-excluyentes;
-        y los relevos generacionales y buenas prácticas dentro de los activismos
+        El laboratorio habilitó un espacio seguro para la <br />
+        reflexión y el debate sobre el sujeto político del <br />
+        feminismo y la interseccionalidad; los feminismos <br />
+        antirracistas, transfeminismo y feminismos <br />
+        trans-excluyentes; y los relevos generacionales <br />
+        y buenas prácticas dentro de los activismos
         feministas.
       </p>
     </div>
@@ -75,10 +79,10 @@ import BotonVolver from "./BotonVolver.astro";
   .laboratorio__contenido {
     position: absolute;
     top: calc(var(--alto) * 14 / 100);
-    left: calc(var(--alto) * 10 / 100);
-    width: 90%;
+    left: 5%;
+    width: 95%;
     display: flex;
-    gap: calc(var(--alto) * 6 / 100);
+    gap:7vw;
   }
 
   .laboratorio__visor {
@@ -93,11 +97,9 @@ import BotonVolver from "./BotonVolver.astro";
 
   .laboratorio__marco {
     position: absolute;
-    top: -16%;
-    left: 50%;
-    transform: translateX(-50%) scaleY(0.8);
+    top: -5vh;
     width: 100%;
-    object-fit: contain;
+    height: 40vh;
     z-index: 0;
     pointer-events: none;
   }
@@ -105,10 +107,10 @@ import BotonVolver from "./BotonVolver.astro";
   .laboratorio__pdf {
     position: relative;
     width: 83%;
-    height: calc(var(--alto) * 32 / 100);
+    height: 30vh;
     border: none;
     background-color: var(--azul-noche);
-    border-radius: var(--espacio-lg);
+    border-radius: 2%;
     z-index: 1;
     display: block;
     margin-inline: auto;
@@ -142,13 +144,12 @@ import BotonVolver from "./BotonVolver.astro";
   }
 
   .laboratorio__texto {
-    flex: 1;
     color: var(--azul-noche);
   }
 
   .laboratorio__titulo {
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 4.9 / 100);
+    font-size: calc(var(--alto) * 4.7 / 100);
     line-height: 1.2;
     font-weight: 700;
     color: var(--azul-noche);
@@ -165,16 +166,16 @@ import BotonVolver from "./BotonVolver.astro";
     color: var(--arena);
     width: fit-content;
     border-radius: var(--espacio-4xl);
-    padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 5 / 100);
-    margin-bottom: calc(var(--alto) * 5 / 100);
+    padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 4 / 100);
+    margin-bottom: calc(var(--alto) / 100);
+    margin-left: calc(var(--alto) * -4 / 100);
   }
 
   .laboratorio__parrafo {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.6 / 100);
-    line-height: calc(var(--alto) * 3.2 / 100);
+    font-size: calc(var(--alto) * 2.25 / 100);
+    line-height: calc(var(--alto) * 2.7 / 100);
     color: var(--azul-noche);
-    width: 62%;
   }
 </style>
 

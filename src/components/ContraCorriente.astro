@@ -44,23 +44,30 @@ const YOUTUBE_URL =
     <span class="contracorriente__badge" data-anim-item>Podcast</span>
 
     <p class="contracorriente__intro" data-anim-item>
-      El podcast A contracorriente es el resultado de un proceso de
-      investigación colaborativo con colectivas y organizaciones de mujeres con
-      discapacidades de Cartagena, que responde preguntas alrededor de la
-      experiencia de discapacidad y la intersección de la violencia capacitista
-      con otras formas de opresión.
+      El podcast A contracorriente es el resultado <br />
+      de un proceso de investigación colaborativo <br />
+      con colectivas y organizaciones de mujeres <br />
+      con discapacidades de Cartagena, que responde <br />
+      preguntas alrededor de la experiencia de <br />
+      discapacidad y la intersección de la violencia <br />
+      capacitista con otras formas de opresión.<br />
     </p><br />
 
     <p class="contracorriente__intro" data-anim-item>
-      Esta investigación se consolida como una apuesta alrededor de problemas
-      poco indagados e invisibilizados; y como un llamado urgente y
-      profundamente político a reflexionar sobre las lógicas de exclusión
-      capacitista, no solo como un asunto individual, sino estructural, en una
-      sociedad que configura la diversidad de cuerpos en «normales» y
-      «anormales».
+      Esta investigación se consolida como una <br />
+      apuesta alrededor de problemas poco indagados <br />
+      e invisibilizados; y como un llamado urgente <br />
+      y profundamente político a reflexionar sobre <br />
+      las lógicas de exclusión capacitista, no solo como <br />
+      un asunto individual, sino estructural, en una<br />
+      sociedad que configura la diversidad de cuerpos <br />
+      en «normales» y «anormales».
     </p>
 
-    <!-- Íconos de plataformas: columna, abajo-derecha -->
+    
+  </div>
+
+  <!-- Íconos de plataformas: columna, abajo-derecha -->
     <div class="contracorriente__plataformas" data-anim-item>
       <a
         class="contracorriente__circulo-ext"
@@ -82,7 +89,6 @@ const YOUTUBE_URL =
         <span class="contracorriente__circulo-int" set:html={svgYoutube} />
       </a>
     </div>
-  </div>
 
   <style>
     .contracorriente {
@@ -95,14 +101,14 @@ const YOUTUBE_URL =
 
     .contracorriente__izquierda {
       position: absolute;
-      top: calc(var(--alto) * 16 / 100);
+      top: 16vh;
       left: 17%;
       width: 60%;
     }
 
     .contracorriente__titulo {
       font-family: var(--font-discordia);
-      font-size: calc(var(--alto) * 5.4 / 100);
+      font-size: 3.4vw;
       font-weight: 700;
       color: var(--azul-noche);
       margin: 0 0 calc(var(--alto) * 1.5 / 100);
@@ -126,10 +132,10 @@ const YOUTUBE_URL =
     .contracorriente__intro {
       margin-top: 3vw;
       font-family: var(--font-lato);
-      font-size: calc(var(--alto) * 2.4 / 100);
-      line-height: calc(var(--alto) * 2.8 / 100);
+      font-size: 1.3vw;
+      line-height: 1.5vw;
       color: var(--azul-noche);
-      width: 40%;
+      width: 55%;
       white-space: normal;
       margin: 0;
     }
@@ -138,8 +144,8 @@ const YOUTUBE_URL =
 
     .contracorriente__plataformas {
       position: absolute;
-      right: 40%;
-      bottom: 0;
+      right: 42%;
+      bottom: 25vh;
       display: flex;
       flex-direction: column;
       gap: calc(var(--alto) * 2 / 100);
@@ -155,8 +161,8 @@ const YOUTUBE_URL =
 
     .contracorriente__circulo-ext {
       background-color: var(--azul-noche);
-      width: calc(var(--alto) * 15 / 100);
-      height: calc(var(--alto) * 15 / 100);
+      width: 12vh;
+      height: 12vh;
       text-decoration: none;
       transition:
         transform 0.3s ease,
