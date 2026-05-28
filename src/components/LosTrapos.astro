@@ -48,7 +48,7 @@ const YOUTUBE_URL =
       En esta segunda temporada se emitieron tres capítulos, que se pueden
       conocer en nuestro canal de YouTube y Spotify.
     </p>
-
+  </div>
     <!-- Íconos de plataformas: columna, abajo-derecha -->
     <div class="los-trapos__plataformas" data-anim-item>
       <a
@@ -71,7 +71,7 @@ const YOUTUBE_URL =
         <span class="los-trapos__circulo-int" set:html={svgYoutube} />
       </a>
     </div>
-  </div>
+  
 
   <style>
     .los-trapos {
@@ -84,36 +84,37 @@ const YOUTUBE_URL =
 
     .los-trapos__izquierda {
       position: absolute;
-      top: calc(var(--alto) * 15 / 100);
-      left: 19%;
-      width: 70%;
+      top: 15vh;
+      left: 18vw;
+      width: 60%;
     }
 
     .los-trapos__titulo {
       font-family: var(--font-discordia);
-      font-size: calc(var(--alto) * 5 / 100);
+      font-size: 3.8vh;
       font-weight: 700;
       color: var(--azul-noche);
-      margin: 0 0 calc(var(--alto) * 0 / 100);
-      line-height: 1.1;
+      margin: 0 0 calc(var(--alto) * 1.5 / 100);
+      line-height: 1.5vh;
     }
 
     .los-trapos__badge {
       display: inline-block;
       font-family: var(--font-discordia);
-      font-size: calc(var(--alto) * 2.6 / 100);
+      font-size: 1.5vw;
       font-weight: 400;
       color: var(--azul-noche);
       width: fit-content;
-      margin-bottom: calc(var(--alto) * 32 / 100);
+      margin-bottom: 35vh;
     }
 
     .los-trapos__intro {
+      margin-top: 3vw;
       font-family: var(--font-lato);
-      font-size: calc(var(--alto) * 2.4 / 100);
-      line-height: calc(var(--alto) * 2.8 / 100);
+      font-size: 1.3vw;
+      line-height: 1.5vw;
       color: var(--azul-noche);
-      width: 38%;
+      width: 55%;
       white-space: normal;
       margin: 0;
     }
@@ -122,8 +123,8 @@ const YOUTUBE_URL =
 
     .los-trapos__plataformas {
       position: absolute;
-      right: 40%;
-      bottom: 0;
+      right: 41vw;
+      bottom: 21vh;
       display: flex;
       flex-direction: column;
       gap: calc(var(--alto) * 2 / 100);
@@ -139,8 +140,8 @@ const YOUTUBE_URL =
 
     .los-trapos__circulo-ext {
       background-color: var(--azul-noche);
-      width: calc(var(--alto) * 12 / 100);
-      height: calc(var(--alto) * 12 / 100);
+      width: calc(var(--alto) * 10/ 100);
+      height: calc(var(--alto) * 10 / 100);
       text-decoration: none;
       transition:
         transform 0.3s ease,
