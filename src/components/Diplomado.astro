@@ -11,7 +11,14 @@ import BotonVolver from "./BotonVolver.astro";
   class="diplomado anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
-  <BotonVolver href="/investigacion" texto="Investigación" />
+  <BotonVolver
+    href="/investigacion"
+    texto="Investigación"
+    top={12}
+    right={15}
+    z={3}
+  />
+  <BotonVolver href="/" variante="circulo" bottom={8} left={50} z={3} />
 
   <div class="diplomado__contenido">
     <div class="diplomado__texto" data-anim-item>
@@ -63,7 +70,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .diplomado__subtitulo {
     font-family: var(--font-discordia);
-    font-size:1.4vw;
+    font-size: 1.4vw;
     font-style: italic;
     font-weight: 400;
     background-color: var(--oceano);

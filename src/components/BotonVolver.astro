@@ -41,7 +41,9 @@ const estilo = [
   bottom != null ? `bottom: calc(var(--alto) * ${bottom} / 100)` : "",
   left != null ? `left: calc(var(--alto) * ${left} / 100)` : "",
   `z-index: ${z}`,
-].filter(Boolean).join("; ");
+]
+  .filter(Boolean)
+  .join("; ");
 ---
 
 <a
@@ -50,24 +52,26 @@ const estilo = [
   style={estilo}
   data-anim-item
 >
-  {variante === "circulo" ? (
-    <img
-      class="boton-volver__circulo"
-      src="/resources/ui/ui-regresar-1.svg"
-      alt="Volver al menú principal"
-      loading="lazy"
-    />
-  ) : (
-    <>
+  {
+    variante === "circulo" ? (
       <img
-        class="boton-volver__icono"
-        src="/resources/ui/regresar.webp"
-        alt=""
+        class="boton-volver__circulo"
+        src="/resources/ui/ui-regresar-1.svg"
+        alt="Volver al menú principal"
         loading="lazy"
       />
-      <span class="boton-volver__texto">{texto}</span>
-    </>
-  )}
+    ) : (
+      <>
+        <img
+          class="boton-volver__icono"
+          src="/resources/ui/regresar.webp"
+          alt=""
+          loading="lazy"
+        />
+        <span class="boton-volver__texto">{texto}</span>
+      </>
+    )
+  }
 </a>
 
 <style>
@@ -79,8 +83,8 @@ const estilo = [
     background-color: var(--oceano);
     color: var(--arena);
     text-decoration: none;
-    border-radius: var(--espacio-4xl);
-    padding: calc(var(--alto) * 0.7 / 100) calc(var(--alto) * 2 / 100);
+    border-radius: var(--espacio-sm);
+    padding: calc(var(--alto) * 0.7 / 100) calc(var(--alto) * 1 / 100);
     transition: transform 0.2s ease;
   }
 
@@ -95,7 +99,7 @@ const estilo = [
   }
 
   .boton-volver__texto {
-    font-family: var(--font-lato);
+    font-family: var(--font-discordia);
     font-size: calc(var(--alto) * 2.6 / 100);
     font-weight: 700;
   }

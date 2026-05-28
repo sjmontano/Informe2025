@@ -174,19 +174,19 @@ const statsByDept = [
       const data = statsByDept.find((d) => d.name === deptName) ?? { libertad: 0, autonomia: 0 };
 
       if (tipLib) {
-        tipLib.textContent = `${data.libertad} libre`;
-        tipLib.style.left = `${e.pageX - 50}px`;
-        tipLib.style.top = `${e.pageY - 50}px`;
+        tipLib.textContent = `Libertad: ${data.libertad}`;
+        tipLib.style.left = `${e.pageX + 15}px`;
+        tipLib.style.top = `${e.pageY - 55}px`;
       }
       if (tipAuto) {
-        tipAuto.textContent = `${data.autonomia} auto`;
-        tipAuto.style.left = `${e.pageX - 60}px`;
-        tipAuto.style.top = `${e.pageY - 20}px`;
+        tipAuto.textContent = `Autonomía: ${data.autonomia}`;
+        tipAuto.style.left = `${e.pageX + 15}px`;
+        tipAuto.style.top = `${e.pageY - 30}px`;
       }
       if (tipNom) {
         tipNom.textContent = deptName;
-        tipNom.style.left = `${e.pageX}px`;
-        tipNom.style.top = `${e.pageY + 25}px`;
+        tipNom.style.left = `${e.pageX + 15}px`;
+        tipNom.style.top = `${e.pageY - 5}px`;
       }
     });
 
