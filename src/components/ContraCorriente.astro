@@ -32,10 +32,11 @@ const YOUTUBE_URL =
   <BotonVolver
     href="/investigacion"
     texto="Investigación"
-    top={3}
-    right={6}
+    top={5}
+    right={15}
     z={3}
   />
+  <BotonVolver href="/" variante="circulo" bottom={3} left={15} z={3} />
 
   <!-- COLUMNA IZQUIERDA: título + descripción + íconos -->
   <div class="contracorriente__izquierda">
@@ -63,32 +64,30 @@ const YOUTUBE_URL =
       sociedad que configura la diversidad de cuerpos <br />
       en «normales» y «anormales».
     </p>
-
-    
   </div>
 
   <!-- Íconos de plataformas: columna, abajo-derecha -->
-    <div class="contracorriente__plataformas" data-anim-item>
-      <a
-        class="contracorriente__circulo-ext"
-        href={SPOTIFY_URL}
-        target="_blank"
-        rel="noopener"
-        aria-label="Escuchar en Spotify"
-      >
-        <span class="contracorriente__circulo-int" set:html={svgSpotify} />
-      </a>
+  <div class="contracorriente__plataformas" data-anim-item>
+    <a
+      class="contracorriente__circulo-ext"
+      href={SPOTIFY_URL}
+      target="_blank"
+      rel="noopener"
+      aria-label="Escuchar en Spotify"
+    >
+      <span class="contracorriente__circulo-int" set:html={svgSpotify} />
+    </a>
 
-      <a
-        class="contracorriente__circulo-ext"
-        href={YOUTUBE_URL}
-        target="_blank"
-        rel="noopener"
-        aria-label="Ver en YouTube"
-      >
-        <span class="contracorriente__circulo-int" set:html={svgYoutube} />
-      </a>
-    </div>
+    <a
+      class="contracorriente__circulo-ext"
+      href={YOUTUBE_URL}
+      target="_blank"
+      rel="noopener"
+      aria-label="Ver en YouTube"
+    >
+      <span class="contracorriente__circulo-int" set:html={svgYoutube} />
+    </a>
+  </div>
 
   <style>
     .contracorriente {

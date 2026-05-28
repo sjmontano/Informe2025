@@ -20,7 +20,14 @@ const svgMap = readFileSync(
   class="programas anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
-  <BotonVolver href="/" variante="circulo" bottom={4} left={4} z={3} />
+  <BotonVolver href="/" variante="circulo" bottom={8} left={15} z={3} />
+  <BotonVolver
+    href="/investigacion"
+    texto="Investigación"
+    top={20}
+    right={8}
+    z={3}
+  />
 
   <h1 class="programas__titulo" data-anim-item>Programas</h1>
 
@@ -112,7 +119,7 @@ const svgMap = readFileSync(
   .programas__mapa {
     position: absolute;
     top: calc(var(--alto) * 5 / 100);
-    left:-1vw;
+    left: -1vw;
     width: 43vw;
     height: calc(var(--alto) * 50 / 100);
   }

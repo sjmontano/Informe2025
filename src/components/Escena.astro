@@ -253,10 +253,11 @@ const ESCENAS: Item[][] = [
     },
     {
       src: FLECHA,
-      top: 0.78,
-      right: "15vw",
-      width: "8vw",
+      top: 0.15,
+      left: "10vw",
+      width: "25vw",
       alt: "Flecha decorativa",
+      extra: "transform: rotate(-1deg)",
     },
   ],
 
@@ -312,17 +313,15 @@ const ESCENAS: Item[][] = [
   [
     {
       src: LETRERO_BASE,
-      left: "-5vw",
-      width: "40vw",
+      left: "-1vw",
       alt: "Letrero Cuentas Claras",
-      extra: "top: -11vw",
+      extra: "top: -14vh; height:51vh; width:51vw; object-fit: initial;",
     },
     {
       src: LETRERO_BASE,
-      right: "0vw",
-      width: "40vw",
+      right: "1vh",
       alt: "Letrero Cuentas Claras",
-      extra: "top: -11vw",
+      extra: "top: -14vh; height:51vh; width:51vw; object-fit: initial;",
       ocultarEnMovil: true,
     },
     {
@@ -338,10 +337,10 @@ const ESCENAS: Item[][] = [
   [
     {
       src: "/resources/contenedor/contenedor-letrero.webp",
-      top: -0.2,
-      left: "15vw",
-      width: "40vw",
+      left: "8vw",
       alt: "Delfín, ilustración de Aquelarre",
+      extra: "top: -14vh; height:51vh; width:51vw; object-fit: initial;",
+      
     },
     {
       src: "/resources/gifs/gif-delfin-ensamblado.webp",
@@ -528,7 +527,7 @@ const ESCENAS: Item[][] = [
     {
       src: SOL,
       left: "-20vh",
-      extra:"height:49vh",
+      extra: "height:49vh",
       alt: "Sol decorativo",
     },
   ],
@@ -541,10 +540,22 @@ const ESCENAS: Item[][] = [
       width: "80vh",
       alt: "Leona marina, ilustración de Aquelarre",
       z: 3,
-      extra:"bottom:10vh;",
+      extra: "bottom:10vh;",
     },
-    { src: CACTUS,  left: "-7vw", width: "33vh", alt: "Cactus", extra:"bottom: -3vw;"},
-    { src: CACTUS_1, left: "-2.5vw", width: "37vh", alt: "Cactus" , extra:"bottom: -2vw;"},
+    {
+      src: CACTUS,
+      left: "-7vw",
+      width: "33vh",
+      alt: "Cactus",
+      extra: "bottom: -3vw;",
+    },
+    {
+      src: CACTUS_1,
+      left: "-2.5vw",
+      width: "37vh",
+      alt: "Cactus",
+      extra: "bottom: -2vw;",
+    },
   ],
 
   /* 13 · DIPLOMADO */
@@ -557,7 +568,13 @@ const ESCENAS: Item[][] = [
       alt: "Carrusel de fotos",
       extra: "height: 100vh; object-fit: initial; object-position: 80%;",
     },
-    { src: CACTUS,  right: "-6.5vw", width: "32vh", alt: "Marco" ,extra:"bottom: -5vh;"},
+    {
+      src: CACTUS,
+      right: "-6.5vw",
+      width: "32vh",
+      alt: "Marco",
+      extra: "bottom: -5vh;",
+    },
     { src: CACTUS_2, bottom: -0.1, right: "3vw", width: "47vh", alt: "Marco" },
     { src: CACTUS_1, bottom: -0.03, right: "0vw", width: "37vh", alt: "Marco" },
   ],
