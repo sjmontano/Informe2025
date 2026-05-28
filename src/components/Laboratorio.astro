@@ -14,10 +14,11 @@ import BotonVolver from "./BotonVolver.astro";
   <BotonVolver
     href="/investigacion"
     texto="Investigación"
-    top={3}
-    right={6}
+    top={5}
+    right={15}
     z={3}
   />
+  <BotonVolver href="/" variante="circulo" bottom={8} left={15} z={3} />
 
   <div class="laboratorio__contenido">
     <div class="laboratorio__visor" data-anim-item>
@@ -50,7 +51,7 @@ import BotonVolver from "./BotonVolver.astro";
         virtual abierto a mujeres jóvenes que han empezado<br />
         una exploración inicial en los feminismos. Este tenía <br />
         como objetivo que las jóvenes desarrollaran un<br />
-        pensamiento y una práctica feminista amplia, diversa<br /> 
+        pensamiento y una práctica feminista amplia, diversa<br />
         e incluyente, mediante el diálogo y reflexión de <br />
         referentes teóricos y prácticas políticas que <br />
         contrarrestan discursos y militancias esencialistas,<br />
@@ -62,8 +63,7 @@ import BotonVolver from "./BotonVolver.astro";
         feminismo y la interseccionalidad; los feminismos <br />
         antirracistas, transfeminismo y feminismos <br />
         trans-excluyentes; y los relevos generacionales <br />
-        y buenas prácticas dentro de los activismos
-        feministas.
+        y buenas prácticas dentro de los activismos feministas.
       </p>
     </div>
   </div>
@@ -82,7 +82,7 @@ import BotonVolver from "./BotonVolver.astro";
     left: 5%;
     width: 95%;
     display: flex;
-    gap:7vw;
+    gap: 7vw;
   }
 
   .laboratorio__visor {
@@ -114,7 +114,6 @@ import BotonVolver from "./BotonVolver.astro";
     z-index: 1;
     display: block;
     margin-inline: auto;
-
   }
 
   .laboratorio__descargar {
