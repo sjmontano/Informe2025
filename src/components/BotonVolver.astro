@@ -22,6 +22,9 @@ export interface Props {
   left?: number;
   z?: number;
   variante?: "default" | "circulo";
+  color?: string;
+  background?: string;
+  extraStyle?: string;
 }
 
 const {
@@ -33,6 +36,9 @@ const {
   left,
   z = 3,
   variante = "default",
+  color ="var(--arena)",
+  background = "var(--oceano)",
+  extraStyle = "",
 } = Astro.props;
 
 const estilo = [
@@ -40,7 +46,10 @@ const estilo = [
   right != null ? `right: calc(var(--alto) * ${right} / 100)` : "",
   bottom != null ? `bottom: calc(var(--alto) * ${bottom} / 100)` : "",
   left != null ? `left: calc(var(--alto) * ${left} / 100)` : "",
+  color != null ? `color: ${color}` : "var(--arena)",
+  background != null ? `background-color: ${background}` : "var(--oceano)",
   `z-index: ${z}`,
+  extraStyle,
 ]
   .filter(Boolean)
   .join("; ");
@@ -60,7 +69,17 @@ const estilo = [
         alt="Volver al menú principal"
         loading="lazy"
       />
-    ) : (
+    ) : variante === "estrategia" ? (
+      <>
+      <img
+        class="boton-volver__icono"
+        src="/resources/ui/regresar.svg"
+        alt="Volver al menú principal"
+        loading="lazy"
+      />
+        <span class="boton-volver__texto">{texto}</span>
+      </>
+    ): (
       <>
         <img
           class="boton-volver__icono"
@@ -80,8 +99,6 @@ const estilo = [
     display: flex;
     align-items: center;
     gap: calc(var(--alto) * 1.7 / 100);
-    background-color: var(--oceano);
-    color: var(--arena);
     text-decoration: none;
     border-radius: var(--espacio-sm);
     padding: calc(var(--alto) * 0.7 / 100) calc(var(--alto) * 1 / 100);
