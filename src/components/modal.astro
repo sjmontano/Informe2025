@@ -234,7 +234,7 @@ const { modales } = Astro.props;
   /* Caja principal del modal: color, radio y layout */
   .action-modal {
     background-color: transparent;            /* tono beige rosado */
-    width: 70%;
+    width: 80%;
     height: 100%;
     border-radius: calc(var(--alto) * 0.2 / 100);
     display: flex;
@@ -282,14 +282,16 @@ const { modales } = Astro.props;
   .action-carrusel {
     display: flex;
     width: 100%;
-    height: 26vw;
+    height: 55vh;
     margin-top: calc(var(--alto) * 0.18);
+    align-items: center;
+    justify-content: space-between;
   }
 
   /* Slide visible (iframe de YouTube, PDF, FlipHTML5, etc.) */
   .action-carrusel-slide {
-    width: 100%;
-    height:22vw;
+    width: 99vh;
+    height:44vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -322,7 +324,7 @@ const { modales } = Astro.props;
 
   /* Iframe estándar */
   .action-iframe {
-    width: 70%;
+    width: 100%;
     height: 100%;
     border: none;
     margin-top: calc(var(--alto) * 0.1 / 100);

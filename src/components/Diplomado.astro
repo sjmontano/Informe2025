@@ -18,7 +18,7 @@ import BotonVolver from "./BotonVolver.astro";
     right={15}
     z={3}
   />
-  <BotonVolver href="/" variante="circulo" bottom={8} left={50} z={3} />
+  <BotonVolver href="/#navegacion" variante="circulo" bottom={8} left={50} z={3} />
 
   <div class="diplomado__contenido">
     <div class="diplomado__texto" data-anim-item>
@@ -77,9 +77,10 @@ import BotonVolver from "./BotonVolver.astro";
     color: var(--arena);
     width: fit-content;
     text-align: center;
-    border-radius: var(--espacio-4xl);
+    border-radius: 1.7vh;
     padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 4 / 100);
     margin-bottom: calc(var(--alto) * 2.6 / 100);
+    margin-left: calc(var(--alto) * -5 / 100);
   }
 
   .diplomado__parrafo {

@@ -11,14 +11,15 @@ import BotonVolver from "./BotonVolver.astro";
   class="investigacion anim-entrada anim-entrada--fade"
   data-anim-stagger="250"
 >
-  <BotonVolver href="/" variante="circulo" bottom={4} left={4} z={3} />
+  <BotonVolver href="/#navegacion" variante="circulo" bottom={4} left={4} z={3} />
 
   <div class="investigacion__texto" data-anim-item>
     <h1 class="investigacion__titulo">Investigación</h1>
     <p class="investigacion__intro">
-      La brújula nos guió a cuestionarnos por un lugar donde puedan acceder
-      todas las personas. Por eso, nos preguntamos por las violencias que
-      enfrentan las mujeres con discapacidad en la investigación:
+      La brújula nos guió a cuestionarnos por un lugar <br>
+      donde puedan acceder todas las personas. Por eso, <br>
+      nos preguntamos por las violencias que enfrentan las <br>
+      mujeres con discapacidad en la investigación:
     </p>
   </div>
 
@@ -66,16 +67,15 @@ import BotonVolver from "./BotonVolver.astro";
 
   .investigacion__intro {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.6 / 100);
+    font-size: calc(var(--alto) * 2.2 / 100);
     color: var(--azul-noche);
-    width: 35%;
     margin: 0;
   }
 
   .investigacion__nav {
     position: absolute;
     top: calc(var(--alto) * 24 / 100);
-    right: 27vh;
+    right: 22vh;
     display: flex;
     flex-direction: column;
     gap: 14vh;
