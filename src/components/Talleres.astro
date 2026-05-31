@@ -118,8 +118,13 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
                 )}
               </div>
               <div class="contenedor-taller-titulo">
+                <div class="contenedor-taller-numeracion">
+                  <h3 class="taller-numeracion">{index + 1}.</h3>
+                </div>
                 <h3 class="taller-titulo">{taller.titulo}</h3>
+                
               </div>
+              
             </div>
           ))
         }
@@ -148,6 +153,23 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 <style>
 
 
+
+.contenedor-taller-numeracion{
+  position: absolute;
+  background-color: #161040;
+  z-index: 3;
+  border-radius: 50%;
+  width: 5.5vh;
+  height: 5.5vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-right: 27%;
+  margin-top: 1vh;
+  font-size: 3.5vh;
+  font-family: var(--font-discordia);
+  color: var(--arena);
+}
   .previo{
     width: 6vw !important;
 
@@ -174,13 +196,14 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   }
 
   .talleres-title {
-    color: #161040;
+
     margin: 0;
     font-size: 5vh;
+    font-family: var(--font-discordia);
+    color: #161040;
     font-weight: 700;
     display: flex;
     justify-content: center;
-    font-family: var(--font-discordia);
     height: 7vh;
   }
 
@@ -231,6 +254,10 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     height: 38vh;
   }
   .contenedor-taller-titulo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: self-start;
   }
 
   .taller-imagen-img {
@@ -266,13 +293,17 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   }
 
   .taller-titulo {
-    font-size: 1.2vw;
+    width: 80%;
+    font-size: 1.1vw;
     color: #161040;
     background-color: #ff8079;
     border-radius: 2px;
     margin-top: (var(--alto) * 0.046 / 100);
     padding: calc(var(--alto) * 0.02);
+    padding-left: calc(var(--alto) * 0.03);
     border-radius: 1vw;
+    justify-self: center;
+    margin:0;
   }
 
   .taller-fecha {
