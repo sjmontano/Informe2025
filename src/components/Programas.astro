@@ -20,14 +20,8 @@ const svgMap = readFileSync(
   class="programas anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
-  <BotonVolver href="/#navegacion" variante="circulo" bottom={8} left={15} z={3} />
-  <BotonVolver
-    href="/investigacion"
-    texto="Investigación"
-    top={20}
-    right={8}
-    z={3}
-  />
+  <BotonVolver href="/#navegacion"   variante="circulo" bottom={12} left={6} z={3} />
+
 
   <h1 class="programas__titulo" data-anim-item>Programas</h1>
 
@@ -36,30 +30,43 @@ const svgMap = readFileSync(
     <Mapa svgContent={svgMap} />
   </div>
 
-  <!-- BLOQUE 1 · LIBERTAD Y DEMOCRACIA -->
+  <div class="container">
+
+    <!-- BLOQUE 1 · LIBERTAD Y DEMOCRACIA -->
   <article class="programas__bloque programas__bloque--libertad" data-anim-item>
-    <div class="programas__circulo programas__circulo--libertad">
-      <img
+    
+
+    <div class="programas__info">
+      <div class="titulo__contenedor">
+        <div class="programas__circulo programas__circulo--libertad">
+        <img
         src="/resources/escenario/escenario-conchas.webp"
         alt=""
         class="programas__icono"
         width="48"
         height="48"
         loading="lazy"
-      />
-    </div>
+        />
+      </div>
 
-    <div class="programas__info">
       <h2 class="programas__subtitulo">Libertad y democracia</h2>
-      <p class="programas__texto">
-        Han sido tiempos en que la marea sube y las tormentas amenazan con
-        llevarse todo por delante, por eso la esperanza late de la mano de las
-        iniciativas que fortalecen la democracia a través de procesos que
-        abordan discursos y narrativas contra los fundamentalismos; la promoción
-        de la autonomía y el derecho al cuerpo; la defensa de los derechos de
-        las personas LBTIQ+; y de quienes construyen espacios que abrazan a las
-        familias amplias y diversas.
-      </p>
+    </div>
+      
+      <span class="programas__texto">
+        Sabemos que han sido tiempos en los <br> 
+        que la marea sube y las tormentas <br>
+        amenazan con llevarse todo por delante, <br>
+        por eso la esperanza late de la mano de <br>
+        las iniciativas que fortalecen la <br>
+        democracia a través de procesos que<br>
+        abordan discursos y narrativas contra los <br>
+        fundamentalismos; la promoción de la <br>
+        autonomía y el derecho al cuerpo; la <br>
+        defensa de los derechos de las personas <br>
+        LBTIQ+; y de quienes construyen <br>
+        espacios que abrazan a las familias <br>
+        amplias y diversas.
+      </span>
       <span class="programas__cifra">88 propuestas</span>
     </div>
   </article>
@@ -69,6 +76,11 @@ const svgMap = readFileSync(
     class="programas__bloque programas__bloque--autonomia"
     data-anim-item
   >
+  
+      
+
+    <div class="programas__info">
+      <div class="titulo__contenedor">
     <div class="programas__circulo programas__circulo--autonomia">
       <img
         src="/resources/escenario/escenario-caracol.webp"
@@ -79,9 +91,8 @@ const svgMap = readFileSync(
         loading="lazy"
       />
     </div>
-
-    <div class="programas__info">
       <h2 class="programas__subtitulo">Autonomía, derechos y sostenibilidad</h2>
+      </div>
       <p class="programas__texto">
         El mar con su riqueza e inmensidad nos enseñó la importancia de
         fortalecer las colectividades en su sostenibilidad y autonomía para
@@ -93,9 +104,27 @@ const svgMap = readFileSync(
       <span class="programas__cifra">94 propuestas</span>
     </div>
   </article>
+
+  </div>
+
+  
+
 </section>
 
 <style>
+  .titulo__contenedor{
+    display: flex;
+    flex-direction: row;
+  }
+  .container {
+    position: absolute;
+    bottom: 23vh;
+    flex-direction: row;
+    display: flex;
+    justify-self: center;
+    margin-left: 67vh;
+    gap: 7vh;
+  }
   .programas {
     position: absolute;
     inset: 0;
@@ -105,33 +134,31 @@ const svgMap = readFileSync(
   .programas__titulo {
     position: absolute;
     top: calc(var(--alto) * 18 / 100);
-    left: 54%;
-    transform: translateX(-50%);
     font-family: var(--font-discordia);
     font-size: calc(var(--alto) * 5.4 / 100);
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
+    justify-self: center;
+    margin-left: 25vh;
   }
 
   /* ─── Mapa ─── */
 
   .programas__mapa {
     position: absolute;
-    top: calc(var(--alto) * 5 / 100);
-    left: -1vw;
-    width: 43vw;
+    top: calc(var(--alto) * 13 / 100);
+    width: 77vh;
     height: calc(var(--alto) * 50 / 100);
+        justify-self: center;
+    margin-right: 92vh;
   }
 
   /* ─── Bloques ─── */
 
   .programas__bloque {
-    position: absolute;
     display: flex;
-    align-items: flex-start;
-    gap: calc(var(--alto) * 0.8 / 100);
-    width: 40vw;
+    flex-direction:row;
   }
 
   .programas__bloque--libertad {
@@ -182,11 +209,11 @@ const svgMap = readFileSync(
   }
 
   .programas__circulo--libertad {
-    background-color: var(--arena);
+    background-color: #539D94;
   }
 
   .programas__circulo--autonomia {
-    background-color: var(--salmon);
+    background-color: #F5AA06;
   }
 
   .programas__icono {
@@ -198,39 +225,39 @@ const svgMap = readFileSync(
   /* ─── Info ─── */
 
   .programas__info {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
     position: relative;
-    width: 45%;
-    height: calc(var(--alto) * 45 / 100);
+    width: 35vh;
+    
   }
 
   .programas__subtitulo {
-    position: absolute;
-    top: 0;
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 3.2 / 100);
+    font-size: 2.2vh;
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
     line-height: 1.2;
+    align-items: center;
+        display: flex;
   }
 
   .programas__texto {
-    position: absolute;
-    top: calc(var(--alto) * 8.5 / 100);
-    height: calc(var(--alto) * 40 / 100);
     overflow: hidden;
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.2 / 100);
-    line-height: calc(var(--alto) * 2.4 / 100);
+    font-size: 1.6vh;
     color: var(--azul-noche);
     margin: 0;
+    width: 82%;
+    align-self: center;
+    height:25vh;
   }
 
   .programas__cifra {
-    position: absolute;
-    bottom: 0;
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 2.8 / 100);
+    font-size: 2.2vh;
     font-weight: 700;
     color: var(--azul-noche);
     display: inline-block;
