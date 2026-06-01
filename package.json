@@ -17,9 +17,11 @@
     "check": "npm run design:lint && npm run impeccable"
   },
   "dependencies": {
-    "astro": "^6.3.7"
+    "astro": "^6.3.7",
+    "lighterbox": "^1.0.0"
   },
   "devDependencies": {
+    "@axe-core/cli": "^4.11.3",
     "@google/design.md": "^0.1.1",
     "impeccable": "^2.1.8",
     "sharp": "^0.34.5"
