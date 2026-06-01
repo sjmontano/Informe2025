@@ -111,8 +111,8 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
             <div class="taller-card" data-index={index}>
               <div class="taller-imagen">
                 {taller.imagen ? (
-                  <img class="marco" src="/resources/contenedor/marcoRosa.webp" alt="marco" loading="lazy" />
-                  <img class="taller-imagen-img" src={taller.imagen} alt={taller.titulo} loading="lazy" />
+                  <img class="marco" src="/resources/contenedor/marcoRosa.webp" alt="" loading="lazy" />
+                  <img class="taller-imagen-img" src={taller.imagen} alt={taller.titulo} loading="lazy" data-lighterbox="talleres" />
                 ) : (
                   <span class="imagen-placeholder" aria-hidden="true" />
                 )}
