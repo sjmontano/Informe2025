@@ -1,0 +1,312 @@
+---
+/**
+ * AccControls.astro — Panel flotante de accesibilidad
+ *
+ * Alto contraste · Reducir movimiento · Tamaño de letra · Modo noche
+ * Persiste en localStorage. Sin dependencias externas.
+ */
+---
+
+<div class="acc-controls" role="group" aria-label="Controles de accesibilidad">
+  <button class="acc-btn acc-btn--open" id="acc-toggle" aria-label="Abrir controles de accesibilidad" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 8v8M8 12h8" />
+    </svg>
+  </button>
+
+  <div class="acc-panel" id="acc-panel">
+    <span class="acc-panel__title">Accesibilidad</span>
+
+    <!-- Alto contraste -->
+    <div class="acc-row">
+      <button class="acc-tog" id="acc-hc" aria-pressed="false" aria-label="Activar alto contraste">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2v20M2 12h20" />
+        </svg>
+      </button>
+      <span class="acc-label">Alto contraste</span>
+    </div>
+
+    <!-- Modo noche -->
+    <div class="acc-row">
+      <button class="acc-tog" id="acc-night" aria-pressed="false" aria-label="Activar modo noche">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+      <span class="acc-label">Modo noche</span>
+    </div>
+
+    <!-- Reducir movimiento -->
+    <div class="acc-row">
+      <button class="acc-tog" id="acc-rm" aria-pressed="false" aria-label="Reducir animaciones">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      </button>
+      <span class="acc-label">Reducir movimiento</span>
+    </div>
+
+    <!-- Tamaño de letra -->
+    <div class="acc-row">
+      <button class="acc-size" id="acc-font-minus" aria-label="Reducir tamaño de letra" disabled>A⁻</button>
+      <span class="acc-label">Tamaño de letra</span>
+      <button class="acc-size" id="acc-font-plus" aria-label="Aumentar tamaño de letra">A⁺</button>
+    </div>
+
+    <button class="acc-reset" id="acc-reset" aria-label="Restablecer todos los ajustes">
+      Restablecer
+    </button>
+  </div>
+</div>
+
+<script>
+  "use strict";
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // ─── Helpers ───
+
+    const setClass = (name, on) => {
+      document.documentElement.classList.toggle(name, on);
+    };
+    const persist = (key, val) => {
+      try { localStorage.setItem(key, String(val)); } catch (_) {}
+    };
+    const load = (key, def) => {
+      try { return localStorage.getItem(key) ?? def; } catch (_) { return def; }
+    };
+
+    // ─── Toggle panel ───
+
+    const toggle = document.getElementById("acc-toggle");
+    const panel  = document.getElementById("acc-panel");
+    toggle?.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      panel?.classList.toggle("acc-panel--open");
+    });
+
+    // ─── Generic toggle factory ───
+
+    function makeToggle(btnId, className, storageKey) {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+      const apply = (on) => { setClass(className, on); btn.setAttribute("aria-pressed", String(on)); persist(storageKey, on); };
+      if (load(storageKey, "false") === "true") apply(true);
+      btn.addEventListener("click", () => apply(btn.getAttribute("aria-pressed") !== "true"));
+    }
+
+    makeToggle("acc-hc",  "modo-alto-contraste", "acc-hc");
+    makeToggle("acc-rm",  "modo-sin-movimiento", "acc-rm");
+    makeToggle("acc-night", "modo-noche",        "acc-night");
+
+    // ─── Font size ───
+
+    let level = 0;
+    const LEVELS = ["", "letra-md", "letra-lg", "letra-xl"];
+    const minus = document.getElementById("acc-font-minus");
+    const plus  = document.getElementById("acc-font-plus");
+
+    const saved = parseInt(load("acc-letra", "0"), 10);
+    if (saved > 0 && saved < LEVELS.length) { level = saved; setClass(LEVELS[level], true); }
+
+    const updateBtns = () => {
+      if (minus) minus.disabled = level === 0;
+      if (plus)  plus.disabled  = level >= LEVELS.length - 1;
+    };
+
+    minus?.addEventListener("click", () => {
+      if (level <= 0) return;
+      setClass(LEVELS[level], false);
+      level--;
+      setClass(LEVELS[level], true);
+      persist("acc-letra", String(level));
+      updateBtns();
+    });
+
+    plus?.addEventListener("click", () => {
+      if (level >= LEVELS.length - 1) return;
+      setClass(LEVELS[level], false);
+      level++;
+      setClass(LEVELS[level], true);
+      persist("acc-letra", String(level));
+      updateBtns();
+    });
+
+    // ─── Reset ───
+
+    document.getElementById("acc-reset")?.addEventListener("click", () => {
+      LEVELS.forEach((c) => setClass(c, false));
+      level = 0; persist("acc-letra", "0"); updateBtns();
+      ["modo-alto-contraste", "modo-sin-movimiento", "modo-noche"].forEach((c) => setClass(c, false));
+      persist("acc-hc", "false"); persist("acc-rm", "false"); persist("acc-night", "false");
+      ["acc-hc", "acc-rm", "acc-night"].forEach((id) => {
+        document.getElementById(id)?.setAttribute("aria-pressed", "false");
+      });
+    });
+
+    updateBtns();
+  });
+</script>
+
+<style>
+  /* ─── Botón principal ─── */
+  .acc-btn--open {
+    all: unset;
+    width: 44px; height: 44px;
+    min-width: 44px; min-height: 44px;
+    border-radius: 50%;
+    border: 2px solid #28275b;
+    background: #f4c454;
+    color: #28275b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Lato", sans-serif;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .acc-btn--open:hover,
+  .acc-btn--open:focus-visible { background: #ef7e7b; transform: scale(1.1); }
+
+  /* ─── Panel ─── */
+  .acc-panel {
+    display: none;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: #f4c454;
+    border: 2px solid #28275b;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    min-width: 210px;
+    font-family: "Lato", sans-serif;
+    color: #28275b;
+    position: fixed;
+    bottom: 4rem; right: 1rem;
+    z-index: 9999;
+  }
+  .acc-panel--open { display: flex; }
+
+  .acc-panel__title {
+    font-family: "Discordia", serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #28275b;
+    text-align: center;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ─── Filas ─── */
+  .acc-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .acc-label {
+    font-size: 0.85rem;
+    color: #28275b;
+    flex: 1;
+  }
+
+  /* ─── Toggles circulares ─── */
+  .acc-tog, .acc-size {
+    width: 36px; height: 36px;
+    min-width: 36px; min-height: 36px;
+    border-radius: 50%;
+    border: 2px solid #28275b;
+    background: #f0f4ff;
+    color: #28275b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: "Lato", sans-serif;
+    transition: background 0.2s;
+  }
+  .acc-tog[aria-pressed="true"] { background: #28275b; color: #f4c454; }
+  .acc-tog:hover, .acc-tog:focus-visible,
+  .acc-size:hover, .acc-size:focus-visible { background: #ef7e7b; color: #28275b; }
+  .acc-size:disabled { opacity: 0.35; cursor: not-allowed; }
+  .acc-size:disabled:hover { background: #f0f4ff; color: #28275b; }
+
+  /* ─── Reset ─── */
+  .acc-reset {
+    all: unset;
+    border: 2px solid #28275b;
+    color: #28275b;
+    border-radius: 9999px;
+    padding: 0.3rem 1rem;
+    font-family: "Lato", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, color 0.2s;
+  }
+  .acc-reset:hover, .acc-reset:focus-visible { background: #ef7e7b; color: #28275b; }
+
+  /* ─── Auto-protección: estos estilos nunca se modifican ─── */
+  .acc-controls { position: fixed; bottom: 1rem; right: 1rem; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+
+  /* ═══════════════════════════════════════════════════════════════
+     EFECTOS GLOBALES — :global() necesario porque apuntan a
+     elementos fuera de este componente (scene-wrapper, img, etc.)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* ─── ALTO CONTRASTE ─── */
+  :global(html.modo-alto-contraste .scene-wrapper),
+  :global(html.modo-alto-contraste .acc-contenido) {
+    filter: contrast(1.45) saturate(1.2) !important;
+  }
+
+  :global(html.modo-alto-contraste a),
+  :global(html.modo-alto-contraste button) {
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px !important;
+    text-underline-offset: 2px !important;
+  }
+
+  :global(html.modo-alto-contraste *:focus-visible) {
+    outline: 3px solid #ef7e7b !important;
+    outline-offset: 3px !important;
+  }
+
+  /* ─── MODO NOCHE ─── */
+  :global(html.modo-noche .scene-wrapper),
+  :global(html.modo-noche .acc-contenido) {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  :global(html.modo-noche .scene-wrapper img),
+  :global(html.modo-noche .scene-wrapper video),
+  :global(html.modo-noche .scene-wrapper iframe) {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  /* ─── REDUCIR MOVIMIENTO ─── */
+  :global(html.modo-sin-movimiento *),
+  :global(html.modo-sin-movimiento *::before),
+  :global(html.modo-sin-movimiento *::after) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* ─── TAMAÑO DE LETRA ─── */
+  :global(html.letra-md)  { font-size: 115% !important; }
+  :global(html.letra-lg)  { font-size: 135% !important; }
+  :global(html.letra-xl)  { font-size: 160% !important; }
+
+  :global(html.letra-md .boton-volver__texto) { font-size: calc(var(--alto) * 3 / 100) !important; }
+  :global(html.letra-lg .boton-volver__texto) { font-size: calc(var(--alto) * 3.5 / 100) !important; }
+  :global(html.letra-xl .boton-volver__texto) { font-size: calc(var(--alto) * 4.2 / 100) !important; }
+</style>

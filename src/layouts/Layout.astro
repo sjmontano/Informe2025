@@ -1,5 +1,6 @@
 ---
 import "../styles/animaciones.css";
+import AccControls from "../components/AccControls.astro";
 
 export interface Props {
   scroll?: boolean;
@@ -17,7 +18,7 @@ const { scroll = true } = Astro.props;
     <!-- Favicon -->
     <link rel="icon" href="/logo.ico" />
 
-    <title>Informe de Gestión 2025</title>
+    <title>Informe de Gestión 2025 — Fondo Lunaria</title>
 
     <!-- Lato — Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,11 +49,16 @@ const { scroll = true } = Astro.props;
       href="/fonts/Discordia-Bold.woff2"
       crossorigin
     />
+
+    <!-- LighterBox — lightbox accesible -->
+    <script src="/js/lighterbox.min.js" defer></script>
   </head>
   <body class:list={{ "pagina-fija": !scroll }}>
-    <div class="scene-wrapper">
+    <div class="skip-link"><a href="#main-content">Saltar al contenido principal</a></div>
+    <div class="scene-wrapper" id="main-content">
       <slot />
     </div>
+    <AccControls />
   </body>
 
   <script>
@@ -201,5 +207,33 @@ const { scroll = true } = Astro.props;
     max-width: 100%;
     height: auto;
     display: block;
+  }
+
+  /* ─── Skip link ─── */
+  .skip-link a {
+    position: absolute;
+    z-index: 9999;
+    top: -100vh;
+    left: 0;
+    border-end-end-radius: 0.5rem;
+    background: var(--arena, #f4c454);
+    padding: 0.75rem 1.5rem;
+    color: var(--azul-noche, #28275b);
+    font-family: var(--font-lato, "Lato", sans-serif);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  .skip-link a:focus-visible {
+    top: 0;
+    outline: 3px solid var(--coral, #ef7e7b);
+    outline-offset: 2px;
+  }
+
+  /* ─── Focus visible ─── */
+  :focus-visible {
+    outline: 3px solid var(--coral, #ef7e7b);
+    outline-offset: 2px;
   }
 </style>

@@ -1,0 +1,151 @@
+---
+/**
+ * PÁGINA ACCESIBILIDAD — Declaración de accesibilidad
+ *
+ * Describe las medidas tomadas para garantizar que el sitio sea
+ * usable por todas las personas, independientemente de sus capacidades.
+ */
+
+import Layout from "../layouts/Layout.astro";
+import BotonVolver from "../components/BotonVolver.astro";
+import FlechaNav from "../components/FlechaNav.astro";
+---
+
+<Layout scroll={false}>
+  <div class="acc-pagina">
+    <BotonVolver href="/" variante="circulo" bottom={5} left={5} z={3} />
+
+    <div class="acc-contenido">
+      <h1 class="acc-titulo">Declaración de accesibilidad</h1>
+
+      <p class="acc-intro">
+        Fondo Lunaria se compromete a garantizar que este micrositio sea accesible
+        para todas las personas, independientemente de sus capacidades. Creemos que
+        el acceso a la información es un derecho feminista fundamental.
+      </p>
+
+      <h2 class="acc-subtitulo">Medidas implementadas</h2>
+
+      <ul class="acc-lista">
+        <li><strong>Skip link:</strong> enlace para saltar la navegación al contenido principal al inicio de cada página.</li>
+        <li><strong>Alto contraste:</strong> botón en la esquina inferior derecha para activar modo de alto contraste.</li>
+        <li><strong>Reducir movimiento:</strong> botón para pausar animaciones en todo el sitio.</li>
+        <li><strong>Tamaño de letra:</strong> controles para aumentar y reducir el tamaño del texto.</li>
+        <li><strong>Texto alternativo:</strong> todas las imágenes informativas tienen descripciones; las decorativas están ocultas para lectores de pantalla.</li>
+        <li><strong>Navegación por teclado:</strong> todos los elementos interactivos son accesibles mediante teclado (Tab, Enter, Escape, flechas).</li>
+        <li><strong>Indicador de foco visible:</strong> outline de 3px en todos los elementos enfocados.</li>
+        <li><strong>Lightbox con zoom:</strong> las imágenes se pueden ampliar con un clic, con soporte para teclado y gestos táctiles.</li>
+        <li><strong>Semántica HTML:</strong> uso de elementos semánticos y roles ARIA donde es necesario.</li>
+        <li><strong>Contraste de color:</strong> las combinaciones de texto/fondo cumplen WCAG AA (4.5:1 para texto normal, 3:1 para texto grande).</li>
+      </ul>
+
+      <h2 class="acc-subtitulo">Estado de conformidad</h2>
+      <p>
+        Este sitio sigue las <strong>Pautas de Accesibilidad para el Contenido Web (WCAG) 2.2</strong>
+        en nivel <strong>AA</strong>. Las auditorías se realizan con herramientas automatizadas
+        (axe-core, WAVE) y pruebas manuales con lectores de pantalla y navegación por teclado.
+      </p>
+      <p>
+        Dado que el sitio incluye ilustraciones y elementos visuales complejos, algunas
+        imágenes decorativas pueden no tener descripciones extensas. Esto se indica
+        explícitamente mediante <code>aria-hidden="true"</code> en los contenedores decorativos.
+      </p>
+
+      <h2 class="acc-subtitulo">Limitaciones conocidas</h2>
+      <ul class="acc-lista">
+        <li>Los mapas interactivos y gráficos complejos pueden no ser totalmente accesibles para lectores de pantalla. Se proporcionan descripciones textuales alternativas.</li>
+        <li>Los contenidos de terceros (videos de YouTube, documentos en FlipHTML5) pueden tener limitaciones de accesibilidad propias de esas plataformas.</li>
+      </ul>
+
+      <h2 class="acc-subtitulo">Contacto</h2>
+      <p>
+        Si encuentras alguna barrera de accesibilidad en este sitio, por favor
+        contáctanos para que podamos corregirla:
+      </p>
+      <p>
+        <strong>Correo electrónico:</strong> <a href="mailto:comunicaciones@fondolunaria.org">comunicaciones@fondolunaria.org</a>
+      </p>
+
+      <p class="acc-fecha">Última actualización: junio 2026</p>
+    </div>
+  </div>
+
+  <template>
+    <FlechaNav direccion="izquierda" />
+  </template>
+</Layout>
+
+<style>
+  .acc-pagina {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    background: var(--arena, #f4c454);
+    z-index: 2;
+  }
+
+  .acc-contenido {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6rem 2rem 4rem;
+    font-family: var(--font-lato, "Lato", sans-serif);
+    color: var(--azul-noche, #28275b);
+  }
+
+  .acc-titulo {
+    font-family: var(--font-discordia, "Discordia", serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--azul-noche, #28275b);
+    margin-bottom: 1.5rem;
+  }
+
+  .acc-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .acc-subtitulo {
+    font-family: var(--font-discordia, "Discordia", serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--oceano, #0b6b6d);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .acc-lista {
+    list-style: disc;
+    padding-left: 1.5rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .acc-lista li {
+    margin-bottom: 0.5rem;
+  }
+
+  .acc-fecha {
+    margin-top: 3rem;
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 0.875rem;
+  }
+
+  a {
+    color: var(--oceano, #0b6b6d);
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: var(--coral, #ef7e7b);
+  }
+
+  code {
+    background: rgba(0, 0, 0, 0.06);
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-size: 0.875em;
+  }
+</style>
