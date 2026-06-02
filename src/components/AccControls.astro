@@ -280,29 +280,52 @@
   }
 
   /* ─── MODO NOCHE ───
-       Un solo filter invert en el contenedor principal invierte todo
-       (texto, fondos, elementos decorativos). Las imágenes de contenido
-       (fotos de talleres, logos de aliadas) se doble-invierten para
-       conservar sus colores naturales.
-
-       Los fondos (Fondos.astro) tienen will-change: opacity que crea
-       un compositing layer separado. Si el navegador lo aísla, el
-       filter del padre no se propaga. Se anula will-change para
-       permitir la propagación. */
-  :global(html.modo-noche .scene-wrapper),
-  :global(html.modo-noche .acc-contenido) {
-    filter: invert(1) hue-rotate(180deg) !important;
+       Estrategia mixta:
+       - Decorativos (fondos, palmeras, cactus) → brightness(0.35)
+         para oscurecer SIN invertir colores (el cielo se vuelve
+         azul oscuro, no naranja)
+       - Texto/contenido → invert(1) solo en el slot de contenido
+         (no en los decorativos) para que el texto se lea claro
+         sobre fondo oscuro
+       - Fotos de talleres/logos → doble-invert dentro del slot
+         para verse naturales */
+  :global(html.modo-noche) {
+    background: #0a0718;
   }
 
-  /* Fondos — anular will-change que bloquea la propagación del filter */
+  /*** Decorativos — oscurecer sin invertir colores ***/
+
+  /* Fondos de escena — brightness + will-change:auto para sortear
+     el compositing layer que bloquea la propagación del filter */
   :global(html.modo-noche .scene-wrapper .fondos__img),
   :global(html.modo-noche .scene-wrapper .fondos__lqip) {
+    filter: brightness(0.35) saturate(0.6) !important;
     will-change: auto !important;
   }
 
-  /* Fotos de contenido — doble invert para colores naturales */
-  :global(html.modo-noche .scene-wrapper .taller-imagen-img),
-  :global(html.modo-noche .scene-wrapper .aliados__logo) {
+  /* Elementos decorativos de la escena (palmeras, cactus, etc.) */
+  :global(html.modo-noche .scene-wrapper .escena__img) {
+    filter: brightness(0.35) saturate(0.6) !important;
+  }
+
+  /*** Texto — invertir solo el contenido, no los decorativos ***/
+
+  /* El slot de texto (todo dentro de escena-contenido excepto .escena)
+     se invierte para que el texto sea claro sobre fondo oscuro */
+  :global(html.modo-noche .escena-contenido > :not(.escena)) {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  /*** Fotos de contenido — doble invert para colores naturales ***/
+
+  :global(html.modo-noche .escena-contenido > :not(.escena) .taller-imagen-img),
+  :global(html.modo-noche .escena-contenido > :not(.escena) .aliados__logo) {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  /*** Página de accesibilidad (usa .acc-contenido, no scene-wrapper) ***/
+
+  :global(html.modo-noche .acc-contenido) {
     filter: invert(1) hue-rotate(180deg) !important;
   }
 
