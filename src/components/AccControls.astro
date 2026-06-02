@@ -280,27 +280,30 @@
   }
 
   /* ─── MODO NOCHE ───
-       Invierte el contenedor principal. Los fondo (fondos) pueden tener
-       will-change y compositing layers que impiden que la herencia del
-       filter funcione correctamente, así que también se les asigna
-       explícitamente el filter y se les anula el will-change. */
+       Un solo filter invert en el contenedor principal invierte todo
+       (texto, fondos, elementos decorativos). Las imágenes de contenido
+       (fotos de talleres, logos de aliadas) se doble-invierten para
+       conservar sus colores naturales.
+
+       Los fondos (Fondos.astro) tienen will-change: opacity que crea
+       un compositing layer separado. Si el navegador lo aísla, el
+       filter del padre no se propaga. Se anula will-change para
+       permitir la propagación. */
   :global(html.modo-noche .scene-wrapper),
   :global(html.modo-noche .acc-contenido) {
     filter: invert(1) hue-rotate(180deg) !important;
   }
 
-  :global(html.modo-noche .scene-wrapper img),
-  :global(html.modo-noche .scene-wrapper video),
-  :global(html.modo-noche .scene-wrapper iframe) {
-    filter: invert(1) hue-rotate(180deg) !important;
-  }
-
-  /* Fondos — explícito (mayor especificidad que .scene-wrapper img)
-       para evitar problemas con compositing layers (will-change). */
+  /* Fondos — anular will-change que bloquea la propagación del filter */
   :global(html.modo-noche .scene-wrapper .fondos__img),
   :global(html.modo-noche .scene-wrapper .fondos__lqip) {
-    filter: invert(1) hue-rotate(180deg) !important;
     will-change: auto !important;
+  }
+
+  /* Fotos de contenido — doble invert para colores naturales */
+  :global(html.modo-noche .scene-wrapper .taller-imagen-img),
+  :global(html.modo-noche .scene-wrapper .aliados__logo) {
+    filter: invert(1) hue-rotate(180deg) !important;
   }
 
   /* ─── REDUCIR MOVIMIENTO ─── */
