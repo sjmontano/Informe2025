@@ -279,7 +279,11 @@
     outline-offset: 3px !important;
   }
 
-  /* ─── MODO NOCHE ─── */
+  /* ─── MODO NOCHE ───
+       Invierte el contenedor principal. Los fondo (fondos) pueden tener
+       will-change y compositing layers que impiden que la herencia del
+       filter funcione correctamente, así que también se les asigna
+       explícitamente el filter y se les anula el will-change. */
   :global(html.modo-noche .scene-wrapper),
   :global(html.modo-noche .acc-contenido) {
     filter: invert(1) hue-rotate(180deg) !important;
@@ -289,6 +293,14 @@
   :global(html.modo-noche .scene-wrapper video),
   :global(html.modo-noche .scene-wrapper iframe) {
     filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  /* Fondos — explícito (mayor especificidad que .scene-wrapper img)
+       para evitar problemas con compositing layers (will-change). */
+  :global(html.modo-noche .scene-wrapper .fondos__img),
+  :global(html.modo-noche .scene-wrapper .fondos__lqip) {
+    filter: invert(1) hue-rotate(180deg) !important;
+    will-change: auto !important;
   }
 
   /* ─── REDUCIR MOVIMIENTO ─── */
