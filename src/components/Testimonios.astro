@@ -354,9 +354,9 @@ const TESTIMONIOS: Testimonio[] = [
   .testimonios__indicadores {
     position: absolute;
     top: calc(var(--alto) * 92 / 100);
-    justify-self: center;
     display: flex;
     gap: var(--espacio-md);
+    justify-self: center;
   }
 
   .testimonios__punto {
@@ -376,6 +376,11 @@ const TESTIMONIOS: Testimonio[] = [
   }
 
   @media (max-width: 570px) {
+    .testimonios {
+      display: flex;
+      justify-content: center;
+    }
+
     .testimonios__contenedor {
       gap: 0;
     }
