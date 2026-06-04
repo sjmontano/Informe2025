@@ -57,7 +57,13 @@ const TESTIMONIOS: Testimonio[] = [
   aria-label="Testimonios"
   data-anim-stagger="150"
 >
-  <BotonVolver href="/#navegacion" variante="circulo" bottom={4} left={4} z={3} />
+  <BotonVolver
+    href="/#navegacion"
+    variante="circulo"
+    bottom={4}
+    left={4}
+    z={3}
+  />
 
   <h2 class="testimonios__titulo" data-anim-item>Testimonios</h2>
 
@@ -184,7 +190,7 @@ const TESTIMONIOS: Testimonio[] = [
     display: none;
     position: relative;
     flex: 0 0 auto;
-    width: calc(var(--alto) * 55 / 100);
+    width: 52vh;
     height: calc(var(--alto) * 57 / 100);
     flex-direction: column;
     background: var(--naranja-madera);
@@ -369,6 +375,76 @@ const TESTIMONIOS: Testimonio[] = [
     opacity: 1;
     background: var(--coral);
   }
+
+  @media (max-width: 570px) {
+    .testimonios__contenedor {
+      gap: 0;
+    }
+
+    .testimonios__tarjeta {
+      width: 30vh;
+      height: 40vh;
+
+      padding: calc(var(--alto) * 3 / 100);
+      padding-top: 11vh;
+      padding-right: 5vh;
+    }
+
+    .testimonios__texto {
+      font-size: 1.2vh;
+      line-height: 1.8vh;
+    }
+    .testimonios__marco {
+      top: -7vh;
+      left: 0;
+      width: 25vh;
+      height: 25vh;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    .testimonios__scroll {
+      padding-right: 0;
+    }
+
+    .testimonios__cuerpo {
+      height: 22vh;
+    }
+
+    .testimonios__nombre {
+      top: 8vh;
+      left: 13vh;
+      font-size: 1.4vh;
+      font-weight: 700;
+      max-width: 14vh;
+    }
+
+    .testimonios__barra {
+      top: calc(var(--alto) * 3 / 100);
+      right: 1.5vh;
+      bottom: calc(var(--alto) * 3 / 100);
+      width: 0.5vh;
+    }
+
+    .testimonios__titulo {
+      top: 12vh;
+      font-size: 4vh;
+    }
+
+    .testimonios__flecha {
+      width: 9vh;
+      height: 9vh;
+    }
+
+    .testimonios__indicadores {
+      top: 71vh;
+    }
+
+    .boton-volver__circulo {
+      width: 8vh;
+      height: 8vh;
+    }
+  }
 </style>
 
 <script>
@@ -397,7 +473,11 @@ const TESTIMONIOS: Testimonio[] = [
     puntos.forEach((p) => p.removeAttribute("data-activo"));
 
     tarjetas[idx]?.setAttribute("data-activa", "");
-    tarjetas[(idx + 1) % total]?.setAttribute("data-activa", "");
+
+    if (window.innerWidth > 1279) {
+      tarjetas[(idx + 1) % total]?.setAttribute("data-activa", "");
+    }
+
     puntos[idx]?.setAttribute("data-activo", "");
     actual = idx;
     barras.forEach((actualizar) => actualizar());
