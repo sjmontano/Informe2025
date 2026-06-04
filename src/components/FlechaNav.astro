@@ -23,8 +23,7 @@ const {
 } = Astro.props;
 
 const label = direccion === "izquierda" ? "Anterior" : "Siguiente";
-const points =
-  direccion === "izquierda" ? "15 18 9 12 15 6" : "9 18 15 12 9 6";
+const points = direccion === "izquierda" ? "15 18 9 12 15 6" : "9 18 15 12 9 6";
 ---
 
 <button
@@ -61,5 +60,12 @@ const points =
   .flecha-nav:active {
     transform: scale(0.9);
     transition: transform 0.15s ease;
+  }
+
+  @media (max-width: 570px) {
+    .flecha-nav {
+      width: 7vh !important;
+      height: 7vh !important;
+    }
   }
 </style>

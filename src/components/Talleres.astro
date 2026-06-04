@@ -122,9 +122,9 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
                   <h3 class="taller-numeracion">{index + 1}.</h3>
                 </div>
                 <h3 class="taller-titulo">{taller.titulo}</h3>
-                
+
               </div>
-              
+
             </div>
           ))
         }
@@ -385,6 +385,39 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 
   .subtitulos{
     width: 50%;
+  }
+
+  @media (max-width: 570px) {
+
+
+    .card-carousel-section{
+    height: 96vh;
+}
+
+    .taller-card{
+      width: calc(98% / 1);
+    }
+    .flecha-nav {
+      width: 7vh;
+      height: 7vh;
+    }
+    .card-carousel-container {
+        top: 35vh;
+    }
+
+    .titulos{
+        display: flex;
+        width: 90%;
+        margin-top: 0;
+        position: absolute;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .subtitulos {
+        width: 70%;
+    }
+
   }
 
 
