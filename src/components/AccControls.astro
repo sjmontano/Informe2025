@@ -302,15 +302,15 @@
        --oceano / --turquesa / --mapa-* se DEJAN originales
        para que el mapa de Colombia y barras mantengan estructura. */
   :global(html.modo-alto-contraste:not(.modo-noche)) {
-    --arena: #FFFFFF !important;
+    --arena: #ffffff !important;
     --azul-noche: #000000 !important;
     --blanco: #000000 !important;
     --petroleo: #000000 !important;
     --naranja-madera: #000000 !important;
-    --salmon: #FFFFFF !important;
+    --salmon: #ffffff !important;
     --coral: #000000 !important;
     --circulo-fondo: #000000 !important;
-    --circulo-texto: #FFFFFF !important;
+    --circulo-texto: #ffffff !important;
   }
 
   /* 3. Todo texto en negro puro (sin background-color para
@@ -347,48 +347,98 @@
   :global(html.modo-alto-contraste:not(.modo-noche) .laboratorio__subtitulo),
   :global(html.modo-alto-contraste:not(.modo-noche) .laboratorio__descargar),
   :global(html.modo-alto-contraste:not(.modo-noche) .diplomado__subtitulo),
-  :global(html.modo-alto-contraste:not(.modo-noche) .contenedor-taller-numeracion),
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .contenedor-taller-numeracion
+  ),
   :global(html.modo-alto-contraste:not(.modo-noche) .taller-titulo),
+  :global(html.modo-alto-contraste:not(.modo-noche) .estrategias__btn),
   :global(html.modo-alto-contraste:not(.modo-noche) .contracorriente__badge),
-  :global(html.modo-alto-contraste:not(.modo-noche) .contracorriente__circulo-ext),
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .contracorriente__circulo-ext
+  ),
   :global(html.modo-alto-contraste:not(.modo-noche) .contenido__btn),
   :global(html.modo-alto-contraste:not(.modo-noche) .inicio__subtitulo),
   :global(html.modo-alto-contraste:not(.modo-noche) .aliados__contenedor),
   :global(html.modo-alto-contraste:not(.modo-noche) .mapa__tooltip--libertad),
   :global(html.modo-alto-contraste:not(.modo-noche) .mapa__tooltip--autonomia),
   :global(html.modo-alto-contraste:not(.modo-noche) .mapa__tooltip--nombre) {
-    background: #FFFFFF !important;
+    background: #ffffff !important;
     border: 2px solid #000000 !important;
     color: #000000 !important;
   }
 
   /* Círculos interiores (checkmark) → transparentes */
   :global(html.modo-alto-contraste:not(.modo-noche) .los-trapos__circulo-int),
-  :global(html.modo-alto-contraste:not(.modo-noche) .contracorriente__circulo-int) {
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .contracorriente__circulo-int
+  ) {
     background: transparent !important;
     border: none !important;
   }
 
   /* 6. Botones — fondo blanco, borde negro, texto negro */
-  :global(html.modo-alto-contraste:not(.modo-noche) .boton-volver:not(.boton-volver--circulo)) {
-    background: #FFFFFF !important;
+  :global(
+    html.modo-alto-contraste:not(.modo-noche)
+      .boton-volver:not(.boton-volver--circulo)
+  ) {
+    background: #ffffff !important;
     border: 2px solid #000000 !important;
     color: #000000 !important;
   }
 
   /* 7. Imágenes decorativas — desaturadas */
-  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .fondos__img),
-  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .fondos__lqip),
-  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .escena__img),
-  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper img[src*="/gifs/"]) {
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .fondos__img
+  ),
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .fondos__lqip
+  ),
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .escena__img
+  ),
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .scene-wrapper img[src*="/gifs/"]
+  ) {
     filter: saturate(0.2) !important;
+  }
+
+  /* Spotify/YouTube SVGs — fill rosa del <style> interno,
+       no lo capta currentColor, lo forzamos a negro */
+  :global(
+    html.modo-alto-contraste .los-trapos__circulo-int svg path
+  ),
+  :global(
+    html.modo-alto-contraste .los-trapos__circulo-int svg polygon
+  ),
+  :global(
+    html.modo-alto-contraste .contracorriente__circulo-int svg path
+  ),
+  :global(
+    html.modo-alto-contraste .contracorriente__circulo-int svg polygon
+  ) {
+    fill: #000000 !important;
+  }
+
+  /* SVG circular de regresar — claros → blanco, oscuros → negro */
+  :global(html.modo-alto-contraste:not(.modo-noche) .boton-volver__circulo) {
+    filter: brightness(0.9) saturate(0) contrast(100) !important;
+  }
+  :global(
+    html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .escena__img
+  ) {
+    filter: brightness(0.87) saturate(0) contrast(5) !important;
   }
 
   /* Contenedor — solo borde negro, centro blanco (sobrexpuesto).
        brightness(0) vuelve negro todo píxel visible; el centro
        transparente muestra el fondo blanco de escena-contenido.
        Especificidad mayor que .escena__img para ganarle. */
-  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .escena-contenido img[src*="/contenedor/"]) {
+  :global(
+    html.modo-alto-contraste:not(.modo-noche)
+      .scene-wrapper
+      .escena-contenido
+      img[src*="/contenedor/"]
+  ) {
     filter: brightness(0) !important;
   }
 
@@ -400,7 +450,9 @@
   :global(html.modo-alto-contraste.modo-noche .scene-wrapper .escena__img) {
     filter: brightness(0.5) saturate(0.2) invert(1) hue-rotate(180deg) !important;
   }
-  :global(html.modo-alto-contraste.modo-noche .scene-wrapper img[src*="/gifs/"]) {
+  :global(
+    html.modo-alto-contraste.modo-noche .scene-wrapper img[src*="/gifs/"]
+  ) {
     filter: brightness(0.6) saturate(0.2) invert(1) hue-rotate(180deg) !important;
   }
 
@@ -429,7 +481,7 @@
        Misma especificidad que la regla color:#000 (0,3,2)
        pero declarada después, así gana por orden. */
   :global(html.modo-alto-contraste:not(.modo-noche) .ac-blanco) {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
   }
 
   /* Si además está activo modo noche: el invert(1) del wrapper
@@ -489,7 +541,9 @@
      del wrapper: en Aliados (sin .escena__img) se ven invertidos.
      El logo Lunaria de Portada (con .escena__img) NO coincide con este
      selector, así que toma la regla de .escena__img → doble invert → normal. */
-  :global(html.modo-noche .scene-wrapper img[src*="/marcas/"]:not(.escena__img)) {
+  :global(
+    html.modo-noche .scene-wrapper img[src*="/marcas/"]:not(.escena__img)
+  ) {
     filter: invert(0) hue-rotate(180deg) !important;
   }
 
@@ -526,7 +580,7 @@
 
   /* Botón "Inicio" en Estrategias — fondo + texto (#DBAB40 / #161040) */
   :global(html.modo-noche .estrategias .boton-volver) {
-    background-color: #DBAB40 !important;
+    background-color: #dbab40 !important;
     color: #161040 !important;
   }
 
@@ -540,7 +594,7 @@
   /* Badge "Podcast" en LosTrapos — mismos colores modo noche */
   :global(html.modo-noche .los-trapos__badge) {
     filter: invert(1) hue-rotate(180deg) !important;
-    background-color: #DBAB40 !important;
+    background-color: #dbab40 !important;
     color: #161040 !important;
   }
 

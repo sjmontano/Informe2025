@@ -62,7 +62,7 @@ const { modales } = Astro.props;
 
         {/* Nombre del modal (sección) en la parte superior derecha */}
         <div class="modal-name-section">
-          <span>{modal.id.charAt(0).toUpperCase() + modal.id.slice(1)}</span>
+          <span class="ac-blanco">{modal.id.charAt(0).toUpperCase() + modal.id.slice(1)}</span>
         </div>
 
         {/* Carrusel multimedia con flechas de navegación */}
@@ -530,6 +530,37 @@ const { modales } = Astro.props;
 
   .audio-modal ::-webkit-media-controls-panel {
     background-color: #ceb6aa !important; /* Fondo del panel de controles */
+  } 
+
+  /* =========================================================================
+    ALTO CONTRASTE
+    ====================================================================== */
+
+  :global(html.modo-alto-contraste .colectiva1) {
+    background-color: #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .colectiva1 svg path) {
+    fill: #FFFFFF !important;
+  }
+
+  :global(html.modo-alto-contraste .colectiva2) {
+    background: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .lunaria-button) {
+    background: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .circle) {
+    background-color: #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .redes svg path) {
+    fill: #FFFFFF !important;
   } 
 
 
