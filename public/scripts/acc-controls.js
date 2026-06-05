@@ -32,21 +32,57 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ─── GIF freeze/thaw ───
+    function freezeGifs() {
+        document.querySelectorAll('img[src*="/gifs/"]').forEach(img => {
+            if (img.dataset.frozen) return;
+            img.dataset.originalSrc = img.src;
+            const onLoad = () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                if (!ctx) return;
+                canvas.width = img.naturalWidth || img.width;
+                canvas.height = img.naturalHeight || img.height;
+                ctx.drawImage(img, 0, 0);
+                img.src = canvas.toDataURL("image/webp");
+                img.dataset.frozen = "true";
+            };
+            if (img.complete && img.naturalWidth > 0) {
+                onLoad();
+            } else {
+                img.addEventListener("load", onLoad, { once: true });
+            }
+        });
+    }
+
+    function thawGifs() {
+        document.querySelectorAll('img[src*="/gifs/"]').forEach(img => {
+            if (img.dataset.originalSrc) {
+                img.src = img.dataset.originalSrc;
+                delete img.dataset.frozen;
+                delete img.dataset.originalSrc;
+            }
+        });
+    }
+
     // ─── Generic toggle factory ───
-    function makeToggle(btnId, className, storageKey) {
+    function makeToggle(btnId, className, storageKey, onActivate, onDeactivate) {
         const btn = document.getElementById(btnId);
         if (!(btn instanceof HTMLButtonElement)) return;
         const apply = (on) => {
             setClass(className, on);
             btn.setAttribute("aria-pressed", String(on));
             persist(storageKey, String(on));
+            document.dispatchEvent(new CustomEvent("acc-change", { detail: { mode: className, active: on } }));
+            if (on && onActivate) onActivate();
+            if (!on && onDeactivate) onDeactivate();
         };
         if (load(storageKey, "false") === "true") apply(true);
         btn.addEventListener("click", () => apply(btn.getAttribute("aria-pressed") !== "true"));
     }
 
     makeToggle("acc-hc", "modo-alto-contraste", "acc-hc");
-    makeToggle("acc-rm", "modo-sin-movimiento", "acc-rm");
+    makeToggle("acc-rm", "modo-sin-movimiento", "acc-rm", freezeGifs, thawGifs);
     makeToggle("acc-night", "modo-noche", "acc-night");
 
     // ─── Font size ───
@@ -92,11 +128,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetBtn = document.getElementById("acc-reset");
     if (resetBtn instanceof HTMLButtonElement) {
         resetBtn.addEventListener("click", () => {
+            // Thaw GIFs if reduce motion was active
+            if (document.documentElement.classList.contains("modo-sin-movimiento")) {
+                thawGifs();
+            }
             LEVELS.forEach((c) => setClass(c, false));
             level = 0;
             persist("acc-letra", "0");
             updateBtns();
-            ["modo-alto-contraste", "modo-sin-movimiento", "modo-noche"].forEach((c) => setClass(c, false));
+            ["modo-alto-contraste", "modo-sin-movimiento", "modo-noche"].forEach((c) => {
+                setClass(c, false);
+                document.dispatchEvent(new CustomEvent("acc-change", { detail: { mode: c, active: false } }));
+            });
             persist("acc-hc", "false");
             persist("acc-rm", "false");
             persist("acc-night", "false");

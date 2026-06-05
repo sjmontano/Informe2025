@@ -486,19 +486,22 @@ const TESTIMONIOS: Testimonio[] = [
     actual = idx;
     barras.forEach((actualizar) => actualizar());
 
+    const rm = document.documentElement.classList.contains("modo-sin-movimiento");
     setTimeout(() => {
       ciclando = false;
-    }, 300);
+    }, rm ? 0 : 300);
   };
 
   const siguiente = () => mostrar((actual + 1) % total);
   const anterior = () => mostrar((actual - 1 + total) % total);
 
+  const pausar = () => clearInterval(timer);
   const iniciar = () => {
     pausar();
-    timer = setInterval(siguiente, 5000);
+    if (!document.documentElement.classList.contains("modo-sin-movimiento")) {
+      timer = setInterval(siguiente, 5000);
+    }
   };
-  const pausar = () => clearInterval(timer);
 
   mostrar(0);
   iniciar();
@@ -525,6 +528,12 @@ const TESTIMONIOS: Testimonio[] = [
   const contenedor = document.querySelector(".testimonios__contenedor");
   contenedor?.addEventListener("mouseenter", pausar);
   contenedor?.addEventListener("mouseleave", iniciar);
+
+  document.addEventListener("acc-change", (e: CustomEvent) => {
+    if (e.detail.mode === "modo-sin-movimiento") {
+      e.detail.active ? pausar() : iniciar();
+    }
+  });
 
   /* ── Scrollbar personalizada ─────────────────────────────────── */
   const prepararBarra = (cuerpo: Element) => {

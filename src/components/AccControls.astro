@@ -608,6 +608,40 @@
     scroll-behavior: auto !important;
   }
 
+  /* Entrance animations visibles de inmediato */
+  :global(html.modo-sin-movimiento .anim-entrada [data-anim-item]) {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  :global(html.modo-sin-movimiento .anim-entrada.activo [data-anim-item]) {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Marquee de aliados quieto */
+  :global(html.modo-sin-movimiento .aliados__pista) {
+    animation: none !important;
+  }
+
+  /* Hover scale quieto */
+  :global(html.modo-sin-movimiento .boton-volver:hover),
+  :global(html.modo-sin-movimiento .estrategias__card:hover),
+  :global(html.modo-sin-movimiento .testimonios__leer:hover),
+  :global(html.modo-sin-movimiento .testimonios__flecha:hover),
+  :global(html.modo-sin-movimiento .nav-button:hover),
+  :global(html.modo-sin-movimiento .lunaria-button:hover),
+  :global(html.modo-sin-movimiento .los-trapos__circulo-ext:hover),
+  :global(html.modo-sin-movimiento .contracorriente__circulo-ext:hover),
+  :global(html.modo-sin-movimiento .laboratorio__link:hover),
+  :global(html.modo-sin-movimiento .investigacion__link:hover),
+  :global(html.modo-sin-movimiento .contenido__recurso:hover),
+  :global(html.modo-sin-movimiento .acc-btn--open:hover),
+  :global(html.modo-sin-movimiento .flecha-nav:hover) {
+    transform: none !important;
+  }
+
   /* ─── TAMAÑO DE LETRA ─── */
   :global(html.letra-md) {
     font-size: 115% !important;

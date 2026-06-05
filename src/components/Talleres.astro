@@ -521,6 +521,9 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     }
 
     function updateCarouselPosition(animate = true) {
+      const reduceMotion =
+        document.documentElement.classList.contains("modo-sin-movimiento");
+      const shouldAnimate = animate && !reduceMotion;
       const screenWidth = window.innerWidth;
 
       if (screenWidth <= 447) {
@@ -530,7 +533,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
         const totalWidthPerCard = cardWidth + cardWidth * 0.01;
         console.log("si");
         const translateX = currentTallerIndex * totalWidthPerCard;
-        cardCarousel.style.transition = animate
+        cardCarousel.style.transition = shouldAnimate
           ? "transform 1s ease-in-out"
           : "none";
         cardCarousel.style.transform = `translateX(-${translateX}px)`;
@@ -541,7 +544,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
         const totalWidthPerCard = cardWidth + cardWidth * 0.03;
 
         const translateX = currentTallerIndex * totalWidthPerCard;
-        cardCarousel.style.transition = animate
+        cardCarousel.style.transition = shouldAnimate
           ? "transform 1s ease-in-out"
           : "none";
         cardCarousel.style.transform = `translateX(-${translateX}px)`;
@@ -597,9 +600,15 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
       }
     });
 
-    prevButton.addEventListener("mouseenter", () => autoScroll(-1));
+    prevButton.addEventListener("mouseenter", () => {
+      if (document.documentElement.classList.contains("modo-sin-movimiento")) return;
+      autoScroll(-1);
+    });
     prevButton.addEventListener("mouseleave", stopAutoScroll);
-    nextButton.addEventListener("mouseenter", () => autoScroll(1));
+    nextButton.addEventListener("mouseenter", () => {
+      if (document.documentElement.classList.contains("modo-sin-movimiento")) return;
+      autoScroll(1);
+    });
     nextButton.addEventListener("mouseleave", stopAutoScroll);
 
     // También, agrega el evento click a cada indicador:
