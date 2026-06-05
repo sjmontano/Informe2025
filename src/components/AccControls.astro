@@ -128,114 +128,7 @@
   </div>
 </div>
 
-<script>
-  "use strict";
-  document.addEventListener("DOMContentLoaded", () => {
-    // ─── Helpers ───
-
-    const setClass = (name, on) => {
-      document.documentElement.classList.toggle(name, on);
-    };
-    const persist = (key, val) => {
-      try {
-        localStorage.setItem(key, String(val));
-      } catch (_) {}
-    };
-    const load = (key, def) => {
-      try {
-        return localStorage.getItem(key) ?? def;
-      } catch (_) {
-        return def;
-      }
-    };
-
-    // ─── Toggle panel ───
-
-    const toggle = document.getElementById("acc-toggle");
-    const panel = document.getElementById("acc-panel");
-    toggle?.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!open));
-      panel?.classList.toggle("acc-panel--open");
-    });
-
-    // ─── Generic toggle factory ───
-
-    function makeToggle(btnId, className, storageKey) {
-      const btn = document.getElementById(btnId);
-      if (!btn) return;
-      const apply = (on) => {
-        setClass(className, on);
-        btn.setAttribute("aria-pressed", String(on));
-        persist(storageKey, on);
-      };
-      if (load(storageKey, "false") === "true") apply(true);
-      btn.addEventListener("click", () =>
-        apply(btn.getAttribute("aria-pressed") !== "true"),
-      );
-    }
-
-    makeToggle("acc-hc", "modo-alto-contraste", "acc-hc");
-    makeToggle("acc-rm", "modo-sin-movimiento", "acc-rm");
-    makeToggle("acc-night", "modo-noche", "acc-night");
-
-    // ─── Font size ───
-
-    let level = 0;
-    const LEVELS = ["", "letra-md", "letra-lg", "letra-xl"];
-    const minus = document.getElementById("acc-font-minus");
-    const plus = document.getElementById("acc-font-plus");
-
-    const saved = parseInt(load("acc-letra", "0"), 10);
-    if (saved > 0 && saved < LEVELS.length) {
-      level = saved;
-      setClass(LEVELS[level], true);
-    }
-
-    const updateBtns = () => {
-      if (minus) minus.disabled = level === 0;
-      if (plus) plus.disabled = level >= LEVELS.length - 1;
-    };
-
-    minus?.addEventListener("click", () => {
-      if (level <= 0) return;
-      setClass(LEVELS[level], false);
-      level--;
-      setClass(LEVELS[level], true);
-      persist("acc-letra", String(level));
-      updateBtns();
-    });
-
-    plus?.addEventListener("click", () => {
-      if (level >= LEVELS.length - 1) return;
-      setClass(LEVELS[level], false);
-      level++;
-      setClass(LEVELS[level], true);
-      persist("acc-letra", String(level));
-      updateBtns();
-    });
-
-    // ─── Reset ───
-
-    document.getElementById("acc-reset")?.addEventListener("click", () => {
-      LEVELS.forEach((c) => setClass(c, false));
-      level = 0;
-      persist("acc-letra", "0");
-      updateBtns();
-      ["modo-alto-contraste", "modo-sin-movimiento", "modo-noche"].forEach(
-        (c) => setClass(c, false),
-      );
-      persist("acc-hc", "false");
-      persist("acc-rm", "false");
-      persist("acc-night", "false");
-      ["acc-hc", "acc-rm", "acc-night"].forEach((id) => {
-        document.getElementById(id)?.setAttribute("aria-pressed", "false");
-      });
-    });
-
-    updateBtns();
-  });
-</script>
+<script type="module" src="/scripts/acc-controls.js"></script>
 
 <style>
   /* ─── Botón principal ─── */
@@ -406,11 +299,28 @@
     outline-offset: 3px !important;
   }
 
+  /* ─── SOL ↔ LUNA toggle (modo noche) ─── */
+
+  :global(.scene-wrapper img[src*="escenario-luna"]) {
+    display: none !important;
+  }
+
+  :global(html.modo-noche .scene-wrapper img[src*="escenario-sol"]) {
+    display: none !important;
+  }
+
+  :global(html.modo-noche .scene-wrapper img[src*="escenario-luna"]) {
+    display: block !important;
+  }
+
   /* ─── MODO NOCHE ───
        filter: invert(1) en scene-wrapper. Texto, UI y decorativos
        se invierten (texto claro, palmeras cambian de color).
        Excepciones con doble invert para que fondos, GIFs, logos
-       y fotos de contenido mantengan colores naturales. */
+       y fotos de contenido mantengan colores naturales.
+
+       REGLA: brightness() y saturate() van ANTES de invert()
+       para oscurecer los colores originales y NO los invertidos. */
   :global(html.modo-noche) {
     background: #0a0718;
   }
@@ -419,25 +329,33 @@
     filter: invert(1) hue-rotate(180deg) !important;
   }
 
-  /* Fondos — doble invert + brightness: oscuros, colores naturales */
+  /* Fondos — brightness → doble invert: oscuros, colores naturales */
   :global(html.modo-noche .scene-wrapper .fondos__img),
   :global(html.modo-noche .scene-wrapper .fondos__lqip) {
-    filter: invert(1) hue-rotate(180deg) brightness(0.35) saturate(0.6) !important;
+    filter: brightness(0.3) saturate(0.5) invert(1) hue-rotate(180deg) !important;
   }
 
-  /* GIFs — doble invert + brightness: normales, ligeramente oscuros */
+  /* GIFs — brightness → doble invert: normales, ligeramente oscuros */
   :global(html.modo-noche .scene-wrapper img[src*="/gifs/"]) {
-    filter: invert(1) hue-rotate(180deg) brightness(0.55) !important;
+    filter: brightness(0.6) saturate(0.6) invert(1) hue-rotate(180deg) !important;
   }
 
-  /* Logos y marcas de aliados — doble invert: colores normales */
-  :global(html.modo-noche .scene-wrapper img[src*="/marcas/"]) {
-    filter: invert(1) hue-rotate(180deg) !important;
-  }
-
-  /* Decorativos (palmeras, cactus, letreros) — brightness + heredan invert */
+  /* Decorativos (palmeras, cactus, letreros) — brightness hereda invert del wrapper */
   :global(html.modo-noche .scene-wrapper .escena__img) {
-    filter: brightness(1) saturate(0.5) !important;
+    filter: brightness(0.5) saturate(0.5) invert(1) hue-rotate(180deg) !important;
+  }
+
+  /* Logos y marcas de aliados — invert(0) para que solo reciban el invert
+     del wrapper: en Aliados (sin .escena__img) se ven invertidos.
+     El logo Lunaria de Portada (con .escena__img) NO coincide con este
+     selector, así que toma la regla de .escena__img → doble invert → normal. */
+  :global(html.modo-noche .scene-wrapper img[src*="/marcas/"]:not(.escena__img)) {
+    filter: invert(0) hue-rotate(180deg) !important;
+  }
+
+  /* Logo Lunaria Portada (escena 0) — doble invert sin brightness, colores originales */
+  :global(html.modo-noche .scene-wrapper img[src*="marca-lunaria"]) {
+    filter: invert(1) hue-rotate(180deg) !important;
   }
 
   /* Content images — doble invert: normales */
@@ -454,6 +372,36 @@
 
   :global(html.modo-noche .acc-contenido) {
     filter: invert(1) hue-rotate(180deg) !important;
+  }
+  /* Contra-invert para textos que deben verse blancos en modo noche */
+  :global(html.modo-noche .noche-claro) {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  /* Contra-invert para botón volver — colores originales se restauran.
+     Excluye variante círculo (SVG decorativo no debe contra-invertirse). */
+  :global(html.modo-noche .boton-volver:not(.boton-volver--circulo)) {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  /* Botón "Inicio" en Estrategias — fondo + texto (#DBAB40 / #161040) */
+  :global(html.modo-noche .estrategias .boton-volver) {
+    background-color: #DBAB40 !important;
+    color: #161040 !important;
+  }
+
+  /* Botones "Investigación" en Laboratorio/Diplomado/ContraCorriente — solo color texto */
+  :global(html.modo-noche .laboratorio .boton-volver),
+  :global(html.modo-noche .diplomado .boton-volver),
+  :global(html.modo-noche .contracorriente .boton-volver) {
+    color: #161040 !important;
+  }
+
+  /* Badge "Podcast" en LosTrapos — mismos colores modo noche */
+  :global(html.modo-noche .los-trapos__badge) {
+    filter: invert(1) hue-rotate(180deg) !important;
+    background-color: #DBAB40 !important;
+    color: #161040 !important;
   }
 
   /* ─── REDUCIR MOVIMIENTO ─── */

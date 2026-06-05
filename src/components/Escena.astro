@@ -53,6 +53,7 @@ const LETRERO_BASE = "/resources/contenedor/contenedor-letrero.webp";
 const LETRERO_4 = "/resources/contenedor/contenedor-letrero-4.webp";
 const HOJA = "/resources/contenedor/contenedor-hoja.webp";
 const FLECHA = "/resources/contenedor/contenedor-flecha.webp";
+const LUNA = "/resources/escenario/escenario-luna.webp";
 
 // ─── 17 escenas ──────────────────────────────────────────────────────
 
@@ -271,16 +272,6 @@ const ESCENAS: Item[][] = [
       alt: "Cactus",
     },
     { src: CACTUS, top: 0.33, right: "18.8vw", width: "11vw", alt: "Cactus" },
-
-    {
-      src: "/resources/escenario/escenario-silla.webp",
-      top: 0.39,
-      right: "5vw",
-      width: "24vw",
-      extra: "transform: scaleX(-1)",
-      alt: "Silla",
-    },
-
     {
       src: "/resources/contenedor/contenedor-letrero-guion-bajo.webp",
       top: 0.15,
@@ -296,6 +287,28 @@ const ESCENAS: Item[][] = [
       extra: "transform: scaleX(-1)",
       alt: "Palmeras",
     },
+    {
+      src: PALMERA,
+      top: 0.1,
+      right: "3vw",
+      width: "50vw",
+      alt: "Palmera",
+    },
+    {
+      src: ARBUSTO,
+      top: 0.5,
+      right: "10vw",
+      width: "10.5vw",
+      alt: "Arbusto",
+    },
+    {
+      src: "/resources/escenario/escenario-silla.webp",
+      top: 0.39,
+      right: "5vw",
+      width: "24vw",
+      extra: "transform: scaleX(-1)",
+      alt: "Silla",
+    },
     { src: ARBUSTO, top: 0.5, right: "0.7vw", width: "8vw", alt: "Arbusto" },
     { src: ARBUSTO, top: 0.73, left: "33vw", width: "10.5vw", alt: "Arbusto" },
     {
@@ -305,8 +318,23 @@ const ESCENAS: Item[][] = [
       width: "10.5vw",
       alt: "Arbusto",
     },
+    { src: CACTUS_1, top: 0.38, left: "5vw", width: "23vw", alt: "Cactus" },
     { src: CACTUS, top: 0.37, left: "-0.18vw", width: "17.5vw", alt: "Cactus" },
     { src: PIEDRAS, top: 0.77, right: "32vw", width: "7vw", alt: "Piedras" },
+    {
+      src: SOL,
+      top: 0.03,
+      left: "0vw",
+      width: "25vw",
+      alt: "SOL",
+    },
+    {
+      src: LUNA,
+      top: 0.03,
+      left: "0vw",
+      width: "25vw",
+      alt: "LUNA",
+    },
   ],
 
   /*  4 · CUENTAS CLARAS */
@@ -535,6 +563,12 @@ const ESCENAS: Item[][] = [
       left: "-20vh",
       extra: "height:49vh",
       alt: "Sol decorativo",
+    },
+    {
+      src: LUNA,
+      left: "-20vh",
+      extra: "height:49vh",
+      alt: "Luna decorativa",
     },
   ],
 
@@ -967,5 +1001,5 @@ const elementos = ESCENAS[escena] || [];
   .imagen_escena_15_6{
      display: none !important;
   }
-  
+
 </style>

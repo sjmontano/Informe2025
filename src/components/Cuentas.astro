@@ -69,7 +69,7 @@ const dataGastos = [
             .map((dato) => (
               <li>
                 <div class="progress" data-anim-item>
-                  <span class="progress__titulo">{dato.text}</span>
+                  <span class="progress__titulo noche-claro">{dato.text}</span>
 
                   <div class="progress__contenedor">
                     <div
@@ -77,15 +77,15 @@ const dataGastos = [
                       data-target={dato.percentage}
                     />
 
-                    <span class="progress__valor">{dato.value}</span>
-                    <span class="progress__porcentaje">{dato.percentage}%</span>
+                    <span class="progress__valor noche-claro">{dato.value}</span>
+                    <span class="progress__porcentaje noche-claro">{dato.percentage}%</span>
                   </div>
                 </div>
               </li>
             ))
         }
 
-        <li class="cuentas__total">
+        <li class="cuentas__total noche-claro">
           <span>{dataIngresos[dataIngresos.length - 1].text}</span>
           <span class="cuentas__valor"
             >{dataIngresos[dataIngresos.length - 1].value}</span
@@ -108,7 +108,7 @@ const dataGastos = [
             .map((dato) => (
               <li>
                 <div class="progress" data-anim-item>
-                  <span class="progress__titulo">{dato.text}</span>
+                  <span class="progress__titulo noche-claro">{dato.text}</span>
 
                   <div class="progress__contenedor">
                     <div
@@ -116,15 +116,15 @@ const dataGastos = [
                       data-target={dato.percentage}
                     />
 
-                    <span class="progress__valor">{dato.value}</span>
-                    <span class="progress__porcentaje">{dato.percentage}%</span>
+                    <span class="progress__valor noche-claro">{dato.value}</span>
+                    <span class="progress__porcentaje noche-claro">{dato.percentage}%</span>
                   </div>
                 </div>
               </li>
             ))
         }
 
-        <li class="cuentas__total">
+        <li class="cuentas__total noche-claro">
           <span>{dataGastos[dataGastos.length - 1].text}</span>
           <span class="cuentas__valor"
             >{dataGastos[dataGastos.length - 1].value}</span
