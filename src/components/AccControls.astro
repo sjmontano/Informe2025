@@ -281,12 +281,128 @@
      elementos fuera de este componente (scene-wrapper, img, etc.)
      ═══════════════════════════════════════════════════════════════ */
 
-  /* ─── ALTO CONTRASTE ─── */
-  :global(html.modo-alto-contraste .scene-wrapper),
+  /* ─── ALTO CONTRASTE (WCAG AAA) ───
+       Fondo blanco puro #FFFFFF, texto negro puro #000000 (21:1).
+       Imágenes desaturadas. Botones, badges y contenedores con
+       borde negro para mantener jerarquía visual sin depender del color.
+       Logo Lunaria y marcas excluidos. */
+
+  /* Pagina /accesibilidad — mantener filtro original */
   :global(html.modo-alto-contraste .acc-contenido) {
     filter: contrast(1.45) saturate(1.2) !important;
   }
 
+  /* 1. Fondo semitransparente — la escena de fondo se ve
+       tenuemente para que el contenido no parezca flotando */
+  :global(html.modo-alto-contraste:not(.modo-noche) .escena-contenido) {
+    background: rgba(255, 255, 255, 0.88) !important;
+  }
+
+  /* 2. Variables → solo las que son texto puro.
+       --oceano / --turquesa / --mapa-* se DEJAN originales
+       para que el mapa de Colombia y barras mantengan estructura. */
+  :global(html.modo-alto-contraste:not(.modo-noche)) {
+    --arena: #FFFFFF !important;
+    --azul-noche: #000000 !important;
+    --blanco: #000000 !important;
+    --petroleo: #000000 !important;
+    --naranja-madera: #000000 !important;
+    --salmon: #FFFFFF !important;
+    --coral: #000000 !important;
+    --circulo-fondo: #000000 !important;
+    --circulo-texto: #FFFFFF !important;
+  }
+
+  /* 3. Todo texto en negro puro (sin background-color para
+       que los contenedores mantengan su bg original) */
+  :global(html.modo-alto-contraste:not(.modo-noche) .escena-contenido *),
+  :global(html.modo-alto-contraste:not(.modo-noche) .acc-contenido *) {
+    color: #000000 !important;
+  }
+
+  /* 4. Imágenes — no heredan color */
+  :global(html.modo-alto-contraste:not(.modo-noche) .escena-contenido img),
+  :global(html.modo-alto-contraste:not(.modo-noche) .escena-contenido svg),
+  :global(html.modo-alto-contraste:not(.modo-noche) .escena-contenido video),
+  :global(html.modo-alto-contraste:not(.modo-noche) .escena-contenido canvas) {
+    color: initial !important;
+    background-color: initial !important;
+  }
+
+  /* 5. TODO contenedor con bg → fondo blanco + borde negro.
+       Abarca Cuentas, Carta, Estrategias, Testimonios,
+       LosTrapos, Laboratorio, Diplomado, ContraCorriente,
+       Talleres, Contenido, Inicio, Aliados, Mapa. */
+  :global(html.modo-alto-contraste:not(.modo-noche) .progress__contenedor),
+  :global(html.modo-alto-contraste:not(.modo-noche) .progress__barra),
+  :global(html.modo-alto-contraste:not(.modo-noche) .carta__cifra),
+  :global(html.modo-alto-contraste:not(.modo-noche) .estrategias__block),
+  :global(html.modo-alto-contraste:not(.modo-noche) .estrategias__badge),
+  :global(html.modo-alto-contraste:not(.modo-noche) .estrategias__conexion),
+  :global(html.modo-alto-contraste:not(.modo-noche) .testimonios__tarjeta),
+  :global(html.modo-alto-contraste:not(.modo-noche) .testimonios__leer),
+  :global(html.modo-alto-contraste:not(.modo-noche) .testimonios__punto),
+  :global(html.modo-alto-contraste:not(.modo-noche) .los-trapos__circulo-ext),
+  :global(html.modo-alto-contraste:not(.modo-noche) .laboratorio__pdf),
+  :global(html.modo-alto-contraste:not(.modo-noche) .laboratorio__subtitulo),
+  :global(html.modo-alto-contraste:not(.modo-noche) .laboratorio__descargar),
+  :global(html.modo-alto-contraste:not(.modo-noche) .diplomado__subtitulo),
+  :global(html.modo-alto-contraste:not(.modo-noche) .contenedor-taller-numeracion),
+  :global(html.modo-alto-contraste:not(.modo-noche) .taller-titulo),
+  :global(html.modo-alto-contraste:not(.modo-noche) .contracorriente__badge),
+  :global(html.modo-alto-contraste:not(.modo-noche) .contracorriente__circulo-ext),
+  :global(html.modo-alto-contraste:not(.modo-noche) .contenido__btn),
+  :global(html.modo-alto-contraste:not(.modo-noche) .inicio__subtitulo),
+  :global(html.modo-alto-contraste:not(.modo-noche) .aliados__contenedor),
+  :global(html.modo-alto-contraste:not(.modo-noche) .mapa__tooltip--libertad),
+  :global(html.modo-alto-contraste:not(.modo-noche) .mapa__tooltip--autonomia),
+  :global(html.modo-alto-contraste:not(.modo-noche) .mapa__tooltip--nombre) {
+    background: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  /* Círculos interiores (checkmark) → transparentes */
+  :global(html.modo-alto-contraste:not(.modo-noche) .los-trapos__circulo-int),
+  :global(html.modo-alto-contraste:not(.modo-noche) .contracorriente__circulo-int) {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* 6. Botones — fondo blanco, borde negro, texto negro */
+  :global(html.modo-alto-contraste:not(.modo-noche) .boton-volver:not(.boton-volver--circulo)) {
+    background: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  /* 7. Imágenes decorativas — desaturadas */
+  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .fondos__img),
+  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .fondos__lqip),
+  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .escena__img),
+  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper img[src*="/gifs/"]) {
+    filter: saturate(0.2) !important;
+  }
+
+  /* 8. Modo noche + alto contraste — desaturar preservando efectos de noche */
+  :global(html.modo-alto-contraste.modo-noche .scene-wrapper .fondos__img),
+  :global(html.modo-alto-contraste.modo-noche .scene-wrapper .fondos__lqip) {
+    filter: brightness(0.3) saturate(0.2) invert(1) hue-rotate(180deg) !important;
+  }
+  :global(html.modo-alto-contraste.modo-noche .scene-wrapper .escena__img) {
+    filter: brightness(0.5) saturate(0.2) invert(1) hue-rotate(180deg) !important;
+  }
+  :global(html.modo-alto-contraste.modo-noche .scene-wrapper img[src*="/gifs/"]) {
+    filter: brightness(0.6) saturate(0.2) invert(1) hue-rotate(180deg) !important;
+  }
+
+  /* Logo Lunaria y marcas — nunca afectadas */
+  :global(html.modo-alto-contraste .scene-wrapper img[src*="marca-lunaria"]),
+  :global(html.modo-alto-contraste .scene-wrapper img[src*="/marcas/"]) {
+    filter: none !important;
+  }
+
+  /* 9. Enlaces y botones subrayados */
   :global(html.modo-alto-contraste a),
   :global(html.modo-alto-contraste button) {
     text-decoration: underline !important;
@@ -294,8 +410,9 @@
     text-underline-offset: 2px !important;
   }
 
+  /* 10. Focus visible */
   :global(html.modo-alto-contraste *:focus-visible) {
-    outline: 3px solid #ef7e7b !important;
+    outline: 3px solid #000000 !important;
     outline-offset: 3px !important;
   }
 
