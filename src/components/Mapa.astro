@@ -92,6 +92,15 @@ const statsByDept = [
     fill: var(--mapa-seleccionado);
   }
 
+  :global(html.modo-alto-contraste .mapa__visor svg path) {
+    stroke: #000000 !important;
+    fill: #FFFFFF !important;
+  }
+
+  :global(html.modo-alto-contraste .mapa__visor svg path:hover) {
+    fill: #000000 !important;
+  }
+
   /* ─── Tooltips flotantes ─── */
   .mapa__tooltip {
     position: fixed;

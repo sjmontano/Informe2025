@@ -384,6 +384,14 @@
     filter: saturate(0.2) !important;
   }
 
+  /* Contenedor — solo borde negro, centro blanco (sobrexpuesto).
+       brightness(0) vuelve negro todo píxel visible; el centro
+       transparente muestra el fondo blanco de escena-contenido.
+       Especificidad mayor que .escena__img para ganarle. */
+  :global(html.modo-alto-contraste:not(.modo-noche) .scene-wrapper .escena-contenido img[src*="/contenedor/"]) {
+    filter: brightness(0) !important;
+  }
+
   /* 8. Modo noche + alto contraste — desaturar preservando efectos de noche */
   :global(html.modo-alto-contraste.modo-noche .scene-wrapper .fondos__img),
   :global(html.modo-alto-contraste.modo-noche .scene-wrapper .fondos__lqip) {
@@ -414,6 +422,21 @@
   :global(html.modo-alto-contraste *:focus-visible) {
     outline: 3px solid #000000 !important;
     outline-offset: 3px !important;
+  }
+
+  /* 11. Clase utilitaria: texto blanco en alto contraste
+       (para textos que caen sobre elementos brightness(0)).
+       Misma especificidad que la regla color:#000 (0,3,2)
+       pero declarada después, así gana por orden. */
+  :global(html.modo-alto-contraste:not(.modo-noche) .ac-blanco) {
+    color: #FFFFFF !important;
+  }
+
+  /* Si además está activo modo noche: el invert(1) del wrapper
+       convierte #000000 en blanco, así que usamos negro como
+       origen para que invert lo deje blanco. */
+  :global(html.modo-alto-contraste.modo-noche .ac-blanco) {
+    color: #000000 !important;
   }
 
   /* ─── SOL ↔ LUNA toggle (modo noche) ─── */

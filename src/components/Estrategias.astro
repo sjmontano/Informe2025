@@ -43,7 +43,7 @@ const ENLACES = [
 >
   <BotonVolver background="var(--oceano)"  href="/#navegacion" texto="Inicio" top={9} right={10} z={3} />
 
-  <h1 class="estrategias__titulo" data-anim-item>Estrategias de acción</h1>
+  <h1 class="estrategias__titulo ac-blanco" data-anim-item>Estrategias de acción</h1>
 
   <p class="estrategias__subtitulo noche-claro" data-anim-item>
     Donde el mar se encuentra con la tierra: allí surge el impacto.
@@ -68,7 +68,7 @@ const ENLACES = [
   {
     ENLACES.map((e) => (
       <a
-        class="estrategias__btn"
+        class="estrategias__btn ac-blanco"
         href={e.href}
         style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}
         data-anim-item

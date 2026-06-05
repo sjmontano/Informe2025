@@ -23,7 +23,7 @@ const svgMap = readFileSync(
   <BotonVolver href="/#navegacion"   variante="circulo" bottom={12} left={6} z={3} />
 
 
-  <h1 class="programas__titulo" data-anim-item>Programas</h1>
+  <h1 class="programas__titulo ac-blanco" data-anim-item>Programas</h1>
 
   <!-- MAPA INTERACTIVO DE COLOMBIA -->
   <div class="programas__mapa">
@@ -49,10 +49,10 @@ const svgMap = readFileSync(
         />
       </div>
 
-      <h2 class="programas__subtitulo">Libertad y democracia</h2>
+      <h2 class="programas__subtitulo ac-blanco">Libertad y democracia</h2>
     </div>
       
-      <span class="programas__texto">
+      <span class="programas__texto ac-blanco">
         Sabemos que han sido tiempos en los <br> 
         que la marea sube y las tormentas <br>
         amenazan con llevarse todo por delante, <br>
@@ -67,7 +67,7 @@ const svgMap = readFileSync(
         espacios que abrazan a las familias <br>
         amplias y diversas.
       </span>
-      <span class="programas__cifra">88 propuestas</span>
+      <span class="programas__cifra ac-blanco">88 propuestas</span>
     </div>
   </article>
 
@@ -91,9 +91,9 @@ const svgMap = readFileSync(
         loading="lazy"
       />
     </div>
-      <h2 class="programas__subtitulo">Autonomía, derechos y sostenibilidad</h2>
+      <h2 class="programas__subtitulo ac-blanco">Autonomía, derechos y sostenibilidad</h2>
       </div>
-      <p class="programas__texto">
+      <p class="programas__texto ac-blanco">
         El mar con su riqueza e inmensidad nos enseñó la importancia de
         fortalecer las colectividades en su sostenibilidad y autonomía para
         navegar con firmeza, por eso navegamos junto a organizaciones que
@@ -101,7 +101,7 @@ const svgMap = readFileSync(
         a la defensa del territorio y la eliminación de cualquier tipo de
         violencia.
       </p>
-      <span class="programas__cifra">94 propuestas</span>
+      <span class="programas__cifra ac-blanco">94 propuestas</span>
     </div>
   </article>
 
@@ -214,6 +214,15 @@ const svgMap = readFileSync(
 
   .programas__circulo--autonomia {
     background-color: #F5AA06;
+  }
+
+  :global(html.modo-alto-contraste .programas__circulo--libertad),
+  :global(html.modo-alto-contraste .programas__circulo--autonomia) {
+    background-color: #FFFFFF !important;
+  }
+
+  :global(html.modo-alto-contraste .programas__icono) {
+    filter: brightness(0.15) !important;
   }
 
   .programas__icono {
