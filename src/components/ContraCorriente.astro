@@ -35,9 +35,15 @@ const YOUTUBE_URL =
     top={5}
     right={15}
     z={3}
-    background="var(--oceano)" 
+    background="var(--oceano)"
   />
-  <BotonVolver href="/#navegacion"   variante="circulo" bottom={3} left={15} z={3} />
+  <BotonVolver
+    href="/#navegacion"
+    variante="circulo"
+    bottom={3}
+    left={15}
+    z={3}
+  />
 
   <!-- COLUMNA IZQUIERDA: título + descripción + íconos -->
   <div class="contracorriente__izquierda">
@@ -127,7 +133,7 @@ const YOUTUBE_URL =
       border-radius: 1.7vh;
       padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 5 / 100);
       margin-bottom: calc(var(--alto) * 2 / 100);
-      margin-left: calc(var(--alto) * -5 / 100) ;
+      margin-left: calc(var(--alto) * -5 / 100);
     }
 
     .contracorriente__intro {
@@ -186,6 +192,45 @@ const YOUTUBE_URL =
     .contracorriente__circulo-int :global(svg) {
       width: 65%;
       height: 65%;
+    }
+
+    @media (max-width: 570px) {
+      .boton-volver__texto {
+        font-family: var(--font-discordia);
+        font-size: 1.6vh;
+        font-weight: 700;
+      }
+      .contracorriente {
+        justify-content: center;
+        display: flex;
+      }
+
+      .contracorriente__titulo {
+        font-size: 2.4vh;
+        margin-bottom: 1vh;
+      }
+
+      .contracorriente__izquierda {
+        position: absolute;
+        top: 12vh;
+        left: auto;
+        width: 25vh;
+      }
+
+      .contracorriente__intro {
+        font-size: 1.3vh;
+        line-height: 1.8vh;
+        width: 100%;
+      }
+
+      .contracorriente__intro br {
+        display: none;
+      }
+
+      .contracorriente__badge {
+        font-size: 1.5vh;
+        margin-bottom: 5vh;
+      }
     }
   </style>
 </section>
