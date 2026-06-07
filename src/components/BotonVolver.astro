@@ -21,7 +21,7 @@ export interface Props {
   bottom?: number;
   left?: number;
   z?: number;
-  variante?: "default" | "circulo";
+  variante?: "default" | "circulo" | "estrategia";
   color?: string;
   background?: string;
   extraStyle?: string;
@@ -150,11 +150,6 @@ const estilo = [
       width: 3vh;
       height: 3vh;
       object-fit: contain;
-    }
-
-    .contracorriente {
-      justify-content: center;
-      display: flex;
     }
   }
 </style>
