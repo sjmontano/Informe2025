@@ -29,6 +29,9 @@ const YOUTUBE_URL =
   class="contracorriente anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
+
+  <div class="navegacionDesktop">
+    
   <BotonVolver
     href="/investigacion"
     texto="Investigación"
@@ -44,6 +47,21 @@ const YOUTUBE_URL =
     left={15}
     z={3}
   />
+  </div>
+
+
+  <div class="navegacionMobile">
+    
+  <BotonVolver
+    href="/investigacion"
+    texto="Investigación"
+    bottom={3}
+    left={3}
+    z={3}
+    background="var(--oceano)"
+  />
+  
+  </div>
 
   <!-- COLUMNA IZQUIERDA: título + descripción + íconos -->
   <div class="contracorriente__izquierda">
@@ -96,12 +114,21 @@ const YOUTUBE_URL =
     </a>
   </div>
 
-  <style>
+  <style>}
+
+  
+
+    /* ─── Estilos generales ─── */
+  
     .contracorriente {
       position: absolute;
       inset: 0;
       z-index: 2;
     }
+
+    .navegacionMobile{
+    display: none;
+  }
 
     /* ─── Columna izquierda ─── */
 
@@ -195,6 +222,13 @@ const YOUTUBE_URL =
     }
 
     @media (max-width: 570px) {
+
+      .navegacionDesktop {
+        display: none;
+      }
+      .navegacionMobile{
+    display: flex;
+  }
       .boton-volver__texto {
         font-family: var(--font-discordia);
         font-size: 1.6vh;
