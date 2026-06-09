@@ -672,6 +672,7 @@ const ESCENAS: Item[][] = [
 
   /* 15 · SACANDO LOS TRAPOS */
   [
+    
     {
       src: "/resources/gifs/gif-pescador-ensamblado.webp",
       top: 0.1,
@@ -715,7 +716,32 @@ const ESCENAS: Item[][] = [
       alt: "Letrero Sacando los Trapos",
       extra: "top: -11vh; height:44vh; width:48vw; object-fit: initial;",
     },
-  ],
+    {
+      src:NUBE,
+      bottom: 0.66,
+      left: "-6.3vw",
+      width: "25vw",
+      alt: "Nube",
+      z: -1,
+    },
+    {
+      src:NUBE,
+      bottom: 0.65,
+      right: "-11vw",
+      width: "25vw",
+      alt: "Nube",
+      z: -1,
+      extra: "transform: scaleX(-1)",
+    },
+    {
+      src:NUBE,
+      bottom: 0.80,
+      left: "40vw",
+      width: "25vw",
+      alt: "Nube",
+      z: -1,
+    },
+      ],
 
   /* 16 · ALIADOS */
   [{ src: NUBE, top: 0, left: "72vw", width: "35vw", alt: "Nube rosa" }],
@@ -998,5 +1024,26 @@ const elementos = ESCENAS[escena] || [];
   .imagen_escena_15_6{
      display: none !important;
   }
+  .imagen_escena_15_8{
+    width: 38vw !important;
+    right: -8vw !important;
+    left: auto !important;
+    bottom: 92vh !important;
+    transform: scaleX(-1) !important;
 
+  }
+  .imagen_escena_15_9{
+    width: 38vw !important;
+    right: -9vw !important;
+    left: auto !important;
+    bottom: 74vh !important;
+    transform: scaleX(-1) !important;
+  }
+  .imagen_escena_15_10{
+    width: 35vw !important;
+    left: -7vw !important;
+    bottom: 90vh !important;
+    transform: scaleX(-1) !important;
+  }
+  
 </style>
