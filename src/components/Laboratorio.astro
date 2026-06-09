@@ -11,6 +11,9 @@ import BotonVolver from "./BotonVolver.astro";
   class="laboratorio anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
+
+
+  <div class="navegacionDesktop">
   <BotonVolver
     href="/investigacion"
     texto="Investigación"
@@ -20,6 +23,20 @@ import BotonVolver from "./BotonVolver.astro";
     background="var(--oceano)" 
   />
   <BotonVolver href="/#navegacion" variante="circulo" bottom={8} left={15} z={3}  />
+  </div>
+
+  <div class="navegacionMobile">
+    
+  <BotonVolver
+    href="/investigacion"
+    texto="Investigación"
+    bottom={3}
+    left={3}
+    z={3}
+    background="var(--oceano)"
+  />
+  
+  </div>
 
   <div class="laboratorio__contenido">
     <div class="laboratorio__visor" data-anim-item>
@@ -70,6 +87,10 @@ import BotonVolver from "./BotonVolver.astro";
 </section>
 
 <style>
+
+  .navegacionMobile{
+    display: none;
+  }
   .laboratorio {
     position: absolute;
     inset: 0;
@@ -179,6 +200,68 @@ import BotonVolver from "./BotonVolver.astro";
 
   
   @media (max-width: 570px) {
+
+    .navegacionDesktop {
+        display: none;
+      }
+      .navegacionMobile{
+    display: flex;
+  }
+
+    .laboratorio__contenido{
+      flex-direction: column-reverse;
+    }
+
+    .laboratorio__titulo{
+      
+        font-size: 2.4vh;
+        margin-bottom: 1vh;
+    }
+
+    .laboratorio__parrafo{
+      
+        font-size: 1.3vh;
+        line-height: 1.8vh;
+    }
+    .laboratorio__parrafo br {
+        display: none;
+      }
+
+      .laboratorio__contenido{
+        left: auto; 
+    width: 57%;
+            align-content: end;
+        flex-wrap: wrap-reverse;
+        margin-left: 7vw;
+      }
+
+      .laboratorio{
+        justify-content: center;
+    display: flex;
+      }
+
+      .laboratorio__subtitulo{
+        font-size: 1.3vh;
+        padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 2 / 100);
+        margin-left: calc(var(--alto) * -2 / 100);
+      }
+
+      .laboratorio__visor{
+        width: 100%;
+
+      }
+
+      .laboratorio__marco{
+        height: 16vh;
+      }
+
+      .laboratorio__marco{
+            top: -2.5vh;
+      }
+
+      .laboratorio__pdf{
+        height: 11vh;
+      }
 
   }
 </style>
