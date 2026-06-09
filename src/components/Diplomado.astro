@@ -11,6 +11,9 @@ import BotonVolver from "./BotonVolver.astro";
   class="diplomado anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
+
+
+  <div class="navegacionDesktop">
   <BotonVolver
     href="/investigacion"
     texto="Investigación"
@@ -21,6 +24,20 @@ import BotonVolver from "./BotonVolver.astro";
 
   />
   <BotonVolver href="/#navegacion"   variante="circulo" bottom={8} left={50} z={3} />
+  </div>
+
+  <div class="navegacionMobile">
+    
+  <BotonVolver
+    href="/investigacion"
+    texto="Investigación"
+    bottom={3}
+    left={10}
+    z={3}
+    background="var(--oceano)"
+  />
+  
+  </div>
 
   <div class="diplomado__contenido">
     <div class="diplomado__texto" data-anim-item>
@@ -44,6 +61,9 @@ import BotonVolver from "./BotonVolver.astro";
 </section>
 
 <style>
+  .navegacionMobile{
+    display: none;
+  }
   .diplomado {
     position: absolute;
     inset: 0;
@@ -95,6 +115,13 @@ import BotonVolver from "./BotonVolver.astro";
     hyphens: none;
   }
   @media (max-width: 570px){
+
+    .navegacionDesktop {
+        display: none;
+      }
+      .navegacionMobile{
+    display: flex;
+  }
      .diplomado__contenido{
     top: 32vh;
     left: 31vw;
@@ -123,7 +150,7 @@ import BotonVolver from "./BotonVolver.astro";
     width: 100%;
     font-size: 1.1vh;
     line-height: 1.4vh;
-  }
+  }}
     
 
 </style>
