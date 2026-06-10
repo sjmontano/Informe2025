@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import BotonVolver from "./BotonVolver.astro";
 import Mapa from "./Mapa.astro";
+import FlechaNav from "./FlechaNav.astro";
 
 const svgMap = readFileSync(
   join(process.cwd(), "public", "resources", "mapa", "mapa-colombia.svg"),
@@ -20,7 +21,16 @@ const svgMap = readFileSync(
   class="programas anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
+
+  
+  <div class="navegacionDesktop">
   <BotonVolver href="/#navegacion"   variante="circulo" bottom={12} left={6} z={3} />
+  </div>
+
+  
+  <div class="navegacionMobile">
+  <BotonVolver href="/#navegacion"   variante="circulo" bottom={1} left={1} z={3} />
+  </div>
 
 
   <h1 class="programas__titulo ac-blanco" data-anim-item>Programas</h1>
@@ -104,14 +114,89 @@ const svgMap = readFileSync(
       <span class="programas__cifra ac-blanco">94 propuestas</span>
     </div>
   </article>
-
+  
+  <div class="flechaMovil">
+    <FlechaNav
+      direccion="derecha"
+      class="next-button"
+    />
+    <FlechaNav
+      direccion="izquierda"
+      class="prev-button"
+    />
   </div>
+  
+
 
   
 
 </section>
 
+<script>
+
+  const letreroRosaSolo = document.querySelector(".imagen_escena_9_7");
+  const letreroNaranjaSolo  = document.querySelector(".imagen_escena_9_6");
+  const difRosaSolo = document.querySelector(".imagen_escena_9_3");
+  const difNaranjaSolo  = document.querySelector(".imagen_escena_9_2");
+  const flechaMovil = document.querySelector(".flechaMovil");
+  
+  const nextButton = document.querySelector(".next-button");
+  const prevButton = document.querySelector(".prev-button");
+
+  
+  const infoNaranja = document.querySelector(".programas__bloque--libertad");
+  const infoRosa = document.querySelector(".programas__bloque--autonomia");
+
+
+
+  letreroRosaSolo.style.setProperty("display", "none", "important");
+  prevButton.style.setProperty("display", "none", "important");
+  
+
+  nextButton.addEventListener("click", () => {
+    letreroNaranjaSolo.style.setProperty("display", "none", "important");
+    letreroRosaSolo.style.setProperty("display", "flex", "important");
+    prevButton.style.setProperty("display", "flex", "important");
+    nextButton.style.setProperty("display", "none", "important");
+    flechaMovil.style.setProperty("right", "auto", "important");
+    flechaMovil.style.setProperty("left", "-20vw", "important");
+    flechaMovil.style.setProperty("position", "absolute", "important");
+    infoNaranja.style.setProperty("display", "none", "important");
+    infoRosa.style.setProperty("display", "flex", "important");
+    difNaranjaSolo.style.setProperty("display", "none", "important");
+    difRosaSolo.style.setProperty("display", "flex", "important");
+  });
+
+  prevButton.addEventListener("click", () => {
+    letreroRosaSolo.style.setProperty("display", "none", "important");
+    letreroNaranjaSolo.style.setProperty("display", "flex", "important");
+    nextButton.style.setProperty("display", "flex", "important");
+    prevButton.style.setProperty("display", "none", "important");
+    flechaMovil.style.setProperty("left", "auto", "important");
+    flechaMovil.style.setProperty("right", "-20vw", "important");
+    flechaMovil.style.setProperty("position", "absolute", "important");
+    infoNaranja.style.setProperty("display", "flex", "important");
+    infoRosa.style.setProperty("display", "none", "important");
+    difNaranjaSolo.style.setProperty("display", "flex", "important");
+    difRosaSolo.style.setProperty("display", "none", "important");
+  });
+
+
+</script>
+
 <style>
+
+  
+
+.flechaMovil{
+  display: none;
+}
+  
+  .navegacionMobile{
+    display: none;
+  }
+
+  
   .titulo__contenedor{
     display: flex;
     flex-direction: row;
@@ -272,4 +357,75 @@ const svgMap = readFileSync(
     display: inline-block;
     text-align: center;
   }
+
+  @media (max-width: 640px) {
+
+    .programas__info{
+      width: 55vw;
+    }
+
+    .navegacionDesktop {
+        display: none;
+      }
+      .navegacionMobile{
+    display: flex;
+  }
+
+    .programas__mapa{
+      margin-right: 16vw;
+      position: absolute ; 
+      top: 10vh;
+      width: 45vh;
+    }
+
+    .container{
+      margin-left: 0;
+      gap: 0;
+          bottom: 19vh;
+
+    }
+
+    .programas__bloque--autonomia{
+      display: none;
+    }
+
+    .programas__texto{
+      font-size: 1.1vh;
+      width: 20vh;
+          height: 16vh;
+    }
+
+    .programas__subtitulo{
+    font-size: 1.4vh;
+  }
+
+  .programas__circulo{
+    
+    width: calc(var(--alto) * 4.5 / 100);
+    height: calc(var(--alto) * 4.5 / 100);
+  }
+
+  .programas__cifra{
+        font-size: 1.6vh;
+  }
+  .titulo__contenedor{
+    justify-content: center;
+  }
+  .programas__titulo{
+        font-size: 3vh;
+    margin-right: 40vw;
+    margin-left: 0;
+    top: 5vh;
+  }
+
+  .flechaMovil{
+  display: flex;
+  position: absolute;
+        right: -20vw;
+        top: 6vh;
+}
+
+  }
+
+
 </style>
