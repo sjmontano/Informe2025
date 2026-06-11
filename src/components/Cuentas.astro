@@ -42,18 +42,22 @@ const dataGastos = [
 
 <section class="cuentas anim-entrada anim-entrada--fade">
   <BotonVolver href="/#navegacion" variante="circulo" bottom={4} left={4} z={3} />
-
-  <div class="cuentas__contenido" data-idx="0">
-    <div class="cuentas__nav" role="group" aria-label="Navegación de columnas">
+  <div class="cuentas__flecha--prev">
       <FlechaNav
         direccion="izquierda"
-        class="cuentas__flecha cuentas__flecha--prev"
-      />
-      <FlechaNav
-        direccion="derecha"
-        class="cuentas__flecha cuentas__flecha--next"
+        class="cuentas__flecha"
       />
     </div>
+      
+    <div class="cuentas__flecha--next">
+      <FlechaNav
+        direccion="derecha"
+        class="cuentas__flecha"
+      />
+    </div>
+
+  <div class="cuentas__contenido" data-idx="0">
+    
 
     <div class="cuentas__columna cuentas__columna--ingresos" data-panel="0">
       <span class="cuentas__subtitulo ac-blanco" data-read
@@ -175,40 +179,7 @@ const dataGastos = [
     pointer-events: auto;
   }
 
-  @media (max-width: 640px) {
-    .cuentas__contenido {
-      flex-direction: column;
-      align-items: center;
-      gap: 6vw;
-    }
-
-    .cuentas__nav {
-      display: flex;
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      transform: translateY(-50%);
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .cuentas__flecha {
-      pointer-events: auto;
-    }
-
-    .cuentas__columna {
-      width: 90%;
-    }
-
-    .cuentas__contenido[data-idx="0"] .cuentas__columna--gastos {
-      display: none;
-    }
-
-    .cuentas__contenido[data-idx="1"] .cuentas__columna--ingresos {
-      display: none;
-    }
-  }
+ 
 
   .cuentas__subtitulo {
     font-family: var(--font-lato);
@@ -298,6 +269,68 @@ const dataGastos = [
     width: 0%;
     transition: width 2s ease;
   }
+
+   @media (max-width: 640px) {
+    .cuentas__contenido {
+      flex-direction: column;
+      align-items: center;
+      gap: 6vw;
+    }
+
+    .cuentas__nav {
+      display: flex;
+      position: absolute;
+      top: 22vh;
+      pointer-events: visible;
+    }
+
+    .cuentas__flecha {
+      pointer-events: auto;
+    }
+
+    .cuentas__columna {
+      width: 90%;
+    }
+
+    .cuentas__columna--gastos {
+      display: none;
+    }
+
+     
+    .cuentas__subtitulo{
+      font-size: 1.2vh;
+    }
+    .cuentas__titulo{
+      font-size: 2.6vh;
+    }
+    .progress__valor{
+      font-size: 1.4vh;
+    }
+
+    .progress__porcentaje{
+      font-size: 1.4vh;
+    }
+    .progress__titulo{
+      font-size: 1.4vh;
+    }
+    .cuentas__total{
+      font-size: 1.6vh;
+    }
+
+    .cuentas__flecha--next{
+      margin-left: 85vw;
+      position: absolute;
+      top: 40vh;        
+      z-index: 10;
+    }
+
+    .cuentas__flecha--prev{
+      margin-right: 85vw;
+      position: absolute;
+      top: 40vh;
+      z-index: 10;
+    }
+  }
 </style>
 
 <script>
@@ -323,17 +356,33 @@ const dataGastos = [
   const contenido = document.querySelector<HTMLElement>(".cuentas__contenido");
   const botonAnterior = document.querySelector(".cuentas__flecha--prev");
   const botonSiguiente = document.querySelector(".cuentas__flecha--next");
+  
+    botonAnterior.style.setProperty("display", "none", "important");
 
-  function establecerIndice(indice: number) {
-    if (!contenido) return;
-    const indiceSeguro = Math.max(0, Math.min(1, indice));
-    contenido.dataset.idx = String(indiceSeguro);
-  }
+  
 
-  if (contenido && !contenido.dataset.idx) {
-    contenido.dataset.idx = "0";
-  }
+  
 
-  botonAnterior?.addEventListener("click", () => establecerIndice(0));
-  botonSiguiente?.addEventListener("click", () => establecerIndice(1));
+  
+  const ingresosContent = document.querySelector(".cuentas__columna--ingresos");
+  const gastosContent = document.querySelector(".cuentas__columna--gastos");
+
+  
+
+  botonSiguiente.addEventListener("click", () => {
+    ingresosContent.style.setProperty("display", "none", "important");
+    gastosContent.style.setProperty("display", "flex", "important");
+    botonAnterior.style.setProperty("display", "flex", "important");
+    botonSiguiente.style.setProperty("display", "none", "important");
+  });
+
+
+  botonAnterior.addEventListener("click", () => {
+    ingresosContent.style.setProperty("display", "flex", "important");
+    gastosContent.style.setProperty("display", "none", "important");
+    botonAnterior.style.setProperty("display", "none", "important");
+    botonSiguiente.style.setProperty("display", "flex", "important");
+  });
+
+
 </script>
