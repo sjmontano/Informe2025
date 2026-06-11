@@ -77,13 +77,12 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 
   <div class="titulos">
     <div class="centrado">
-    <span class="talleres-title ac-blanco">{title}</span>
-      <span class="talleres-encuentros ac-blanco">9 talleres y encuentros</span>
+    <span class="talleres-title ac-blanco" data-read>{title}</span>
+      <span class="talleres-encuentros ac-blanco" data-read>9 talleres y encuentros</span>
 
     </div>
     <div class="subtitulos">
-      <span class="talleres-subtitle" lang="es"
-        >La playa nos enseña que la riqueza del ecosistema no está en <br>
+      <span class="talleres-subtitle" lang="es" data-read>La playa nos enseña que la riqueza del ecosistema no está en <br>
           la uniformidad, sino en la diversidad que late en cada rincón:<br>
           en las mareas que van y vienen, en las especies que conviven,<br>
           en los colores y formas que construyen un paisaje vivo y en<br>
@@ -121,7 +120,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
                 <div class="contenedor-taller-numeracion">
                   <h3 class="taller-numeracion">{index + 1}.</h3>
                 </div>
-                <h3 class="taller-titulo">{taller.titulo}</h3>
+                <h3 class="taller-titulo" data-read>{taller.titulo}</h3>
 
               </div>
 

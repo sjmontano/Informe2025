@@ -65,7 +65,7 @@ const TESTIMONIOS: Testimonio[] = [
     z={3}
   />
 
-  <h2 class="testimonios__titulo ac-blanco" data-anim-item>Testimonios</h2>
+  <h2 class="testimonios__titulo ac-blanco" data-anim-item data-read>Testimonios</h2>
 
   <div
     class="testimonios__contenedor anim-entrada anim-entrada--fade"
@@ -93,7 +93,7 @@ const TESTIMONIOS: Testimonio[] = [
     >
       {
         TESTIMONIOS.map((t, i) => (
-          <article class="testimonios__tarjeta" data-index={i} data-anim-item>
+          <article class="testimonios__tarjeta" data-index={i} data-anim-item data-read>
             <img
               class="testimonios__marco"
               src="/resources/contenedor/contenedor-marco-fotos-1.webp"

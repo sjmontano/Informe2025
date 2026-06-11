@@ -56,11 +56,11 @@ const dataGastos = [
     </div>
 
     <div class="cuentas__columna cuentas__columna--ingresos" data-panel="0">
-      <span class="cuentas__subtitulo ac-blanco"
+      <span class="cuentas__subtitulo ac-blanco" data-read
         >En mareas cambiantes, cuentas claras:</span
       >
 
-      <h2 class="cuentas__titulo ac-blanco">Ingresos 2025</h2>
+      <h2 class="cuentas__titulo ac-blanco" data-read>Ingresos 2025</h2>
 
       <ul class="cuentas__lista">
         {
@@ -68,7 +68,7 @@ const dataGastos = [
             .filter((dato) => dato.text !== "Total")
             .map((dato) => (
               <li>
-                <div class="progress" data-anim-item>
+                <div class="progress" data-anim-item data-read>
                   <span class="progress__titulo noche-claro">{dato.text}</span>
 
                   <div class="progress__contenedor">
@@ -85,7 +85,7 @@ const dataGastos = [
             ))
         }
 
-        <li class="cuentas__total noche-claro">
+        <li class="cuentas__total noche-claro" data-read>
           <span>{dataIngresos[dataIngresos.length - 1].text}</span>
           <span class="cuentas__valor"
             >{dataIngresos[dataIngresos.length - 1].value}</span
@@ -95,11 +95,11 @@ const dataGastos = [
     </div>
 
     <div class="cuentas__columna cuentas__columna--gastos" data-panel="1">
-      <span class="cuentas__subtitulo ac-blanco"
+      <span class="cuentas__subtitulo ac-blanco" data-read
         >En mareas cambiantes, cuentas claras:</span
       >
 
-      <h2 class="cuentas__titulo ac-blanco">Gastos 2025</h2>
+      <h2 class="cuentas__titulo ac-blanco" data-read>Gastos 2025</h2>
 
       <ul class="cuentas__lista">
         {
@@ -107,7 +107,7 @@ const dataGastos = [
             .filter((dato) => dato.text !== "Total")
             .map((dato) => (
               <li>
-                <div class="progress" data-anim-item>
+                <div class="progress" data-anim-item data-read>
                   <span class="progress__titulo noche-claro">{dato.text}</span>
 
                   <div class="progress__contenedor">
@@ -124,7 +124,7 @@ const dataGastos = [
             ))
         }
 
-        <li class="cuentas__total noche-claro">
+        <li class="cuentas__total noche-claro" data-read>
           <span>{dataGastos[dataGastos.length - 1].text}</span>
           <span class="cuentas__valor"
             >{dataGastos[dataGastos.length - 1].value}</span
