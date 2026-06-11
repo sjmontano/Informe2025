@@ -41,6 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function activar() {
+    // Deactivate lupa if active (mutual exclusion)
+    if (document.documentElement.classList.contains("modo-lupa")) {
+      const btn = document.getElementById("acc-lupa");
+      if (btn) btn.click();
+    }
     recolectarBloques();
     if (bloques.length === 0) return;
     indice = 0;

@@ -59,7 +59,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .investigacion__titulo {
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 5.6 / 100);
+    font-size: calc(var(--alto) * 5.6 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0 0 calc(var(--alto) * 1.8 / 100);
@@ -67,7 +67,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .investigacion__intro {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.2 / 100);
+    font-size: calc(var(--alto) * 2.2 / 100 * var(--zoom-letra, 1));
     color: var(--azul-noche);
     margin: 0;
   }

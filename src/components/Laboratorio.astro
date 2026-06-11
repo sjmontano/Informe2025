@@ -147,7 +147,7 @@ import BotonVolver from "./BotonVolver.astro";
     border-radius: 1.7vh;
     padding: calc(var(--alto) * 0.8 / 100) calc(var(--alto) * 2.5 / 100);
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.2 / 100);
+    font-size: calc(var(--alto) * 2.2 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -168,7 +168,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .laboratorio__titulo {
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 4.7 / 100);
+    font-size: calc(var(--alto) * 4.7 / 100 * var(--zoom-letra, 1));
     line-height: 1.2;
     font-weight: 700;
     color: var(--azul-noche);
@@ -178,7 +178,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .laboratorio__subtitulo {
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 2.6 / 100);
+    font-size: calc(var(--alto) * 2.6 / 100 * var(--zoom-letra, 1));
     font-style: italic;
     font-weight: 400;
     background-color: var(--oceano);
@@ -192,7 +192,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .laboratorio__parrafo {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.25 / 100);
+    font-size: calc(var(--alto) * 2.25 / 100 * var(--zoom-letra, 1));
     line-height: calc(var(--alto) * 2.7 / 100);
     color: var(--azul-noche);
   }

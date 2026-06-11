@@ -161,7 +161,7 @@ const TESTIMONIOS: Testimonio[] = [
     right: 0;
     text-align: center;
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 4.5 / 100);
+    font-size: calc(var(--alto) * 4.5 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
@@ -229,7 +229,7 @@ const TESTIMONIOS: Testimonio[] = [
     top: calc(var(--alto) * 12 / 100);
     left: calc(var(--alto) * 22 / 100);
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.4 / 100);
+    font-size: calc(var(--alto) * 2.4 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
@@ -306,7 +306,7 @@ const TESTIMONIOS: Testimonio[] = [
 
   .testimonios__texto {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.2 / 100);
+    font-size: calc(var(--alto) * 2.2 / 100 * var(--zoom-letra, 1));
     line-height: calc(var(--alto) * 2.5 / 100);
     color: var(--azul-noche);
     margin-right: 0;
@@ -321,7 +321,7 @@ const TESTIMONIOS: Testimonio[] = [
     border-radius: 9999px;
     padding: calc(var(--alto) * 0.5 / 100) calc(var(--alto) * 2.2 / 100);
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 1.8 / 100);
+    font-size: calc(var(--alto) * 1.8 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s ease;

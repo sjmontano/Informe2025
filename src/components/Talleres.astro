@@ -335,7 +335,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     background-color: transparent;
     border: none;
     color: #f7b731;
-    font-size: calc(var(--alto) * 0.18);
+    font-size: calc(var(--alto) * 0.18 * var(--zoom-letra, 1));
     cursor: pointer;
     padding: 1%;
     z-index: 2;
