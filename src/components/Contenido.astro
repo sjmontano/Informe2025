@@ -37,13 +37,14 @@ const ENLACES: Enlace[] = [
 
 <nav class="contenido" aria-label="Navegación del informe">
   <div id="navegacion"></div>
-  <h1 class="contenido__titulo ac-blanco">Contenido</h1>
+  <h1 class="contenido__titulo ac-blanco" data-read>Contenido</h1>
   {
     ENLACES.map((e) => (
       <a
         class="contenido__btn"
         href={e.href}
         style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}
+        data-read
       >
         {e.texto}
       </a>

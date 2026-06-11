@@ -136,14 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
             level = 0;
             persist("acc-letra", "0");
             updateBtns();
-            ["modo-alto-contraste", "modo-sin-movimiento", "modo-noche"].forEach((c) => {
+            [...["modo-alto-contraste", "modo-sin-movimiento", "modo-noche", "modo-lectura"]].forEach((c) => {
                 setClass(c, false);
                 document.dispatchEvent(new CustomEvent("acc-change", { detail: { mode: c, active: false } }));
             });
             persist("acc-hc", "false");
             persist("acc-rm", "false");
             persist("acc-night", "false");
-            ["acc-hc", "acc-rm", "acc-night"].forEach((id) => {
+            ["acc-hc", "acc-rm", "acc-night", "acc-lectura"].forEach((id) => {
                 const btn = document.getElementById(id);
                 if (btn instanceof HTMLButtonElement) {
                     btn.setAttribute("aria-pressed", "false");
