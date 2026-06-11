@@ -149,11 +149,11 @@ const svgMap = readFileSync(
 
 
 
-  letreroRosaSolo.style.setProperty("display", "none", "important");
-  prevButton.style.setProperty("display", "none", "important");
+    letreroRosaSolo.style.setProperty("display", "none", "important");
+    prevButton.style.setProperty("display", "none", "important");
   
 
-  nextButton.addEventListener("click", () => {
+    nextButton.addEventListener("click", () => {
     letreroNaranjaSolo.style.setProperty("display", "none", "important");
     letreroRosaSolo.style.setProperty("display", "flex", "important");
     prevButton.style.setProperty("display", "flex", "important");
@@ -167,7 +167,7 @@ const svgMap = readFileSync(
     difRosaSolo.style.setProperty("display", "flex", "important");
   });
 
-  prevButton.addEventListener("click", () => {
+    prevButton.addEventListener("click", () => {
     letreroRosaSolo.style.setProperty("display", "none", "important");
     letreroNaranjaSolo.style.setProperty("display", "flex", "important");
     nextButton.style.setProperty("display", "flex", "important");
