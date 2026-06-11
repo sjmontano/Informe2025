@@ -4,6 +4,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ─── Helpers ───
     const setClass = (name, on) => {
+        if (!name) return;
         document.documentElement.classList.toggle(name, on);
     };
 
@@ -84,10 +85,15 @@ document.addEventListener("DOMContentLoaded", () => {
     makeToggle("acc-hc", "modo-alto-contraste", "acc-hc");
     makeToggle("acc-rm", "modo-sin-movimiento", "acc-rm", freezeGifs, thawGifs);
     makeToggle("acc-night", "modo-noche", "acc-night");
+    makeToggle("acc-lupa", "modo-lupa", "acc-lupa");
 
     // ─── Font size ───
     let level = 0;
     const LEVELS = ["", "letra-md", "letra-lg", "letra-xl"];
+    const ZOOM = [1, 1.05, 1.1, 1.15];
+    const setZoom = (lvl) => {
+        document.documentElement.style.setProperty("--zoom-letra", String(ZOOM[lvl]));
+    };
     const minus = document.getElementById("acc-font-minus");
     const plus = document.getElementById("acc-font-plus");
 
@@ -95,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (saved > 0 && saved < LEVELS.length) {
         level = saved;
         setClass(LEVELS[level], true);
+        setZoom(level);
     }
 
     const updateBtns = () => {
@@ -108,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setClass(LEVELS[level], false);
             level--;
             setClass(LEVELS[level], true);
+            setZoom(level);
             persist("acc-letra", String(level));
             updateBtns();
         });
@@ -119,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setClass(LEVELS[level], false);
             level++;
             setClass(LEVELS[level], true);
+            setZoom(level);
             persist("acc-letra", String(level));
             updateBtns();
         });
@@ -134,16 +143,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             LEVELS.forEach((c) => setClass(c, false));
             level = 0;
+            setZoom(0);
             persist("acc-letra", "0");
             updateBtns();
-            [...["modo-alto-contraste", "modo-sin-movimiento", "modo-noche", "modo-lectura"]].forEach((c) => {
+            [...["modo-alto-contraste", "modo-sin-movimiento", "modo-noche", "modo-lectura", "modo-lupa"]].forEach((c) => {
                 setClass(c, false);
                 document.dispatchEvent(new CustomEvent("acc-change", { detail: { mode: c, active: false } }));
             });
             persist("acc-hc", "false");
             persist("acc-rm", "false");
             persist("acc-night", "false");
-            ["acc-hc", "acc-rm", "acc-night", "acc-lectura"].forEach((id) => {
+            ["acc-hc", "acc-rm", "acc-night", "acc-lectura", "acc-lupa"].forEach((id) => {
                 const btn = document.getElementById(id);
                 if (btn instanceof HTMLButtonElement) {
                     btn.setAttribute("aria-pressed", "false");

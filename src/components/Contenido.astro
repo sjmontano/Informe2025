@@ -75,7 +75,7 @@ const ENLACES: Enlace[] = [
     left: 22%;
     transform: translateX(-50%);
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 4.5 / 100);
+    font-size: calc(var(--alto) * 4.5 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     color: var(--azul-noche);
     margin: 0;
@@ -90,7 +90,7 @@ const ENLACES: Enlace[] = [
     padding-left: calc(var(--alto) * 6 / 100);
     border-radius: var(--espacio-4xl);
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 2.1 / 100);
+    font-size: calc(var(--alto) * 2.1 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     transition: transform 0.2s ease;
     white-space: nowrap;

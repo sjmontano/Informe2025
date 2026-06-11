@@ -272,7 +272,7 @@ const { modales } = Astro.props;
     height: calc(var(--alto) * 0.25 / 100);
     padding: 0 1rem;                       /* relleno horizontal */
     border-radius: calc(var(--alto) * 0.08 / 100);
-    font-size: calc(var(--alto) * 0.13 / 100);
+    font-size: calc(var(--alto) * 0.13 / 100 * var(--zoom-letra, 1));
     color: #183533;
     font-weight: bold;
     display: flex;                         /* centra el texto */
@@ -423,7 +423,7 @@ const { modales } = Astro.props;
   /* Etiquetas “Colectiva:” / “Proyecto:” */
   .subtitle {
     font-weight: bold;
-    font-size: calc(var(--alto) * 0.03 );
+    font-size: calc(var(--alto) * 0.03  * var(--zoom-letra, 1));
     color: #133231;
   }
 
@@ -501,7 +501,7 @@ const { modales } = Astro.props;
   }
 
   .modal-name-section span {
-    font-size: calc(var(--alto) * 0.04);
+    font-size: calc(var(--alto) * 0.04 * var(--zoom-letra, 1));
     color: #161040;
     font-weight: bold;
     text-transform: capitalize; /* Capitaliza la primera letra de cada palabra */

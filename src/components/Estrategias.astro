@@ -105,7 +105,7 @@ const ENLACES = [
     left: 35.5%;
     transform: translateX(-50%);
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2.6 / 100);
+    font-size: calc(var(--alto) * 2.6 / 100 * var(--zoom-letra, 1));
     max-width: calc(var(--alto) * 35 / 100);
     color: var(--blanco);
     margin: 0;
@@ -151,7 +151,7 @@ const ENLACES = [
 
   .estrategias__conexion-texto {
     font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 2 / 100);
+    font-size: calc(var(--alto) * 2 / 100 * var(--zoom-letra, 1));
     font-weight: 400;
   }
 
@@ -168,7 +168,7 @@ const ENLACES = [
     padding-left: calc(var(--alto) * 8 / 100);
     border-radius: var(--espacio-4xl);
     font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 2.6 / 100);
+    font-size: calc(var(--alto) * 2.6 / 100 * var(--zoom-letra, 1));
     font-weight: 700;
     transition: transform 0.2s ease;
     white-space: nowrap;
