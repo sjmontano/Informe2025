@@ -7,6 +7,7 @@
  */
 
 interface Enlace {
+  nombre: string;
   href: string;
   texto: string;
   top: number;
@@ -14,19 +15,21 @@ interface Enlace {
 }
 
 const ENLACES: Enlace[] = [
-  { href: "/testimonios", texto: "Testimonios", top: 24, left: 73 },
-  { href: "/investigacion", texto: "Investigación", top: 33, left: 85 },
-  { href: "/talleres", texto: "Talleres", top: 54, left: 35 },
+  { nombre: "Testimonios", href: "/testimonios", texto: "Testimonios", top: 24, left: 73 },
+  { nombre: "Investigacion", href: "/investigacion", texto: "Investigación", top: 33, left: 85 },
+  { nombre: "Talleres", href: "/talleres", texto: "Talleres", top: 54, left: 35 },
   {
+    nombre: "Trapos",
     href: "/sacando-los-trapos",
     texto: "Sacando los trapos",
     top: 45.9,
     left: 58,
   },
-  { href: "/estrategias", texto: "Estrategias de acción", top: 57, left: 77 },
-  { href: "/cuentas-claras", texto: "Cuentas Claras", top: 66, left: 17 },
-  { href: "/programas", texto: "Programas", top: 75, left: 48 },
+  { nombre: "Estrategias", href: "/estrategias", texto: "Estrategias de acción", top: 57, left: 77 },
+  { nombre: "Cuentas", href: "/cuentas-claras", texto: "Cuentas Claras", top: 66, left: 17 },
+  { nombre: "Programas", href: "/programas", texto: "Programas", top: 75, left: 48 },
   {
+    nombre: "Apoyan",
     href: "/aliados",
     texto: "¿Quiénes nos apoyan?",
     top: 75,
@@ -41,7 +44,7 @@ const ENLACES: Enlace[] = [
   {
     ENLACES.map((e) => (
       <a
-        class="contenido__btn"
+        class={`contenido__btn ${e.nombre}`}
         href={e.href}
         style={`top: calc(var(--alto) * ${e.top} / 100); left: ${e.left}%`}
         data-read
@@ -98,5 +101,49 @@ const ENLACES: Enlace[] = [
 
   .contenido__btn:hover {
     transform: scale(1.05);
+  }
+
+  
+  @media (max-width: 640px) {
+    .contenido__btn{
+          font-size: calc(var(--alto) * 4.1 / 100 * var(--zoom-letra, 1));
+    }
+
+    .Programas{
+          top: calc(var(--alto) * 145 / 100) !important;
+    }
+    .Testimonios{
+      top: calc(var(--alto) * 44 / 100) !important;
+    left: 28% !important;
+    }
+
+    .Investigacion{
+      top: calc(var(--alto) * 57 / 100) !important;
+    left: 80% !important;
+    }
+    .Talleres{
+      top: calc(var(--alto) * 90 / 100) !important;
+    left: 20% !important;
+    }
+
+    .Trapos{
+          top: calc(var(--alto) * 21.9 / 100) !important; 
+    left: 73% !important;
+    }
+
+    .Estrategias {
+          top: calc(var(--alto) * 98 / 100)   !important;
+    left: 60% !important;
+    }
+
+    .Cuentas{
+          top: calc(var(--alto) * 133 / 100) !important;
+    left: 18% !important;
+    }
+
+    .Apoyan{
+      top: calc(var(--alto) * 122 / 100 ) !important;
+    left: 68% !important;
+    }
   }
 </style>
