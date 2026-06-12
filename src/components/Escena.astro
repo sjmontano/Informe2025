@@ -411,28 +411,28 @@ const ESCENAS: Item[][] = [
 
   /*  7 · EN MOVIMIENTO */
   [
-  {
+    {
       src: LETRERO_BASE,
       top: 0,
       alt: "Letrero Talleres",
       extra:
         "top: -12vh; justify-self: center; margin-right: 37vw; height:62vh;",
     },
-  {
-    src: "/resources/ilustraciones/ilustracion-apoyos.webp",
-    top: 0.28,
-    right: "22vw",
-    width: "13vw",
-    alt: "Apoyos",
-  },
-  {
-    src: "/resources/ilustraciones/ilustracion-departamentos.webp",
-    top: 0.62,
-    right: "24vw",
-    width: "10vw",
-    alt: "Departamentos",
-  },
-],
+    {
+      src: "/resources/ilustraciones/ilustracion-apoyos.webp",
+      top: 0.28,
+      right: "22vw",
+      width: "13vw",
+      alt: "Apoyos",
+    },
+    {
+      src: "/resources/ilustraciones/ilustracion-departamentos.webp",
+      top: 0.62,
+      right: "24vw",
+      width: "10vw",
+      alt: "Departamentos",
+    },
+  ],
 
   /*  8 · TALLERES */
   [
@@ -496,39 +496,38 @@ const ESCENAS: Item[][] = [
   [
     {
       src: "/resources/contenedor/contenedor-letrero.webp",
-      top: -0.15,
-      width: "calc(0.75 * var(--alto))",
       alt: "Marco para testimonios",
       anim: true,
-      extra: "justify-self: center",
+      extra:
+        "top: -14vh; height:44vh; width:clamp(30rem, 30vw, 30rem); object-fit: initial; justify-self: center;",
     },
     {
       src: HOJAS,
-      top: 0.55,
+      bottom: 0.1,
       right: "0vw",
-      width: "15vw",
+      width: "clamp(12rem, 14vw, 16rem)",
       alt: "Hojas decorativas",
       extra: "rotate: 15deg",
     },
     {
       src: ARBUSTO,
-      top: 0.71,
-      right: "12vw",
-      width: "10vw",
+      bottom: -0,
+      right: "10vw",
+      width: "clamp(8rem, 10vw, 12rem)",
       alt: "Arbusto decorativo",
     },
     {
       src: PIEDRAS,
-      top: 0.62,
+      bottom: -0.015,
       right: "4vw",
-      width: "15vw",
+      width: "clamp(12rem, 14vw, 16rem)",
       alt: "Piedras decorativas",
     },
     {
       src: ARBUSTO,
-      top: 0.71,
+      bottom: 0,
       right: "2vw",
-      width: "10vw",
+      width: "clamp(8rem, 10vw, 12rem)",
       alt: "Arbusto decorativo",
     },
   ],
@@ -749,10 +748,11 @@ const ESCENAS: Item[][] = [
   ],
 
   /* 16 · ALIADOS */
-  [{ src: PALMERAS, alt: "palmeras", extra:"display:none" },
-    { src: ARBUSTO, alt: "palmeras",extra:"display:none" },
-    { src: CACTUS, alt: "palmeras", extra:"display:none" },
-    { src: ARBUSTO, alt: "palmeras", extra:"display:none" },
+  [
+    { src: PALMERAS, alt: "palmeras", extra: "display:none" },
+    { src: ARBUSTO, alt: "palmeras", extra: "display:none" },
+    { src: CACTUS, alt: "palmeras", extra: "display:none" },
+    { src: ARBUSTO, alt: "palmeras", extra: "display:none" },
   ],
 
   /*  17 · NARRARNOS */
@@ -872,7 +872,7 @@ const elementos = ESCENAS[escena] || [];
   </div>
 </div>
 
-<style is:global >
+<style is:global>
   .escena-wrapper {
     position: relative;
     height: var(--alto);
@@ -909,54 +909,52 @@ const elementos = ESCENAS[escena] || [];
   }
 
   @media (max-width: 640px) {
-
-
-    .fondo0{
-      height: 182vw  !important;
+    .fondo0 {
+      height: 182vw !important;
       overflow: visible !important;
     }
 
-    .fondo0 .escena-contenido{
-      height: 182vw ;
+    .fondo0 .escena-contenido {
+      height: 182vw;
     }
-    .fondo1{
+    .fondo1 {
       overflow: visible !important;
-               height: 75vw;
+      height: 75vw;
     }
 
-    .fondo1 .fondos{
+    .fondo1 .fondos {
       display: flex !important;
       height: 180vw;
     }
-    .fondo1 .escena-contenido{
-              top: -79vw;
-        height: 157vw;
+    .fondo1 .escena-contenido {
+      top: -79vw;
+      height: 157vw;
     }
-    .fondo2 .fondos{
+    .fondo2 .fondos {
       display: none !important;
     }
 
-    .fondo2{
+    .fondo2 {
       height: 105vw;
     }
 
-    .fondo2 .escena-contenido{
+    .fondo2 .escena-contenido {
       height: 105vw;
     }
 
-    .fondo3{
+    .fondo3 {
       height: 180vw;
     }
-    .fondo3 .escena-contenido{
+    .fondo3 .escena-contenido {
       height: 180vw;
     }
-  .escena-contenido {
-    left:auto;
-    transform: none;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
+    .escena-contenido {
+      left: auto;
+      transform: none;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
     .escena-contenido {
       left: auto;
       transform: none;
@@ -974,126 +972,125 @@ const elementos = ESCENAS[escena] || [];
       display: none;
     }
 
-
-    .imagen_escena_0_0{
-      left: 68vw  !important;
-    width: 26vw  !important;
+    .imagen_escena_0_0 {
+      left: 68vw !important;
+      width: 26vw !important;
     }
 
-    .imagen_escena_0_5{
+    .imagen_escena_0_5 {
       top: calc(117 * var(--alto) / 100) !important;
     }
-    .imagen_escena_0_6{
-      top: calc(118 * var(--alto) / 100)  !important;
-      right: 6vw  !important;
-      width: 48vw  !important;
+    .imagen_escena_0_6 {
+      top: calc(118 * var(--alto) / 100) !important;
+      right: 6vw !important;
+      width: 48vw !important;
     }
 
-    .imagen_escena_1_0{
-      left: auto  !important;
+    .imagen_escena_1_0 {
+      left: auto !important;
       top: calc(4 * var(--alto) / 100) !important;
       width: 75vw !important;
     }
 
-    .imagen_escena_1_1{
+    .imagen_escena_1_1 {
       left: 11vw !important;
       top: calc(52 * var(--alto) / 100) !important;
     }
-    .imagen_escena_1_2{
+    .imagen_escena_1_2 {
       display: none !important;
     }
-    .imagen_escena_1_3{
+    .imagen_escena_1_3 {
       display: none !important;
     }
 
-    .imagen_escena_1_4{
+    .imagen_escena_1_4 {
       left: 12.5vw !important;
-      top: calc(90.50 * var(--alto) / 100) !important;  
+      top: calc(90.5 * var(--alto) / 100) !important;
     }
 
-    .imagen_escena_1_5{
+    .imagen_escena_1_5 {
       display: none !important;
     }
-    .imagen_escena_1_6{
+    .imagen_escena_1_6 {
       display: none !important;
     }
 
-    .imagen_escena_1_7{
+    .imagen_escena_1_7 {
       width: 8vw !important;
       top: calc(181 * var(--alto) / 100) !important;
       right: 79.5vw !important;
     }
-    .imagen_escena_1_8{
+    .imagen_escena_1_8 {
       width: 8vw !important;
       top: calc(178 * var(--alto) / 100) !important;
       right: 31vw !important;
     }
-    .imagen_escena_1_9{
-      width: 8vw !important;  
+    .imagen_escena_1_9 {
+      width: 8vw !important;
       top: calc(178 * var(--alto) / 100) !important;
       right: 54.5vw !important;
     }
 
-    .imagen_escena_1_10{
-      top: calc(212 * var(--alto) / 100)  !important; 
-    right: 40vw  !important;
-    width: 45vw  !important;
+    .imagen_escena_1_10 {
+      top: calc(212 * var(--alto) / 100) !important;
+      right: 40vw !important;
+      width: 45vw !important;
     }
 
-    .imagen_escena_3_0{
+    .imagen_escena_3_0 {
       top: auto !important;
-    bottom: 0 !important;
-    right: auto !important;
-    left: 0vw !important;
-    width: 36.5vw !important;
+      bottom: 0 !important;
+      right: auto !important;
+      left: 0vw !important;
+      width: 36.5vw !important;
     }
-    .imagen_escena_3_1{
+    .imagen_escena_3_1 {
       display: none !important;
     }
-    .imagen_escena_3_2{
+    .imagen_escena_3_2 {
       top: calc(214 * var(--alto) / 100) !important;
-    bottom: auto !important;
-    right: 5vw !important;
-    width: 44vw !important;
+      bottom: auto !important;
+      right: 5vw !important;
+      width: 44vw !important;
     }
-    .imagen_escena_3_4{
+    .imagen_escena_3_4 {
       display: none !important;
     }
-    .imagen_escena_3_5{
-          top: calc(206 * var(--alto) / 100) !important;
-    bottom: auto !important;
-    right: 17.7vw !important;
-    width: 17vw !important;
+    .imagen_escena_3_5 {
+      top: calc(206 * var(--alto) / 100) !important;
+      bottom: auto !important;
+      right: 17.7vw !important;
+      width: 17vw !important;
     }
-    .imagen_escena_3_6{
+    .imagen_escena_3_6 {
       top: calc(200 * var(--alto) / 100) !important;
-    bottom: auto !important;
-    left: 12vw !important;
-    width: 22.5vw !important;
-    z-index: 1 !important;
+      bottom: auto !important;
+      left: 12vw !important;
+      width: 22.5vw !important;
+      z-index: 1 !important;
     }
-    .imagen_escena_3_7{
-          top: calc(186 * var(--alto) / 100) !important;
-    bottom: auto !important;
-    right: 5.4vw !important;
-    width: 31.5vw !important;
-    z-index: 0 !important;
+    .imagen_escena_3_7 {
+      top: calc(186 * var(--alto) / 100) !important;
+      bottom: auto !important;
+      right: 5.4vw !important;
+      width: 31.5vw !important;
+      z-index: 0 !important;
     }
-    .imagen_escena_3_8{
+    .imagen_escena_3_8 {
       top: auto !important;
-    bottom: -5vw !important;
-    left: -8.18vw !important;
-    width: 31.5vw !important;
+      bottom: -5vw !important;
+      left: -8.18vw !important;
+      width: 31.5vw !important;
     }
-    .imagen_escena_3_9{
+    .imagen_escena_3_9 {
       top: calc(209 * var(--alto) / 100) !important;
       bottom: auto !important;
       right: 17vw !important;
       width: 14vw !important;
-    z-index: 1 !important;
+      z-index: 1 !important;
     }
 
-    .imagen_escena_3_10{
+    .imagen_escena_3_10 {
       display: flex !important;
       top: calc(46 * var(--alto) / 100) !important;
       left: -64vw !important;
@@ -1101,32 +1098,33 @@ const elementos = ESCENAS[escena] || [];
       max-width: none !important;
       z-index: -1 !important;
     }
-    
 
     .imagen_escena_10_0 {
-      top: -4vh !important;
-      width: 45vh !important;
+      height: 35vh !important;
+      width: 95vw !important;
+      top: -8vh !important;
+      left: 3vw !important;
     }
     .imagen_escena_10_4 {
       top: auto !important;
-      bottom: 1vh !important;
+      bottom: 0vh !important;
       width: 13vh !important;
       right: 2vh !important;
     }
     .imagen_escena_10_3 {
       top: auto !important;
-      bottom: -1vh !important;
+      bottom: -1.5vh !important;
       width: 22vh !important;
     }
     .imagen_escena_10_2 {
       top: auto !important;
-      bottom: 1vh !important;
+      bottom: 0vh !important;
       width: 13vh !important;
       right: 15vh !important;
     }
     .imagen_escena_10_1 {
       top: auto !important;
-      bottom: 8vh !important;
+      bottom: 3vh !important;
       width: 24vh !important;
       right: -5vh !important;
     }
@@ -1364,19 +1362,19 @@ const elementos = ESCENAS[escena] || [];
       left: auto !important;
     }
 
-  .imagen_escena_4_0{
-    left: -6vw !important;
-    top: -3vh !important;
-    height: 31vh !important;
-    width: 88vw !important;
-  }
-  
-  .imagen_escena_3_3{
-    top: calc(100 * var(--alto) / 100) !important;
-    right: auto !important; 
-    width: 82vw !important;
-    z-index: 1 !important;
-  }
+    .imagen_escena_4_0 {
+      left: -6vw !important;
+      top: -3vh !important;
+      height: 31vh !important;
+      width: 88vw !important;
+    }
+
+    .imagen_escena_3_3 {
+      top: calc(100 * var(--alto) / 100) !important;
+      right: auto !important;
+      width: 82vw !important;
+      z-index: 1 !important;
+    }
     /* Foca → al lado de "Narrarnos" (derecha) */
     .imagen_escena_5_2 {
       top: 45vh !important;
