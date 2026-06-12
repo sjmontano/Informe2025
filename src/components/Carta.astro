@@ -145,6 +145,51 @@
     color: var(--azul-noche);
     margin-top: var(--espacio-xs / 2);
   }
+
+  @media (max-width: 640px) {
+    .carta{
+      display: flex;
+        justify-content: center;
+    }
+
+    .carta__texto {
+      left: auto;
+      gap: 0.5vh;
+      width: 42%;
+      top: calc(var(--alto) * 21.4 / 100);
+      font-size: calc(var(--alto) * 3.34 / 100 * var(--zoom-letra, 1)) !important;
+      margin-left: 3vw;
+    }
+    .ac-blanco{
+      font-size: calc(var(--alto) * 3.34 / 100 * var(--zoom-letra, 1)) !important;
+
+    }
+    .carta__estadisticas{
+      top: calc(var(--alto) * 160 / 100);
+    right: auto;
+    width: 70%;
+    }
+
+    .noche-claro {
+      color: var(--azul-noche);
+      font-size: calc(var(--alto) * 3.34 / 100 * var(--zoom-letra, 1));
+
+    }
+
+    .carta__numero{
+      font-size: calc(var(--alto) * 7.5 / 100 * var(--zoom-letra, 1));
+    }
+    .carta__etiqueta{
+      font-size: calc(var(--alto) * 4.1 / 100 * var(--zoom-letra, 1));
+    }
+    .carta__cifra{
+      padding: 1vh 1.5vh;
+      width: 25%;
+    }
+    .carta__cifras{
+      margin-top: 5vw;
+    }
+   }
 </style>
 
 <script>

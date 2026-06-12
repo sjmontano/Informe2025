@@ -61,4 +61,17 @@
     padding: var(--espacio-xs) 0;
     padding-left: 2%;
   }
+
+  
+  @media (max-width: 640px) {
+    .inicio__titulo{
+      font-size: calc(var(--alto) * 11.4 / 100 * var(--zoom-letra, 1));
+      top: calc(var(--alto) * 64 / 100);
+      color: var(--blanco);
+    }
+    .inicio__subtitulo{
+      top: calc(var(--alto) * 118.2 / 100);
+      border-radius: 0.5vh;
+    }
+  }
 </style>
