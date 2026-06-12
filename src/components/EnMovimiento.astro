@@ -1,7 +1,20 @@
+---
+import BotonVolver from "./BotonVolver.astro";
+---
+
 <section
   class="fondo-movimiento anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
+<div class="navegacionDesktop">
+  <BotonVolver href="/#navegacion"   variante="circulo" bottom={12} left={6} z={3} />
+  </div>
+
+  
+  <div class="navegacionMobile">
+  <BotonVolver href="/#navegacion"   variante="circulo" bottom={1} left={1} z={3} />
+  </div>
+
   <div class="fondo-movimiento__contenido">
 
     <div class="fondo-movimiento__izquierda">
@@ -49,6 +62,10 @@
   </div>
 
   <style>
+
+    .navegacionMobile{
+      display: none;
+    }
   .fondo-movimiento {
   position: absolute;
   inset: 0;
@@ -128,31 +145,42 @@
 
 @media (max-width: 570px) {
 
+  .navegacionMobile{
+    display:flex;
+  }
+
   .fondo-movimiento__izquierda {
-    top: 8vh;
-    left: 10vw;
-    width: 70vw;
+    top: 9.5vh;
+    left: auto;
+    width: 95vw;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
   }
 
   .fondo-movimiento__titulo {
-    font-size: 2.2vh;
-    margin-bottom: 2vh;
+    font-size: 2vh;
+    margin: 0;
+    text-align: left;
+    margin-left: 11vw;
   }
 
   .fondo-movimiento__texto {
+    width: 56%;
     font-size: 1.3vh;
-    line-height: 1.7vh;
-    width: 100%;
+    line-height: 1.6vh;
+    margin-left: 8vw;
+    margin-top: 15vh;
   }
 
   .fondo-movimiento__dato:first-child {
-    top: 26vh;
-    right: 8vw;
+    top: 55vh;
+    left: 55vw;
   }
 
   .fondo-movimiento__dato:last-child {
-    top: 53vh;
-    right: 8vw;
+    top: 75vh;
+    left: 55vw;
   }
 
   .fondo-movimiento__dato h3 {
@@ -162,5 +190,14 @@
   .fondo-movimiento__dato p {
     font-size: 1.6vh;
   }
+  .fondo-movimiento__texto br{
+    display: none;
+
+  }
+
+  .navegacionDesktop{
+    display: none;
+  }
 }
+
   </style>
