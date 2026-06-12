@@ -810,11 +810,11 @@ const ESCENAS: Item[][] = [
   /*  19 · ALTERNATIVAS */
   [
     {
-      src: "/resources/gifs/gif-tortuga-ensamblada-1.webp",
+      src: "/resources/gifs/gif-foca-ensamblado.webp",
       top: 0.05,
       left: "5vw",
       width: "15vw",
-      alt: "Tortuga, ilustración de Aquelarre",
+      alt: "Foca, ilustración de Aquelarre",
       z: 3,
       extra: "transform: rotate(20deg)",
     },
@@ -1350,7 +1350,8 @@ const elementos = ESCENAS[escena] || [];
     /* Letrero — arriba, más pequeño */
     .imagen_escena_5_0 {
       top: -9vh !important;
-      left: 0vw !important;
+      right: 20vw !important;
+      left: auto !important;
       width: 80vw !important;
       height: 32vh !important;
     }
@@ -1400,54 +1401,107 @@ const elementos = ESCENAS[escena] || [];
     }
 
     /* Escena 7 - En Movimiento */
+    .imagen_escena_7_0 {
+      right: -3vh !important;
+      margin-right: 0 !important;
+      left: auto !important;
+      top: -6vh !important;
+      height: 27vh !important;
+      width: 91vw !important;
+    }
+    .imagen_escena_7_1 {
+      top: 45vh !important;
+      right: 46vw !important;
+      width: 35vw !important;
+    }
+    .imagen_escena_7_2 {
+      top: 66vh !important;
+      right: 51vw !important;
+      width: 25vw !important;
+    }
+    .imagen_escena_16_0 {
+      display: flex !important;
+      top: 23vh !important;
+      left: 35vw !important;
+      width: 65vw !important;
+      transform: rotate(20deg) !important;
+    }
+    .imagen_escena_16_1 {
+      display: flex !important;
+      top: 38vh !important;
+      left: 54vw !important;
+      width: 30vw !important;
+      transform: rotate(20deg) !important;
+    }
+    .imagen_escena_16_2 {
+      display: flex !important;
+      top: 30vh !important;
+      left: 7vw !important;
+      width: 24vw !important;
+      transform: scaleX(-1) !important;
+    }
+    .imagen_escena_16_3 {
+      display: flex !important;
+      top: 37.5vh !important;
+      left: -9vw !important;
+      width: 32vw !important;
+      transform: rotate(20deg) !important;
+    }
 
-.imagen_escena_7_0 {
-  right: -3vh !important;
-  margin-right: 0 !important;
-  left: auto !important;
-  top: -6vh !important;
-  height: 27vh !important;
-  width: 91vw !important;
-}
+    /*  5.1 · CARROUSEL ESTRATEGIAS */
 
-.imagen_escena_7_1 {
-  top: 45vh !important;
-  right: 46vw !important;
-  width: 35vw !important;
-}
+    /* LETRERO (contenedor-letrero.webp) */
+    .imagen_escena_6_1,
+    .imagen_escena_17_1,
+    .imagen_escena_18_1,
+    .imagen_escena_19_1 {
+      height: 25vh !important;
+      width: 70vw !important;
+      top: -6vh !important;
+      left: 30vw !important;
+    }
 
-.imagen_escena_7_2 {
-  top: 66vh !important;
-  right: 51vw !important;
-  width: 25vw !important;
-}
-.imagen_escena_16_0 {
-  display: flex !important;
-  top: 23vh !important;
-  left: 35vw !important;
-  width: 65vw !important;
-  transform: rotate(20deg) !important;
-}
-.imagen_escena_16_1 {
-  display: flex !important;
-  top: 38vh !important;
-  left: 54vw !important;
-  width: 30vw !important;
-  transform: rotate(20deg) !important;
-}
-.imagen_escena_16_2 {
-  display: flex !important;
-  top: 30vh !important;
-  left: 7vw !important;
-  width: 24vw !important;
-  transform: scaleX(-1) !important;
-}
-.imagen_escena_16_3 {
-  display: flex !important;
-  top: 37.5vh !important;
-  left: -9vw !important;
-  width: 32vw !important;
-  transform: rotate(20deg) !important;
-}
+    /* HOJA decorativa (contenedor-hoja.webp) */
+    .imagen_escena_6_2,
+    .imagen_escena_17_2,
+    .imagen_escena_18_2,
+    .imagen_escena_19_2 {
+      height: 35vh !important;
+      width: 90vw !important;
+      top: 27vh !important;
+      bottom: 0 !important;
+    }
+
+    /* GIF tortuga — Memorias */
+    .imagen_escena_6_0 {
+      width: 25vh !important;
+      top: 2vh !important;
+      left: 2vw !important;
+      transform: rotate(20deg) !important;
+    }
+
+    /* GIF orca — Narrarnos */
+    .imagen_escena_17_0 {
+      width: 15vh !important;
+      top: -3vh !important;
+      left: 10vw !important;
+      transform: rotate(20deg) !important;
+    }
+
+    /* GIF delfín — En Movimiento */
+    .imagen_escena_18_0 {
+      width: 15vh !important;
+      top: -3vh !important;
+      left: 10vw !important;
+      transform: rotate(20deg) !important;
+    }
+
+    /* GIF foca — Alternativxs */
+    .imagen_escena_19_0 {
+      width: 18vh !important;
+      top: -3vh !important;
+      left: 5vw !important;
+      transform: rotate(20deg) !important;
+    }
   }
 </style>

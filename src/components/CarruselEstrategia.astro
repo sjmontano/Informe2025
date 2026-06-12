@@ -1,0 +1,757 @@
+---
+/**
+ * CarruselEstrategia.astro — Carrusel multimedia con navegación
+ *
+ * Muestra slides (YouTube, Drive PDF, audio embebido) con flechas
+ * de navegación, indicadores de posición y tarjeta de información
+ * de colectiva/proyecto con enlace a Instagram y Conexión Lunaria.
+ *
+ * Props:
+ *   modales — Array de secciones con entradas multimedia
+ */
+
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import FlechaNav from "./FlechaNav.astro";
+import { formatearEnlaceMedia, obtenerImagenAudio } from "../utils/media.js";
+
+const iconoPeople = readFileSync(
+  join(process.cwd(), "public", "resources", "iconos", "icon-people.svg"),
+  "utf-8",
+);
+
+const iconoInstagram = readFileSync(
+  join(process.cwd(), "public", "resources", "iconos", "icon-instagram.svg"),
+  "utf-8",
+);
+
+interface Entrada {
+  id: string;
+  enlaceMedia: string;
+  colectiva: string;
+  proyecto: string;
+  enlaceLunaria?: string;
+  instagram?: string;
+}
+
+interface Props {
+  modales: { id: string; entradas: Entrada[] }[];
+}
+
+const { modales } = Astro.props;
+---
+
+{
+  modales.map((modal) => (
+    <div id={modal.id} class="carrusel-estrategia" style={`display: flex;`}>
+      <div class="carrusel-estrategia__panel" data-modal-id={modal.id}>
+        {/* Nombre del modal (sección) en la parte superior derecha */}
+        <div class="carrusel-estrategia__nombre-seccion">
+          <span class="ac-blanco">
+            {modal.id.charAt(0).toUpperCase() + modal.id.slice(1)}
+          </span>
+        </div>
+
+        {/* Carrusel multimedia con flechas de navegación */}
+        <div class="carrusel-estrategia__carrusel">
+          {/* Flecha izquierda */}
+          <div class="carrusel-estrategia__flecha--izquierda">
+            <FlechaNav direccion="izquierda" color="#FFCD4A" />
+          </div>
+
+          {/* Indicadores Puntos */}
+          <div class="carrusel-estrategia__indicadores">
+            {modal.entradas.map((_, i) => (
+              <button
+                class={`carrusel-estrategia__indicador ${i === 0 ? "active" : ""}`}
+                data-index={i}
+                aria-label={`Ir al slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Centro del carrusel: iFrames de medios */}
+          {modal.entradas.map((entry, i) => {
+            const { tipo, url } = formatearEnlaceMedia(entry.enlaceMedia);
+            const imagenFondo = obtenerImagenAudio(entry.colectiva);
+
+            // Audio embebido de Drive con fondo personalizado
+            if (tipo === "audio") {
+              return (
+                <div
+                  class="carrusel-estrategia__slide audio-slide"
+                  data-index={i}
+                  style={`display: ${i === 0 ? "flex" : "none"}; background-image: url('${imagenFondo}');`}
+                >
+                  <audio controls class="audio-controls">
+                    <source src={url} type="audio/mpeg" />
+                    Tu navegador no soporta el elemento de audio.
+                  </audio>
+                </div>
+              );
+            }
+
+            // Otros tipos de medios
+            return (
+              <div
+                class="carrusel-estrategia__slide"
+                data-index={i}
+                style={`display: ${i === 0 ? "flex" : "none"}`}
+              >
+                <iframe
+                  id={entry.instagram}
+                  src={url}
+                  class="carrusel-estrategia__iframe"
+                  allowfullscreen
+                  title="Media"
+                />
+              </div>
+            );
+          })}
+
+          {/* Flecha derecha (rotada horizontalmente) */}
+          <div class="carrusel-estrategia__flecha--derecha">
+            <FlechaNav direccion="derecha" color="#FFCD4A" />
+          </div>
+        </div>
+
+        {/* Texto y metadatos asociados a cada entrada */}
+        <div class="carrusel-estrategia__texto">
+          {modal.entradas.map((entry, i) => (
+            <div
+              class="carrusel-estrategia__detalle"
+              data-index={i}
+              style={`display: ${i === 0 ? "flex" : "none"}; width:100%;`}
+            >
+              <div class="textContent">
+                {/* Colectiva y proyecto */}
+                <div class="colectiva1" set:html={iconoPeople} />
+                <div class="colectiva2">
+                  <span
+                    class="texto"
+                    id="textoColectiva"
+                    set:html={entry.proyecto}
+                  />
+                </div>
+              </div>
+
+              {/* SOLO se muestra si existe enlace a Conexión Lunaria */}
+              {entry.enlaceLunaria && (
+                <div class="carrusel-estrategia__lunaria-wrapper">
+                  <a
+                    href={entry.enlaceLunaria}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="carrusel-estrategia__boton-lunaria"
+                  >
+                    <span>Ver en Conexión Lunaria</span>
+                  </a>
+                </div>
+              )}
+
+              {/* SOLO se muestra si existe Instagram */}
+              {entry.instagram && (
+                <a
+                  class="contacto"
+                  href={`https://instagram.com/${entry.instagram.replace("@", "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="redes">
+                    <div class="colectiva1" set:html={iconoInstagram} />
+                    <div class="colectiva2">
+                      <span class="texto">{entry.instagram}</span>
+                    </div>
+                  </div>
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ))
+}
+
+<style>
+  a {
+    text-decoration: none;
+  }
+
+  /* =========================================================================
+    CONTENEDOR DEL MODAL COMPLETO
+    ====================================================================== */
+
+  /* Capa envolvente; se muestra solo cuando el modal se abre */
+  .carrusel-estrategia {
+    position: absolute;
+    top: calc(var(--alto) * 0.1);
+    width: 100%;
+    height: calc(var(--alto) * 0.8);
+    z-index: 10;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Caja principal del modal: color, radio y layout */
+  .carrusel-estrategia__panel {
+    background-color: transparent;
+    width: 80%;
+    height: 100%;
+    border-radius: calc(var(--alto) * 0.2 / 100);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 15;
+  }
+
+  /* =========================================================================
+    BOTÓN “VER EN CONEXIÓN LUNARIA”
+    ====================================================================== */
+
+  .carrusel-estrategia__lunaria-wrapper {
+    position: absolute;
+    top: calc(var(--alto) * 0.15 / 100);
+    right: calc(var(--alto) * 0.7 / 100);
+  }
+
+  .carrusel-estrategia__boton-lunaria {
+    background-color: #d87a85;
+    height: calc(var(--alto) * 0.25 / 100);
+    padding: 0 1rem;
+    border-radius: calc(var(--alto) * 0.08 / 100);
+    font-size: calc(var(--alto) * 0.13 / 100 * var(--zoom-letra, 1));
+    color: #183533;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .carrusel-estrategia__boton-lunaria:hover {
+    transform: scale(1.1);
+    background-color: #db5c6b;
+  }
+
+  /* =========================================================================
+    CARRUSEL MULTIMEDIA
+    ====================================================================== */
+
+  .carrusel-estrategia__carrusel {
+    display: flex;
+    width: 100%;
+    height: 55vh;
+    margin-top: calc(var(--alto) * 0.18);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Slide visible (iframe de YouTube, PDF, FlipHTML5, etc.) */
+  .carrusel-estrategia__slide {
+    width: 99vh;
+    height: 44vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Flechas de navegación (izquierda y derecha) */
+  .carrusel-estrategia__flecha--izquierda,
+  .carrusel-estrategia__flecha--derecha {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .carrusel-estrategia__flecha--izquierda:hover .flecha-nav,
+  .carrusel-estrategia__flecha--derecha:hover .flecha-nav {
+    transform: scale(1.2);
+    color: #d81734;
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
+  }
+
+  /* Zona central que aloja el iframe */
+  .carrusel-estrategia__centro {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Iframe estándar */
+  .carrusel-estrategia__iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin-top: calc(var(--alto) * 0.1 / 100);
+    border-radius: 10px;
+    pointer-events: auto;
+  }
+
+  /* Iframe alternativo específico para PDFs (altura diferente) */
+  .carrusel-estrategia__pdf {
+    width: 100%;
+    height: calc(var(--alto) * 5 / 100);
+    border: none;
+    margin-top: calc(var(--alto) * 0.2 / 100);
+    border-radius: 10px;
+    pointer-events: auto;
+  }
+
+  /* =========================================================================
+    BLOQUE DE TEXTO (colectiva, proyecto, contacto)
+    ====================================================================== */
+
+  /* Envoltorio inferior (se aloja bajo el carrusel) */
+  .carrusel-estrategia__texto {
+    width: 80%;
+    max-width: 90%;
+    margin-top: calc(var(--alto) * 8 / 100);
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
+  }
+
+  /* Fila que contiene texto + contacto */
+  .carrusel-estrategia__detalle {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--alto) * 0.3 / 100);
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Grid de 2x2 → label/valor para Colectiva y Proyecto */
+  .textContent {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: auto auto;
+    gap: calc(var(--alto) * 0.2 / 100);
+    word-break: break-word;
+    align-items: center;
+  }
+
+  /* Contenedor de cada par label/valor (no crece horizontalmente) */
+  .colectiva1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f05a23;
+    color: var(--petroleo);
+    width: 3vw;
+    height: 3vw;
+    border-radius: 2vw;
+  }
+  .colectiva1 :global(svg) {
+    width: 2vw;
+    height: 2vw;
+    display: block;
+  }
+
+  .colectiva2 {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #dbab40;
+    min-height: 4vw;
+    border-radius: 1.5vh;
+    padding: 0.5vw 4vw;
+    margin-left: -2vw;
+    z-index: -1;
+  }
+
+  /* Etiquetas “Colectiva:” / “Proyecto:” */
+  .subtitle {
+    font-weight: bold;
+    font-size: calc(var(--alto) * 0.03 * var(--zoom-letra, 1));
+    color: #133231;
+  }
+
+  /* Texto dinámico proveniente del dataset */
+  .texto {
+    font-size: 1vw;
+    color: #133231;
+    font-weight: normal;
+  }
+
+  /* =========================================================================
+    BLOQUE DE CONTACTO (Instagram)
+    ====================================================================== */
+
+  .contacto {
+    flex: 0 0 30%;
+    display: flex;
+    gap: calc(var(--alto) * 0.05 / 100);
+  }
+
+  /* Agrupa círculo e IG handle en línea */
+  .redes {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Ícono circular rosa */
+  .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--alto) * 0.04);
+    height: calc(var(--alto) * 0.04);
+    background-color: rgb(207, 68, 135);
+    border-radius: 50%;
+  }
+
+  .circle svg {
+    height: calc(var(--alto) * 0.03);
+  }
+
+  /* Indicadores */
+  .carrusel-estrategia__indicadores {
+    position: absolute;
+    display: flex;
+    gap: calc(var(--alto) * 0.06 / 100);
+    bottom: calc(var(--alto) * 0.2 / 100);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .carrusel-estrategia__indicador {
+    width: calc(var(--alto) * 0.09 / 100);
+    height: calc(var(--alto) * 0.09 / 100);
+    border-radius: 50%;
+    background: #8b8b8b;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .carrusel-estrategia__indicador.active {
+    background: #d81734;
+  }
+
+  .carrusel-estrategia__nombre-seccion {
+    position: absolute;
+    top: calc(var(--alto) * 0.17 / 100);
+    left: 18%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .carrusel-estrategia__nombre-seccion span {
+    font-size: calc(var(--alto) * 0.04 * var(--zoom-letra, 1));
+    color: #161040;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-family: var(--font-discordia);
+    font-size: 5vh;
+  }
+
+  .audio-slide {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: calc(var(--alto) * 0.1 / 100);
+    margin-top: calc(var(--alto) * 0.1 / 100);
+  }
+
+  /* Estilo del reproductor */
+  .audio-controls {
+    width: 60%;
+    height: calc(var(--alto) * 0.5 / 100);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .audio-modal ::-webkit-media-controls-panel {
+    background-color: #ceb6aa !important;
+  }
+
+  /* =========================================================================
+    ALTO CONTRASTE
+    ====================================================================== */
+
+  :global(html.modo-alto-contraste .colectiva1) {
+    background-color: #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .colectiva1 svg path) {
+    fill: #ffffff !important;
+  }
+
+  :global(html.modo-alto-contraste .colectiva2) {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .carrusel-estrategia__boton-lunaria) {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .circle) {
+    background-color: #000000 !important;
+  }
+
+  :global(html.modo-alto-contraste .redes svg path) {
+    fill: #ffffff !important;
+  }
+
+  /* =========================================================================
+    RESPONSIVE — MÓVIL
+    ====================================================================== */
+
+  @media (max-width: 570px) {
+    /* ─── CARRUSEL ─── */
+    .carrusel-estrategia__carrusel {
+      flex-shrink: 0;
+      margin-top: 8vh;
+    }
+
+    .carrusel-estrategia__slide {
+      height: 25vh;
+      width: 70vw;
+      margin: 0 auto;
+    }
+
+    /* ─── FLECHAS ─── */
+    .carrusel-estrategia__flecha--izquierda {
+      flex-direction: column;
+      position: absolute;
+      left: -13%;
+      width: auto;
+      gap: 2vh;
+    }
+
+    .carrusel-estrategia__flecha--derecha {
+      position: absolute;
+      right: -13%;
+      width: auto;
+    }
+
+    /* ─── NOMBRE SECCIÓN ─── */
+    .carrusel-estrategia__nombre-seccion {
+      top: -2.6vh;
+      left: 22vh;
+      right: auto;
+    }
+
+    .carrusel-estrategia__nombre-seccion span {
+      font-size: 2.6vh;
+    }
+
+    /* ─── INDICADORES ─── */
+    .carrusel-estrategia__indicadores {
+      bottom: 2vh;
+    }
+
+    /* ─── TEXTO INFERIOR (colectiva, contacto) ─── */
+    .carrusel-estrategia__texto {
+      margin: 0 auto;
+      margin-top: -8vh;
+      align-items: center;
+    }
+
+    .carrusel-estrategia__detalle {
+      flex-direction: column;
+    }
+
+    .carrusel-estrategia__detalle .textContent {
+      gap: 0vh;
+    }
+
+    .carrusel-estrategia__detalle .textContent .colectiva2 {
+      margin-left: -2vh;
+    }
+
+    .carrusel-estrategia__detalle .textContent,
+    .carrusel-estrategia__detalle .contacto {
+      width: 100%;
+      gap: 1vh;
+    }
+
+    .carrusel-estrategia__detalle .contacto .redes {
+      width: 100%;
+      justify-content: center;
+      gap: 0vh;
+    }
+
+    .carrusel-estrategia__detalle .texto {
+      font-size: 1.6vh;
+    }
+
+    .colectiva2 {
+      border-radius: 1vh;
+      padding: 1vh 2rem;
+    }
+
+    /* ─── SVG ICONOS ─── */
+    .colectiva1 {
+      width: 5vh;
+      height: 5vh;
+      border-radius: 3vh;
+    }
+
+    .colectiva1 :global(svg) {
+      width: 3.5vh;
+      height: 3.5vh;
+    }
+
+    /* ─── BOTÓN CONEXIÓN LUNARIA ─── */
+    .carrusel-estrategia__boton-lunaria {
+      display: none;
+    }
+
+    /* ─── BOTÓN VOLVER ─── */
+    :global(.boton-volver) {
+      position: fixed;
+      bottom: 5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: 0 !important;
+      top: auto !important;
+      height: auto !important;
+    }
+
+    :global(.boton-volver):hover {
+      transform: translateX(-50%) scale(1.05) !important;
+    }
+  }
+</style>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    function pausarVideo() {
+      document
+        .querySelectorAll(".carrusel-estrategia__iframe")
+        .forEach((iframe) => {
+          const src = (iframe as HTMLIFrameElement).src;
+          (iframe as HTMLIFrameElement).src = src;
+        });
+    }
+
+    pausarVideo();
+
+    document
+      .querySelectorAll(".carrusel-estrategia__iframe")
+      .forEach((iframe) => {
+        (iframe as HTMLIFrameElement).onload = () => {
+          const contentDoc = (iframe as HTMLIFrameElement).contentDocument;
+          if (contentDoc) {
+            const imagen = contentDoc.querySelector("img");
+            const body = contentDoc.querySelector("body");
+
+            if (imagen != null && body != null) {
+              body.style.width = "100%";
+              body.style.backgroundColor = "#282828";
+              imagen.style.width = "70%";
+              imagen.style.alignSelf = "center";
+              imagen.style.justifySelf = "center";
+              imagen.style.height = "100vh";
+            }
+          }
+        };
+      });
+
+    document.querySelectorAll(".boton-volver").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const modal = btn.closest(".carrusel-estrategia");
+        if (modal && modal instanceof HTMLElement) {
+          pausarVideo();
+          modal.style.display = "none";
+        }
+      });
+    });
+
+    document
+      .querySelectorAll(".carrusel-estrategia__panel")
+      .forEach((panel) => {
+        const id = panel.getAttribute("data-modal-id");
+        let index = 0;
+
+        const slides = panel.querySelectorAll(".carrusel-estrategia__slide");
+        const texts = panel.querySelectorAll(".carrusel-estrategia__detalle");
+        const indicadores = panel.querySelectorAll(
+          ".carrusel-estrategia__indicador",
+        );
+        const prev = panel.querySelector(
+          ".carrusel-estrategia__flecha--izquierda",
+        );
+        const next = panel.querySelector(
+          ".carrusel-estrategia__flecha--derecha",
+        );
+
+        const update = () => {
+          slides.forEach(
+            (s, i) =>
+              ((s as HTMLElement).style.display =
+                i === index ? "flex" : "none"),
+          );
+          texts.forEach(
+            (t, i) =>
+              ((t as HTMLElement).style.display =
+                i === index ? "flex" : "none"),
+          );
+          indicadores.forEach((ind, i) =>
+            ind.classList.toggle("active", i === index),
+          );
+
+          if (prev) {
+            (prev as HTMLElement).style.pointerEvents =
+              index === 0 ? "none" : "auto";
+            (prev as HTMLElement).style.opacity = index === 0 ? "0.3" : "1";
+          }
+          if (next) {
+            (next as HTMLElement).style.pointerEvents =
+              index === slides.length - 1 ? "none" : "auto";
+            (next as HTMLElement).style.opacity =
+              index === slides.length - 1 ? "0.3" : "1";
+          }
+        };
+
+        indicadores.forEach((indicador, i) => {
+          indicador.addEventListener("click", () => {
+            pausarVideo();
+            index = i;
+            update();
+          });
+        });
+
+        prev?.addEventListener("click", () => {
+          if (index > 0) {
+            pausarVideo();
+            index -= 1;
+            update();
+          }
+        });
+
+        next?.addEventListener("click", () => {
+          if (index < slides.length - 1) {
+            pausarVideo();
+            index += 1;
+            update();
+          }
+        });
+
+        update();
+      });
+  });
+</script>
