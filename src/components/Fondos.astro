@@ -65,14 +65,17 @@ const fondo = {
   {
     fondo.lqip && (
       <div
-        class="fondos__lqip"
+        class={`fondos__lqip  ${fondo.seccion}`}
         style={`background-image: url(${fondo.lqip})`}
       />
     )
   }
   <picture>
-    <source srcset={fondo.srcSm} media="(max-width: 640px)" />
-    <img
+    
+    <source  
+          srcset={fondo.srcSm} media="(max-width: 640px)" />
+
+          <img
       class="fondos__img"
       src={fondo.src}
       alt={fondo.alt}
@@ -141,5 +144,14 @@ const fondo = {
     z-index: 1;
     transition: opacity 0.5s ease;
     will-change: opacity;
+
   }
+
+  
+   @media (max-width: 640px) {
+    .Portada{
+      background-image: url('/resources/fondos_responsive/inicio.webp') !important;
+    }
+   }
+  
 </style>

@@ -307,6 +307,14 @@ const ESCENAS: Item[][] = [
     },
     { src: CACTUS, top: 0.37, left: "-0.18vw", width: "17.5vw", alt: "Cactus" },
     { src: PIEDRAS, top: 0.77, right: "32vw", width: "7vw", alt: "Piedras" },
+    {
+      src: PALMERA,
+      top: 0.08,
+      left: "20vw",
+      width: "35vw",
+      extra: "display: none;",
+      alt: "Palmera, ilustración de Aquelarre",
+    },
   ],
 
   /*  4 · CUENTAS CLARAS */
@@ -831,7 +839,7 @@ const { escena, stagger = 0 } = Astro.props;
 const elementos = ESCENAS[escena] || [];
 ---
 
-<div class="escena-wrapper">
+<div class={`escena-wrapper fondo${escena}`}>
   <Fondos escena={escena > 16 ? 4 : escena} />
 
   <div class="escena-contenido">
@@ -860,7 +868,7 @@ const elementos = ESCENAS[escena] || [];
   </div>
 </div>
 
-<style>
+<style is:global >
   .escena-wrapper {
     position: relative;
     height: var(--alto);
@@ -897,6 +905,46 @@ const elementos = ESCENAS[escena] || [];
   }
 
   @media (max-width: 640px) {
+
+
+    .fondo0{
+      height: 182vw  !important;
+      overflow: visible !important;
+    }
+
+    .fondo0 .escena-contenido{
+      height: 182vw ;
+    }
+    .fondo1{
+      overflow: visible !important;
+               height: 75vw;
+    }
+
+    .fondo1 .fondos{
+      display: none !important;
+    }
+    .fondo1 .escena-contenido{
+              top: -79vw;
+        height: 157vw;
+    }
+    .fondo2 .fondos{
+      display: none !important;
+    }
+
+    .fondo2{
+      height: 105vw;
+    }
+
+    .fondo2 .escena-contenido{
+      height: 105vw;
+    }
+
+    .fondo3{
+      height: 180vw;
+    }
+    .fondo3 .escena-contenido{
+      height: 180vw;
+    }
   .escena-contenido {
     left:auto;
     transform: none;
@@ -913,6 +961,135 @@ const elementos = ESCENAS[escena] || [];
     .escena__img--ocultar-movil {
       display: none;
     }
+
+
+    .imagen_escena_0_0{
+      left: 68vw  !important;
+    width: 26vw  !important;
+    }
+
+    .imagen_escena_0_5{
+      top: calc(117 * var(--alto) / 100) !important;
+    }
+    .imagen_escena_0_6{
+      top: calc(118 * var(--alto) / 100)  !important;
+      right: 6vw  !important;
+      width: 48vw  !important;
+    }
+
+    .imagen_escena_1_0{
+      left: auto  !important;
+      top: calc(4 * var(--alto) / 100) !important;
+      width: 75vw !important;
+    }
+
+    .imagen_escena_1_1{
+      left: 11vw !important;
+      top: calc(52 * var(--alto) / 100) !important;
+    }
+    .imagen_escena_1_2{
+      display: none !important;
+    }
+    .imagen_escena_1_3{
+      display: none !important;
+    }
+
+    .imagen_escena_1_4{
+      left: 12.5vw !important;
+      top: calc(90.50 * var(--alto) / 100) !important;  
+    }
+
+    .imagen_escena_1_5{
+      display: none !important;
+    }
+    .imagen_escena_1_6{
+      display: none !important;
+    }
+
+    .imagen_escena_1_7{
+      width: 8vw !important;
+      top: calc(181 * var(--alto) / 100) !important;
+      right: 79.5vw !important;
+    }
+    .imagen_escena_1_8{
+      width: 8vw !important;
+      top: calc(178 * var(--alto) / 100) !important;
+      right: 31vw !important;
+    }
+    .imagen_escena_1_9{
+      width: 8vw !important;  
+      top: calc(178 * var(--alto) / 100) !important;
+      right: 54.5vw !important;
+    }
+
+    .imagen_escena_1_10{
+      top: calc(212 * var(--alto) / 100)  !important; 
+    right: 40vw  !important;
+    width: 45vw  !important;
+    }
+
+    .imagen_escena_3_0{
+      top: auto !important;
+    bottom: 0 !important;
+    right: auto !important;
+    left: 0vw !important;
+    width: 36.5vw !important;
+    }
+    .imagen_escena_3_1{
+      display: none !important;
+    }
+    .imagen_escena_3_2{
+      top: calc(214 * var(--alto) / 100) !important;
+    bottom: auto !important;
+    right: 5vw !important;
+    width: 44vw !important;
+    }
+    .imagen_escena_3_4{
+      display: none !important;
+    }
+    .imagen_escena_3_5{
+          top: calc(206 * var(--alto) / 100) !important;
+    bottom: auto !important;
+    right: 17.7vw !important;
+    width: 17vw !important;
+    }
+    .imagen_escena_3_6{
+      top: calc(200 * var(--alto) / 100) !important;
+    bottom: auto !important;
+    left: 12vw !important;
+    width: 22.5vw !important;
+    z-index: 1 !important;
+    }
+    .imagen_escena_3_7{
+          top: calc(186 * var(--alto) / 100) !important;
+    bottom: auto !important;
+    right: 5.4vw !important;
+    width: 31.5vw !important;
+    z-index: 0 !important;
+    }
+    .imagen_escena_3_8{
+      top: auto !important;
+    bottom: -5vw !important;
+    left: -8.18vw !important;
+    width: 31.5vw !important;
+    }
+    .imagen_escena_3_9{
+      top: calc(209 * var(--alto) / 100) !important;
+      bottom: auto !important;
+      right: 17vw !important;
+      width: 14vw !important;
+    z-index: 1 !important;
+    }
+
+    .imagen_escena_3_10{
+      display: flex !important;
+      top: calc(46 * var(--alto) / 100) !important;
+      left: -64vw !important;
+      width: 189vw !important;
+      max-width: none !important;
+      z-index: -1 !important;
+    }
+    
 
     .imagen_escena_10_0 {
       top: -4vh !important;
@@ -1173,6 +1350,12 @@ const elementos = ESCENAS[escena] || [];
     width: 88vw !important;
   }
   
+  .imagen_escena_3_3{
+    top: calc(100 * var(--alto) / 100) !important;
+    right: auto !important; 
+    width: 82vw !important;
+    z-index: 1 !important;
+  }
 
 
 }
