@@ -11,41 +11,49 @@ import BotonVolver from "./BotonVolver.astro";
 interface Testimonio {
   nombre: string;
   texto: string;
+  imagen: string;
 }
 
 const TESTIMONIOS: Testimonio[] = [
   {
     nombre: "Mujeres Sobre Ruedas — Cartagena, Bolívar",
+    imagen: "/resources/testimonios_personajes/testi_pers_ruedas.webp",
     texto:
       '"Soy la coordinadora de esta fase del proyecto. Pero quiero dejar mi voz, mi cambio de narrativa, la transformación que he tenido gracias a otras mujeres sobre ruedas. Si me hubieras visto hace un año, no me reconocerías. Yo era de las que llegaban y se quedaban calladas, escuchando en silencio, sin atreverme a opinar. Cuando estuve embarazada, una médica me dijo que mejor abortara porque mi hijo podía nacer con discapacidad. Lo dijo sin ningún cuidado, como si mi vida, mi cuerpo y mi maternidad no valieran nada. En la colectiva fue la primera vez que escuché la palabra para lo que me pasó: violencia obstétrica y capacitista. Escuchar a las otras compañeras me dio fuerza para contar mi historia. La primera vez que lo dije en voz alta se me quebró la voz, pero sentí un alivio que no sabía que necesitaba."',
   },
   {
     nombre: "Luma Zonas Violetas — Orito, Putumayo",
+    imagen: "/resources/testimonios_personajes/testi_pers_luma.webp",
     texto:
       '"Yo pensaba que el reclutamiento era solo cuando a uno se lo llevaban para el monte y le daban un arma. Nunca creí que lo que me estaba pasando a mí fuera algo malo o prohibido. A mí solo me pedían que contara lo que veía en la vereda, quién llegaba, qué se decía en las reuniones. También me llamaban a encuentros con ellos y algunas veces me pedían que llevara paquetes de un lado a otro. Yo lo hacía porque tenía miedo y porque pensaba que era normal, que era un trabajo normal, porque me pagaban por eso, también pensaba que así ayudaba a mi mamá y que no me iba a pasar nada."',
   },
   {
     nombre: "Juntanza Mujeres del Cesar — Valledupar",
+    imagen: "/resources/testimonios_personajes/testi_pers_juntanza.webp",
     texto:
       '"Y es que el feminismo es una palabra con sabor a mar y a río. Es la voz de la abuela que enseña sin gritar, es esa trenza apretá por la hermana, es el tambor que suena en medio del dolor, y es esa risa con amigas que se cuela entre las luchas. Nace del fogón y del mercado, del patio de tierra y de la calle polvorienta, del canto de la mujer que vende pescado y de la joven que ya no quiere callar. Es que el feminismo es eso que se hace con lo que hay y con lo que somos, con maíz trillao, con leche hervida, con la rabia, con el amor, con la pobreza, el dolor y la fuerza."',
   },
   {
     nombre: "Los Cuerpos del Caos — Pereira, Risaralda",
+    imagen: "/resources/testimonios_personajes/testi_pers_cuerpos.webp",
     texto:
       '"Malu es una persona disca de 22 años que estuvo en el desarrollo del proyecto. Ella dijo: A mí me gustó venir porque aquí nadie me mira raro. Me gustan mis amigues nuevos. Me gustó hacer mi máscara porque así me veo más grande, más fuerte. Me gusta cuando caminamos juntas. Yo quiero seguir viniendo… porque aquí sí soy yo."',
   },
   {
     nombre: "Yapuranas — Florencia, Caquetá",
+    imagen: "/resources/testimonios_personajes/testi_pers_yapuranas.webp",
     texto:
       '"Me gustó mucho que en los talleres las mujeres sordas participaron con interés y demostraron que son líderes capaces, fuertes y con muchas ganas de aprender. Estos espacios son muy importantes porque permiten reconocer nuestros derechos, entender que merecemos una vida libre de violencia y aprender cómo identificar situaciones de riesgo sin barreras de comunicación. Gracias a los talleres que nos dieron Yapuranas, ahora las mujeres sordas del Caquetá tenemos más herramientas, más información y más seguridad para decir no más violencia."',
   },
   {
     nombre: "Molécula Verde — Rivera, Huila",
+    imagen: "/resources/testimonios_personajes/testi_pers_molecula.webp",
     texto:
       '"Yo soy de por acá, del resguardo, nacida y criada entre el río y la montaña. Desde pequeña he andado sembrando maíz, cuidando el huerto y oyendo los pájaros que anuncian el día. Pero les cuento que nunca pensé que todo eso que uno hace por costumbre también tuviera nombre de ciencia. Cuando llegaron las muchachas con esas cámaras que ponen en el monte y con sus libreticas, yo les dije: Y eso pa qué será. Y me explicaron que era pa conocer las especies. Ahora cuando salgo a caminar, miro distinto. Yo no tengo estudio, pero tengo oído y corazón pa escuchar al monte, y eso también vale."',
   },
   {
     nombre: "Mesa Diversa — Pereira, Risaralda",
+    imagen: "/resources/testimonios_personajes/testi_pers_mesa.webp",
     texto:
       '"Antes de llegar a la colectiva yo sentía que siempre estaba luchando sola. Participar en los talleres y encuentros me ayudó a entender que lo que me pasaba no era individual, sino parte de una violencia estructural que vivimos muchas personas trans. En los espacios de autocuidado pude hablar por primera vez de mi cansancio, de mis miedos, y sentir que alguien me escuchaba sin juzgarme."',
   },
@@ -65,7 +73,9 @@ const TESTIMONIOS: Testimonio[] = [
     z={3}
   />
 
-  <h2 class="testimonios__titulo ac-blanco" data-anim-item data-read>Testimonios</h2>
+  <h2 class="testimonios__titulo ac-blanco" data-anim-item data-read>
+    Testimonios
+  </h2>
 
   <div
     class="testimonios__contenedor anim-entrada anim-entrada--fade"
@@ -93,10 +103,15 @@ const TESTIMONIOS: Testimonio[] = [
     >
       {
         TESTIMONIOS.map((t, i) => (
-          <article class="testimonios__tarjeta" data-index={i} data-anim-item data-read>
+          <article
+            class="testimonios__tarjeta"
+            data-index={i}
+            data-anim-item
+            data-read
+          >
             <img
               class="testimonios__marco"
-              src="/resources/contenedor/contenedor-marco-fotos-1.webp"
+              src={t.imagen}
               alt=""
               loading="lazy"
             />
@@ -109,9 +124,6 @@ const TESTIMONIOS: Testimonio[] = [
                 <div class="testimonios__thumb" data-thumb />
               </div>
             </div>
-            <button class="testimonios__leer" type="button">
-              Leer más
-            </button>
           </article>
         ))
       }
@@ -156,7 +168,7 @@ const TESTIMONIOS: Testimonio[] = [
 
   .testimonios__titulo {
     position: absolute;
-    top: calc(var(--alto) * 12 / 100);
+    top: calc(var(--alto) * 11 / 100);
     left: 0;
     right: 0;
     text-align: center;
@@ -176,7 +188,7 @@ const TESTIMONIOS: Testimonio[] = [
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: calc(var(--alto) * 4 / 100);
+    gap: calc(var(--alto) * 1 / 100);
     overflow: visible;
   }
 
@@ -217,7 +229,7 @@ const TESTIMONIOS: Testimonio[] = [
     position: absolute;
     top: calc(var(--alto) * -3 / 100);
     left: calc(var(--alto) * 1 / 100);
-    width: calc(var(--alto) * 34 / 100);
+    width: calc(var(--alto) * 20 / 100);
     height: calc(var(--alto) * 22 / 100);
     object-fit: cover;
     border-radius: var(--espacio-sm);
@@ -312,25 +324,6 @@ const TESTIMONIOS: Testimonio[] = [
     margin-right: 0;
   }
 
-  .testimonios__leer {
-    align-self: flex-start;
-    margin-top: calc(var(--alto) * 1.5 / 100);
-    background-color: var(--arena);
-    color: var(--azul-noche);
-    border: none;
-    border-radius: 9999px;
-    padding: calc(var(--alto) * 0.5 / 100) calc(var(--alto) * 2.2 / 100);
-    font-family: var(--font-lato);
-    font-size: calc(var(--alto) * 1.8 / 100 * var(--zoom-letra, 1));
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-
-  .testimonios__leer:hover {
-    transform: scale(1.05);
-  }
-
   .testimonios__flecha {
     background: none;
     border: none;
@@ -386,22 +379,22 @@ const TESTIMONIOS: Testimonio[] = [
     }
 
     .testimonios__tarjeta {
-      width: 30vh;
-      height: 40vh;
+      width: 100%;
+      height: 50vh;
 
       padding: calc(var(--alto) * 3 / 100);
-      padding-top: 11vh;
+      padding-top: 12.5vh;
       padding-right: 5vh;
     }
 
     .testimonios__texto {
-      font-size: 1.2vh;
-      line-height: 1.8vh;
+      font-size: 2vh;
+      line-height: 2.3vh;
     }
     .testimonios__marco {
-      top: -7vh;
+      top: -8vh;
       left: 0;
-      width: 25vh;
+      width: clamp(3rem, 25vw, 45rem);
       height: 25vh;
       object-fit: contain;
       z-index: 2;
@@ -409,6 +402,7 @@ const TESTIMONIOS: Testimonio[] = [
 
     .testimonios__scroll {
       padding-right: 0;
+      height: 35vh;
     }
 
     .testimonios__cuerpo {
@@ -416,11 +410,11 @@ const TESTIMONIOS: Testimonio[] = [
     }
 
     .testimonios__nombre {
-      top: 8vh;
-      left: 13vh;
-      font-size: 1.4vh;
+      top: 3vh;
+      left: 45%;
+      font-size: clamp(0.5rem, 3.5vw, 4rem);
       font-weight: 700;
-      max-width: 14vh;
+      max-width: 45%;
     }
 
     .testimonios__barra {
@@ -432,7 +426,7 @@ const TESTIMONIOS: Testimonio[] = [
 
     .testimonios__titulo {
       top: 12vh;
-      font-size: 4vh;
+      font-size: 3ch;
     }
 
     .testimonios__flecha {
@@ -441,7 +435,14 @@ const TESTIMONIOS: Testimonio[] = [
     }
 
     .testimonios__indicadores {
-      top: 71vh;
+      top: 82vh;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .testimonios__punto {
+      width: 1.3vh;
+      height: 1.3vh;
     }
 
     .boton-volver__circulo {
@@ -451,178 +452,4 @@ const TESTIMONIOS: Testimonio[] = [
   }
 </style>
 
-<script>
-  const tarjetas = document.querySelectorAll<HTMLElement>(
-    ".testimonios__tarjeta",
-  );
-  const puntos = document.querySelectorAll<HTMLElement>(".testimonios__punto");
-  const btnIzq = document.querySelector<HTMLElement>(
-    ".testimonios__flecha--izquierda",
-  );
-  const btnDer = document.querySelector<HTMLElement>(
-    ".testimonios__flecha--derecha",
-  );
-  const barras: Array<() => void> = [];
-
-  let actual = 0;
-  const total = tarjetas.length;
-  let timer: ReturnType<typeof setInterval>;
-  let ciclando = false;
-
-  const mostrar = (idx: number) => {
-    if (ciclando) return;
-    ciclando = true;
-
-    tarjetas.forEach((t) => t.removeAttribute("data-activa"));
-    puntos.forEach((p) => p.removeAttribute("data-activo"));
-
-    tarjetas[idx]?.setAttribute("data-activa", "");
-
-    if (window.innerWidth > 1279) {
-      tarjetas[(idx + 1) % total]?.setAttribute("data-activa", "");
-    }
-
-    puntos[idx]?.setAttribute("data-activo", "");
-    actual = idx;
-    barras.forEach((actualizar) => actualizar());
-
-    const rm = document.documentElement.classList.contains("modo-sin-movimiento");
-    setTimeout(() => {
-      ciclando = false;
-    }, rm ? 0 : 300);
-  };
-
-  const siguiente = () => mostrar((actual + 1) % total);
-  const anterior = () => mostrar((actual - 1 + total) % total);
-
-  const pausar = () => clearInterval(timer);
-  const iniciar = () => {
-    pausar();
-    if (!document.documentElement.classList.contains("modo-sin-movimiento")) {
-      timer = setInterval(siguiente, 5000);
-    }
-  };
-
-  mostrar(0);
-  iniciar();
-
-  btnIzq?.addEventListener("click", () => {
-    pausar();
-    anterior();
-    iniciar();
-  });
-  btnDer?.addEventListener("click", () => {
-    pausar();
-    siguiente();
-    iniciar();
-  });
-
-  puntos.forEach((p) =>
-    p.addEventListener("click", () => {
-      pausar();
-      mostrar(Number(p.getAttribute("data-index")));
-      iniciar();
-    }),
-  );
-
-  const contenedor = document.querySelector(".testimonios__contenedor");
-  contenedor?.addEventListener("mouseenter", pausar);
-  contenedor?.addEventListener("mouseleave", iniciar);
-
-  document.addEventListener("acc-change", (e: CustomEvent) => {
-    if (e.detail.mode === "modo-sin-movimiento") {
-      e.detail.active ? pausar() : iniciar();
-    }
-  });
-
-  /* ── Scrollbar personalizada ─────────────────────────────────── */
-  const prepararBarra = (cuerpo: Element) => {
-    const scroll = cuerpo.querySelector<HTMLElement>("[data-scroll]");
-    const bar = cuerpo.querySelector<HTMLElement>("[data-bar]");
-    const thumb = cuerpo.querySelector<HTMLElement>("[data-thumb]");
-    if (!scroll || !bar || !thumb) return;
-
-    const actualizar = () => {
-      const scrollHeight = scroll.scrollHeight;
-      const clientHeight = scroll.clientHeight;
-      const barHeight = bar.clientHeight;
-      const maxScrollTop = Math.max(scrollHeight - clientHeight, 0);
-      if (barHeight === 0) return;
-      if (maxScrollTop === 0) {
-        bar.style.opacity = "0";
-        return;
-      }
-      bar.style.opacity = "1";
-      const minThumb = barHeight * 0.08;
-      const maxThumb = barHeight * 0.25;
-      const rawThumb =
-        maxScrollTop > 0
-          ? (clientHeight / scrollHeight) * barHeight
-          : barHeight * 0.18;
-      const thumbHeight = Math.min(Math.max(rawThumb, minThumb), maxThumb);
-      const maxThumbTop = Math.max(barHeight - thumbHeight, 0);
-      const thumbTop =
-        maxScrollTop > 0 ? (scroll.scrollTop / maxScrollTop) * maxThumbTop : 0;
-      thumb.style.height = `${thumbHeight}px`;
-      thumb.style.transform = `translateY(${Math.min(Math.max(thumbTop, 0), maxThumbTop)}px)`;
-    };
-
-    scroll.addEventListener("scroll", actualizar, { passive: true });
-
-    let arrastrando = false,
-      inicioY = 0,
-      inicioScroll = 0;
-    const moverThumb = (evento: PointerEvent) => {
-      if (!arrastrando) return;
-      const barHeight = bar.clientHeight;
-      const thumbHeight = thumb.offsetHeight;
-      const maxThumbTop = barHeight - thumbHeight;
-      const maxScrollTop = scroll.scrollHeight - scroll.clientHeight;
-      if (maxThumbTop <= 0 || maxScrollTop <= 0) return;
-      const delta = evento.clientY - inicioY;
-      scroll.scrollTop = Math.min(
-        Math.max(inicioScroll + (delta / maxThumbTop) * maxScrollTop, 0),
-        maxScrollTop,
-      );
-    };
-
-    thumb.addEventListener("pointerdown", (evento) => {
-      arrastrando = true;
-      inicioY = evento.clientY;
-      inicioScroll = scroll.scrollTop;
-      thumb.setPointerCapture(evento.pointerId);
-    });
-    thumb.addEventListener("pointermove", moverThumb);
-    thumb.addEventListener("pointerup", () => {
-      arrastrando = false;
-    });
-    thumb.addEventListener("pointercancel", () => {
-      arrastrando = false;
-    });
-
-    bar.addEventListener("pointerdown", (evento) => {
-      if (evento.target === thumb) return;
-      const rect = bar.getBoundingClientRect();
-      const clickY = evento.clientY - rect.top;
-      const barHeight = bar.clientHeight;
-      const thumbHeight = thumb.offsetHeight;
-      const maxThumbTop = barHeight - thumbHeight;
-      const maxScrollTop = scroll.scrollHeight - scroll.clientHeight;
-      if (maxThumbTop <= 0 || maxScrollTop <= 0) return;
-      scroll.scrollTop =
-        (Math.min(Math.max(clickY - thumbHeight / 2, 0), maxThumbTop) /
-          maxThumbTop) *
-        maxScrollTop;
-    });
-
-    actualizar();
-    barras.push(actualizar);
-  };
-
-  document
-    .querySelectorAll(".testimonios__cuerpo")
-    .forEach((cuerpo) => prepararBarra(cuerpo));
-  window.addEventListener("resize", () => {
-    barras.forEach((actualizar) => actualizar());
-  });
-</script>
+<script type="module" src="/scripts/testimonios.js"></script>
