@@ -41,9 +41,17 @@ const ENLACES = [
   class="estrategias anim-entrada anim-entrada--fade"
   data-anim-stagger="250"
 >
-  <BotonVolver background="var(--oceano)"  href="/#navegacion" texto="Inicio" top={9} right={10} z={3} />
+  <BotonVolver
+    href="/#navegacion"
+    variante="circulo"
+    bottom={8}
+    left={6}
+    z={3}
+  />
 
-  <h1 class="estrategias__titulo ac-blanco" data-anim-item data-read>Estrategias de acción</h1>
+  <h1 class="estrategias__titulo ac-blanco" data-anim-item data-read>
+    Estrategias de acción
+  </h1>
 
   <p class="estrategias__subtitulo noche-claro" data-anim-item data-read>
     Donde el mar se encuentra con la tierra: allí surge el impacto.
@@ -176,5 +184,55 @@ const ENLACES = [
 
   .estrategias__btn:hover {
     transform: scale(1.05);
+  }
+
+  @media (max-width: 570px) {
+    .estrategias__titulo {
+      position: absolute;
+      top: 8vh;
+      left: 20vw;
+      font-size: 3vh;
+      max-width: 35vw;
+      margin: 0;
+    }
+
+    .estrategias__subtitulo {
+      display: none;
+    }
+
+    .estrategias__conexion {
+      display: none;
+    }
+
+    .estrategias__btn {
+      white-space: normal;
+      padding: 1vh 2.5vh;
+      font-size: 2vh;
+      text-align: center;
+      width: auto;
+      border-radius: 1.7vh;
+    }
+
+    .estrategias__btn:nth-child(5) {
+      top: 25vh !important;
+      left: 20vw !important;
+    }
+
+    .estrategias__btn:nth-child(6) {
+      top: 41.6vh !important;
+      left: auto !important;
+      right: 10vw !important;
+    }
+
+    .estrategias__btn:nth-child(7) {
+      top: 58.3vh !important;
+      left: 20vw !important;
+    }
+
+    .estrategias__btn:nth-child(8) {
+      top: 75vh !important;
+      left: auto !important;
+      right: 10vw !important;
+    }
   }
 </style>

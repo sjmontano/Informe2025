@@ -1,37 +1,203 @@
 ---
-/**
- * ESCENA 7 · EN MOVIMIENTO
- *
- * Sección En Movimiento, dentro de Estrategias de Acción.
- */
 import BotonVolver from "./BotonVolver.astro";
 ---
 
 <section
-  class="en-movimiento anim-entrada anim-entrada--fade"
+  class="fondo-movimiento anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
-  <BotonVolver href="/estrategias" texto="Estrategias" top={3} right={6} z={3} />
+<div class="navegacionDesktop">
+  <BotonVolver href="/#navegacion"   variante="circulo" bottom={12} left={6} z={3} />
+  </div>
 
-  <h1 class="en-movimiento__titulo" data-anim-item data-read>En movimiento</h1>
-</section>
+  
+  <div class="navegacionMobile">
+  <BotonVolver href="/#navegacion"   variante="circulo" bottom={1} left={1} z={3} />
+  </div>
 
-<style>
-  .en-movimiento {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
+  <div class="fondo-movimiento__contenido">
+
+    <div class="fondo-movimiento__izquierda">
+      <h2
+        class="fondo-movimiento__titulo"
+        data-anim-item
+        data-read
+      >
+        Fondo en<br />
+        Movimiento
+      </h2>
+
+      <p
+        class="fondo-movimiento__texto"
+        data-anim-item
+        data-read
+      >
+        Las olas son movimiento constante que se expanden<br/>
+        a lo ancho del mar, y llegan a la orilla transformadas<br/>
+        en posibilidades enfocadas en acciones de exigibilidad,<br/>
+        fortalecimiento organizacional, acciones de movilización<br/>
+        e incidencia, trabajo en redes, campañas y participación<br/>
+        de encuentros.
+      </p>
+    </div>
+
+    <div class="fondo-movimiento__derecha">
+
+      <div class="fondo-movimiento__dato" data-anim-item>
+        <div>
+          <h3>370</h3>
+          <p>Apoyos</p>
+        </div>
+      </div>
+
+      <div class="fondo-movimiento__dato fondo-movimiento__dato--oscuro" data-anim-item>
+        <div>
+          <h3>29</h3>
+          <p>Departamentos</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <style>
+
+    .navegacionMobile{
+      display: none;
+    }
+  .fondo-movimiento {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+/* ───────── IZQUIERDA ───────── */
+
+.fondo-movimiento__izquierda {
+  position: absolute;
+  top: 20vh;
+  left: 19.5vw;
+  width: 60vw;
+}
+
+.fondo-movimiento__titulo {
+  font-family: var(--font-discordia);
+  font-size: 4.2vh;
+  line-height: 0.95;
+  color: var(--azul-noche);
+
+}
+
+.fondo-movimiento__texto {
+  font-family: var(--font-lato);
+  font-size: 2.8vh;
+  line-height: 3.5vh;
+  color: var(--blanco);
+  margin-top: 9vh;
+  margin-left: -2.5vw;
+  
+}
+
+/* ───────── DERECHA ───────── */
+
+.fondo-movimiento__derecha {
+  position: absolute;
+  inset: 0;
+}
+
+.fondo-movimiento__dato {
+  position: absolute;
+}
+
+.fondo-movimiento__dato:first-child {
+  top: 42vh;
+  right: 14vw;
+}
+
+.fondo-movimiento__dato:last-child {
+  top: 75vh;
+  right: 9vw;
+}
+
+.fondo-movimiento__dato h3 {
+  margin: 0;
+  font-family: var(--font-discordia);
+  font-size: 3.8vw;
+  line-height: 1;
+  font-weight: bold;
+  color:var(--blanco);
+}
+
+.fondo-movimiento__dato p {
+  margin: 0;
+  font-family: var(--font-discordia);
+  font-size: 1.5vw;
+  color: var(--blanco);
+}
+
+.fondo-movimiento__dato--oscuro h3,
+.fondo-movimiento__dato--oscuro p {
+  color: var(--azul-noche);
+  font-weight: bold;
+}
+
+/* ───────── MÓVIL ───────── */
+
+@media (max-width: 570px) {
+
+  .navegacionMobile{
+    display:flex;
   }
 
-  .en-movimiento__titulo {
-    position: absolute;
-    top: calc(var(--alto) * 14 / 100);
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-discordia);
-    font-size: calc(var(--alto) * 5.4 / 100 * var(--zoom-letra, 1));
-    font-weight: 700;
-    color: var(--azul-noche);
+  .fondo-movimiento__izquierda {
+    top: 9.5vh;
+    left: auto;
+    width: 95vw;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+  }
+
+  .fondo-movimiento__titulo {
+    font-size: 2vh;
     margin: 0;
+    text-align: left;
+    margin-left: 11vw;
   }
-</style>
+
+  .fondo-movimiento__texto {
+    width: 56%;
+    font-size: 1.3vh;
+    line-height: 1.6vh;
+    margin-left: 8vw;
+    margin-top: 15vh;
+  }
+
+  .fondo-movimiento__dato:first-child {
+    top: 55vh;
+    left: 55vw;
+  }
+
+  .fondo-movimiento__dato:last-child {
+    top: 75vh;
+    left: 55vw;
+  }
+
+  .fondo-movimiento__dato h3 {
+    font-size: 4vh;
+  }
+
+  .fondo-movimiento__dato p {
+    font-size: 1.6vh;
+  }
+  .fondo-movimiento__texto br{
+    display: none;
+
+  }
+
+  .navegacionDesktop{
+    display: none;
+  }
+}
+
+  </style>
