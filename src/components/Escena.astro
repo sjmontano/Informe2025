@@ -741,7 +741,11 @@ const ESCENAS: Item[][] = [
   ],
 
   /* 16 · ALIADOS */
-  [{ src: NUBE, top: 0, left: "72vw", width: "35vw", alt: "Nube rosa" }],
+  [{ src: PALMERAS, alt: "palmeras", extra:"display:none" },
+    { src: ARBUSTO, alt: "palmeras",extra:"display:none" },
+    { src: CACTUS, alt: "palmeras", extra:"display:none" },
+    { src: ARBUSTO, alt: "palmeras", extra:"display:none" },
+  ],
 
   /*  17 · NARRARNOS */
   [
@@ -1218,6 +1222,34 @@ const elementos = ESCENAS[escena] || [];
   top: 66vh !important;
   right: 51vw !important;
   width: 25vw !important;
+}
+.imagen_escena_16_0 {
+  display: flex !important;
+  top: 23vh !important;
+  left: 35vw !important;
+  width: 65vw !important;
+  transform: rotate(20deg) !important;
+}
+.imagen_escena_16_1 {
+  display: flex !important;
+  top: 38vh !important;
+  left: 54vw !important;
+  width: 30vw !important;
+  transform: rotate(20deg) !important;
+}
+.imagen_escena_16_2 {
+  display: flex !important;
+  top: 30vh !important;
+  left: 7vw !important;
+  width: 24vw !important;
+  transform: scaleX(-1) !important;
+}
+.imagen_escena_16_3 {
+  display: flex !important;
+  top: 37.5vh !important;
+  left: -9vw !important;
+  width: 32vw !important;
+  transform: rotate(20deg) !important;
 }
   }
 </style>
