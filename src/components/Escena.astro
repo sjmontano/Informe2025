@@ -617,10 +617,10 @@ const ESCENAS: Item[][] = [
       extra: "display: none",
       alt: "Cactus decorativo",
     },
-     {
-      src:"/resources/contenedor/contenedor-conta-fotos2.webp",
-      alt:"Carrusel de fotos",
-      extra:"display: none"
+    {
+      src: "/resources/contenedor/contenedor-conta-fotos2.webp",
+      alt: "Carrusel de fotos",
+      extra: "display: none",
     },
     {
       src: CACTUS,
@@ -714,7 +714,7 @@ const ESCENAS: Item[][] = [
       extra: "top: -11vh; height:44vh; width:48vw; object-fit: initial;",
     },
     {
-      src:NUBE,
+      src: NUBE,
       bottom: 0.66,
       left: "-6.3vw",
       width: "25vw",
@@ -722,7 +722,7 @@ const ESCENAS: Item[][] = [
       z: -1,
     },
     {
-      src:NUBE,
+      src: NUBE,
       bottom: 0.65,
       right: "-11vw",
       width: "25vw",
@@ -731,8 +731,8 @@ const ESCENAS: Item[][] = [
       extra: "transform: scaleX(-1)",
     },
     {
-      src:NUBE,
-      bottom: 0.80,
+      src: NUBE,
+      bottom: 0.8,
       left: "40vw",
       width: "25vw",
       alt: "Nube",
@@ -897,13 +897,13 @@ const elementos = ESCENAS[escena] || [];
   }
 
   @media (max-width: 640px) {
-  .escena-contenido {
-    left:auto;
-    transform: none;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
+    .escena-contenido {
+      left: auto;
+      transform: none;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
 
     .escena {
       display: flex;
@@ -943,14 +943,12 @@ const elementos = ESCENAS[escena] || [];
     }
 
     .imagen_escena_8_0 {
-          top: -9vh !important;
+      top: -9vh !important;
       height: 27vh !important;
       margin: 0 !important;
-
     }
 
-
-    .imagen_escena_11_0{
+    .imagen_escena_11_0 {
       top: 21vh !important;
       width: 35vh;
       right: auto !important;
@@ -961,222 +959,242 @@ const elementos = ESCENAS[escena] || [];
       margin-left: 15vh;
     }
 
-     .imagen_escena_11_1 {
-      left: auto !important; 
+    .imagen_escena_11_1 {
+      left: auto !important;
       width: 115vw !important;
       max-width: 115vw !important;
       bottom: 10vh !important;
-      }
-
-      .imagen_escena_11_2{
-        top: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    height: 28vh !important;
-    margin-right: 95vw !important;
-
-      }
-    .imagen_escena_15_7{
-    bottom: auto;
-    right: -3vh  !important;
-    left: auto  !important;
-    top: -6vh  !important;
-    height: 27vh  !important;
-    width: 91vw  !important;
-    object-fit: initial;
     }
-    .imagen_escena_15_0{
+
+    .imagen_escena_11_2 {
+      top: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      height: 28vh !important;
+      margin-right: 95vw !important;
+    }
+    .imagen_escena_15_7 {
+      bottom: auto;
+      right: -3vh !important;
+      left: auto !important;
+      top: -6vh !important;
+      height: 27vh !important;
+      width: 91vw !important;
+      object-fit: initial;
+    }
+    .imagen_escena_15_0 {
       width: 80vw !important;
       height: 61vh !important;
-      left: auto  !important;
+      left: auto !important;
       right: -5vw !important;
-      bottom:-5vh !important;
+      bottom: -5vh !important;
       top: auto !important;
-  }
-  .imagen_escena_15_1{
-    width: 70vw !important;
-    right: -20vw !important;
-    bottom: 35vh !important;
-  }
-   .imagen_escena_15_2{
-    width: 25vw !important;
-    right: -2vw !important;
-    bottom: 38.7vh !important;
-  }
-  .imagen_escena_15_3{
-    display: none !important;
-  }
-  .imagen_escena_15_4{
-    width: 25vw !important;
-    right: 7.5vw !important;
-    left: auto !important;
-    bottom: 38.2vh !important;
-  }
-  .imagen_escena_15_5{
-    width: 22vw !important;
-    right: 17vw !important;
-    left: auto !important;
-    bottom: 37.5vh !important;
-  }
-  .imagen_escena_15_6{
-     display: none !important;
-  }
+    }
+    .imagen_escena_15_1 {
+      width: 70vw !important;
+      right: -20vw !important;
+      bottom: 35vh !important;
+    }
+    .imagen_escena_15_2 {
+      width: 25vw !important;
+      right: -2vw !important;
+      bottom: 38.7vh !important;
+    }
+    .imagen_escena_15_3 {
+      display: none !important;
+    }
+    .imagen_escena_15_4 {
+      width: 25vw !important;
+      right: 7.5vw !important;
+      left: auto !important;
+      bottom: 38.2vh !important;
+    }
+    .imagen_escena_15_5 {
+      width: 22vw !important;
+      right: 17vw !important;
+      left: auto !important;
+      bottom: 37.5vh !important;
+    }
+    .imagen_escena_15_6 {
+      display: none !important;
+    }
 
-  .imagen_escena_12_0{
-    width: 40vh !important;
-    bottom: 0  !important;
-  }
-  .imagen_escena_12_1{
-    left: auto !important;
-    width: 18vh !important;
-    bottom: 0 !important;
-    right: 0 !important;
-  }
+    .imagen_escena_12_0 {
+      width: 40vh !important;
+      bottom: 0 !important;
+    }
+    .imagen_escena_12_1 {
+      left: auto !important;
+      width: 18vh !important;
+      bottom: 0 !important;
+      right: 0 !important;
+    }
 
-  .imagen_escena_12_2{
-    left: auto !important;
-    width: 20vh !important;
-    bottom: 1vh !important;
-    right: -6vh !important;
-  }
+    .imagen_escena_12_2 {
+      left: auto !important;
+      width: 20vh !important;
+      bottom: 1vh !important;
+      right: -6vh !important;
+    }
 
-  .imagen_escena_13_0{
-    display: none !important;
-  }
-  .imagen_escena_13_1{
-    width: 45vw !important;
-    right: -20vw !important;
-    left: auto !important;
-    
-  }
-  .imagen_escena_13_2{
-    width: 59vw !important;
-    right: -3vw !important;
-    left: auto !important;
-    bottom: -4.5vh !important;
-  }
-  .imagen_escena_13_3{
-    width: 48vw !important;
-    right: -7.5vw !important;
-    left: auto !important;
-    bottom: -1.5vh !important;
-  }
-  .imagen_escena_13_4{
-    display: flex !important;
-    width: 45vw !important;
-    right: auto !important;
-    left: -8vw !important;
-    bottom: -5vh !important;
-    transform: scaleX(-1) !important;
-  }
-  .imagen_escena_13_5{
-    display: flex !important;
-    width: 35vw !important;
-    right: auto !important;
-    left: -12vw !important;
-    bottom: -1vh !important;
-    transform: scaleX(-1) !important;
-    z-Index: 1 !important;
-  }
-  
-  .imagen_escena_13_6{
-    display: flex !important;
-    bottom: 2vh !important;
-    left: "0vw" !important;
-    width: "50vh" !important;
-    height: 100vh !important;
-    object-fit: initial !important; 
-    
-  }
+    .imagen_escena_13_0 {
+      display: none !important;
+    }
+    .imagen_escena_13_1 {
+      width: 45vw !important;
+      right: -20vw !important;
+      left: auto !important;
+    }
+    .imagen_escena_13_2 {
+      width: 59vw !important;
+      right: -3vw !important;
+      left: auto !important;
+      bottom: -4.5vh !important;
+    }
+    .imagen_escena_13_3 {
+      width: 48vw !important;
+      right: -7.5vw !important;
+      left: auto !important;
+      bottom: -1.5vh !important;
+    }
+    .imagen_escena_13_4 {
+      display: flex !important;
+      width: 45vw !important;
+      right: auto !important;
+      left: -8vw !important;
+      bottom: -5vh !important;
+      transform: scaleX(-1) !important;
+    }
+    .imagen_escena_13_5 {
+      display: flex !important;
+      width: 35vw !important;
+      right: auto !important;
+      left: -12vw !important;
+      bottom: -1vh !important;
+      transform: scaleX(-1) !important;
+      z-index: 1 !important;
+    }
 
-  .imagen_escena_13_7{
-    display: flex !important;
-    width: 25vw !important;
-    right: auto !important;
-    left: -16vw !important;
-    bottom: 1.5vh !important;
-    
+    .imagen_escena_13_6 {
+      display: flex !important;
+      bottom: 2vh !important;
+      left: "0vw" !important;
+      width: "50vh" !important;
+      height: 100vh !important;
+      object-fit: initial !important;
+    }
+
+    .imagen_escena_13_7 {
+      display: flex !important;
+      width: 25vw !important;
+      right: auto !important;
+      left: -16vw !important;
+      bottom: 1.5vh !important;
+    }
+
+    .imagen_escena_9_7 {
+      display: flex !important;
+      z-index: 1 !important;
+    }
+    .imagen_escena_9_6 {
+      display: flex !important;
+      z-index: 1 !important;
+    }
+
+    .imagen_escena_9_1 {
+      display: none !important;
+    }
+
+    .imagen_escena_9_4 {
+      display: none !important;
+    }
+
+    .imagen_escena_9_2 {
+      margin-left: 0 !important;
+      height: 23vh !important;
+      bottom: 18vh !important;
+    }
+
+    .imagen_escena_9_3 {
+      margin-left: 0 !important;
+      height: 20vh !important;
+      bottom: 18vh !important;
+      display: none !important;
+    }
+
+    .imagen_escena_9_5 {
+      top: 3vh !important;
+      height: 9vh !important;
+      margin-right: 37vw !important;
+      margin-left: 0 !important;
+    }
+
+    .imagen_escena_9_0 {
+      top: 33vh !important;
+      right: auto !important;
+      width: 21vh !important;
+      margin-left: 70vw !important;
+    }
+
+    .imagen_escena_15_8 {
+      width: 38vw !important;
+      right: -8vw !important;
+      left: auto !important;
+      bottom: 92vh !important;
+      transform: scaleX(-1) !important;
+    }
+    .imagen_escena_15_9 {
+      width: 38vw !important;
+      right: -9vw !important;
+      left: auto !important;
+      bottom: 74vh !important;
+      transform: scaleX(-1) !important;
+    }
+    .imagen_escena_15_10 {
+      width: 35vw !important;
+      left: -7vw !important;
+      bottom: 90vh !important;
+      transform: scaleX(-1) !important;
+    }
+
+    /*  5 · ESTRATEGIAS DE ACCIÓN */
+    /* Letrero — arriba, más pequeño */
+    .imagen_escena_5_0 {
+      top: -8vh !important;
+      left: 0vw !important;
+      width: 80vw !important;
+      height: 30vh !important;
+    }
+
+    /* Delfín → al lado de "En movimiento" (derecha) */
+    .imagen_escena_5_1 {
+      top: 35vh !important;
+      right: 30vw !important;
+      width: 13.5vh !important;
+      left: auto !important;
+    }
+
+    /* Foca → al lado de "Narrarnos" (derecha) */
+    .imagen_escena_5_2 {
+      top: 46vh !important;
+      left: 3vw !important;
+      width: 17vh !important;
+    }
+
+    /* Orca → al lado de "Alternativxs" (izquierda) */
+    .imagen_escena_5_3 {
+      top: 65vh !important;
+      right: 23vw !important;
+      width: 15vh !important;
+      left: auto !important;
+    }
+
+    /* Tortuga → al lado de "Memorias" (izquierda) */
+    .imagen_escena_5_4 {
+      top: 24vh !important;
+      left: -4vw !important;
+      width: 24vh !important;
+      transform: rotate(-8deg);
+    }
   }
-
-  .imagen_escena_9_7{
-    display: flex !important;
-    z-Index: 1 !important;
-  }
-  .imagen_escena_9_6{
-    display: flex !important;    
-    z-Index: 1 !important;
-  }
-
-  .imagen_escena_9_1{
-    display: none !important;
-  }
-
-
-  .imagen_escena_9_4{
-    display: none !important;
-  }
-
-  .imagen_escena_9_2{
-    margin-left: 0 !important; 
-    height: 23vh !important;
-    bottom: 18vh !important;
-  }
-
-  .imagen_escena_9_3{
-    margin-left: 0 !important; 
-    height: 20vh !important;
-    bottom: 18vh !important;
-    display: none !important;
-
-  }
-
-  .imagen_escena_9_5{
-        top: 3vh !important;
-    height: 9vh !important;
-    margin-right: 37vw !important;
-    margin-left: 0 !important;
-  }
-
-  .imagen_escena_9_0{
-    top: 33vh !important;
-    right: auto !important;
-            width: 21vh !important;
-    margin-left: 70vw !important;
-  }
-
-  .imagen_escena_15_8{
-    width: 38vw !important;
-    right: -8vw !important;
-    left: auto !important;
-    bottom: 92vh !important;
-    transform: scaleX(-1) !important;
-
-  }
-  .imagen_escena_15_9{
-    width: 38vw !important;
-    right: -9vw !important;
-    left: auto !important;
-    bottom: 74vh !important;
-    transform: scaleX(-1) !important;
-  }
-  .imagen_escena_15_10{
-    width: 35vw !important;
-    left: -7vw !important;
-    bottom: 90vh !important;
-    transform: scaleX(-1) !important;
-  }
-
-  .imagen_escena_4_0{
-    left: -6vw !important;
-    top: -3vh !important;
-    height: 31vh !important;
-    width: 88vw !important;
-  }
-  
-
-
-}
-  
-
-
 </style>
