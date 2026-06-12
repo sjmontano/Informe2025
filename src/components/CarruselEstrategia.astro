@@ -46,7 +46,7 @@ const { modales } = Astro.props;
     <div id={modal.id} class="carrusel-estrategia" style={`display: flex;`}>
       <div class="carrusel-estrategia__panel" data-modal-id={modal.id}>
         {/* Nombre del modal (sección) en la parte superior derecha */}
-        <div class="carrusel-estrategia__nombre-seccion">
+        <div class={`carrusel-estrategia__nombre-seccion  modal${modal.id}`}>
           <span class="ac-blanco">
             {modal.id.charAt(0).toUpperCase() + modal.id.slice(1)}
           </span>
@@ -523,7 +523,7 @@ const { modales } = Astro.props;
     /* ─── CARRUSEL ─── */
     .carrusel-estrategia__carrusel {
       flex-shrink: 0;
-      margin-top: 8vh;
+      margin-top: 4vh;
     }
 
     .carrusel-estrategia__slide {
@@ -555,7 +555,7 @@ const { modales } = Astro.props;
     }
 
     .carrusel-estrategia__nombre-seccion span {
-      font-size: 2.6vh;
+      font-size: 5.6vw;
     }
 
     /* ─── INDICADORES ─── */
@@ -635,6 +635,10 @@ const { modales } = Astro.props;
 
     :global(.boton-volver):hover {
       transform: translateX(-50%) scale(1.05) !important;
+    }
+
+    .modalEn {
+      left: 18vh;
     }
   }
 </style>
