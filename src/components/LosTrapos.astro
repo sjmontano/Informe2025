@@ -29,23 +29,13 @@ const YOUTUBE_URL =
   class="los-trapos anim-entrada anim-entrada--fade"
   data-anim-stagger="200"
 >
-  <BotonVolver
-    href="/#navegacion"
-    variante="circulo"
-    bottom={4}
-    left={4}
-    z={3}
-  />
+  <BotonVolver href="/#navegacion" variante="circulo" bottom={4} left={4} z={3} />
 
   <!-- COLUMNA IZQUIERDA: título + descripción + íconos -->
   <div class="los-trapos__izquierda">
-    <h1 class="los-trapos__titulo ac-blanco" data-anim-item data-read>
-      Sacando los trapos
-    </h1>
+    <h1 class="los-trapos__titulo ac-blanco" data-anim-item data-read>Sacando los trapos</h1>
 
-    <span class="los-trapos__badge ac-blanco" data-anim-item data-read
-      >Podcast</span
-    >
+    <span class="los-trapos__badge ac-blanco" data-anim-item data-read>Podcast</span>
 
     <p class="los-trapos__intro" data-anim-item data-read>
       Seguimos creciendo y abrazando cada ola en el ritmo cambiante del entorno.
@@ -54,7 +44,8 @@ const YOUTUBE_URL =
       movimientos sociales y los activismos.
     </p><br />
 
-    <p class="los-trapos__intro" data-anim-item data-read></p>
+    <p class="los-trapos__intro" data-anim-item data-read>
+  </div>
     <!-- Íconos de plataformas: columna, abajo-derecha -->
     <div class="los-trapos__plataformas" data-anim-item>
       <a
@@ -77,31 +68,32 @@ const YOUTUBE_URL =
         <span class="los-trapos__circulo-int" set:html={svgYoutube} />
       </a>
     </div>
+  
 
-    <style>
-      .los-trapos {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-      }
+  <style>
+    .los-trapos {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
 
-      /* ─── Columna izquierda ─── */
+    /* ─── Columna izquierda ─── */
 
-      .los-trapos__izquierda {
-        position: absolute;
-        top: 15vh;
-        left: 18vw;
-        width: 60%;
-      }
+    .los-trapos__izquierda {
+      position: absolute;
+      top: 15vh;
+      left: 18vw;
+      width: 60%;
+    }
 
-      .los-trapos__titulo {
-        font-family: var(--font-discordia);
-        font-size: 3.8vh;
-        font-weight: 700;
-        color: var(--azul-noche);
-        margin: 0 0 calc(var(--alto) * 1.5 / 100);
-        line-height: 1.5vh;
-      }
+    .los-trapos__titulo {
+      font-family: var(--font-discordia);
+      font-size: 3.8vh;
+      font-weight: 700;
+      color: var(--azul-noche);
+      margin: 0 0 calc(var(--alto) * 1.5 / 100);
+      line-height: 1.5vh;
+    }
 
       .los-trapos__badge {
         display: inline-block;
@@ -114,105 +106,109 @@ const YOUTUBE_URL =
         margin-bottom: 35vh;
       }
 
-      .los-trapos__intro {
-        margin-top: 3vw;
-        font-family: var(--font-lato);
-        font-size: 1.3vw;
-        line-height: 1.5vw;
-        color: var(--azul-noche);
-        width: 55%;
-        white-space: normal;
-        margin: 0;
-      }
+    .los-trapos__intro {
+      margin-top: 3vw;
+      font-family: var(--font-lato);
+      font-size: 1.3vw;
+      line-height: 1.5vw;
+      color: var(--azul-noche);
+      width: 55%;
+      white-space: normal;
+      margin: 0;
+    }
 
-      /* ─── Plataformas: columna, abajo-derecha ─── */
+    /* ─── Plataformas: columna, abajo-derecha ─── */
 
-      .los-trapos__plataformas {
-        position: absolute;
-        right: 41vw;
-        bottom: 21vh;
-        display: flex;
-        flex-direction: column;
-        gap: calc(var(--alto) * 2 / 100);
-      }
+    .los-trapos__plataformas {
+      position: absolute;
+      right: 41vw;
+      bottom: 21vh;
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--alto) * 2 / 100);
+    }
 
-      .los-trapos__circulo-ext,
-      .los-trapos__circulo-int {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-      }
+    .los-trapos__circulo-ext,
+    .los-trapos__circulo-int {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
 
-      .los-trapos__circulo-ext {
-        background-color: var(--azul-noche);
-        width: calc(var(--alto) * 10 / 100);
-        height: calc(var(--alto) * 10 / 100);
-        text-decoration: none;
-        transition:
-          transform 0.3s ease,
-          outline 0.3s ease;
-      }
+    .los-trapos__circulo-ext {
+      background-color: var(--azul-noche);
+      width: calc(var(--alto) * 10/ 100);
+      height: calc(var(--alto) * 10 / 100);
+      text-decoration: none;
+      transition:
+        transform 0.3s ease,
+        outline 0.3s ease;
+    }
 
-      .los-trapos__circulo-ext:hover {
-        transform: scale(1.2);
-        outline: 3px solid var(--salmon);
-        outline-offset: 3px;
-      }
+    .los-trapos__circulo-ext:hover {
+      transform: scale(1.2);
+      outline: 3px solid var(--salmon);
+      outline-offset: 3px;
+    }
 
-      .los-trapos__circulo-int {
-        background-color: var(--azul-noche);
-        color: var(--azul-noche);
-        width: 100%;
-        height: 100%;
-      }
+    .los-trapos__circulo-int {
+      background-color: var(--azul-noche);
+      color: var(--azul-noche);
+      width: 100%;
+      height: 100%;
+    }
 
-      .los-trapos__circulo-int :global(svg) {
-        width: 65%;
-        height: 65%;
-      }
-      @media (max-width: 570px) {
-        .los-trapos__titulo {
-          font-size: 2vh;
-          margin: 0;
-          text-align: left;
-          margin-left: 11vh;
-        }
-        .los-trapos__izquierda {
-          top: 9.5vh;
-          left: auto;
-          width: 100vw;
-          flex-direction: column;
-          display: flex;
-          align-items: center;
-        }
-        .los-trapos__badge {
-          font-size: 2vh;
-          margin-bottom: 3vh;
-        }
-        .los-trapos__intro {
-          width: 55%;
-          font-size: 1.3vh;
-          line-height: 1.6vh;
-          margin-right: 13vh;
-        }
+    .los-trapos__circulo-int :global(svg) {
+      width: 65%;
+      height: 65%;
+    }
+    @media (max-width: 570px){
+    .los-trapos__titulo {
+      font-size: 2vh;
+      margin: 0;
+      text-align: left;
+      margin-left: 11vh;
+      
+    }
+    .los-trapos__izquierda {
+      top: 9.5vh;
+      left: auto;
+      width: 100vw;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+    }
+    .los-trapos__badge {
+      font-size: 2vh;
+      margin-bottom: 3vh;
 
-        .los-trapos__intro:first-of-type {
-          margin-top: 4vh;
-        }
+      
+  }
+    .los-trapos__intro {
+      width: 55%;
+      font-size: 1.3vh;
+      line-height: 1.6vh;
+      margin-right: 13vh;
+  }
 
-        .los-trapos__plataformas {
-          left: 15vw;
-          right: auto;
-          bottom: 23vh;
-          gap: 2vh;
-        }
+  .los-trapos__intro:first-of-type {
+  margin-top: 4vh;
+}
 
-        .los-trapos__circulo-ext {
-          width: 8vh;
-          height: 8vh;
-        }
-      }
-    </style>
-  </div>
+  .los-trapos__plataformas {
+    left: 15vw;
+    right: auto;
+    bottom: 23vh;
+    gap: 2vh;
+  }
+
+  .los-trapos__circulo-ext {
+    width: 8vh;
+    height: 8vh;
+  }
+
+}
+
+  </style>
 </section>
