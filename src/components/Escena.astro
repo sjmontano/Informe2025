@@ -145,6 +145,12 @@ const ESCENAS: Item[][] = [
       alt: "Vendedor de coco, ilustración de Aquelarre",
       z: 3,
     },
+    {
+      src: "/resources/contenedor/difuminadoNaranja.webp",
+      alt: "difuminado Naranja",
+      extra:
+        " justify-self: center; margin-left: 24vh; height: 31vh; bottom: 24vh; z-Index: 2;",
+    },
   ],
 
   /*  2 · ALTERNATIVAS */
@@ -261,7 +267,7 @@ const ESCENAS: Item[][] = [
     },
   ],
 
-  /*  3 · NARRARNOS */
+  /*  3 · cierre */
   [
     {
       src: CACTUS_1,
@@ -314,6 +320,12 @@ const ESCENAS: Item[][] = [
       width: "35vw",
       extra: "display: none;",
       alt: "Palmera, ilustración de Aquelarre",
+    },
+    {
+      src: "/resources/contenedor/difuminadoNaranja.webp",
+      alt: "difuminado Naranja",
+      extra:
+        " justify-self: center; margin-left: 24vh; height: 31vh; bottom: 24vh; z-Index: 2;",
     },
   ],
 
@@ -907,6 +919,33 @@ const elementos = ESCENAS[escena] || [];
     display: block;
   }
 
+  .imagen_escena_1_11{
+  top: 9vw !important;
+    bottom: auto !important;
+    justify-self: auto !important; 
+    margin-left: 0 !important; 
+    height: 40vw !important;
+    width: 41vw !important;
+    bottom: auto    !important; 
+    z-Index: 2    !important;
+    left: 12vw  !important;
+    object-fit: initial !important;
+  }
+
+  .imagen_escena_3_11{
+   top: 10vw !important;
+    bottom: auto !important;
+    justify-self: auto !important;
+    margin-left: 0 !important;
+    height: 31vw !important;
+    width: 34vw !important;
+    bottom: auto !important;
+    z-Index: 0 !important;
+    left: 35vw !important;
+    object-fit: initial !important;
+
+  }
+
   @media (max-width: 640px) {
     .fondo0 {
       height: 182vw !important;
@@ -1035,6 +1074,19 @@ const elementos = ESCENAS[escena] || [];
       top: calc(212 * var(--alto) / 100) !important;
       right: 40vw !important;
       width: 45vw !important;
+    }
+
+    .imagen_escena_1_11{
+      top: 6vw !important;
+    bottom: auto !important;
+    justify-self: auto !important;
+    margin-left: 0 !important;
+    height: 50vw !important;
+    width: 52vw !important;
+    bottom: auto !important;
+    z-Index: 2 !important;
+    left: 24vw !important;
+    object-fit: initial !important;
     }
 
     .imagen_escena_2_0{
@@ -1176,6 +1228,20 @@ const elementos = ESCENAS[escena] || [];
       max-width: none !important;
       z-index: -1 !important;
     }
+
+    .imagen_escena_3_11{
+     top: 61vw !important;
+        bottom: auto !important;
+        justify-self: auto !important;
+        margin-left: 0 !important;
+        height: 52vw !important;
+        width: 60vw !important;
+        bottom: auto !important;
+        z-Index: 1 !important;
+        left: 19vw !important;
+        object-fit: initial !important;
+
+  }
 
     .imagen_escena_10_0 {
       height: 35vh !important;
