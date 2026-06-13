@@ -92,8 +92,16 @@ const { scroll = true } = Astro.props;
   @font-face {
     font-family: "Discordia";
     src:
-      url("/fonts/Discordia-Regular.woff2") format("woff2"),
-      url("/fonts/Discordia-Regular.woff") format("woff");
+      url("/fonts/Discordia-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "DiscordiaRegular2";
+    src:
+      url("/fonts/Discordia-Regular2.woff") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -109,7 +117,7 @@ const { scroll = true } = Astro.props;
 
   @font-face {
     font-family: "Discordia-italic";
-    src: url("/fonts/Discordia-Italic.woff2") format("woff2");
+    src: url("/fonts/Discordia-Italic.ttf") format("truetype");
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -152,6 +160,7 @@ const { scroll = true } = Astro.props;
 
     /* Tipografía */
     --font-discordia: "Discordia", serif;
+    --font-discordia-italic: "Discordia-italic", serif;
     --font-lato: "Lato", sans-serif;
 
     /* Espaciado */
