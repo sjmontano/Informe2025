@@ -10,7 +10,8 @@
  *   bottom   — posición desde abajo (N en --alto), reemplaza a top
  *   left     — posición desde la izquierda, reemplaza a right
  *   z        — z-index (default 3)
- *   variante — "default" (regresar.webp + texto) | "circulo" (SVG con texto incluido)
+ *   variante — "default" (regresar.webp + texto) | "circulo" (SVG con texto incluido) | "estrategia"
+ *   sentido  — "atras" (flecha ←) | "adelante" (flecha →), default "atras"
  */
 
 export interface Props {
@@ -25,6 +26,7 @@ export interface Props {
   color?: string;
   background?: string;
   extraStyle?: string;
+  sentido?: "atras" | "adelante";
 }
 
 const {
@@ -39,6 +41,7 @@ const {
   color = "var(--arena)",
   background = "transparent",
   extraStyle = "",
+  sentido = "atras",
 } = Astro.props;
 
 const estilo = [
@@ -56,7 +59,7 @@ const estilo = [
 ---
 
 <a
-  class={`boton-volver${variante === "circulo" ? " boton-volver--circulo" : ""}`}
+  class={`boton-volver${variante === "circulo" ? " boton-volver--circulo" : ""}${sentido === "adelante" ? " boton-volver--adelante" : ""}`}
   href={href}
   style={estilo}
   data-anim-item
@@ -133,6 +136,13 @@ const estilo = [
     transform: scale(1.1);
   }
 
+  /* ─── Sentido adelante (flecha →) ─── */
+
+  .boton-volver--adelante .boton-volver__icono {
+    transform: scaleX(-1);
+    bottom: 10vh;
+  }
+
   .boton-volver__circulo {
     width: calc(var(--alto) * 11 / 100);
     height: calc(var(--alto) * 11 / 100);
@@ -151,11 +161,11 @@ const estilo = [
       height: 2vh;
       object-fit: contain;
     }
-    .boton-volver{
+    .boton-volver {
       gap: calc(var(--alto) * 0.7 / 100);
     }
 
-    .boton-volver__circulo{
+    .boton-volver__circulo {
       width: calc(var(--alto) * 8 / 100);
       height: calc(var(--alto) * 8 / 100);
     }

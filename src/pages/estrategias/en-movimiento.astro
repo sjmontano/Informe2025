@@ -1,7 +1,7 @@
 ---
 import BotonVolver from "../../components/BotonVolver.astro";
-import Escena from "../../components/Escena.astro";
 import CarruselEstrategia from "../../components/CarruselEstrategia.astro";
+import Escena from "../../components/Escena.astro";
 import Layout from "../../layouts/Layout.astro";
 
 // Definición de las interfaces para las entradas del modal
@@ -16,7 +16,7 @@ interface ModalEntry {
 interface ModalData {
   id: string;
   entradas: ModalEntry[];
-  top:string;
+  top: string;
 }
 
 const modales: ModalData[] = [
@@ -26,8 +26,7 @@ const modales: ModalData[] = [
     entradas: [
       {
         colectiva: "Fugadxs",
-        proyecto:
-          "Fugadxs: <br>Rasgadura, Dolores y remiendos.",
+        proyecto: "Fugadxs: <br>Rasgadura, Dolores y remiendos.",
         enlaceMedia: "https://youtu.be/GTh-KRm12h0 ",
         enlaceLunaria:
           "https://www.conexion.fondolunaria.org/group/libertad-y-democracia/discussion/3dd0de76-9dab-426a-b671-5de84cc7e4d2",
@@ -37,8 +36,7 @@ const modales: ModalData[] = [
         colectiva: "Red de Teatro y Circo Cúcuta",
         proyecto:
           "Red de Teatro y Circo Cúcuta: <br>Nuestra voz, nuestra fuerza.",
-        enlaceMedia:
-          "https://www.youtube.com/watch?v=VzHkTYpuVpg",
+        enlaceMedia: "https://www.youtube.com/watch?v=VzHkTYpuVpg",
         enlaceLunaria:
           "https://www.conexion.fondolunaria.org/group/autonomia-derechos-y-sostenibilidad/discussion/aa853b1c-24df-4417-9ff9-ef69f7df37ec",
         instagram: "@redteatroycircocucuta",
@@ -47,24 +45,47 @@ const modales: ModalData[] = [
         colectiva: "Guardianas Montañeras Kumanday:",
         proyecto:
           "Guardianas Montañeras Kumanday: <br>Flor-Siendo El Espiral De Memoria, Camino Al Cuidado De La Vida",
-        enlaceMedia:
-          "https://youtu.be/bHG6ogLHXLA",
+        enlaceMedia: "https://youtu.be/bHG6ogLHXLA",
         enlaceLunaria:
           "https://www.conexion.fondolunaria.org/group/autonomia-derechos-y-sostenibilidad/discussion/df821793-c2cd-4038-b5a4-c2e91af0a2a6",
         instagram: "",
       },
-      
     ],
-  }
+  },
 ];
-
 ---
 
 <Layout scroll={false}>
   <Escena escena={18}>
     <CarruselEstrategia modales={modales} />
-    <BotonVolver  color="#161040" background="#DBAB40" texto="Estrategias de accion" 
-    extraStyle="justify-self: center; margin-left: 66vh;"  variante="estrategia" top="15" z="20"
-    href="/estrategias" />
+    <BotonVolver
+      color="#161040"
+      background="#DBAB40"
+      texto="Estrategias de accion"
+      extraStyle="justify-self: center; margin-left: 66vh;"
+      variante="estrategia"
+      top="15"
+      z="20"
+      href="/estrategias"
+    />
+    <BotonVolver
+      color="var(--azul-noche)"
+      background="var(--salmon)"
+      texto="Fondo en Movimiento"
+      extraStyle="justify-self: center; margin-left: 66vh;"
+      variante="estrategia"
+      top="8"
+      z="20"
+      href="/fondoMovimiento"
+      sentido="adelante"
+    />
   </Escena>
 </Layout>
+
+<style>
+  @media (max-width: 640px) {
+    :global(.fondo18 .boton-volver--adelante) {
+      bottom: 10vh !important;
+    }
+  }
+</style>
