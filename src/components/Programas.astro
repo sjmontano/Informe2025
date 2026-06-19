@@ -18,7 +18,7 @@ const svgMap = readFileSync(
 ---
 
 <section
-  class="programas anim-entrada anim-entrada--fade"
+  class="programas  "
   data-anim-stagger="200"
 >
 
@@ -188,6 +188,9 @@ const svgMap = readFileSync(
 
   
 
+.ac-blanco br{
+  display: none;
+}
 .flechaMovil{
   display: none;
 }
@@ -203,7 +206,7 @@ const svgMap = readFileSync(
   }
   .container {
     position: absolute;
-    bottom: 23vh;
+    bottom: 18vh;
     flex-direction: row;
     display: flex;
     justify-self: center;
@@ -324,6 +327,7 @@ const svgMap = readFileSync(
     flex-direction: column;
     position: relative;
     width: 35vh;
+    margin-left: 1vh;
     
   }
 
@@ -341,12 +345,12 @@ const svgMap = readFileSync(
   .programas__texto {
     overflow: hidden;
     font-family: var(--font-lato);
-    font-size: 1.6vh;
+    font-size: 2vh;
     color: var(--azul-noche);
     margin: 0;
-    width: 82%;
+    width: 95%;
     align-self: center;
-    height:25vh;
+    height: 35vh;
   }
 
   .programas__cifra {

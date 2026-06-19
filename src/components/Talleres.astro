@@ -7,57 +7,57 @@ const talleres = [
   // Asegúrate de añadir la propiedad 'fecha' a cada objeto taller
   {
     titulo:
-      "Activismos feministas amplios y diversos para generar comunidad 26, 27 Y 28 de marzo",
+      "Activismos feministas amplios y diversos para generar comunidad <br>26, 27 Y 28 de marzo",
     imagen:
       "/resources/fotografias/real/1. Activismos feministas amplios y diversos para generar comunidad.JPG",
     fecha: "1 y 2 de Febrero",
   },
   {
-    titulo: "Otros Mundos son posibles 25 y 26 de abril",
+    titulo: "Otros Mundos son posibles <br>25 y 26 de abril",
     imagen:
       "/resources/fotografias/real/2. OTROS MUNDOS SON POSIBLES.JPG",
     fecha: "15 y 16 de Febrero",
   },
   {
     titulo:
-      "Acuerpando Nuestras Luchas Para Defender Nuestros Derechos 1 29 y 30 de mayo",
+      "Acuerpando Nuestras Luchas Para Defender Nuestros Derechos 1 <br>29 y 30 de mayo",
     imagen:
       "/resources/fotografias/real/3. Acuerpando Nuestras Luchas Para Defender Nuestros Derechos.JPG",
     fecha: "26 y 28 de febrero",
   },
   {
-    titulo: "Encuentro regional LATAM OTRT 25, 26 y 27 de junio",
+    titulo: "Encuentro regional LATAM OTRT <br>25, 26 y 27 de junio",
     imagen: "/resources/fotografias/real/4. Encuentro regional LATAM OTRT. JPG",
     fecha: "14 y 15 de marzo",
   },
   {
-    titulo: "Acuerpando Nuestras Luchas Para Defender Nuestros Derechos 2 10 y 11 de julio",
+    titulo: "Acuerpando Nuestras Luchas Para Defender Nuestros Derechos 2 <br>10 y 11 de julio",
     imagen:
       "/resources/fotografias/real/5. Acuerpando Nuestras Luchas Para Defender Nuestros Derechos .JPG",
     fecha: "18 y 19 de abril",
   },
   {
     titulo:
-      "Construyendo Autonomías para Tejer Vida Digna 1 24 y 25 de julio",
+      "Construyendo Autonomías para Tejer Vida Digna 1 <br>24 y 25 de julio",
     imagen:
       "/resources/fotografias/real/6. Construyendo Autonomías para Tejer Vida Digna 1.JPG",
     fecha: "30 y 31 de mayo",
   },
   {
-    titulo: "Construyendo Autonomías para Tejer Vida Digna 2 14 y 15 de agosto",
+    titulo: "Construyendo Autonomías para Tejer Vida Digna 2 <br>14 y 15 de agosto",
     imagen:
       "/resources/fotografias/real/7. Construyendo Autonomías para Tejer Vida Digna 2.JPG",
     fecha: "13 y 14 de junio",
   },
   {
-    titulo: "Hackearlo todo 28 y 29 de agosto",
+    titulo: "Hackearlo todo <br>28 y 29 de agosto",
     imagen:
       "/resources/fotografias/real/8. Hackearlo todo.JPG",
     fecha: "22 y 23 de agosto",
   },
   {
     titulo:
-      "Encuentro LB 16 y 17 de octubre",
+      "Encuentro LB <br>16 y 17 de octubre",
     imagen:
       "/resources/fotografias/real/9. Encuentro LB.JPG",
     fecha: "Septiembre 12 y 13",
@@ -120,7 +120,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
                 <div class="contenedor-taller-numeracion">
                   <h3 class="taller-numeracion">{index + 1}.</h3>
                 </div>
-                <h3 class="taller-titulo" data-read>{taller.titulo}</h3>
+                <h3 class="taller-titulo" data-read set:html={taller.titulo}></h3>
 
               </div>
 
@@ -165,7 +165,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   display: flex;
   margin-right: 27%;
   margin-top: 1vh;
-  font-size: 3.5vh;
+  font-size: calc( 3.5vh * var(--zoom-letra, 1));
   font-family: var(--font-discordia);
   color: var(--arena);
 }
@@ -197,7 +197,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   .talleres-title {
 
     margin: 0;
-    font-size: 5vh;
+    font-size: calc( 5vh * var(--zoom-letra, 1));
     font-family: var(--font-discordia);
     color: #161040;
     font-weight: 700;
@@ -293,7 +293,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 
   .taller-titulo {
     width: 80%;
-    font-size: 1.1vw;
+    font-size: calc( 1.1vw * var(--zoom-letra, 1));
     color: #161040;
     background-color: #ff8079;
     border-radius: 2px;
@@ -309,7 +309,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     width: 100%;
     text-align: right;
     padding-right: calc(var(--alto) * 0.046 / 100);
-    font-size: 1.2vw;
+    font-size: calc( 1.2vw * var(--zoom-letra, 1));
     color: #333;
     font-weight: bold;
     margin-top: calc(var(--alto) * 0.3 / 100);
@@ -318,14 +318,17 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   .talleres-subtitle {
     display: flex;
     flex-direction: column;
-    font-size: 2vh;
+    font-size: calc( 2vh * var(--zoom-letra, 1));
     color: #161040;
     margin-left: 4vw;
+  }
+  .talleres-subtitle br {
+    display: none;
   }
   .talleres-encuentros {
     display: flex; /* Permite que el contenido interno de .talleres-encuentros se organice con flexbox */
     flex-direction: end;
-    font-size: 2.5vh;
+    font-size: calc( 2.5vh  * var(--zoom-letra, 1));
     color: #161040;
     width: 100%;
     justify-content: center;
@@ -383,7 +386,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
   }
 
   .subtitulos{
-    width: 50%;
+    width: 48%;
   }
 
   @media (max-width: 640px) {
@@ -436,7 +439,7 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
 }
 
 .talleres-subtitle {
-    font-size: 1.6vh;
+    font-size: calc( 1.6vh * var(--zoom-letra, 1));
     margin-left: 7vw;
     margin-top: 1.5vh;
 }
@@ -463,11 +466,11 @@ const carouselId = `carousel-${crypto.randomUUID().slice(0, 8)}`;
     height: 3.5vh;
     margin-right: 80%;
     margin-top: 0.5vh;
-    font-size: 1.5vh;
+    font-size: calc(  1.5vh * var(--zoom-letra, 1));
 }
 
   .taller-titulo{
-    font-size: 1vh;
+    font-size: calc( 1vh * var(--zoom-letra, 1));
     border-radius: 2vw;
     
 }

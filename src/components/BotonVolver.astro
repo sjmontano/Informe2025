@@ -68,7 +68,7 @@ const estilo = [
     variante === "circulo" ? (
       <img
         class="boton-volver__circulo"
-        src="/resources/ui/ui-regresar-1.svg"
+        src="/resources/ui/ui-regresar-1.png"
         alt="Volver al menú principal"
         loading="lazy"
       />
@@ -152,7 +152,7 @@ const estilo = [
   @media (max-width: 640px) {
     .boton-volver__texto {
       font-family: var(--font-discordia);
-      font-size: 1.4vh !important;
+      font-size: calc(1.4vh  * var(--zoom-letra, 1))!important ;
       font-weight: 700;
     }
 

@@ -29,7 +29,7 @@ const MARCAS = [
     src: "/resources/marcas/marca-fenomenal-funds.webp",
     alt: "Fenomenal Funds",
   },
-  { src: "/resources/marcas/marca-interpares.webp", alt: "Interpares" },
+  { src: "/resources/marcas/interparessfondo.gif", alt: "Interpares" },
   { src: "/resources/marcas/marca-lfsf-lds.webp", alt: "LFSF / LDS" },
   { src: "/resources/marcas/marca-otrt-colores.webp", alt: "OTRT" },
   { src: "/resources/marcas/marca-accd.webp", alt: "ACCD" },
@@ -144,7 +144,7 @@ const MARCAS = [
     width: 90vw;
     transform: translateX(-50%);
     text-align: center;
-    font-size: 1.8vh;
+    font-size: calc(1.8vh * var(--zoom-letra, 1));
   }
 
   .aliados__contenedor {

@@ -463,19 +463,19 @@ const ESCENAS: Item[][] = [
       src: LETRERO,
       alt: "Letrero Programas",
       extra:
-        " justify-self: center; margin-left: 66vh; height: 83vh; bottom: -12vh;",
+        " justify-self: center; margin-left: 67vh; height: 106vh;     width: 88vh; bottom: -26vh;  object-fit: initial; ",
     },
     {
       src: "/resources/contenedor/difuminadoNaranja.webp",
       alt: "difuminado Naranja",
       extra:
-        " justify-self: center; margin-left: 24vh; height: 31vh; bottom: 24vh; z-Index: 2;",
+        " justify-self: center; margin-left: 24vh; height: 46vh; bottom: 17vh;     width: 45vh;z-Index: 2; object-fit: initial;",
     },
     {
       src: "/resources/contenedor/difuminadoRosa.webp",
       alt: "difuminado Rosa",
       extra:
-        " justify-self: center; margin-left: 107vh; height: 25vh; bottom: 31vh; z-Index: 2;",
+        " justify-self: center; margin-left: 107vh; height: 41vh; bottom: 22vh; width: 39vh; z-Index: 2; object-fit: initial;",
     },
     {
       src: LETRERO_4,
@@ -859,7 +859,7 @@ const elementos = ESCENAS[escena] || [];
 
   <div class="escena-contenido">
     <div
-      class={`escena${stagger > 0 ? " anim-entrada anim-entrada--fade" : ""}`}
+      class={`escena${stagger > 0 ? "" : ""}`}
       aria-hidden="true"
       data-anim-stagger={stagger}
     >
@@ -1101,13 +1101,13 @@ const elementos = ESCENAS[escena] || [];
     }
     .imagen_escena_2_2{
       top: calc(27 * var(--alto) / 100) !important;
-    right: 60vw !important;
+            right: 44vw !important;
     width: 27vw !important;
     }
 
     .imagen_escena_2_3{
       top: calc(34 * var(--alto) / 100) !important;
-    right: 70vw !important;
+            right: 52vw !important;
     width: 30vw !important;
     }
 
@@ -1445,6 +1445,7 @@ const elementos = ESCENAS[escena] || [];
       margin-left: 0 !important;
       height: 23vh !important;
       bottom: 18vh !important;
+      width: auto !important;
     }
 
     .imagen_escena_9_3 {
@@ -1452,6 +1453,7 @@ const elementos = ESCENAS[escena] || [];
       height: 20vh !important;
       bottom: 18vh !important;
       display: none !important;
+      width: auto !important;
     }
 
     .imagen_escena_9_5 {

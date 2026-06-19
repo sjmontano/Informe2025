@@ -40,7 +40,7 @@ const dataGastos = [
 ];
 ---
 
-<section class="cuentas anim-entrada anim-entrada--fade">
+<section class="cuentas">
   <BotonVolver href="/#navegacion" variante="circulo" bottom={4} left={4} z={3} />
   <div class="cuentas__flecha--prev">
       <FlechaNav
@@ -140,6 +140,10 @@ const dataGastos = [
 </section>
 
 <style>
+
+  .cuentas__flecha--next{
+    display: none;
+  }
   .cuentas {
     position: absolute;
     inset: 0;
@@ -271,6 +275,10 @@ const dataGastos = [
   }
 
    @media (max-width: 640px) {
+
+    .cuentas__flecha--next{
+    display: flex;
+  }
     .cuentas__contenido {
       flex-direction: column;
       align-items: center;

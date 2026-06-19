@@ -26,7 +26,7 @@ const YOUTUBE_URL =
 ---
 
 <section
-  class="contracorriente anim-entrada anim-entrada--fade"
+  class="contracorriente "
   data-anim-stagger="200"
 >
 
@@ -140,11 +140,11 @@ const YOUTUBE_URL =
 
     .contracorriente__titulo {
       font-family: var(--font-discordia);
-      font-size: 3.4vw;
+      font-size: calc( 3.4vw * var(--zoom-letra, 1));
       font-weight: 700;
       color: var(--azul-noche);
       margin: 0 0 calc(var(--alto) * 1.5 / 100);
-      line-height: 1.1;
+      line-height: calc( 1.1 * var(--zoom-letra, 1));
     }
 
     .contracorriente__badge {
@@ -165,8 +165,8 @@ const YOUTUBE_URL =
     .contracorriente__intro {
       margin-top: 3vw;
       font-family: var(--font-lato);
-      font-size: 1.3vw;
-      line-height: 1.5vw;
+      font-size: calc( 1.3vw * var(--zoom-letra, 1));
+      line-height: calc( 1.5vw * var(--zoom-letra, 1));
       color: var(--azul-noche);
       width: 55%;
       white-space: normal;
@@ -230,7 +230,7 @@ const YOUTUBE_URL =
   }
       .boton-volver__texto {
         font-family: var(--font-discordia);
-        font-size: 1.6vh;
+        font-size: calc( 1.6vh * var(--zoom-letra, 1));
         font-weight: 700;
       }
       .contracorriente {
@@ -239,7 +239,7 @@ const YOUTUBE_URL =
       }
 
       .contracorriente__titulo {
-        font-size: 2.4vh;
+        font-size: calc( 2.4vh * var(--zoom-letra, 1));
         margin-bottom: 1vh;
       }
 
@@ -251,8 +251,8 @@ const YOUTUBE_URL =
       }
 
       .contracorriente__intro {
-        font-size: 1.3vh;
-        line-height: 1.8vh;
+        font-size: calc( 1.3vh * var(--zoom-letra, 1));
+        line-height: calc( 1.8vh * var(--zoom-letra, 1));
         width: 100%;
       }
 
@@ -261,7 +261,7 @@ const YOUTUBE_URL =
       }
 
       .contracorriente__badge {
-        font-size: 1.5vh;
+        font-size: calc( 1.5vh * var(--zoom-letra, 1));
         margin-bottom: 5vh;
         padding: calc(var(--alto) * 0.3 / 100) calc(var(--alto) * 2 / 100);
         margin-left: calc(var(--alto) * -2 / 100);

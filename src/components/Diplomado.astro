@@ -8,7 +8,7 @@ import BotonVolver from "./BotonVolver.astro";
 ---
 
 <section
-  class="diplomado anim-entrada anim-entrada--fade"
+  class="diplomado"
   data-anim-stagger="200"
 >
 
@@ -83,8 +83,8 @@ import BotonVolver from "./BotonVolver.astro";
 
   .diplomado__titulo {
     font-family: var(--font-discordia);
-    font-size: 2.3vw;
-    line-height: 2.8vw;
+    font-size: calc(  2.3vw* var(--zoom-letra, 1));
+    line-height: calc( 2.8vw * var(--zoom-letra, 1));
     font-weight: 700;
     color: var(--azul-noche);
     margin-bottom: calc(var(--alto) * 1.7 / 100);
@@ -92,7 +92,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .diplomado__subtitulo {
     font-family: "Discordia-italic", serif;
-    font-size: 1.4vw;
+    font-size: calc(  1.4vw* var(--zoom-letra, 1));
     font-style: italic;
     font-weight: 400;
     background-color: var(--oceano);
@@ -107,7 +107,7 @@ import BotonVolver from "./BotonVolver.astro";
 
   .diplomado__parrafo {
     font-family: var(--font-lato);
-    font-size: 1.4vw;
+    font-size: calc( 1.4vw* var(--zoom-letra, 1));
     line-height: 1.6vw;
     color: var(--azul-noche);
     width: 40vw;
@@ -130,8 +130,8 @@ import BotonVolver from "./BotonVolver.astro";
   }
 
   .diplomado__titulo{
-    font-size: 2.2vh;
-    line-height: 2.5vh;
+    font-size: calc( 2.2vh * var(--zoom-letra, 1));
+    line-height: calc( 2.5vh * var(--zoom-letra, 1));
     margin-bottom: 1.5vh;
   }
 
@@ -140,7 +140,7 @@ import BotonVolver from "./BotonVolver.astro";
   }
 
   .diplomado__subtitulo{
-    font-size: 1vh;
+    font-size: calc( 1vh * var(--zoom-letra, 1));
     padding: 0.3vh 3vh;
     margin-left: 0;
     margin-bottom: 1.8vh;
@@ -149,8 +149,8 @@ import BotonVolver from "./BotonVolver.astro";
 
   .diplomado__parrafo{
     width: 95%;
-    font-size: 1.1vh;
-    line-height: 1.4vh;
+    font-size: calc( 1.1vh * var(--zoom-letra, 1));
+    line-height: calc( 1.4vh * var(--zoom-letra, 1));
   }}
     
 

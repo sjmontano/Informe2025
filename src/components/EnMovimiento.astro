@@ -3,7 +3,7 @@ import BotonVolver from "./BotonVolver.astro";
 ---
 
 <section
-  class="fondo-movimiento anim-entrada anim-entrada--fade"
+  class="fondo-movimiento"
   data-anim-stagger="200"
 >
 <div class="navegacionDesktop">
@@ -82,16 +82,16 @@ import BotonVolver from "./BotonVolver.astro";
 
 .fondo-movimiento__titulo {
   font-family: var(--font-discordia);
-  font-size: 4.2vh;
-  line-height: 0.95;
+  font-size: calc( 4.2vh * var(--zoom-letra, 1));
+  line-height: calc( 0.95 * var(--zoom-letra, 1));
   color: var(--azul-noche);
 
 }
 
 .fondo-movimiento__texto {
   font-family: var(--font-lato);
-  font-size: 2.8vh;
-  line-height: 3.5vh;
+  font-size: calc( 2.8vh * var(--zoom-letra, 1));
+  line-height: calc( 3.5vh * var(--zoom-letra, 1));
   color: var(--blanco);
   margin-top: 9vh;
   margin-left: -2.5vw;
@@ -122,7 +122,7 @@ import BotonVolver from "./BotonVolver.astro";
 .fondo-movimiento__dato h3 {
   margin: 0;
   font-family: var(--font-discordia);
-  font-size: 3.8vw;
+  font-size: calc( 3.8vw * var(--zoom-letra, 1));
   line-height: 1;
   font-weight: bold;
   color:var(--blanco);
@@ -131,7 +131,7 @@ import BotonVolver from "./BotonVolver.astro";
 .fondo-movimiento__dato p {
   margin: 0;
   font-family: var(--font-discordia);
-  font-size: 1.5vw;
+  font-size: calc( 1.5vw * var(--zoom-letra, 1));
   color: var(--blanco);
 }
 
@@ -159,7 +159,7 @@ import BotonVolver from "./BotonVolver.astro";
   }
 
   .fondo-movimiento__titulo {
-    font-size: 2vh;
+    font-size: calc( 2vh * var(--zoom-letra, 1));
     margin: 0;
     text-align: left;
     margin-left: 11vw;
@@ -167,8 +167,8 @@ import BotonVolver from "./BotonVolver.astro";
 
   .fondo-movimiento__texto {
     width: 56%;
-    font-size: 1.3vh;
-    line-height: 1.6vh;
+    font-size: calc( 1.3vh * var(--zoom-letra, 1));
+    line-height: calc(  1.6vh * var(--zoom-letra, 1));
     margin-left: 8vw;
     margin-top: 15vh;
   }
@@ -184,11 +184,11 @@ import BotonVolver from "./BotonVolver.astro";
   }
 
   .fondo-movimiento__dato h3 {
-    font-size: 4vh;
+    font-size: calc( 4vh * var(--zoom-letra, 1));
   }
 
   .fondo-movimiento__dato p {
-    font-size: 1.6vh;
+    font-size: calc( 1.6vh * var(--zoom-letra, 1));
   }
   .fondo-movimiento__texto br{
     display: none;

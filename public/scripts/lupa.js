@@ -28,13 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "border-radius:50%;overflow:hidden;pointer-events:none;" +
       "border:3px solid var(--coral,#ef7e7b);" +
       "box-shadow:0 0 24px rgba(0,0,0,.25);" +
-      "opacity:0;will-change:transform";
+      "will-change:transform";
 
     const src = document.querySelector(".scene-wrapper") || document.body;
     zoomContent = src.cloneNode(true);
     zoomContent.id = "lupa-content";
     zoomContent.style.cssText =
-      "transform-origin:0 0;position:absolute;top:0;left:0;will-change:transform";
+      "transform-origin:0 0;position:absolute;top:0;left:0;will-change:transform; width:100vw;";
     zoomContent.style.top = -window.scrollY + "px";
     zoomContent.style.left = -window.scrollX + "px";
 

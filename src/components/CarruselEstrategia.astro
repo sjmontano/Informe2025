@@ -98,13 +98,25 @@ const { modales } = Astro.props;
                 data-index={i}
                 style={`display: ${i === 0 ? "flex" : "none"}`}
               >
-                <iframe
-                  id={entry.instagram}
-                  src={url}
-                  class="carrusel-estrategia__iframe"
-                  allowfullscreen
-                  title="Media"
-                />
+                
+
+                {url?.includes('file.mp4') ? (
+                  <video
+                    src={url}
+                    controls
+                    class="carrusel-estrategia__iframe bg-black"
+                    style={{ backgroundColor: '#000' }}
+                  />
+                ) : (
+                  <iframe
+                    id={entry.instagram}
+                    src={url}
+                    class="carrusel-estrategia__iframe"
+                    allowfullscreen
+                    title="Media"
+                                />
+                )}
+   
               </div>
             );
           })}
@@ -381,7 +393,7 @@ const { modales } = Astro.props;
 
   /* Texto dinámico proveniente del dataset */
   .texto {
-    font-size: 1vw;
+    font-size: calc( 1vw * var(--zoom-letra, 1));
     color: #133231;
     font-weight: normal;
   }
@@ -458,7 +470,7 @@ const { modales } = Astro.props;
     font-weight: bold;
     text-transform: capitalize;
     font-family: var(--font-discordia);
-    font-size: 5vh;
+    font-size: calc( 5vh * var(--zoom-letra, 1));
   }
 
   .audio-slide {
@@ -555,7 +567,7 @@ const { modales } = Astro.props;
     }
 
     .carrusel-estrategia__nombre-seccion span {
-      font-size: 5.6vw;
+      font-size: calc( 5.6vw* var(--zoom-letra, 1));
     }
 
     /* ─── INDICADORES ─── */
@@ -597,7 +609,7 @@ const { modales } = Astro.props;
     }
 
     .carrusel-estrategia__detalle .texto {
-      font-size: 1.6vh;
+      font-size: calc( 1.6vh * var(--zoom-letra, 1));
     }
 
     .colectiva2 {

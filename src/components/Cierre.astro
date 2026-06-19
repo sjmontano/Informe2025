@@ -55,26 +55,28 @@
     color: var(--azul-noche);
     overflow: visible;
     width: 29vw;
-    font-size: 2.7vw;
+    font-size: calc( 2.7vw * var(--zoom-letra, 1));
 
   }
 
   .cierre__parrafo {
     font-family: var(--font-lato);
-    font-size: 1.2vw;
-    line-height: 1.5vw;
+    font-size:  calc( 1.2vw * var(--zoom-letra, 1));
+    line-height: calc( 1.5vw * var(--zoom-letra, 1));
     color: var(--azul-noche);
     
   }
 
   .cierre__creditos {
-    font-size: 1vw;
+    font-size: calc( 1vw * var(--zoom-letra, 1));
     margin-top: 14vw;
     font-family: var(--font-lato);
     color: var(--azul-noche);
     text-align: center;
     margin-left: -4.2vw;
     width: 33vw;
+    bottom: 0;
+    position: relative;
   
   }
 
@@ -90,8 +92,8 @@
     }
 
     .cierre__parrafo{
-      font-size: 2.3vw;
-    line-height: 2.5vw;
+      font-size: calc( 2.3vw * var(--zoom-letra, 1));
+    line-height: calc( 2.5vw * var(--zoom-letra, 1));
     z-index: 2;
         position: relative;
     }
@@ -99,7 +101,7 @@
     .cierre__creditos{
           margin-top: 62vw;
 
-      font-size: 1.5vw;
+      font-size: calc( 1.5vw * var(--zoom-letra, 1));
         width: 56vw;
 
     }

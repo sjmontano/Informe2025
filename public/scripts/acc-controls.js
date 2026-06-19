@@ -34,37 +34,56 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ─── GIF freeze/thaw ───
-    function freezeGifs() {
-        document.querySelectorAll('img[src*="/gifs/"]').forEach(img => {
-            if (img.dataset.frozen) return;
-            img.dataset.originalSrc = img.src;
-            const onLoad = () => {
-                const canvas = document.createElement("canvas");
-                const ctx = canvas.getContext("2d");
-                if (!ctx) return;
-                canvas.width = img.naturalWidth || img.width;
-                canvas.height = img.naturalHeight || img.height;
-                ctx.drawImage(img, 0, 0);
-                img.src = canvas.toDataURL("image/webp");
-                img.dataset.frozen = "true";
-            };
-            if (img.complete && img.naturalWidth > 0) {
-                onLoad();
-            } else {
-                img.addEventListener("load", onLoad, { once: true });
-            }
-        });
-    }
+    
+    // ─── GIF freeze/thaw ───
+function freezeGifs() {
+  document.querySelectorAll('img[src*="/gifs/"]').forEach(img => {
+    // Evitar congelarlo dos veces
+    if (img.dataset.frozen === "true") return;
 
-    function thawGifs() {
-        document.querySelectorAll('img[src*="/gifs/"]').forEach(img => {
-            if (img.dataset.originalSrc) {
-                img.src = img.dataset.originalSrc;
-                delete img.dataset.frozen;
-                delete img.dataset.originalSrc;
-            }
-        });
+    // Guardar la URL original
+    img.dataset.originalSrc = img.src;
+
+    const freeze = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      if (!ctx) return;
+
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+
+      ctx.drawImage(img, 0, 0);
+
+      // Reemplazar el GIF por una imagen estática
+      img.src = canvas.toDataURL("image/webp");
+
+      img.dataset.frozen = "true";
+    };
+
+    if (img.complete && img.naturalWidth > 0) {
+      freeze();
+    } else {
+      img.addEventListener("load", freeze, { once: true });
     }
+  });
+}
+
+function thawGifs() {
+  // Buscar los GIF congelados, NO por src
+  document.querySelectorAll('img[data-frozen="true"]').forEach(img => {
+    const originalSrc = img.dataset.originalSrc;
+
+    if (!originalSrc) return;
+
+    // Restaurar el GIF original
+    img.src = originalSrc;
+
+    // Limpiar atributos
+    delete img.dataset.frozen;
+    delete img.dataset.originalSrc;
+  });
+}
 
     // ─── Generic toggle factory ───
     function makeToggle(btnId, className, storageKey, onActivate, onDeactivate) {
