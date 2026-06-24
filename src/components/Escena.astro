@@ -454,6 +454,13 @@ const ESCENAS: Item[][] = [
       extra:
         "top: -18vh; justify-self: center; margin-right: 39vw; height:61vh;",
     },
+    {
+      src: "/resources/contenedor/difuminadoTalleres.png",
+      extra:"display: none;",
+      alt: "Departamentos",
+    },
+
+
   ],
 
   /*  9 · PROGRAMAS */
@@ -689,7 +696,7 @@ const ESCENAS: Item[][] = [
   /* 15 · SACANDO LOS TRAPOS */
   [
     {
-      src: "/resources/gifs/gif-pescador-ensamblado.webp",
+      src: "/resources/gifs/gif-pescador-ensamblado.gif",
       top: 0.1,
       right: "-20vw",
       width: "90vw",
@@ -893,8 +900,6 @@ const elementos = ESCENAS[escena] || [];
   .escena-contenido {
     position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
     width: 100%;
     height: var(--alto);
   }
@@ -955,14 +960,19 @@ const elementos = ESCENAS[escena] || [];
     .fondo0 .escena-contenido {
       height: 182vw;
     }
+
+    .fondo0 .fondos {
+      width: 100vw;
+      height: 362vw;
+    }
+
     .fondo1 {
       overflow: visible !important;
       height: 75vw;
     }
 
     .fondo1 .fondos {
-      display: flex !important;
-      height: 180vw;
+      display: none !important;
     }
     .fondo1 .escena-contenido {
       top: -79vw;
@@ -1027,13 +1037,13 @@ const elementos = ESCENAS[escena] || [];
 
     .imagen_escena_1_0 {
       left: auto !important;
-      top: calc(4 * var(--alto) / 100) !important;
+      top: calc(43 * var(--alto) / 100) !important;
       width: 75vw !important;
     }
 
     .imagen_escena_1_1 {
       left: 11vw !important;
-      top: calc(52 * var(--alto) / 100) !important;
+      top: calc(91 * var(--alto) / 100) !important;
     }
     .imagen_escena_1_2 {
       display: none !important;
@@ -1044,7 +1054,7 @@ const elementos = ESCENAS[escena] || [];
 
     .imagen_escena_1_4 {
       left: 12.5vw !important;
-      top: calc(90.5 * var(--alto) / 100) !important;
+      top: calc(129.5 * var(--alto) / 100) !important;
     }
 
     .imagen_escena_1_5 {
@@ -1077,7 +1087,7 @@ const elementos = ESCENAS[escena] || [];
     }
 
     .imagen_escena_1_11{
-      top: 6vw !important;
+      top: 28vw !important;
     bottom: auto !important;
     justify-self: auto !important;
     margin-left: 0 !important;
@@ -1221,12 +1231,7 @@ const elementos = ESCENAS[escena] || [];
     }
 
     .imagen_escena_3_10 {
-      display: flex !important;
-      top: calc(46 * var(--alto) / 100) !important;
-      left: -64vw !important;
-      width: 189vw !important;
-      max-width: none !important;
-      z-index: -1 !important;
+      display: none !important;
     }
 
     .imagen_escena_3_11{
@@ -1277,7 +1282,13 @@ const elementos = ESCENAS[escena] || [];
       top: -4vh !important;
       height: 27vh !important;
       margin: 0 !important;
-      margin-left: 12vh !important;
+    }
+    .imagen_escena_8_1 {
+      display: flex !important;
+      top: 18vh !important;
+      height: auto !important;
+      width: 62vw !important;
+      margin: 0 !important;
     }
 
     .imagen_escena_11_0 {
@@ -1514,6 +1525,18 @@ const elementos = ESCENAS[escena] || [];
       top: -3vh !important;
       height: 31vh !important;
       width: 88vw !important;
+    }
+
+    .imagen_escena_4_2 {
+      
+      bottom: 2vh  !important;
+      left: auto  !important; 
+      width: 90%  !important;
+      right: auto  !important; 
+      top: auto   !important;
+      transform: none  !important;
+      margin-left: 46vw  !important;
+
     }
 
     .imagen_escena_3_3 {
