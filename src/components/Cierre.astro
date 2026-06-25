@@ -83,12 +83,12 @@
   
   @media (max-width: 640px) {
     .cierre__contenido{
-      top: 66vw;
+      top:  calc( 66vw -  calc(var(--zoom-letra, 1) * 1vw));
     left: 26.5vw;
     }
 
     .cierre__texto{
-      width: 52vw;
+      width: calc( 52vw * var(--zoom-letra, 1));
     }
 
     .cierre__parrafo{
@@ -99,7 +99,7 @@
     }
 
     .cierre__creditos{
-          margin-top: 62vw;
+          margin-top: calc( 62vw -  calc(var(--zoom-letra, 1) * var(--zoom-letra, 1) * var(--zoom-letra, 1) * 2vw));
 
       font-size: calc( 1.5vw * var(--zoom-letra, 1));
         width: 56vw;
